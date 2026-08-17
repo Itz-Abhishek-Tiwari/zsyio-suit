@@ -1,0 +1,10 @@
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Ignore CI mock variables and sample environment configs"
+paths = [
+  '''.github/workflows/.*''',
+  '''tests/.*''',
+  '''.env.example''',
+]

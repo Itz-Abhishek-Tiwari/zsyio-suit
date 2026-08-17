@@ -1,0 +1,68 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "DATABASE_URL",
+    "DIRECT_URL",
+    "DATABASE_URL_POOLED",
+    "AWS_ENDPOINT_URL_S3",
+    "AWS_ACCESS_KEY_ID",
+    "AWS_SECRET_ACCESS_KEY",
+    "AWS_REGION",
+    "S3_BUCKET",
+    "STORAGE_PROVIDER_URL",
+    "STORAGE_PROVIDER_ACCESS_KEY",
+    "STORAGE_PROVIDER_SECRET_KEY",
+    "STORAGE_BUCKET_NAME",
+    "AUTH_SECRET",
+    "AUTH_TRUST_HOST",
+    "ACTIVE_BRAND",
+    "CRON_SECRET",
+    "EMAIL_FROM",
+    "COOKIE_DOMAIN",
+    "ALLOWED_EMAIL_DOMAINS",
+    "ZEPTOMAIL_TOKEN",
+    "ZEPTOMAIL_URL",
+    "ZEPTOMAIL_FROM_EMAIL",
+    "ZEPTOMAIL_FROM_NAME",
+    "EMAIL_PROVIDER_API_KEY",
+    "SUPER_ADMIN_EMAIL",
+    "GEMINI_API_KEY",
+    "GEMINI_MODEL"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build", "^db:generate"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "db:migrate": {
+      "cache": false
+    },
+    "db:seed": {
+      "cache": false
+    },
+    "db:studio": {
+      "cache": false
+    },
+    "lint": {
+      "dependsOn": ["^db:generate"]
+    },
+    "type-check": {
+      "dependsOn": ["^db:generate"]
+    },
+    "test": {
+      "dependsOn": ["^db:generate"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

@@ -1,0 +1,94 @@
+# ==============================================================================
+# Mediloon Monorepo .gitignore
+# ==============================================================================
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Next.js & Build Outputs
+.next/
+**/.next/
+out/
+**/out/
+build/
+**/build/
+dist/
+**/dist/
+.turbo/
+**/.turbo/
+
+# Environment Configuration
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+**/.env
+**/.env.*
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
+!.env.example
+!**/.env.example
+
+# Testing & Coverage
+coverage/
+**/coverage/
+.nyc_output/
+.vitest/
+
+# TypeScript & Linter
+*.tsbuildinfo
+next-env.d.ts
+**/*.tsbuildinfo
+**/next-env.d.ts
+
+# OS & Temp Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.chrome-user-data/
+*.mp4
+*.zip
+
+# Logs & Debugging
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# IDE & Editor Settings
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.sublime-workspace
+*.sublime-project
+
+# Vercel & Deployments
+.vercel
+
+# Local Databases & Scratch
+*.sqlite
+*.db
+*.db-journal
+*.sql
+*.sql.gz
+backup*/
+scratch/

@@ -1,0 +1,28 @@
+# Vercel deployment ignore file
+# These are never uploaded to Vercel
+
+# Local dev files
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+
+# Dev database
+*.db
+*.sqlite
+
+# Local uploads / storage
+uploads/
+.storage/
+
+# Editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test artifacts
+coverage/
+*.log

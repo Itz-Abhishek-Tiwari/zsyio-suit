@@ -1,0 +1,14 @@
+{
+  "name": "@zsyio/config-eslint",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "index.mjs",
+  "dependencies": {
+    "@eslint/eslintrc": "^3.3.6",
+    "eslint-config-next": "15.5.23"
+  },
+  "peerDependencies": {
+    "eslint": ">=9.0.0"
+  }
+}
