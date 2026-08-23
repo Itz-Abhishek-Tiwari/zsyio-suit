@@ -1,0 +1,101 @@
+// ---------- Collaboration, Notes, Attachments & Audit ----------
+
+model Comment {
+  id        String    @id @default(cuid())
+  taskId    String
+  task      Task      @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  body      String // markdown
+  parentId  String?
+  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies   Comment[] @relation("CommentReplies")
+  createdAt DateTime  @default(now())
+  editedAt  DateTime?
+
+  @@index([taskId])
+  @@index([parentId])
+}
+
+model Attachment {
+  id         String   @id @default(cuid())
+  taskId     String
+  task       Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  fileName   String
+  fileUrl    String
+  fileSize   Int
+  uploadedAt DateTime @default(now())
+
+  @@index([taskId])
+}
+
+model ActivityLog {
+  id        String    @id @default(cuid())
+  taskId    String
+  task      Task      @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  actorId   String
+  actor     User      @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  action    LogAction
+  field     String? // e.g. "status", "assignedTo"
+  oldValue  String?
+  newValue  String?
+  reason    String? // Optional user reason for the action/modification
+  createdAt DateTime  @default(now())
+
+  // Composite index covers both the WHERE taskId filter and ORDER BY createdAt DESC
+  @@index([taskId, createdAt])
+}
+
+model DashboardNote {
+  id          String   @id @default(cuid())
+  clientId    String?
+  client      Client?  @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  taskId      String?
+  task        Task?    @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  content     String
+  targetAll   Boolean  @default(true)
+  isPersonal  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  targetTeams DashboardNoteTeam[]
+  targetUsers DashboardNoteUser[]
+
+  @@index([clientId])
+  @@index([taskId])
+  @@index([authorId])
+}
+
+model DashboardNoteTeam {
+  noteId String
+  teamId String
+  note   DashboardNote @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  team   Team          @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@id([noteId, teamId])
+  @@index([teamId])
+}
+
+model DashboardNoteUser {
+  noteId String
+  userId String
+  note   DashboardNote @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  user   User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([noteId, userId])
+  @@index([userId])
+}
+
+enum LogAction {
+  CREATED
+  STATUS_CHANGED
+  REASSIGNED
+  COMMENTED
+  FIELD_EDITED
+  ATTACHMENT_ADDED
+  ATTACHMENT_REMOVED
+  DELETED
+  RESTORED
+}

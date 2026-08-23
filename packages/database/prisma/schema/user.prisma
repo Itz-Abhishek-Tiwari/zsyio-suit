@@ -1,0 +1,154 @@
+// ---------- Users & Access Management ----------
+
+model User {
+  id                 String           @id @default(cuid())
+  name               String
+  email              String           @unique
+  passwordHash       String?
+  role               Role             @default(DEVELOPER)
+  customRoleId       String?
+  customRole         CustomRole?      @relation(fields: [customRoleId], references: [id], onDelete: SetNull)
+  active             Boolean          @default(true)
+  mustChangePassword Boolean          @default(true)
+  theme              String           @default("light")
+  jobTitle           String?
+  department         String?
+  bio                String?
+  phone              String?
+  avatarUrl          String?
+  timeZone           String?          @default("Asia/Kolkata")
+  invitationStatus   InvitationStatus @default(ACCEPTED)
+  invitationToken    String?          @unique
+  invitationExpiresAt DateTime?
+  invitedAt          DateTime?
+  resetOtpHash       String?
+  resetOtpExpiresAt  DateTime?
+  resetOtpAttempts   Int              @default(0)
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+
+  assignedTasks          Task[]                 @relation("AssignedTasks")
+  reviewedTasks          Task[]                 @relation("ReviewedTasks")
+  createdTasks           Task[]                 @relation("CreatedTasks")
+  taskAssignments        TaskAssignee[]
+  taskReviews            TaskReviewer[]
+  taskTimeEntries        TaskTimeEntry[]        @relation("UserTaskTimeEntries")
+  teamMemberships        TeamMember[]
+  comments               Comment[]
+  activityLogs           ActivityLog[]
+  dashboardNotes         DashboardNote[]
+  targetedDashboardNotes DashboardNoteUser[]
+  notifications          Notification[]         @relation("UserNotifications")
+  triggeredNotifications Notification[]         @relation("TriggeredNotifications")
+  notificationPreference NotificationPreference?
+  testCasesTested        TestCase[]             @relation("TestCasesTested")
+  notes                  Note[]                 @relation("UserNotes")
+  noteFolders            NoteFolder[]           @relation("UserNoteFolders")
+  noteFolderShares       NoteFolderShare[]      @relation("UserFolderShares")
+  noteShares             NoteShare[]            @relation("UserNoteShares")
+  starredNotes           NoteStar[]
+  workSessions           WorkSession[]          @relation("UserWorkSessions")
+  oooSessions            OooSession[]           @relation("UserOooSessions")
+  createdWorkSessions    WorkSession[]          @relation("CreatedWorkSessions")
+  createdOooSessions     OooSession[]           @relation("CreatedOooSessions")
+  timesheetAuditLogs     TimesheetAuditLog[]    @relation("TimesheetAuditActor")
+  leaveRequests          LeaveRequest[]         @relation("UserLeaveRequests")
+  reviewedLeaves         LeaveRequest[]         @relation("ReviewerLeaveRequests")
+  attendanceRegularizations AttendanceRegularization[] @relation("UserRegularizations")
+  reviewedRegularizations   AttendanceRegularization[] @relation("ReviewerRegularizations")
+  leaveAllocations          UserLeaveAllocation[]      @relation("UserLeaveAllocations")
+
+  // Sales CRM relations
+  assignedSalesLeads         SalesLead[]      @relation("SalesLeadAssignee")
+  salesActivitiesAssigned    SalesActivity[]  @relation("SalesActivityAssignee")
+  salesActivitiesCreated     SalesActivity[]  @relation("SalesActivityCreator")
+  salesAuditLogs             SalesAuditLog[]  @relation("SalesAuditActor")
+
+  @@index([customRoleId])
+  @@index([invitationStatus])
+  @@index([active, createdAt])
+  @@index([name])
+}
+
+model Team {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  color       String?  @default("purple")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  members                TeamMember[]
+  assignedTasks          Task[]                 @relation("AssignedTeamTasks")
+  taskAssignments        TaskTeam[]
+  targetedDashboardNotes DashboardNoteTeam[]
+  noteFolderShares       NoteFolderShare[]
+  noteShares             NoteShare[]
+}
+
+model TeamMember {
+  teamId String
+  userId String
+  role   String @default("MEMBER")
+  team   Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([teamId, userId])
+  @@index([userId])
+}
+
+model CustomRole {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  label       String
+  description String?
+  isSystem    Boolean  @default(false)
+  permissions String[]
+  color       String?  @default("purple")
+  icon        String?  @default("shield")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  users            User[]
+  noteFolderShares NoteFolderShare[]
+  noteShares       NoteShare[]
+}
+
+model NotificationPreference {
+  id                   String   @id @default(cuid())
+  userId               String   @unique
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  taskAssigned         Boolean  @default(true)
+  statusChanged        Boolean  @default(true)
+  mentions             Boolean  @default(true)
+  comments             Boolean  @default(true)
+  dueDateReminders     Boolean  @default(true)
+  dashboardNotes       Boolean  @default(true)
+  inAppToasts          Boolean  @default(true)
+  browserNotifications Boolean  @default(true)
+  browserSound         Boolean  @default(true)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  DEVELOPER
+  SUPPORT
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+model AllowedDomain {
+  id        String   @id @default(cuid())
+  domain    String   @unique
+  isPrimary Boolean  @default(false)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

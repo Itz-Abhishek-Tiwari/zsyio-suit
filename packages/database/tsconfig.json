@@ -1,0 +1,7 @@
+{
+  "extends": "@zsyio/config-typescript/tsconfig.base.json",
+  "compilerOptions": {
+    "moduleResolution": "bundler"
+  },
+  "include": ["src/**/*", "prisma/**/*"]
+}

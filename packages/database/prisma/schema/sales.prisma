@@ -1,0 +1,164 @@
+// ---------- Sales CRM Module ----------
+
+enum ClientType {
+  SALES
+  DEVELOPMENT
+}
+
+enum SalesStage {
+  NEW_LEAD
+  CONTACTED
+  QUALIFIED
+  PROPOSAL_SENT
+  NEGOTIATION
+  WON
+  LOST
+}
+
+enum SalesActivityType {
+  CALL
+  EMAIL
+  MEETING
+  FOLLOWUP
+  TASK
+  NOTE
+  STAGE_CHANGE
+  SYSTEM
+}
+
+enum SalesAuditAction {
+  CREATED
+  UPDATED
+  STAGE_CHANGED
+  ASSIGNED
+  REASSIGNED
+  PRIORITY_CHANGED
+  DEAL_VALUE_CHANGED
+  TYPE_CONVERTED
+  ACTIVITY_CREATED
+  ACTIVITY_COMPLETED
+  DELETED
+}
+
+enum SalesPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+model SalesPipeline {
+  id          String          @id @default(cuid())
+  name        String
+  description String?
+  isDefault   Boolean         @default(false)
+  stages      PipelineStage[]
+  leads       SalesLead[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+model PipelineStage {
+  id         String        @id @default(cuid())
+  pipelineId String
+  pipeline   SalesPipeline @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+  name       String
+  stageKey   SalesStage
+  order      Int
+  color      String?
+  leads      SalesLead[]
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  @@unique([pipelineId, stageKey])
+  @@index([pipelineId, order])
+}
+
+model SalesLead {
+  id              String          @id @default(cuid())
+  clientId        String          @unique
+  client          Client          @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  pipelineId      String
+  pipeline        SalesPipeline   @relation(fields: [pipelineId], references: [id])
+  stageId         String
+  stage           PipelineStage   @relation(fields: [stageId], references: [id])
+  currentStage    SalesStage      @default(NEW_LEAD)
+  assignedToId    String?
+  assignedTo      User?           @relation("SalesLeadAssignee", fields: [assignedToId], references: [id])
+  priority        SalesPriority   @default(MEDIUM)
+  dealValue       Decimal?        @db.Decimal(15, 2)
+  probability     Int?
+  expectedCloseAt DateTime?
+  leadSource      String?
+  lastContactAt   DateTime?
+  nextFollowUpAt  DateTime?
+  tags            SalesLeadTag[]
+  activities      SalesActivity[]
+  auditLogs       SalesAuditLog[]
+  deletedAt       DateTime?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@index([currentStage])
+  @@index([assignedToId])
+  @@index([pipelineId])
+  @@index([deletedAt])
+  @@index([nextFollowUpAt])
+}
+
+model SalesTag {
+  id        String         @id @default(cuid())
+  name      String         @unique
+  color     String?
+  leads     SalesLeadTag[]
+  createdAt DateTime       @default(now())
+}
+
+model SalesLeadTag {
+  leadId String
+  tagId  String
+  lead   SalesLead @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  tag    SalesTag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([leadId, tagId])
+}
+
+model SalesActivity {
+  id           String            @id @default(cuid())
+  leadId       String
+  lead         SalesLead         @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  type         SalesActivityType
+  title        String
+  description  String?
+  dueAt        DateTime?
+  completedAt  DateTime?
+  assignedToId String?
+  assignedTo   User?             @relation("SalesActivityAssignee", fields: [assignedToId], references: [id])
+  createdById  String?
+  createdBy    User?             @relation("SalesActivityCreator", fields: [createdById], references: [id])
+  priority     SalesPriority     @default(MEDIUM)
+  status       String            @default("PENDING")
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  @@index([leadId])
+  @@index([assignedToId])
+  @@index([dueAt])
+  @@index([status])
+}
+
+model SalesAuditLog {
+  id        String           @id @default(cuid())
+  leadId    String
+  lead      SalesLead        @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  action    SalesAuditAction
+  actorId   String?
+  actor     User?            @relation("SalesAuditActor", fields: [actorId], references: [id])
+  prevValue String?
+  nextValue String?
+  metadata  Json?
+  createdAt DateTime         @default(now())
+
+  @@index([leadId, createdAt])
+  @@index([actorId])
+}

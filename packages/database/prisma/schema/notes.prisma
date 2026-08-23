@@ -1,0 +1,126 @@
+// ---------- Notion-style Notes, Workspaces, Folders & Sharing ----------
+
+model NoteFolder {
+  id              String             @id @default(cuid())
+  name            String
+  icon            String?            @default("folder")
+  color           String?            @default("purple")
+  description     String?
+  parentId        String?
+  parent          NoteFolder?        @relation("FolderHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
+  subfolders      NoteFolder[]       @relation("FolderHierarchy")
+  notes           Note[]
+  createdById     String
+  createdBy       User               @relation("UserNoteFolders", fields: [createdById], references: [id], onDelete: Cascade)
+  isWorkspaceRoot Boolean            @default(false)
+  isArchived      Boolean            @default(false)
+  generalAccess   NoteGeneralAccess  @default(PRIVATE)
+  shares          NoteFolderShare[]
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  @@index([createdById])
+  @@index([parentId])
+  @@index([isArchived])
+  @@index([generalAccess])
+}
+
+model Note {
+  id            String            @id @default(cuid())
+  title         String            @default("Untitled")
+  content       String            @default("") // Rich markdown or HTML content
+  icon          String?           @default("file-text")
+  coverImage    String? // Preset gradient, color or URL
+  folderId      String?
+  folder        NoteFolder?       @relation(fields: [folderId], references: [id], onDelete: SetNull)
+  authorId      String
+  author        User              @relation("UserNotes", fields: [authorId], references: [id], onDelete: Cascade)
+  isPinned      Boolean           @default(false)
+  isArchived    Boolean           @default(false)
+  generalAccess NoteGeneralAccess @default(INHERIT) // INHERIT (from folder), PRIVATE, WORKSPACE_VIEW, WORKSPACE_EDIT
+  shares        NoteShare[]
+  stars         NoteStar[]
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  @@index([folderId])
+  @@index([authorId])
+  @@index([isPinned])
+  @@index([isArchived])
+  @@index([generalAccess])
+  @@index([isArchived, generalAccess])
+  @@index([title])
+  @@index([createdAt])
+}
+
+model NoteFolderShare {
+  id           String         @id @default(cuid())
+  folderId     String
+  folder       NoteFolder     @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  userId       String?
+  user         User?          @relation("UserFolderShares", fields: [userId], references: [id], onDelete: Cascade)
+  teamId       String?
+  team         Team?          @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  role         Role?
+  customRoleId String?
+  customRole   CustomRole?    @relation(fields: [customRoleId], references: [id], onDelete: Cascade)
+  accessLevel  NotePermission @default(VIEW)
+  createdAt    DateTime       @default(now())
+
+  @@unique([folderId, userId])
+  @@unique([folderId, role])
+  @@unique([folderId, teamId])
+  @@unique([folderId, customRoleId])
+  @@index([folderId])
+  @@index([userId])
+  @@index([teamId])
+  @@index([customRoleId])
+}
+
+model NoteShare {
+  id           String         @id @default(cuid())
+  noteId       String
+  note         Note           @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  userId       String?
+  user         User?          @relation("UserNoteShares", fields: [userId], references: [id], onDelete: Cascade)
+  teamId       String?
+  team         Team?          @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  role         Role?
+  customRoleId String?
+  customRole   CustomRole?    @relation(fields: [customRoleId], references: [id], onDelete: Cascade)
+  accessLevel  NotePermission @default(VIEW)
+  createdAt    DateTime       @default(now())
+
+  @@unique([noteId, userId])
+  @@unique([noteId, role])
+  @@unique([noteId, teamId])
+  @@unique([noteId, customRoleId])
+  @@index([noteId])
+  @@index([userId])
+  @@index([teamId])
+  @@index([customRoleId])
+}
+
+model NoteStar {
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  noteId    String
+  note      Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([userId, noteId])
+  @@index([noteId])
+}
+
+enum NotePermission {
+  VIEW
+  EDIT
+  FULL
+}
+
+enum NoteGeneralAccess {
+  INHERIT
+  PRIVATE
+  WORKSPACE_VIEW
+  WORKSPACE_EDIT
+}

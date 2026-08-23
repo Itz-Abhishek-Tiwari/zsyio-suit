@@ -1,0 +1,248 @@
+// ---------- Timesheet, Attendance & OOO Management (HRMS) ----------
+
+enum EntryType {
+  AUTOMATIC
+  MANUAL
+}
+
+enum SessionStatus {
+  ACTIVE
+  COMPLETED
+  INCOMPLETE
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum TimesheetAuditAction {
+  CREATED
+  UPDATED
+  DELETED
+  CORRECTED
+  FIXED
+  REGULARIZED
+}
+
+model WorkSession {
+  id              String         @id @default(cuid())
+  userId          String
+  user            User           @relation("UserWorkSessions", fields: [userId], references: [id], onDelete: Cascade)
+  date            DateTime       // Normalized to midnight UTC for the day
+  startTime       DateTime
+  endTime         DateTime?
+  durationMinutes Int?           // Total duration in minutes (end - start)
+  entryType       EntryType      @default(AUTOMATIC)
+  status          SessionStatus  @default(ACTIVE)
+  approvalStatus  ApprovalStatus @default(APPROVED)
+  reason          String?        // Justification (required for manual entries)
+  
+  createdById     String
+  createdBy       User           @relation("CreatedWorkSessions", fields: [createdById], references: [id])
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  oooEntries      OooSession[]
+  auditLogs       TimesheetAuditLog[]
+
+  @@index([userId, date])
+  @@index([userId, status])
+  @@index([userId, date, status])
+  @@index([date])
+  @@index([status])
+}
+
+model OooSession {
+  id              String         @id @default(cuid())
+  userId          String
+  user            User           @relation("UserOooSessions", fields: [userId], references: [id], onDelete: Cascade)
+  workSessionId   String?
+  workSession     WorkSession?   @relation(fields: [workSessionId], references: [id], onDelete: SetNull)
+  date            DateTime       // Normalized to midnight UTC
+  startTime       DateTime
+  endTime         DateTime?
+  durationMinutes Int?           // Break duration in minutes
+  entryType       EntryType      @default(AUTOMATIC)
+  status          SessionStatus  @default(ACTIVE)
+  approvalStatus  ApprovalStatus @default(APPROVED)
+  reason          String?        // e.g. "Lunch break", "Doctor appointment", "Personal work"
+  
+  createdById     String
+  createdBy       User           @relation("CreatedOooSessions", fields: [createdById], references: [id])
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  auditLogs       TimesheetAuditLog[]
+
+  @@index([userId, date])
+  @@index([userId, status])
+  @@index([userId, date, status])
+  @@index([workSessionId])
+}
+
+model TimesheetAuditLog {
+  id            String               @id @default(cuid())
+  workSessionId String?
+  workSession   WorkSession?         @relation(fields: [workSessionId], references: [id], onDelete: SetNull)
+  oooSessionId  String?
+  oooSession    OooSession?          @relation(fields: [oooSessionId], references: [id], onDelete: SetNull)
+  actorId       String
+  actor         User                 @relation("TimesheetAuditActor", fields: [actorId], references: [id], onDelete: Cascade)
+  action        TimesheetAuditAction
+  field         String?              // e.g. "startTime", "endTime", "reason"
+  oldValue      String?
+  newValue      String?
+  reason        String?              // Explanation for modification
+  createdAt     DateTime             @default(now())
+
+  @@index([workSessionId])
+  @@index([oooSessionId])
+  @@index([actorId, createdAt])
+}
+
+// ---------- Leave & Time Off Management ----------
+
+enum LeaveType {
+  CASUAL
+  SICK
+  EARNED
+  UNPAID
+  COMPENSATORY
+}
+
+enum LeaveStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+model LeaveRequest {
+  id              String       @id @default(cuid())
+  userId          String
+  user            User         @relation("UserLeaveRequests", fields: [userId], references: [id], onDelete: Cascade)
+  leaveType       LeaveType
+  startDate       DateTime
+  endDate         DateTime
+  daysCount       Float        @default(1.0)
+  isHalfDay       Boolean      @default(false)
+  halfDayType     String?      // FIRST_HALF or SECOND_HALF
+  reason          String
+  status          LeaveStatus  @default(PENDING)
+  
+  reviewerId      String?
+  reviewer        User?        @relation("ReviewerLeaveRequests", fields: [reviewerId], references: [id], onDelete: SetNull)
+  reviewerComment String?
+  reviewedAt      DateTime?
+
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  @@index([userId, status])
+  @@index([startDate, endDate])
+  @@index([status])
+}
+
+// ---------- Attendance Regularization ----------
+
+enum RegularizationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+enum RegularizationType {
+  MISSED_PUNCH_IN
+  MISSED_PUNCH_OUT
+  MISSED_BOTH
+  TIME_CORRECTION
+}
+
+model AttendanceRegularization {
+  id                String               @id @default(cuid())
+  userId            String
+  user              User                 @relation("UserRegularizations", fields: [userId], references: [id], onDelete: Cascade)
+  date              DateTime             // The date being regularized (midnight UTC)
+  type              RegularizationType   @default(MISSED_BOTH)
+  requestedClockIn  DateTime?
+  requestedClockOut DateTime?
+  reason            String
+  status            RegularizationStatus @default(PENDING)
+  
+  reviewerId        String?
+  reviewer          User?                @relation("ReviewerRegularizations", fields: [reviewerId], references: [id], onDelete: SetNull)
+  reviewerComment   String?
+  reviewedAt        DateTime?
+
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+
+  @@index([userId, status])
+  @@index([date])
+  @@index([status])
+}
+
+// ---------- Company Holidays ----------
+
+model CompanyHoliday {
+  id          String   @id @default(cuid())
+  name        String
+  date        String   // YYYY-MM-DD
+  year        Int
+  isOptional  Boolean  @default(false)
+  description String?
+  createdById String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([date])
+  @@index([year])
+  @@index([date])
+}
+
+// ---------- Leave Policies & Quotas ----------
+
+model LeavePolicy {
+  id            String    @id @default(cuid())
+  leaveType     LeaveType @unique
+  label         String
+  totalDays     Float     @default(12.0)
+  description   String?
+  color         String?   @default("emerald")
+  carryForward  Boolean   @default(false)
+  maxCarryDays  Float?    @default(0.0)
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model UserLeaveAllocation {
+  id            String    @id @default(cuid())
+  userId        String
+  user          User      @relation("UserLeaveAllocations", fields: [userId], references: [id], onDelete: Cascade)
+  leaveType     LeaveType
+  year          Int
+  totalDays     Float     // Custom allocated days for this user & year
+  notes         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@unique([userId, leaveType, year])
+  @@index([userId, year])
+}
+
+// ---------- HR & Timesheet Policy Settings ----------
+
+model HrPolicySettings {
+  id                     String   @id @default("default-hr-policy")
+  standardDailyHours     Float    @default(8.0)
+  halfDayMinimumHours    Float    @default(4.0)
+  overtimeThresholdMins  Int      @default(0)   // Minutes after standard daily hours before OT counts
+  weekendDays            String   @default("0,6") // Sunday = 0, Saturday = 6 (comma-separated)
+  updatedById            String?
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+}

@@ -1,0 +1,32 @@
+// ---------- Notifications ----------
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  user      User             @relation("UserNotifications", fields: [userId], references: [id], onDelete: Cascade)
+  actorId   String?
+  actor     User?            @relation("TriggeredNotifications", fields: [actorId], references: [id], onDelete: SetNull)
+  type      NotificationType
+  title     String
+  message   String
+  link      String?
+  read      Boolean          @default(false)
+  readAt    DateTime?
+  taskId    String?
+  commentId String?
+  noteId    String?
+  createdAt DateTime         @default(now())
+
+  @@index([userId, read, createdAt])
+  @@index([userId, createdAt])
+}
+
+enum NotificationType {
+  TASK_ASSIGNED
+  STATUS_CHANGED
+  MENTIONED
+  COMMENT_ADDED
+  DUE_DATE_REMINDER
+  NOTE_ADDED
+  SYSTEM
+}

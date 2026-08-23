@@ -1,0 +1,211 @@
+// ---------- Tasks, Assignees & Test Cases ----------
+
+model Task {
+  id                 String     @id @default(cuid())
+  ticketNumber       Int        @default(autoincrement())
+  productId          String
+  product            Product    @relation(fields: [productId], references: [id])
+  title              String
+  description        String? // markdown
+  status             String     @default("BACKLOG")
+  priority           Priority   @default(MEDIUM)
+  type               String     @default("FEATURE")
+  dueDate            DateTime?
+  dueDateReason      String? // Reason for due date change/reschedule
+  changeReason       String? // Reason for general ticket modification
+  blockedReason      String?
+  gitBranchSlug      String?
+  aiSummary          String? // AI-generated management-friendly summary
+  aiSummaryUpdatedAt DateTime?
+  deletedAt          DateTime? // soft delete
+  estimatedHours     Float?
+  actualHours        Float?    @default(0)
+
+  // Legacy single "owner" field — drives default "my tasks" view + digest grouping.
+  assignedToId String?
+  assignedTo   User?   @relation("AssignedTasks", fields: [assignedToId], references: [id])
+
+  // Optional reviewer
+  reviewerId   String?
+  reviewer     User?   @relation("ReviewedTasks", fields: [reviewerId], references: [id])
+
+  // Assigned Team (legacy single team)
+  assignedTeamId String?
+  assignedTeam   Team?   @relation("AssignedTeamTasks", fields: [assignedTeamId], references: [id])
+
+  createdById String
+  createdBy   User     @relation("CreatedTasks", fields: [createdById], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  assignees      TaskAssignee[] // full roster, canonicalized from as-built
+  reviewers      TaskReviewer[] // multiple reviewers roster
+  teams          TaskTeam[] // multiple team assignments roster
+  comments       Comment[]
+  attachments    Attachment[]
+  activityLogs   ActivityLog[]
+  dashboardNotes DashboardNote[]
+  testCases      TestCase[]
+  tags           TaskTagAssignment[]
+  timeEntries    TaskTimeEntry[]
+
+  @@index([productId])
+  @@index([createdById])
+  @@index([assignedToId])
+  @@index([reviewerId])
+  @@index([assignedTeamId])
+  @@index([status, priority])
+  @@index([dueDate])
+  @@index([deletedAt])
+  @@index([ticketNumber])
+  // Composite for the common dashboard/kanban query: deletedAt IS NULL AND status != DONE ORDER BY createdAt DESC
+  @@index([deletedAt, status, createdAt])
+  @@index([deletedAt, priority, status])
+  @@index([productId, deletedAt, status])
+}
+
+model TaskAssignee {
+  taskId String
+  userId String
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([taskId, userId])
+  @@index([userId])
+}
+
+model TaskReviewer {
+  taskId String
+  userId String
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([taskId, userId])
+  @@index([userId])
+}
+
+model TaskTeam {
+  taskId String
+  teamId String
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  team   Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@id([taskId, teamId])
+  @@index([teamId])
+}
+
+model TestCase {
+  id             String         @id @default(cuid())
+  taskId         String
+  task           Task           @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  title          String
+  description    String? // Markdown details / preconditions
+  steps          String? // Steps to test
+  expectedResult String? // Expected outcome
+  status         TestCaseStatus @default(PENDING)
+  notes          String? // Execution notes or failure details
+  testedById     String?
+  testedBy       User?          @relation("TestCasesTested", fields: [testedById], references: [id], onDelete: SetNull)
+  testedAt       DateTime?
+  order          Int            @default(0)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@index([taskId])
+  @@index([taskId, order])
+  @@index([testedById])
+}
+
+model TaskTag {
+  id        String              @id @default(cuid())
+  name      String              @unique
+  color     String?             @default("blue")
+  tasks     TaskTagAssignment[]
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+}
+
+model TaskTagAssignment {
+  taskId String
+  tagId  String
+  task   Task    @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  tag    TaskTag @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([taskId, tagId])
+  @@index([tagId])
+  @@index([taskId])
+}
+
+model CustomTaskType {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  icon      String?  @default("sparkles")
+  color     String?  @default("purple")
+  createdAt DateTime @default(now())
+}
+
+model CustomKanbanColumn {
+  id        String   @id @default(cuid())
+  statusKey String   @unique
+  label     String
+  icon      String?  @default("flask")
+  color     String?  @default("purple")
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum TaskStatus {
+  BACKLOG
+  TODO
+  IN_PROGRESS
+  IN_REVIEW
+  QA
+  BLOCKED
+  DONE
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum TaskType {
+  FEATURE
+  BUG
+  SUPPORT_REQUEST
+  CUSTOMIZATION
+  DEPLOYMENT
+  MAINTENANCE
+  NEW_DESIGN
+  DESIGN_CHANGE
+}
+
+enum TestCaseStatus {
+  PENDING
+  PASSED
+  FAILED
+  BLOCKED
+  SKIPPED
+}
+
+model TaskTimeEntry {
+  id          String    @id @default(cuid())
+  taskId      String
+  task        Task      @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User      @relation("UserTaskTimeEntries", fields: [userId], references: [id], onDelete: Cascade)
+  startedAt   DateTime
+  endedAt     DateTime? // Null if stopwatch is actively running
+  durationMin Int?      // Total duration in minutes (computed on stop or manual log)
+  description String?   // Summary of what was worked on
+  isBillable  Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([taskId])
+  @@index([userId, startedAt])
+  @@index([userId, endedAt])
+}

@@ -1,0 +1,62 @@
+// ---------- Clients & Products ----------
+
+model Client {
+  id            String       @id @default(cuid())
+  name          String
+  logoUrl       String?
+  domain        String?
+  contractStart DateTime?
+  contractEnd   DateTime?
+  status        ClientStatus @default(ONBOARDING)
+  clientType    ClientType   @default(DEVELOPMENT)
+  contactName   String?
+  contactEmail  String?
+  contactPhone  String?
+  notes         String?
+  deletedAt     DateTime? // soft delete
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  products       Product[]
+  dashboardNotes DashboardNote[]
+  salesLead      SalesLead?
+
+  @@index([status])
+  @@index([clientType])
+  @@index([deletedAt])
+}
+
+model Product {
+  id           String      @id @default(cuid())
+  clientId     String
+  client       Client      @relation(fields: [clientId], references: [id])
+  name         String
+  imageUrl     String?
+  version      String?
+  deployedUrl  String?
+  repoUrl      String?
+  environment  Environment @default(PRODUCTION)
+  lastDeployed DateTime?
+  deletedAt    DateTime? // soft delete
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  tasks Task[]
+
+  @@index([clientId])
+  @@index([deletedAt])
+}
+
+enum ClientStatus {
+  INTAKE
+  ONBOARDING
+  ACTIVE
+  PAUSED
+  CHURNED
+}
+
+enum Environment {
+  PRODUCTION
+  STAGING
+  DEVELOPMENT
+}
