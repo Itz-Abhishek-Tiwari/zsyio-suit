@@ -1,0 +1,51 @@
+{
+  "name": "@zsyio/pms",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "lint": "eslint",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@google/genai": "^2.24.0",
+    "@hookform/resolvers": "^5.7.1",
+    "@zsyio/auth": "workspace:*",
+    "@zsyio/database": "workspace:*",
+    "@zsyio/editor": "workspace:*",
+    "@zsyio/types": "workspace:*",
+    "@zsyio/ui": "workspace:*",
+    "@zsyio/validators": "workspace:*",
+    "@prisma/client": "^6.19.3",
+    "@reduxjs/toolkit": "^2.12.0",
+    "@supabase/supabase-js": "^2.112.3",
+    "clsx": "^2.1.1",
+    "framer-motion": "^13.1.0",
+    "lucide-react": "^1.31.0",
+    "next": "15.5.23",
+    "next-auth": "^5.0.0-beta.32",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-hook-form": "^7.85.0",
+    "react-redux": "^9.3.0",
+    "sonner": "^2.0.8",
+    "tailwind-merge": "^3.6.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@zsyio/config-eslint": "workspace:*",
+    "@zsyio/config-typescript": "workspace:*",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.23",
+    "postcss": "^8",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

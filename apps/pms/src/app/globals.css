@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@source "../../../../packages/ui/src";
+@source "../../../../packages/editor/src";
+@source "..";
+@import "@zsyio/ui/styles.css";
+@import "@zsyio/ui/base.css";
+@import "@zsyio/ui/theme.css";
+@config "../../tailwind.config.ts";
+
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
