@@ -1,0 +1,19 @@
+{
+  "extends": "@zsyio/config-typescript/tsconfig.next.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@zsyio/database": ["../../packages/database/src"],
+      "@zsyio/types": ["../../packages/types/src"],
+      "@zsyio/validators": ["../../packages/validators/src"],
+      "@zsyio/auth": ["../../packages/auth/src"],
+      "@zsyio/ui": ["../../packages/ui/src"],
+      "@zsyio/editor": ["../../packages/editor/src"],
+      "@plugins/*": ["../../plugins/*"],
+      "@tokens/*": ["../../tokens/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "../../packages/auth/src/next-auth.d.ts"],
+  "exclude": ["node_modules"]
+}
