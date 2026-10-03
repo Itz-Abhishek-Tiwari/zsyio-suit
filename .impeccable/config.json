@@ -1,0 +1,10 @@
+{
+  "buildPath": "code",
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [
+      "packages/auth/src/email.ts"
+    ],
+    "ignoreValues": []
+  }
+}

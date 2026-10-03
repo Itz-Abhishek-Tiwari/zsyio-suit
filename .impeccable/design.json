@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-03T18:31:00Z",
+  "title": "Design System: Zsyio Suite",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Operational Blue",
+        "canonical": "#2383E2",
+        "tonalRamp": [
+          "#1E3A8A",
+          "#1E40AF",
+          "#1D4ED8",
+          "#2563EB",
+          "#3B82F6",
+          "#60A5FA",
+          "#93C5FD",
+          "#EFF6FF"
+        ]
+      },
+      "neutral-bg": {
+        "role": "neutral",
+        "displayName": "Warm Ivory Ground",
+        "canonical": "#FBFBFA",
+        "tonalRamp": [
+          "#101828",
+          "#1D2939",
+          "#344054",
+          "#667085",
+          "#D0D5DD",
+          "#E4E7EC",
+          "#F2F4F7",
+          "#FCFCFD"
+        ]
+      },
+      "neutral-fg": {
+        "role": "neutral-text",
+        "displayName": "Notion Obsidian Ink",
+        "canonical": "#37352F",
+        "tonalRamp": [
+          "#101828",
+          "#1D2939",
+          "#37352F",
+          "#475467",
+          "#667085",
+          "#98A2B3",
+          "#D0D5DD",
+          "#F9FAFB"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero and major overview headings." },
+      "headline": { "displayName": "Headline", "purpose": "Page titles and dialog headers." },
+      "title": { "displayName": "Title", "purpose": "Card titles and group headings." },
+      "body": { "displayName": "Body", "purpose": "Default UI copy and table rows." },
+      "label": { "displayName": "Label", "purpose": "Buttons, tabs, and status pills." },
+      "caption": { "displayName": "Caption", "purpose": "Subtext and timestamps." },
+      "micro": { "displayName": "Micro", "purpose": "Dense sidebar badges and keyboard shortcuts." },
+      "nano": { "displayName": "Nano", "purpose": "Miniature rail labels." }
+    },
+    "shadows": [
+      { "name": "shadow-xs", "value": "0 1px 2px rgba(15, 15, 15, 0.04)", "purpose": "Resting card and container depth." },
+      { "name": "shadow-sm", "value": "0 1px 3px rgba(15, 15, 15, 0.06), 0 1px 2px rgba(15, 15, 15, 0.04)", "purpose": "Button and field elevation." },
+      { "name": "shadow-md", "value": "0 4px 12px -2px rgba(15, 15, 15, 0.08)", "purpose": "Hover and floating panel elevation." },
+      { "name": "shadow-lg", "value": "0 8px 24px -4px rgba(15, 15, 15, 0.08)", "purpose": "Dropdowns and popovers." },
+      { "name": "shadow-2xl", "value": "0 24px 48px -12px rgba(15, 15, 15, 0.12)", "purpose": "Modals and slide-in drawers." }
+    ],
+    "motion": [
+      { "name": "ease-out-smooth", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Tactile micro-interaction transitions." },
+      { "name": "duration-fast", "value": "150ms", "purpose": "Hover and toggle state shifts." },
+      { "name": "duration-normal", "value": "200ms", "purpose": "Drawer and dropdown transitions." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" },
+      { "name": "2xl", "value": "1536px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary action button across dashboards and forms.",
+      "html": "<button class=\"ds-btn-primary\">Confirm Sprints</button>",
+      "css": ".ds-btn-primary { background: #2383E2; color: #FFFFFF; font-size: 13px; font-weight: 500; padding: 7px 14px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, 0.08); cursor: pointer; transition: background 0.15s ease; } .ds-btn-primary:hover { background: #1D70C2; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Neutral secondary button for filters, cancels, and secondary navigation.",
+      "html": "<button class=\"ds-btn-secondary\">Export CSV</button>",
+      "css": ".ds-btn-secondary { background: #FFFFFF; color: #37352F; font-size: 13px; font-weight: 500; padding: 7px 14px; border-radius: 4px; border: 1px solid rgba(55, 53, 47, 0.16); cursor: pointer; transition: background 0.15s ease; } .ds-btn-secondary:hover { background: #F7F6F3; }"
+    },
+    {
+      "name": "Status Badge",
+      "kind": "chip",
+      "refersTo": "badge-status",
+      "description": "Semantic status indicator pill with low-saturation tint.",
+      "html": "<span class=\"ds-badge-in-progress\">In Progress</span>",
+      "css": ".ds-badge-in-progress { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 9999px; background: #E7F3F8; color: #2383E2; }"
+    },
+    {
+      "name": "KPI Card",
+      "kind": "card",
+      "refersTo": "card-kpi",
+      "description": "Clean, high-density metric summary container.",
+      "html": "<div class=\"ds-card-kpi\"><div class=\"ds-card-kpi-label\">Sprint Velocity</div><div class=\"ds-card-kpi-value\">42 pts</div></div>",
+      "css": ".ds-card-kpi { background: #FFFFFF; border: 1px solid rgba(55, 53, 47, 0.09); border-radius: 6px; padding: 16px; box-shadow: 0 1px 2px rgba(15, 15, 15, 0.04); } .ds-card-kpi-label { font-size: 12px; color: #787774; font-weight: 500; margin-bottom: 4px; } .ds-card-kpi-value { font-size: 24px; font-weight: 600; color: #37352F; font-variant-numeric: tabular-nums; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Utilitarian Operating Canvas",
+    "overview": "The Zsyio Suite design system establishes a high-density, tactile, and restrained operational environment for daily power users across Project Management, Notes, CRM, HRMS, and Core Administration. Rooted in a Notion/Linear-inspired utilitarian aesthetic, the system balances dense data tables and Kanban task flows with warm, calm typographic rhythm and zero visual noise.",
+    "keyCharacteristics": [
+      "Zero AI slop: no multi-stop gradient text, floating blurred orbs, or arbitrary halos",
+      "Restrained semantic color palette with high WCAG contrast",
+      "Strict 4px/8px spatial rhythm and tabular numeric data typography",
+      "Accessible 2px focus rings across all interactive controls"
+    ],
+    "rules": [
+      {
+        "name": "The Restrained Color Rule",
+        "body": "Color serves navigation, task state, and priority signaling. Backgrounds and major structural containers remain neutral.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Numerics Rule",
+        "body": "All countdowns, timestamps, currency amounts, and metric counters must use tabular figures to prevent layout jitter.",
+        "section": "typography"
+      },
+      {
+        "name": "The Accessible Focus Rule",
+        "body": "Never remove focus outlines without supplying an active 2px tokenized ring.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Always use semantic CSS variables (--primary, --card, --border) rather than raw hex values",
+      "Apply font-variant-numeric: tabular-nums to numbers and currency across table views",
+      "Ensure all interactive elements have visible :focus-visible styles with a minimum contrast ratio of 4.5:1",
+      "Keep micro-animations purposeful and brief (150ms-250ms ease-out transitions)"
+    ],
+    "donts": [
+      "Do not use multi-stop gradient text (background-clip: text) on headlines",
+      "Do not add decorative floating blurred orbs or glowing halos behind cards",
+      "Do not use emoji or raw unicode symbols as substitutes for cohesive Lucide SVG icons",
+      "Do not strip focus rings (outline: none !important) on form elements or editor surfaces"
+    ]
+  }
+}
