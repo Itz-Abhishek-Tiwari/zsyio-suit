@@ -41,15 +41,15 @@ export function SegmentedTabs<T extends string = string>({
   const instanceId = customId || autoId;
 
   const sizeClasses = {
-    sm: "p-0.5 rounded-md text-xs",
-    md: "p-0.5 rounded-md text-xs",
-    lg: "p-1 rounded-lg text-sm",
+    sm: "p-0.5 rounded-[4px] text-xs",
+    md: "p-0.5 rounded-[4px] text-xs",
+    lg: "p-1 rounded-[6px] text-sm",
   };
 
   const itemSizeClasses = {
-    sm: "py-1 px-2.5 text-xs rounded min-h-[26px]",
-    md: "py-1.5 px-3 text-xs rounded min-h-[30px]",
-    lg: "py-2 px-3.5 text-sm rounded-md min-h-[36px]",
+    sm: "py-1 px-2.5 text-xs rounded-[3px] min-h-[26px]",
+    md: "py-1 px-2.5 text-xs rounded-[3px] min-h-[28px]",
+    lg: "py-1.5 px-3 text-sm rounded-[4px] min-h-[32px]",
   };
 
   const handleKeyDown = (e: React.KeyboardEvent, currentIndex: number) => {
@@ -143,19 +143,19 @@ export function SegmentedTabs<T extends string = string>({
             {tab.count !== undefined && tab.count !== null && (
               <span
                 className={cn(
-                  "font-mono font-bold text-[10px] px-1.5 py-0.5 rounded-full shrink-0 transition-colors",
+                  "font-mono font-medium text-[10px] px-1.5 py-0.5 rounded-[3px] shrink-0 transition-colors",
                   isActive
                     ? tab.badgeVariant === "primary"
-                      ? "bg-primary text-white"
+                      ? "bg-notion-blue text-notion-blue-fg"
                       : tab.badgeVariant === "emerald"
-                      ? "bg-emerald-500 text-white"
+                      ? "bg-notion-green text-notion-green-fg"
                       : tab.badgeVariant === "amber"
-                      ? "bg-amber-500 text-white"
+                      ? "bg-notion-yellow text-notion-yellow-fg"
                       : tab.badgeVariant === "rose"
-                      ? "bg-rose-500 text-white"
-                      : "bg-muted-foreground/15 text-foreground"
+                      ? "bg-notion-red text-notion-red-fg"
+                      : "bg-notion-gray text-notion-gray-fg"
                     : tab.badgeVariant === "primary"
-                    ? "bg-primary/15 text-primary"
+                    ? "bg-notion-blue/60 text-notion-blue-fg"
                     : "bg-muted text-muted-foreground group-hover:text-foreground"
                 )}
               >

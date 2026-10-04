@@ -217,46 +217,32 @@ export function DashboardHero({
   const hasMetrics = metrics && metrics.length > 0;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={transitions.smooth}
+    <div
       className={cn(
-        "rounded-2xl border border-border/80 bg-surface-subtle/50 p-1 shadow-sm transition-all",
+        "rounded-[6px] border border-border/80 bg-card p-4 sm:p-5 shadow-2xs transition-all",
         className
       )}
     >
-      <div
-        className={cn(
-          "relative overflow-hidden rounded-[calc(1rem-1px)] border border-border/60 bg-card/95 backdrop-blur-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)]",
-          "before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:z-20",
-          styles.borderTop
-        )}
-      >
-        {/* Background ambient lighting */}
-        <div className={cn("absolute inset-0 pointer-events-none z-0", styles.radialGradient)} />
-
-        {/* Subtle micro-dot technical watermark pattern */}
-        <div className="relative z-10 p-5 sm:p-6 lg:p-7 flex flex-col gap-5">
+      <div className="relative flex flex-col gap-4">
         {/* Top Status & Context Rail */}
-        <div className="flex items-center justify-between gap-4 flex-wrap pb-3 border-b border-border/40">
-          <div className="flex items-center gap-2.5 flex-wrap">
+        <div className="flex items-center justify-between gap-3 flex-wrap pb-2.5 border-b border-border/60">
+          <div className="flex items-center gap-2 flex-wrap">
             {badge && (
               <span
                 className={cn(
-                  "text-[11px] font-mono font-bold tracking-wider uppercase flex items-center gap-1.5 px-2.5 py-0.5 rounded-md border shadow-2xs",
+                  "text-[11px] font-normal tracking-tight flex items-center gap-1.5 px-2 py-0.5 rounded-[3px] border",
                   styles.badgeBg,
                   styles.badgeText,
                   styles.badgeBorder
                 )}
               >
-                {renderIconNode(badge.icon, "w-3.5 h-3.5")}
+                {renderIconNode(badge.icon, "w-3 h-3")}
                 {badge.label}
               </span>
             )}
 
             {systemStatus && (
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-surface-subtle text-[11px] font-mono font-medium text-foreground-secondary border border-border/70 shadow-2xs">
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[3px] bg-surface-subtle text-[11px] font-normal text-muted-foreground border border-border/70">
                 <span
                   className={cn(
                     "w-1.5 h-1.5 rounded-full",
@@ -268,14 +254,14 @@ export function DashboardHero({
             )}
 
             {userRole && (
-              <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold uppercase bg-muted/80 text-muted-foreground border border-border/60">
+              <span className="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 rounded-[3px] text-[10px] uppercase bg-muted/60 text-muted-foreground">
                 {userRole}
               </span>
             )}
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-surface-subtle/80 border border-border/50 text-[11px] font-medium">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[3px] bg-surface-subtle border border-border/50 text-[11px]">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
               {resolvedDate}
             </span>
@@ -283,13 +269,13 @@ export function DashboardHero({
         </div>
 
         {/* Tier 1: Identity & Quick Action Deck */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           {/* Identity & Mission Subtitle */}
-          <div className="flex flex-col gap-1.5 max-w-3xl">
+          <div className="flex flex-col gap-1 max-w-3xl">
             {title ? (
               title
             ) : (
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight font-display">
+              <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">
                 {resolvedGreeting}
                 {formattedName ? (
                   <>
@@ -384,7 +370,6 @@ export function DashboardHero({
 
         {children}
       </div>
-      </div>
-    </motion.div>
+    </div>
   );
 }

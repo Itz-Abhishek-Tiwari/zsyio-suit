@@ -163,15 +163,15 @@ export function KanbanColumn({
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={cn(
-        "flex w-[272px] sm:w-[292px] shrink-0 flex-col gap-2.5 rounded-lg border p-3",
-        "bg-surface-subtle/40 dark:bg-card/30 backdrop-blur-sm transition-all duration-200 select-none",
+        "flex w-[260px] sm:w-[280px] shrink-0 flex-col gap-2 rounded-[6px] border p-2",
+        "bg-surface-subtle/40 transition-all duration-150 select-none",
         isSelfDragging
-          ? "opacity-35 grayscale-[20%] border-dashed border-border bg-surface-subtle/30 scale-[0.98]"
+          ? "opacity-35 grayscale-[20%] border-dashed border-border scale-[0.98]"
           : isColumnDragOver
-          ? "border-primary ring-2 ring-primary/20 bg-primary-light/30 dark:bg-primary-light/10 shadow-md shadow-primary/5 scale-[1.015]"
+          ? "border-primary ring-1 ring-primary/20 bg-primary-light/20 shadow-xs"
           : isItemDragOver
-          ? "border-primary/70 ring-2 ring-primary/20 bg-primary-light/20 dark:bg-primary-light/10 shadow-sm scale-[1.01]"
-          : "border-border/60 hover:border-border/90 shadow-none",
+          ? "border-primary/60 ring-1 ring-primary/20 bg-primary-light/10 shadow-xs"
+          : "border-border/60 hover:border-border/80 shadow-none",
         className
       )}
     >
@@ -182,32 +182,32 @@ export function KanbanColumn({
         onDragEnd={draggable ? handleColumnDragEnd : undefined}
         title={draggable ? "Drag column to rearrange order" : undefined}
         className={cn(
-          "flex items-center justify-between px-1 py-1 shrink-0 group/header rounded-md transition-colors -mx-1",
-          draggable ? "cursor-grab active:cursor-grabbing hover:bg-surface-elevated/60" : ""
+          "flex items-center justify-between px-1 py-1 shrink-0 group/header rounded-[4px] transition-colors",
+          draggable ? "cursor-grab active:cursor-grabbing hover:bg-notion-hover" : ""
         )}
       >
         <div className="flex items-center gap-1.5 min-w-0">
           {draggable && (
-            <GripVertical className="w-3.5 h-3.5 text-muted-foreground/40 group-hover/header:text-primary transition-colors shrink-0" />
+            <GripVertical className="w-3.5 h-3.5 text-muted-foreground/40 group-hover/header:text-foreground transition-colors shrink-0" />
           )}
 
           {icon && (
             <span
               className={cn(
-                "w-5 h-5 rounded-sm flex items-center justify-center text-xs font-bold shrink-0",
-                iconBadgeClass || "text-primary bg-primary-light border border-primary/20"
+                "w-4 h-4 rounded-[3px] flex items-center justify-center text-xs shrink-0",
+                iconBadgeClass || "text-foreground"
               )}
             >
               {icon}
             </span>
           )}
 
-          <h2 className="text-[11px] font-bold uppercase tracking-widest text-foreground-secondary truncate max-w-[130px]">
+          <h2 className="text-xs font-semibold text-foreground/90 truncate max-w-[130px]">
             {label}
           </h2>
 
           {typeof count === "number" && (
-            <span className="text-[10px] font-bold font-mono px-1.5 py-0.5 rounded-sm bg-muted/80 border border-border/50 text-muted-foreground shrink-0">
+            <span className="text-[11px] font-normal text-muted-foreground ml-0.5">
               {count}
             </span>
           )}

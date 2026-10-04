@@ -27,42 +27,42 @@ export interface KpiCardProps {
 
 const VARIANT_MAP = {
   primary: {
-    iconBg: "bg-primary-light text-primary border-primary/20",
+    iconBg: "bg-notion-blue text-notion-blue-fg border border-notion-blue/30",
     accentBar: "bg-primary",
-    hoverBorder: "hover:border-primary/40",
+    hoverBorder: "hover:border-border-strong",
   },
   emerald: {
-    iconBg: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
-    accentBar: "bg-emerald-500",
-    hoverBorder: "hover:border-emerald-500/40",
+    iconBg: "bg-notion-green text-notion-green-fg border border-notion-green/30",
+    accentBar: "bg-notion-green-fg",
+    hoverBorder: "hover:border-border-strong",
   },
   sky: {
-    iconBg: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20",
-    accentBar: "bg-sky-500",
-    hoverBorder: "hover:border-sky-500/40",
+    iconBg: "bg-notion-blue text-notion-blue-fg border border-notion-blue/30",
+    accentBar: "bg-notion-blue-fg",
+    hoverBorder: "hover:border-border-strong",
   },
   amber: {
-    iconBg: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
-    accentBar: "bg-amber-500",
-    hoverBorder: "hover:border-amber-500/40",
+    iconBg: "bg-notion-yellow text-notion-yellow-fg border border-notion-yellow/30",
+    accentBar: "bg-notion-yellow-fg",
+    hoverBorder: "hover:border-border-strong",
   },
   rose: {
-    iconBg: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
-    accentBar: "bg-rose-500",
-    hoverBorder: "hover:border-rose-500/40",
+    iconBg: "bg-notion-red text-notion-red-fg border border-notion-red/30",
+    accentBar: "bg-notion-red-fg",
+    hoverBorder: "hover:border-border-strong",
   },
   purple: {
-    iconBg: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20",
-    accentBar: "bg-purple-500",
-    hoverBorder: "hover:border-purple-500/40",
+    iconBg: "bg-notion-purple text-notion-purple-fg border border-notion-purple/30",
+    accentBar: "bg-notion-purple-fg",
+    hoverBorder: "hover:border-border-strong",
   },
   indigo: {
-    iconBg: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20",
-    accentBar: "bg-indigo-500",
-    hoverBorder: "hover:border-indigo-500/40",
+    iconBg: "bg-notion-purple text-notion-purple-fg border border-notion-purple/30",
+    accentBar: "bg-notion-purple-fg",
+    hoverBorder: "hover:border-border-strong",
   },
   default: {
-    iconBg: "bg-surface-subtle text-muted-foreground border-border/60",
+    iconBg: "bg-notion-gray text-notion-gray-fg border border-notion-gray/30",
     accentBar: "bg-border-strong",
     hoverBorder: "hover:border-border-strong",
   },
@@ -148,11 +148,11 @@ export function KpiCard({
   );
 
   const containerClasses = cn(
-    "group relative rounded-lg border bg-card p-4 sm:p-4.5 flex items-center justify-between shadow-xs transition-all duration-200 will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+    "group relative rounded-[6px] border bg-card p-3.5 sm:p-4 flex items-center justify-between shadow-2xs transition-all duration-150 will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
     highlightAlert
-      ? "border-red-500/30 hover:border-red-500/50 bg-red-500/5"
-      : cn("border-border/80 hover:border-primary/40", styles.hoverBorder),
-    isInteractive && "cursor-pointer hover:shadow-md",
+      ? "border-notion-red/40 bg-notion-red/10"
+      : cn("border-border/80 hover:border-border-strong", styles.hoverBorder),
+    isInteractive && "cursor-pointer hover:shadow-xs",
     className
   );
 

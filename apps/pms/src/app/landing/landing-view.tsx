@@ -52,6 +52,12 @@ import {
   cn,
   PulseDot,
   AnimatedNumber,
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
 } from "@zsyio/ui";
 
 interface LandingViewProps {
@@ -400,25 +406,233 @@ export function LandingView({ user, appUrls }: LandingViewProps) {
             </span>
           </Link>
 
-          {/* Center Links with Dropdown Cues */}
+          {/* Center Links with Dropdown Menus */}
           <nav
             aria-label="Main Navigation"
-            className="hidden md:flex items-center gap-6 text-xs font-semibold text-muted-foreground"
+            className="hidden md:flex items-center gap-5 text-xs font-semibold text-muted-foreground"
           >
-            <a
-              href="#apps"
-              className="hover:text-foreground transition-colors flex items-center gap-1 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded group"
-            >
-              <span>Platform</span>
-              <ChevronDown className="w-3 h-3 opacity-60 transition-transform group-hover:translate-y-0.5" />
-            </a>
-            <a
-              href="#architecture"
-              className="hover:text-foreground transition-colors flex items-center gap-1 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded group"
-            >
-              <span>Architecture</span>
-              <ChevronDown className="w-3 h-3 opacity-60 transition-transform group-hover:translate-y-0.5" />
-            </a>
+            {/* Platform Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  className="hover:text-foreground transition-colors flex items-center gap-1 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded group cursor-pointer data-[state=open]:text-foreground"
+                >
+                  <span>Platform</span>
+                  <ChevronDown className="w-3 h-3 opacity-60 transition-transform group-hover:translate-y-0.5 group-data-[state=open]:rotate-180" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="start"
+                sideOffset={14}
+                className="w-80 p-2 shadow-2xl rounded-2xl border border-border/80 bg-surface-elevated/95 backdrop-blur-xl"
+              >
+                <DropdownMenuLabel className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold px-2 py-1">
+                  Suite Engines &amp; Applications
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="my-1" />
+                <DropdownMenuItem asChild>
+                  <a
+                    href="#apps"
+                    className="flex items-start gap-3 p-2 rounded-xl cursor-pointer hover:bg-surface-subtle transition-colors group/item"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center border border-primary/20 shrink-0 mt-0.5 group-hover/item:bg-primary group-hover/item:text-primary-foreground transition-colors">
+                      <Workflow className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-bold text-foreground text-xs">Zsyio Flow</span>
+                        <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-primary/10 text-primary font-bold">
+                          PMS
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-muted-foreground leading-snug mt-0.5">
+                        Agile sprints, Kanban, &amp; engineering workflows
+                      </p>
+                    </div>
+                  </a>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem asChild>
+                  <a
+                    href="#apps"
+                    className="flex items-start gap-3 p-2 rounded-xl cursor-pointer hover:bg-surface-subtle transition-colors group/item"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-sky-500/10 text-sky-500 flex items-center justify-center border border-sky-500/20 shrink-0 mt-0.5 group-hover/item:bg-sky-500 group-hover/item:text-white transition-colors">
+                      <FileText className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-bold text-foreground text-xs">Zsyio Canvas</span>
+                        <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-sky-500/10 text-sky-500 font-bold">
+                          Docs
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-muted-foreground leading-snug mt-0.5">
+                        Collaborative knowledge base &amp; specs
+                      </p>
+                    </div>
+                  </a>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem asChild>
+                  <a
+                    href="#apps"
+                    className="flex items-start gap-3 p-2 rounded-xl cursor-pointer hover:bg-surface-subtle transition-colors group/item"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center border border-amber-500/20 shrink-0 mt-0.5 group-hover/item:bg-amber-500 group-hover/item:text-white transition-colors">
+                      <Users className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-bold text-foreground text-xs">Zsyio People</span>
+                        <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-amber-500/10 text-amber-500 font-bold">
+                          HRMS
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-muted-foreground leading-snug mt-0.5">
+                        Attendance, multi-timezone timesheets &amp; leaves
+                      </p>
+                    </div>
+                  </a>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem asChild>
+                  <a
+                    href="#apps"
+                    className="flex items-start gap-3 p-2 rounded-xl cursor-pointer hover:bg-surface-subtle transition-colors group/item"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center border border-emerald-500/20 shrink-0 mt-0.5 group-hover/item:bg-emerald-500 group-hover/item:text-white transition-colors">
+                      <Target className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-bold text-foreground text-xs">Zsyio Pulse</span>
+                        <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-emerald-500/10 text-emerald-500 font-bold">
+                          CRM
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-muted-foreground leading-snug mt-0.5">
+                        Deal pipelines, lead attribution &amp; revenue
+                      </p>
+                    </div>
+                  </a>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem asChild>
+                  <a
+                    href="#apps"
+                    className="flex items-start gap-3 p-2 rounded-xl cursor-pointer hover:bg-surface-subtle transition-colors group/item"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-500 flex items-center justify-center border border-purple-500/20 shrink-0 mt-0.5 group-hover/item:bg-purple-500 group-hover/item:text-white transition-colors">
+                      <Shield className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-bold text-foreground text-xs">Zsyio Console</span>
+                        <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-purple-500/10 text-purple-500 font-bold">
+                          Admin
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-muted-foreground leading-snug mt-0.5">
+                        Organization identity, domains &amp; RBAC governance
+                      </p>
+                    </div>
+                  </a>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Architecture Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  className="hover:text-foreground transition-colors flex items-center gap-1 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded group cursor-pointer data-[state=open]:text-foreground"
+                >
+                  <span>Architecture</span>
+                  <ChevronDown className="w-3 h-3 opacity-60 transition-transform group-hover:translate-y-0.5 group-data-[state=open]:rotate-180" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="start"
+                sideOffset={14}
+                className="w-80 p-2 shadow-2xl rounded-2xl border border-border/80 bg-surface-elevated/95 backdrop-blur-xl"
+              >
+                <DropdownMenuLabel className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold px-2 py-1">
+                  Technical Architecture
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="my-1" />
+                <DropdownMenuItem asChild>
+                  <a
+                    href="#architecture"
+                    className="flex items-start gap-3 p-2 rounded-xl cursor-pointer hover:bg-surface-subtle transition-colors group/item"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center border border-primary/20 shrink-0 mt-0.5 group-hover/item:bg-primary group-hover/item:text-primary-foreground transition-colors">
+                      <KeyRound className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <span className="font-bold text-foreground text-xs block">Apex SSO Delegation</span>
+                      <p className="text-[11px] text-muted-foreground leading-snug mt-0.5">
+                        Cryptographic ed25519 root session tokens verified in &lt; 2ms
+                      </p>
+                    </div>
+                  </a>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem asChild>
+                  <a
+                    href="#specs"
+                    className="flex items-start gap-3 p-2 rounded-xl cursor-pointer hover:bg-surface-subtle transition-colors group/item"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-sky-500/10 text-sky-500 flex items-center justify-center border border-sky-500/20 shrink-0 mt-0.5 group-hover/item:bg-sky-500 group-hover/item:text-white transition-colors">
+                      <Fingerprint className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <span className="font-bold text-foreground text-xs block">Corporate Domain Isolation</span>
+                      <p className="text-[11px] text-muted-foreground leading-snug mt-0.5">
+                        DNS edge whitelist matching &amp; zero external data leakage
+                      </p>
+                    </div>
+                  </a>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem asChild>
+                  <a
+                    href="#specs"
+                    className="flex items-start gap-3 p-2 rounded-xl cursor-pointer hover:bg-surface-subtle transition-colors group/item"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center border border-emerald-500/20 shrink-0 mt-0.5 group-hover/item:bg-emerald-500 group-hover/item:text-white transition-colors">
+                      <Lock className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <span className="font-bold text-foreground text-xs block">Granular 42+ RBAC Matrix</span>
+                      <p className="text-[11px] text-muted-foreground leading-snug mt-0.5">
+                        Subdomain capability scoping &amp; decoupled permission enforcement
+                      </p>
+                    </div>
+                  </a>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem asChild>
+                  <a
+                    href="#specs"
+                    className="flex items-start gap-3 p-2 rounded-xl cursor-pointer hover:bg-surface-subtle transition-colors group/item"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-500 flex items-center justify-center border border-purple-500/20 shrink-0 mt-0.5 group-hover/item:bg-purple-500 group-hover/item:text-white transition-colors">
+                      <Server className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <span className="font-bold text-foreground text-xs block">Self-Hosted &amp; Kubernetes</span>
+                      <p className="text-[11px] text-muted-foreground leading-snug mt-0.5">
+                        Turborepo, Next.js 15, PostgreSQL &amp; zero vendor lock-in
+                      </p>
+                    </div>
+                  </a>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             <a
               href="#specs"
               className="hover:text-foreground transition-colors py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"

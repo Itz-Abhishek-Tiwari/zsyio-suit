@@ -14,64 +14,20 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@zsyio/ui";
-import { useSession } from "next-auth/react";
+
 import { can } from "@zsyio/auth/permissions";
 import type { Task } from "@zsyio/types";
 import { useUpdateTaskStatusMutation, useDeleteTaskMutation } from "@/store/api/tasksApi";
 import { useGetTaskColumnsQuery } from "@/store/api/taskColumnsApi";
-import { TaskTypeBadge, TaskDueDateBadge } from "./TaskBadges";
+import { PRIORITY_CONFIG, TaskTypeBadge, TaskDueDateBadge } from "./TaskBadges";
 import { TaskTagBadge } from "./TaskTagBadge";
 import { TaskTimeBadge } from "./TaskTimeBadge";
 import { UserAvatarGroup, ConfirmDialog } from "@/components/shared";
 import { toast } from "sonner";
-import {
-  ArrowDown,
-  Equal,
-  ArrowUp,
-  Flame,
-  MoreHorizontal,
-  Building2,
-  Package,
-  AlertCircle,
-} from "lucide-react";
+import { MoreHorizontal, Building2, Package, AlertCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { TASK_STATUS_LIST } from "@zsyio/types";
 import { getTaskVisualHierarchy } from "@/lib/task-hierarchy";
-
-// Sleek, minimal priority indicators
-const PRIORITY_CONFIG: Record<
-  Task["priority"],
-  { label: string; icon: React.ReactNode; colorClass: string; bgClass: string; borderClass: string }
-> = {
-  LOW: {
-    label: "Low",
-    icon: <ArrowDown className="w-3 h-3 text-slate-500" />,
-    colorClass: "text-slate-600 dark:text-slate-400",
-    bgClass: "bg-slate-500/10",
-    borderClass: "border-slate-500/20",
-  },
-  MEDIUM: {
-    label: "Medium",
-    icon: <Equal className="w-3 h-3 text-cyan-600 dark:text-cyan-400" />,
-    colorClass: "text-cyan-700 dark:text-cyan-300",
-    bgClass: "bg-cyan-500/10",
-    borderClass: "border-cyan-500/20",
-  },
-  HIGH: {
-    label: "High",
-    icon: <ArrowUp className="w-3 h-3 text-orange-600 dark:text-orange-400" />,
-    colorClass: "text-orange-700 dark:text-orange-300",
-    bgClass: "bg-orange-500/10",
-    borderClass: "border-orange-500/20",
-  },
-  CRITICAL: {
-    label: "Urgent",
-    icon: <Flame className="w-3 h-3 text-red-600 dark:text-red-400" />,
-    colorClass: "text-red-700 dark:text-red-300 font-bold",
-    bgClass: "bg-red-500/10",
-    borderClass: "border-red-500/25",
-  },
-};
 
 const STATUSES = TASK_STATUS_LIST;
 
@@ -93,11 +49,9 @@ function TaskCardImpl({
   filters,
   onViewTask,
   onClick,
-  user: propUser,
+  user,
   availableStatuses: propAvailableStatuses,
 }: TaskCardProps) {
-  const { data: session } = useSession();
-  const user = propUser !== undefined ? propUser : session?.user;
 
   const { data: dbColumns } = useGetTaskColumnsQuery(undefined, {
     skip: Boolean(propAvailableStatuses),
@@ -181,7 +135,11 @@ function TaskCardImpl({
     }
   };
 
-  const { cardBgClass, isOverdue, isAdmin } = getTaskVisualHierarchy(task);
+  const { cardBgClass, isOverdue, isAdmin } = useMemo(
+    () => getTaskVisualHierarchy(task),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [task.dueDate, task.status, task.createdBy?.role, task.createdBy?.customRole?.name]
+  );
 
   const handleCardClick = () => {
     if (onViewTask) {
@@ -251,7 +209,7 @@ function TaskCardImpl({
               className={cn(
                 "inline-flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.25 rounded-md border select-none transition-colors shrink-0",
                 priorityCfg.bgClass,
-                priorityCfg.colorClass,
+                priorityCfg.textClass,
                 priorityCfg.borderClass
               )}
               title={`Priority: ${priorityCfg.label}`}

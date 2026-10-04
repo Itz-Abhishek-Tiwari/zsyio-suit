@@ -6,7 +6,7 @@ export const taskTagsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getTaskTags: build.query<TaskTag[], void>({
       query: () => "/task-tags",
-      keepUnusedDataFor: 300,
+      keepUnusedDataFor: 3600,
       providesTags: (result) =>
         result
           ? [

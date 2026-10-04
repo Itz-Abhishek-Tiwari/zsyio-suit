@@ -43,27 +43,27 @@ export function KanbanCard({
 
   const variantClasses = {
     default:
-      "border-border/80 bg-card hover:border-primary/40 hover:shadow-md",
+      "border-border/80 bg-card hover:border-border-strong hover:shadow-xs",
     urgent:
-      "border-rose-500/40 bg-gradient-to-b from-rose-500/[0.04] to-card hover:border-rose-500/60 hover:shadow-md",
+      "border-notion-red/40 bg-card hover:border-notion-red/60 hover:shadow-xs",
     warning:
-      "border-amber-500/40 bg-gradient-to-b from-amber-500/[0.04] to-card hover:border-amber-500/60 hover:shadow-md",
+      "border-notion-yellow/40 bg-card hover:border-notion-yellow/60 hover:shadow-xs",
   }[variant];
 
   return (
     <motion.div
       layout
       layoutId={`kanban-card-${id}`}
-      initial={{ opacity: 0, scale: 0.95, y: 8 }}
+      initial={{ opacity: 0, scale: 0.98, y: 4 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.16, ease: "easeOut" } }}
+      exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.12, ease: "easeOut" } }}
       transition={{
         type: "spring",
-        stiffness: 380,
-        damping: 30,
-        mass: 0.7,
+        stiffness: 400,
+        damping: 32,
+        mass: 0.6,
       }}
-      whileHover={!isDragging ? { y: -2, transition: { type: "spring", stiffness: 450, damping: 25 } } : undefined}
+      whileHover={!isDragging ? { y: -1, transition: { duration: 0.15 } } : undefined}
       whileTap={{ scale: 0.99 }}
       draggable={draggable}
       onDragStart={(e) => {
@@ -77,11 +77,11 @@ export function KanbanCard({
       }}
       onClick={onClick}
       className={cn(
-        "group relative flex flex-col gap-2.5 rounded-xl border p-3.5 shadow-2xs transition-all duration-200 select-none",
+        "group relative flex flex-col gap-2 rounded-[4px] border p-2.5 shadow-2xs transition-all duration-150 select-none",
         variantClasses,
         draggable ? "cursor-grab active:cursor-grabbing" : "cursor-pointer",
         isDragging
-          ? "opacity-50 scale-[0.98] border-dashed border-primary shadow-lg ring-2 ring-primary/20"
+          ? "opacity-50 scale-[0.98] border-dashed border-primary shadow-sm"
           : "opacity-100",
         className
       )}

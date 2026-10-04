@@ -79,7 +79,7 @@ export interface TaskTableFilters {
   sortDir?: "asc" | "desc";
 }
 
-export function TaskTable({ filters = {} }: { filters?: TaskTableFilters }) {
+function TaskTableInner({ filters = {} }: { filters?: TaskTableFilters }) {
   const dispatch = useAppDispatch();
   const { data, isLoading } = useGetTasksQuery(filters);
   const { data: dbColumns } = useGetTaskColumnsQuery();
@@ -135,11 +135,19 @@ export function TaskTable({ filters = {} }: { filters?: TaskTableFilters }) {
 
   const displayTasks = React.useMemo(() => {
     const items = data?.items ?? [];
-    if (!filters.sortBy) {
-      return [...items].sort(compareTaskHierarchy);
-    }
-    return items;
+    const sorted = filters.sortBy ? items : [...items].sort(compareTaskHierarchy);
+    return sorted;
   }, [data?.items, filters.sortBy]);
+
+  // Pre-compute visual hierarchy for each task (avoids calling getTaskVisualHierarchy
+  // + new Date() inside the render loop for every table row)
+  const hierarchyMap = React.useMemo(() => {
+    const map = new Map<string, ReturnType<typeof getTaskVisualHierarchy>>();
+    for (const task of displayTasks) {
+      map.set(task.id, getTaskVisualHierarchy(task));
+    }
+    return map;
+  }, [displayTasks]);
 
   if (isLoading) {
     return <TableSkeleton columns={6} rows={7} showHeader />;
@@ -191,7 +199,7 @@ export function TaskTable({ filters = {} }: { filters?: TaskTableFilters }) {
           {displayTasks.map((task) => {
             const shortId = formatTicketId(task);
             const typeCfg = TYPE_CONFIG[task.type as keyof typeof TYPE_CONFIG] ?? { label: task.type, icon: <Tag className="w-3 h-3 text-purple-500" /> };
-            const { isAdmin, tableRowClass } = getTaskVisualHierarchy(task);
+            const { isAdmin, tableRowClass } = hierarchyMap.get(task.id) ?? getTaskVisualHierarchy(task);
 
             const userPerms = currentUser?.permissions;
             const canEditAny = currentUser ? can(currentUser.role, "task:edit:any", userPerms) : false;
@@ -546,3 +554,5 @@ export function TaskTable({ filters = {} }: { filters?: TaskTableFilters }) {
     </div>
   );
 }
+
+export const TaskTable = React.memo(TaskTableInner);

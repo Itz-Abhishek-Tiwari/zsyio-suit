@@ -14,7 +14,7 @@ import {
   useDeleteTaskColumnMutation,
 } from "@/store/api/taskColumnsApi";
 import type { Task, CustomKanbanColumn } from "@zsyio/types";
-import { compareTaskHierarchy } from "@/lib/task-hierarchy";
+import { getTaskDeadlineCategory, isTaskAdminCreated } from "@/lib/task-hierarchy";
 import { Skeleton } from "@zsyio/ui";
 import { Button } from "@zsyio/ui";
 import { Input } from "@zsyio/ui";
@@ -213,24 +213,70 @@ export function KanbanBoard({ filters }: { filters: Record<string, string | numb
     setSelectedTask(null);
   }, []);
 
-  // Single pass: group and hierarchically sort tasks by status
+  // Pre-compute per-task sort keys once, then sort each bucket using those
+  // cached values. compareTaskHierarchy calls getTaskDeadlineCategory (which
+  // allocates new Date() twice) on every comparison pair — O(n log n) calls.
+  // Pre-computing reduces that to O(n) allocations regardless of bucket size.
   const tasksByStatus = useMemo(() => {
     const items = data?.items ?? [];
-    const byStatus = new Map<string, Task[]>();
 
+    // Pre-compute stable sort keys for every task
+    const adminMap = new Map<string, boolean>();
+    const deadlineMap = new Map<string, ReturnType<typeof getTaskDeadlineCategory>>();
+    for (const task of items) {
+      adminMap.set(task.id, isTaskAdminCreated(task));
+      deadlineMap.set(task.id, getTaskDeadlineCategory(task));
+    }
+
+    const byStatus = new Map<string, Task[]>();
     for (const task of items) {
       const bucket = byStatus.get(task.status);
       if (bucket) bucket.push(task);
       else byStatus.set(task.status, [task]);
     }
 
-    // Sort each bucket by task hierarchy (Admin created top -> closest deadline -> priority)
+    // Sort each bucket using the pre-computed values via the standard comparator
+    // (compareTaskHierarchy recomputes internally, so we pass a thin wrapper
+    // that preserves identical sort order without extra date allocations)
+    const DEADLINE_RANK: Record<ReturnType<typeof getTaskDeadlineCategory>, number> = {
+      OVERDUE: 4,
+      DUE_TODAY: 3,
+      DUE_SOON: 2,
+      UPCOMING: 1,
+      NO_DEADLINE: 0,
+    };
+
     for (const [status, list] of byStatus.entries()) {
-      byStatus.set(status, list.slice().sort(compareTaskHierarchy));
+      byStatus.set(
+        status,
+        list.slice().sort((a, b) => {
+          const aAdmin = adminMap.get(a.id) ?? false;
+          const bAdmin = adminMap.get(b.id) ?? false;
+          if (aAdmin && !bAdmin) return -1;
+          if (!aAdmin && bAdmin) return 1;
+
+          const aDR = DEADLINE_RANK[deadlineMap.get(a.id) ?? "NO_DEADLINE"];
+          const bDR = DEADLINE_RANK[deadlineMap.get(b.id) ?? "NO_DEADLINE"];
+          if (aDR !== bDR) return bDR - aDR;
+
+          if (a.dueDate && b.dueDate && aDR > 0) {
+            const diff = new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
+            if (diff !== 0) return diff;
+          }
+
+          const PRIORITY_RANK: Record<string, number> = { CRITICAL: 4, HIGH: 3, MEDIUM: 2, LOW: 1 };
+          const aPR = PRIORITY_RANK[a.priority] ?? 2;
+          const bPR = PRIORITY_RANK[b.priority] ?? 2;
+          if (aPR !== bPR) return bPR - aPR;
+
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        })
+      );
     }
 
     return byStatus;
   }, [data]);
+
 
   // Combined full list of all available columns from server
   const canonicalColumns: ColumnDef[] = useMemo(() => {

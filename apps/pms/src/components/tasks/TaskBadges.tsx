@@ -3,6 +3,14 @@
 import * as React from "react";
 import { formatTicketId } from "@/lib/utils";
 import { Badge } from "@zsyio/ui";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@zsyio/ui";
 import type { Priority, TaskStatus } from "@zsyio/types";
 import { ColumnIcon } from "./ColumnIcon";
 import {
@@ -29,31 +37,31 @@ export const PRIORITY_CONFIG: Record<
 > = {
   LOW: {
     label: "Low",
-    icon: <ArrowDown className="w-3 h-3 text-slate-500 dark:text-slate-400" />,
-    bgClass: "bg-slate-100 dark:bg-slate-500/15",
-    textClass: "text-slate-700 dark:text-slate-300 font-medium",
-    borderClass: "border-slate-200/90 dark:border-slate-500/30",
+    icon: <ArrowDown className="w-3 h-3 text-notion-gray-fg" />,
+    bgClass: "bg-notion-gray",
+    textClass: "text-notion-gray-fg font-normal",
+    borderClass: "border-transparent",
   },
   MEDIUM: {
     label: "Medium",
-    icon: <Equal className="w-3 h-3 text-cyan-600 dark:text-cyan-400" />,
-    bgClass: "bg-cyan-50 dark:bg-cyan-500/15",
-    textClass: "text-cyan-800 dark:text-cyan-400 font-medium",
-    borderClass: "border-cyan-200/90 dark:border-cyan-500/30",
+    icon: <Equal className="w-3 h-3 text-notion-blue-fg" />,
+    bgClass: "bg-notion-blue",
+    textClass: "text-notion-blue-fg font-normal",
+    borderClass: "border-transparent",
   },
   HIGH: {
     label: "High",
-    icon: <ArrowUp className="w-3 h-3 text-orange-600 dark:text-orange-400" />,
-    bgClass: "bg-orange-50 dark:bg-orange-500/15",
-    textClass: "text-orange-800 dark:text-orange-400 font-medium",
-    borderClass: "border-orange-200/90 dark:border-orange-500/30",
+    icon: <ArrowUp className="w-3 h-3 text-notion-orange-fg" />,
+    bgClass: "bg-notion-orange",
+    textClass: "text-notion-orange-fg font-normal",
+    borderClass: "border-transparent",
   },
   CRITICAL: {
     label: "Urgent",
-    icon: <Flame className="w-3 h-3 text-red-600 dark:text-red-400" />,
-    bgClass: "bg-red-50 dark:bg-red-500/15",
-    textClass: "text-red-700 dark:text-red-400 font-bold",
-    borderClass: "border-red-200/90 dark:border-red-500/30",
+    icon: <Flame className="w-3 h-3 text-notion-red-fg" />,
+    bgClass: "bg-notion-red",
+    textClass: "text-notion-red-fg font-medium",
+    borderClass: "border-transparent",
   },
 };
 
@@ -63,66 +71,66 @@ export const TYPE_CONFIG: Record<
 > = {
   FEATURE: {
     label: "Feature",
-    icon: <Boxes className="w-3 h-3 text-cyan-600 dark:text-cyan-400" />,
-    bgClass: "bg-cyan-50 dark:bg-cyan-500/15",
-    textClass: "text-cyan-800 dark:text-cyan-400",
-    borderClass: "border-cyan-200/90 dark:border-cyan-500/30",
+    icon: <Boxes className="w-3 h-3 text-notion-blue-fg" />,
+    bgClass: "bg-notion-blue",
+    textClass: "text-notion-blue-fg",
+    borderClass: "border-transparent",
   },
   BUG: {
     label: "Bug",
-    icon: <Bug className="w-3 h-3 text-red-600 dark:text-red-400" />,
-    bgClass: "bg-red-50 dark:bg-red-500/15",
-    textClass: "text-red-700 dark:text-red-400",
-    borderClass: "border-red-200/90 dark:border-red-500/30",
+    icon: <Bug className="w-3 h-3 text-notion-red-fg" />,
+    bgClass: "bg-notion-red",
+    textClass: "text-notion-red-fg",
+    borderClass: "border-transparent",
   },
   SUPPORT_REQUEST: {
     label: "Support",
-    icon: <LifeBuoy className="w-3 h-3 text-blue-600 dark:text-blue-400" />,
-    bgClass: "bg-blue-50 dark:bg-blue-500/15",
-    textClass: "text-blue-700 dark:text-blue-400",
-    borderClass: "border-blue-200/90 dark:border-blue-500/30",
+    icon: <LifeBuoy className="w-3 h-3 text-notion-purple-fg" />,
+    bgClass: "bg-notion-purple",
+    textClass: "text-notion-purple-fg",
+    borderClass: "border-transparent",
   },
   CUSTOMIZATION: {
     label: "Custom",
-    icon: <Sliders className="w-3 h-3 text-amber-600 dark:text-amber-400" />,
-    bgClass: "bg-amber-50 dark:bg-amber-500/15",
-    textClass: "text-amber-800 dark:text-amber-400",
-    borderClass: "border-amber-200/90 dark:border-amber-500/30",
+    icon: <Sliders className="w-3 h-3 text-notion-yellow-fg" />,
+    bgClass: "bg-notion-yellow",
+    textClass: "text-notion-yellow-fg",
+    borderClass: "border-transparent",
   },
   DEPLOYMENT: {
     label: "Deploy",
-    icon: <Rocket className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />,
-    bgClass: "bg-emerald-50 dark:bg-emerald-500/15",
-    textClass: "text-emerald-700 dark:text-emerald-400",
-    borderClass: "border-emerald-200/90 dark:border-emerald-500/30",
+    icon: <Rocket className="w-3 h-3 text-notion-green-fg" />,
+    bgClass: "bg-notion-green",
+    textClass: "text-notion-green-fg",
+    borderClass: "border-transparent",
   },
   MAINTENANCE: {
     label: "Infra",
-    icon: <Wrench className="w-3 h-3 text-slate-600 dark:text-slate-400" />,
-    bgClass: "bg-slate-100 dark:bg-slate-500/15",
-    textClass: "text-slate-700 dark:text-slate-300",
-    borderClass: "border-slate-200/90 dark:border-slate-500/30",
+    icon: <Wrench className="w-3 h-3 text-notion-gray-fg" />,
+    bgClass: "bg-notion-gray",
+    textClass: "text-notion-gray-fg",
+    borderClass: "border-transparent",
   },
   NEW_DESIGN: {
     label: "New Design",
-    icon: <Paintbrush className="w-3 h-3 text-indigo-600 dark:text-indigo-400" />,
-    bgClass: "bg-indigo-50 dark:bg-indigo-500/15",
-    textClass: "text-indigo-700 dark:text-indigo-400",
-    borderClass: "border-indigo-200/90 dark:border-indigo-500/30",
+    icon: <Paintbrush className="w-3 h-3 text-notion-purple-fg" />,
+    bgClass: "bg-notion-purple",
+    textClass: "text-notion-purple-fg",
+    borderClass: "border-transparent",
   },
   DESIGN_CHANGE: {
     label: "Design Changes",
-    icon: <Layers className="w-3 h-3 text-pink-600 dark:text-pink-400" />,
-    bgClass: "bg-pink-50 dark:bg-pink-500/15",
-    textClass: "text-pink-700 dark:text-pink-400",
-    borderClass: "border-pink-200/90 dark:border-pink-500/30",
+    icon: <Layers className="w-3 h-3 text-notion-pink-fg" />,
+    bgClass: "bg-notion-pink",
+    textClass: "text-notion-pink-fg",
+    borderClass: "border-transparent",
   },
   DESIGN_CHANGES: {
     label: "Design Changes",
-    icon: <Layers className="w-3 h-3 text-pink-600 dark:text-pink-400" />,
-    bgClass: "bg-pink-50 dark:bg-pink-500/15",
-    textClass: "text-pink-700 dark:text-pink-400",
-    borderClass: "border-pink-200/90 dark:border-pink-500/30",
+    icon: <Layers className="w-3 h-3 text-notion-pink-fg" />,
+    bgClass: "bg-notion-pink",
+    textClass: "text-notion-pink-fg",
+    borderClass: "border-transparent",
   },
 };
 
@@ -133,51 +141,51 @@ export const STATUS_CONFIG: Record<
   BACKLOG: {
     label: "Backlog",
     icon: "BACKLOG",
-    bgClass: "bg-slate-100 dark:bg-slate-500/15",
-    textClass: "text-slate-700 dark:text-slate-300 font-medium",
-    borderClass: "border-slate-200/90 dark:border-slate-500/30",
+    bgClass: "bg-notion-gray",
+    textClass: "text-notion-gray-fg font-normal",
+    borderClass: "border-transparent",
   },
   TODO: {
     label: "To Do",
     icon: "TODO",
-    bgClass: "bg-blue-50 dark:bg-blue-500/15",
-    textClass: "text-blue-700 dark:text-blue-400 font-medium",
-    borderClass: "border-blue-200/90 dark:border-blue-500/30",
+    bgClass: "bg-notion-blue",
+    textClass: "text-notion-blue-fg font-normal",
+    borderClass: "border-transparent",
   },
   IN_PROGRESS: {
     label: "In Progress",
     icon: "IN_PROGRESS",
-    bgClass: "bg-amber-50 dark:bg-amber-500/15",
-    textClass: "text-amber-800 dark:text-amber-400 font-medium",
-    borderClass: "border-amber-200/90 dark:border-amber-500/30",
+    bgClass: "bg-notion-yellow",
+    textClass: "text-notion-yellow-fg font-normal",
+    borderClass: "border-transparent",
   },
   IN_REVIEW: {
     label: "In Review",
     icon: "IN_REVIEW",
-    bgClass: "bg-orange-50 dark:bg-orange-500/15",
-    textClass: "text-orange-800 dark:text-orange-400 font-medium",
-    borderClass: "border-orange-200/90 dark:border-orange-500/30",
+    bgClass: "bg-notion-orange",
+    textClass: "text-notion-orange-fg font-normal",
+    borderClass: "border-transparent",
   },
   QA: {
     label: "QA",
     icon: "QA",
-    bgClass: "bg-purple-50 dark:bg-purple-500/15",
-    textClass: "text-purple-700 dark:text-purple-400 font-medium",
-    borderClass: "border-purple-200/90 dark:border-purple-500/30",
+    bgClass: "bg-notion-purple",
+    textClass: "text-notion-purple-fg font-normal",
+    borderClass: "border-transparent",
   },
   BLOCKED: {
     label: "Blocked",
     icon: "BLOCKED",
-    bgClass: "bg-red-50 dark:bg-red-500/15",
-    textClass: "text-red-700 dark:text-red-400 font-bold",
-    borderClass: "border-red-200/90 dark:border-red-500/30",
+    bgClass: "bg-notion-red",
+    textClass: "text-notion-red-fg font-normal",
+    borderClass: "border-transparent",
   },
   DONE: {
     label: "Done",
     icon: "DONE",
-    bgClass: "bg-emerald-50 dark:bg-emerald-500/15",
-    textClass: "text-emerald-700 dark:text-emerald-400 font-medium",
-    borderClass: "border-emerald-200/90 dark:border-emerald-500/30",
+    bgClass: "bg-notion-green",
+    textClass: "text-notion-green-fg font-normal",
+    borderClass: "border-transparent",
   },
 };
 
@@ -195,7 +203,7 @@ export function TaskShortIdBadge({
   const shortId = formatTicketId(task ?? (typeof ticketNumber === "number" ? ticketNumber : taskId));
   return (
     <span
-      className={`font-mono text-[11px] font-semibold tracking-wider text-cyan-600 dark:text-cyan-400 bg-cyan-500/10 dark:bg-cyan-500/15 px-2 py-0.5 rounded border border-cyan-500/30 dark:border-cyan-500/35 whitespace-nowrap inline-flex items-center shrink-0 select-none shadow-2xs ${className ?? ""}`}
+      className={`font-mono text-[11px] font-medium tracking-wide text-notion-blue-fg bg-notion-blue px-1.5 py-0.5 rounded-[3px] border border-transparent whitespace-nowrap inline-flex items-center shrink-0 select-none ${className ?? ""}`}
     >
       {shortId}
     </span>
@@ -203,9 +211,21 @@ export function TaskShortIdBadge({
 }
 
 /**
- * 2. Task Status Badge (e.g. Backlog, In Progress, Done)
+ * 2. Task Status Badge — static display or inline-editable dropdown.
+ *
+ * Pass `onStatusChange` to make it interactive: clicking opens a menu with
+ * every status in STATUS_CONFIG. Active status is highlighted with a check.
  */
-export function TaskStatusBadge({ status, className }: { status: TaskStatus | string; className?: string }) {
+export function TaskStatusBadge({
+  status,
+  className,
+  onStatusChange,
+}: {
+  status: TaskStatus | string;
+  className?: string;
+  /** When provided the badge becomes a dropdown trigger to change status. */
+  onStatusChange?: (newStatus: string) => void;
+}) {
   const cfg = STATUS_CONFIG[status] ?? {
     label: status,
     icon: "clipboard",
@@ -214,45 +234,171 @@ export function TaskStatusBadge({ status, className }: { status: TaskStatus | st
     borderClass: "border-slate-200/90 dark:border-slate-700/80",
   };
 
-  return (
+  const badgeEl = (
     <Badge
       variant="outline"
-      className={`${cfg.bgClass} ${cfg.textClass} ${cfg.borderClass} ${className ?? ""}`}
+      className={`${
+        onStatusChange ? "cursor-pointer hover:opacity-80 transition-opacity" : ""
+      } ${cfg.bgClass} ${cfg.textClass} ${cfg.borderClass} ${className ?? ""}`}
     >
       <ColumnIcon iconKey={cfg.icon} className="w-3 h-3" />
       <span>{cfg.label}</span>
+      {onStatusChange && (
+        <svg
+          className="w-2.5 h-2.5 ml-0.5 opacity-50"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      )}
     </Badge>
+  );
+
+  if (!onStatusChange) return badgeEl;
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>{badgeEl}</DropdownMenuTrigger>
+      <DropdownMenuContent align="start" className="w-44 text-xs shadow-xl">
+        <DropdownMenuLabel className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">
+          Status
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        {Object.entries(STATUS_CONFIG).map(([key, statusCfg]) => (
+          <DropdownMenuItem
+            key={key}
+            onClick={() => onStatusChange(key)}
+            className={`cursor-pointer flex items-center gap-2 text-xs ${
+              key === status ? "font-semibold" : ""
+            }`}
+          >
+            <span className={`${statusCfg.bgClass} ${statusCfg.textClass} p-1 rounded-md shrink-0`}>
+              <ColumnIcon iconKey={statusCfg.icon} className="w-3 h-3" />
+            </span>
+            <span className="flex-1">{statusCfg.label}</span>
+            {key === status && (
+              <svg
+                className="w-3 h-3 text-primary shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            )}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
 /**
- * 3. Task Priority Badge (e.g. Low, Medium, High, Urgent)
+ * 3. Task Priority Badge — static display or inline-editable dropdown.
+ *
+ * Pass `onPriorityChange` to make it interactive: clicking opens a menu with
+ * every priority in PRIORITY_CONFIG. Active priority is highlighted with a check.
  */
-export function TaskPriorityBadge({ priority, className }: { priority: Priority; className?: string }) {
+export function TaskPriorityBadge({
+  priority,
+  className,
+  onPriorityChange,
+}: {
+  priority: Priority;
+  className?: string;
+  /** When provided the badge becomes a dropdown trigger to change priority. */
+  onPriorityChange?: (newPriority: Priority) => void;
+}) {
   const cfg = PRIORITY_CONFIG[priority] ?? PRIORITY_CONFIG.MEDIUM;
 
-  return (
+  const badgeEl = (
     <Badge
       variant="outline"
-      className={`${cfg.bgClass} ${cfg.textClass} ${cfg.borderClass} ${className ?? ""}`}
+      className={`${
+        onPriorityChange ? "cursor-pointer hover:opacity-80 transition-opacity" : ""
+      } ${cfg.bgClass} ${cfg.textClass} ${cfg.borderClass} ${className ?? ""}`}
     >
       {cfg.icon}
       <span>{cfg.label}</span>
+      {onPriorityChange && (
+        <svg
+          className="w-2.5 h-2.5 ml-0.5 opacity-50"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      )}
     </Badge>
+  );
+
+  if (!onPriorityChange) return badgeEl;
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>{badgeEl}</DropdownMenuTrigger>
+      <DropdownMenuContent align="start" className="w-40 text-xs shadow-xl">
+        <DropdownMenuLabel className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">
+          Priority
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        {(Object.entries(PRIORITY_CONFIG) as [Priority, typeof PRIORITY_CONFIG[Priority]][]).map(
+          ([key, priCfg]) => (
+            <DropdownMenuItem
+              key={key}
+              onClick={() => onPriorityChange(key)}
+              className={`cursor-pointer flex items-center gap-2 text-xs ${
+                key === priority ? "font-semibold" : ""
+              }`}
+            >
+              <span className={`${priCfg.bgClass} ${priCfg.textClass} p-1 rounded-md shrink-0`}>
+                {priCfg.icon}
+              </span>
+              <span className="flex-1">{priCfg.label}</span>
+              {key === priority && (
+                <svg
+                  className="w-3 h-3 text-primary shrink-0"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              )}
+            </DropdownMenuItem>
+          )
+        )}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
+
 /**
- * 4. Task Type Badge (e.g. Feature, Bug, Support, Custom)
+ * 4. Task Type Badge — static display or inline-editable dropdown.
+ *
+ * Pass `onTypeChange` to make it interactive: clicking the badge opens a menu
+ * listing every type in TYPE_CONFIG. The active type is highlighted with a
+ * check. Without `onTypeChange` it renders as a plain read-only badge.
  */
 export function TaskTypeBadge({
   type,
   className,
   compact = false,
+  onTypeChange,
 }: {
   type: string;
   className?: string;
   compact?: boolean;
+  /** When provided, the badge becomes a dropdown trigger to change the type. */
+  onTypeChange?: (newType: string) => void;
 }) {
   const cfg = TYPE_CONFIG[type] ?? {
     label: type,
@@ -262,23 +408,82 @@ export function TaskTypeBadge({
     borderClass: "border-purple-200/90 dark:border-purple-500/30",
   };
 
-  return (
+  const badgeEl = (
     <Badge
       variant="outline"
-      className={`${cfg.bgClass} ${cfg.textClass} ${cfg.borderClass} ${
+      className={`${
+        onTypeChange ? "cursor-pointer hover:opacity-80 transition-opacity" : ""
+      } ${cfg.bgClass} ${cfg.textClass} ${cfg.borderClass} ${
         compact ? "text-[10px] px-1.5 py-0 gap-1 font-medium" : ""
       } ${className ?? ""}`}
     >
       {cfg.icon}
       <span>{cfg.label}</span>
+      {onTypeChange && (
+        <svg
+          className="w-2.5 h-2.5 ml-0.5 opacity-50"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      )}
     </Badge>
   );
+
+  if (!onTypeChange) return badgeEl;
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>{badgeEl}</DropdownMenuTrigger>
+      <DropdownMenuContent align="start" className="w-44 text-xs shadow-xl">
+        <DropdownMenuLabel className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">
+          Task Type
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        {Object.entries(TYPE_CONFIG).map(([key, typeCfg]) => (
+          <DropdownMenuItem
+            key={key}
+            onClick={() => onTypeChange(key)}
+            className={`cursor-pointer flex items-center gap-2 text-xs ${
+              key === type ? "font-semibold" : ""
+            }`}
+          >
+            <span className={`${typeCfg.bgClass} ${typeCfg.textClass} p-1 rounded-md shrink-0`}>
+              {typeCfg.icon}
+            </span>
+            <span className="flex-1">{typeCfg.label}</span>
+            {key === type && (
+              <svg
+                className="w-3 h-3 text-primary shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            )}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+/** Returns today's date normalised to midnight — cached per unique calendar day. */
+function getTodayMidnight(): Date {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  return d;
 }
 
 /**
  * 5. Task Due Date Badge (Overdue / Due Today / Date String)
  */
-export function TaskDueDateBadge({
+export const TaskDueDateBadge = React.memo(function TaskDueDateBadge({
   dueDate,
   status,
   className,
@@ -293,8 +498,7 @@ export function TaskDueDateBadge({
 
   const isDone = status === "DONE" || status?.toUpperCase() === "DONE";
   const due = new Date(dueDate);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  const today = getTodayMidnight();
   const dueDay = new Date(due);
   dueDay.setHours(0, 0, 0, 0);
   const diffDays = Math.round((dueDay.getTime() - today.getTime()) / (1000 * 3600 * 24));
@@ -325,18 +529,18 @@ export function TaskDueDateBadge({
   }
 
   const badgeClass = isDone
-    ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400 border-emerald-200/90 dark:border-emerald-500/30"
+    ? "bg-notion-green text-notion-green-fg border-transparent"
     : isOverdue
-    ? "bg-red-50 text-red-700 dark:bg-red-500/15 dark:text-red-400 border-red-200/90 dark:border-red-500/30"
+    ? "bg-notion-red text-notion-red-fg border-transparent"
     : isDueToday
-    ? "bg-amber-50 text-amber-800 dark:bg-amber-500/15 dark:text-amber-400 border-amber-200/90 dark:border-amber-500/30"
-    : "bg-slate-100 text-slate-700 dark:bg-slate-500/15 dark:text-slate-300 border-slate-200/90 dark:border-slate-500/30";
+    ? "bg-notion-orange text-notion-orange-fg border-transparent"
+    : "bg-notion-gray text-notion-gray-fg border-transparent";
 
   return (
     <Badge
       variant="outline"
       className={`${badgeClass} ${
-        compact ? "text-[10px] px-1.5 py-0 gap-1 font-medium" : ""
+        compact ? "text-[10px] px-1.5 py-0 gap-1 font-normal" : "font-normal"
       } ${className ?? ""}`}
     >
       {isDone ? (
@@ -347,7 +551,7 @@ export function TaskDueDateBadge({
       <span className="truncate">{text}</span>
     </Badge>
   );
-}
+});
 
 /**
  * 6. Assigned Developer Badge
@@ -361,8 +565,8 @@ export function DeveloperBadge({ name, className }: { name: string; className?: 
     .slice(0, 2);
 
   return (
-    <Badge variant="outline" className={`bg-card text-foreground border-border/80 shadow-2xs ${className ?? ""}`}>
-      <span className="w-4 h-4 rounded-full bg-primary-light text-primary text-[9px] font-bold flex items-center justify-center shrink-0 border border-primary/20">
+    <Badge variant="outline" className={`bg-card text-foreground border-border/80 shadow-2xs font-normal ${className ?? ""}`}>
+      <span className="w-4 h-4 rounded-full bg-notion-purple text-notion-purple-fg text-[9px] font-medium flex items-center justify-center shrink-0">
         {initials}
       </span>
       <span>{name}</span>
