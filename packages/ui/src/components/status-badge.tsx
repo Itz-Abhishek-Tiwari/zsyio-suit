@@ -28,43 +28,43 @@ const VARIANT_STYLES: Record<
   { badge: string; dot: string }
 > = {
   emerald: {
-    badge: "bg-emerald-50 text-emerald-700 border-emerald-200/90 dark:bg-emerald-500/15 dark:text-emerald-400 dark:border-emerald-500/30",
-    dot: "bg-emerald-500",
+    badge: "bg-notion-green text-notion-green-fg border border-notion-green/30",
+    dot: "bg-notion-green-fg",
   },
   amber: {
-    badge: "bg-amber-50 text-amber-800 border-amber-200/90 dark:bg-amber-500/15 dark:text-amber-400 dark:border-amber-500/30",
-    dot: "bg-amber-500",
+    badge: "bg-notion-yellow text-notion-yellow-fg border border-notion-yellow/30",
+    dot: "bg-notion-yellow-fg",
   },
   rose: {
-    badge: "bg-rose-50 text-rose-700 border-rose-200/90 dark:bg-rose-500/15 dark:text-rose-400 dark:border-rose-500/30",
-    dot: "bg-rose-500",
+    badge: "bg-notion-red text-notion-red-fg border border-notion-red/30",
+    dot: "bg-notion-red-fg",
   },
   blue: {
-    badge: "bg-blue-50 text-blue-700 border-blue-200/90 dark:bg-blue-500/15 dark:text-blue-400 dark:border-blue-500/30",
-    dot: "bg-blue-500",
+    badge: "bg-notion-blue text-notion-blue-fg border border-notion-blue/30",
+    dot: "bg-notion-blue-fg",
   },
   purple: {
-    badge: "bg-purple-50 text-purple-700 border-purple-200/90 dark:bg-purple-500/15 dark:text-purple-400 dark:border-purple-500/30",
-    dot: "bg-purple-500",
+    badge: "bg-notion-purple text-notion-purple-fg border border-notion-purple/30",
+    dot: "bg-notion-purple-fg",
   },
   indigo: {
-    badge: "bg-indigo-50 text-indigo-700 border-indigo-200/90 dark:bg-indigo-500/15 dark:text-indigo-400 dark:border-indigo-500/30",
-    dot: "bg-indigo-500",
+    badge: "bg-notion-purple text-notion-purple-fg border border-notion-purple/30",
+    dot: "bg-notion-purple-fg",
   },
   slate: {
-    badge: "bg-slate-100 text-slate-700 border-slate-200/90 dark:bg-slate-500/15 dark:text-slate-300 dark:border-slate-500/30",
-    dot: "bg-slate-400",
+    badge: "bg-notion-gray text-notion-gray-fg border border-notion-gray/30",
+    dot: "bg-notion-gray-fg",
   },
   cyan: {
-    badge: "bg-sky-50 text-sky-700 border-sky-200/90 dark:bg-sky-500/15 dark:text-sky-400 dark:border-sky-500/30",
-    dot: "bg-sky-500",
+    badge: "bg-notion-blue text-notion-blue-fg border border-notion-blue/30",
+    dot: "bg-notion-blue-fg",
   },
 };
 
 const SIZE_STYLES = {
-  xs: "text-[10px] px-1.5 py-0.5 gap-1 font-semibold",
-  sm: "text-xs px-2 py-0.5 gap-1.5 font-medium",
-  md: "text-xs px-2.5 py-1 gap-1.5 font-semibold",
+  xs: "text-[10px] px-1.5 py-0.5 gap-1 font-medium rounded-[3px]",
+  sm: "text-xs px-2 py-0.5 gap-1.5 font-normal rounded-[3px]",
+  md: "text-xs px-2.5 py-1 gap-1.5 font-medium rounded-[4px]",
 };
 
 export function StatusBadge({

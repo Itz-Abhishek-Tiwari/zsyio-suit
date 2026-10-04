@@ -34,4 +34,27 @@
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
   --font-mono: var(--font-mono);
+
+  --color-notion-hover: var(--notion-hover);
+  --color-notion-active: var(--notion-active);
+  --color-notion-border: var(--notion-border);
+  --color-notion-border-strong: var(--notion-border-strong);
+  --color-notion-gray: var(--notion-gray);
+  --color-notion-gray-fg: var(--notion-gray-fg);
+  --color-notion-brown: var(--notion-brown);
+  --color-notion-brown-fg: var(--notion-brown-fg);
+  --color-notion-orange: var(--notion-orange);
+  --color-notion-orange-fg: var(--notion-orange-fg);
+  --color-notion-yellow: var(--notion-yellow);
+  --color-notion-yellow-fg: var(--notion-yellow-fg);
+  --color-notion-green: var(--notion-green);
+  --color-notion-green-fg: var(--notion-green-fg);
+  --color-notion-blue: var(--notion-blue);
+  --color-notion-blue-fg: var(--notion-blue-fg);
+  --color-notion-purple: var(--notion-purple);
+  --color-notion-purple-fg: var(--notion-purple-fg);
+  --color-notion-pink: var(--notion-pink);
+  --color-notion-pink-fg: var(--notion-pink-fg);
+  --color-notion-red: var(--notion-red);
+  --color-notion-red-fg: var(--notion-red-fg);
 }

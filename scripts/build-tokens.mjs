@@ -121,78 +121,128 @@ ${primitiveVars.join("\n")}
 
   --chart-grid:              rgba(55, 53, 47, 0.08);
   --chart-axis:              #787774;
+
+  /* ── Notion Palette & Tag Tokens (Light) ── */
+  --notion-hover:            rgba(55, 53, 47, 0.06);
+  --notion-active:           rgba(55, 53, 47, 0.09);
+  --notion-border:           rgba(55, 53, 47, 0.09);
+  --notion-border-strong:    rgba(55, 53, 47, 0.16);
+
+  --notion-gray:             #EBECED;
+  --notion-gray-fg:          #37352F;
+  --notion-brown:            #E9E5E3;
+  --notion-brown-fg:         #64473A;
+  --notion-orange:           #FAEBDD;
+  --notion-orange-fg:        #D9730D;
+  --notion-yellow:           #FBF3DB;
+  --notion-yellow-fg:        #DFAB01;
+  --notion-green:            #EDF3EC;
+  --notion-green-fg:         #0F7B6C;
+  --notion-blue:             #E7F3F8;
+  --notion-blue-fg:          #0B6E99;
+  --notion-purple:           #F4F0F7;
+  --notion-purple-fg:        #6940A5;
+  --notion-pink:             #FBF2F5;
+  --notion-pink-fg:          #AD1A72;
+  --notion-red:              #FDEBEC;
+  --notion-red-fg:           #E03E3E;
 }
 
 .dark,
 [data-theme="dark"] {
-  /* Dark theme overrides - Deep Obsidian & High-Contrast Slate System */
-  --background:              #0D0F12;
-  --foreground:              #F1F3F7;
-  --foreground-secondary:    #9DA4B2;
-  --foreground-tertiary:     #687082;
-  --foreground-disabled:     #454B58;
+  /* Dark theme overrides - Notion Dark Charcoal System */
+  --background:              #191919;
+  --foreground:              #E6E6E5;
+  --foreground-secondary:    #9B9B9B;
+  --foreground-tertiary:     #6F6F6F;
+  --foreground-disabled:     #4A4A4A;
 
-  --surface-elevated:        #1E222B;
-  --surface-card:            #15181E;
-  --surface-overlay:         rgba(13, 15, 18, 0.96);
-  --surface-subtle:          #111317;
+  --surface-elevated:        #252525;
+  --surface-card:            #202020;
+  --surface-overlay:         rgba(25, 25, 25, 0.96);
+  --surface-subtle:          #202020;
 
-  --border:                  rgba(255, 255, 255, 0.08);
-  --border-strong:           rgba(255, 255, 255, 0.15);
-  --border-focus:            #3B82F6;
+  --border:                  rgba(255, 255, 255, 0.094);
+  --border-strong:           rgba(255, 255, 255, 0.16);
+  --border-focus:            #529CCA;
 
-  --primary:                 #3B82F6;
-  --primary-hover:           #60A5FA;
-  --primary-light:           rgba(59, 130, 246, 0.15);
+  --primary:                 #2383E2;
+  --primary-hover:           #529CCA;
+  --primary-light:           rgba(35, 131, 226, 0.15);
   --primary-foreground:      #FFFFFF;
 
-  --destructive:             #F87171;
-  --destructive-hover:       #EF4444;
-  --destructive-light:       rgba(248, 113, 113, 0.15);
+  --destructive:             #EB5757;
+  --destructive-hover:       #FF6B6B;
+  --destructive-light:       rgba(235, 87, 87, 0.15);
   --destructive-foreground:  #FFFFFF;
 
-  --success:                 #34D399;
-  --success-light:           rgba(52, 211, 153, 0.15);
-  --warning:                 #FBBF24;
-  --warning-light:           rgba(251, 191, 36, 0.15);
+  --success:                 #529E72;
+  --success-light:           rgba(82, 158, 114, 0.15);
+  --warning:                 #CA9849;
+  --warning-light:           rgba(202, 152, 73, 0.15);
 
-  --muted:                   #181B22;
-  --muted-foreground:        #9DA4B2;
+  --muted:                   #252525;
+  --muted-foreground:        #9B9B9B;
 
-  --accent:                  rgba(59, 130, 246, 0.15);
-  --accent-foreground:       #60A5FA;
+  --accent:                  rgba(35, 131, 226, 0.15);
+  --accent-foreground:       #529CCA;
 
-  --secondary:               #15181E;
-  --secondary-foreground:    #F1F3F7;
+  --secondary:               #202020;
+  --secondary-foreground:    #E6E6E5;
 
-  --card:                    #15181E;
-  --card-foreground:         #F1F3F7;
+  --card:                    #202020;
+  --card-foreground:         #E6E6E5;
 
-  --popover:                 #1E222B;
-  --popover-foreground:      #F1F3F7;
+  --popover:                 #252525;
+  --popover-foreground:      #E6E6E5;
 
-  --input:                   #111317;
+  --input:                   #202020;
   --input-border:            rgba(255, 255, 255, 0.12);
-  --ring:                    #3B82F6;
+  --ring:                    #529CCA;
 
   --shadow-sm:               0 1px 2px rgba(0, 0, 0, 0.5);
   --shadow-md:               0 4px 16px -2px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.06);
 
-  --color-status-todo:       #9DA4B2;
-  --color-status-in-progress: #3B82F6;
-  --color-status-in-review:  #A78BFA;
-  --color-status-qa:         #FBBF24;
-  --color-status-blocked:    #F87171;
-  --color-status-done:       #34D399;
-  --color-status-backlog:    #687082;
+  --color-status-todo:       #9B9B9B;
+  --color-status-in-progress: #529CCA;
+  --color-status-in-review:  #9065B0;
+  --color-status-qa:         #CA9849;
+  --color-status-blocked:    #EB5757;
+  --color-status-done:       #529E72;
+  --color-status-backlog:    #6F6F6F;
 
-  --color-priority-critical: #F87171;
-  --color-priority-high:     #FB923C;
-  --color-priority-medium:   #3B82F6;
-  --color-priority-low:      #687082;
+  --color-priority-critical: #EB5757;
+  --color-priority-high:     #CC782F;
+  --color-priority-medium:   #529CCA;
+  --color-priority-low:      #6F6F6F;
 
   --chart-grid:              rgba(255, 255, 255, 0.06);
-  --chart-axis:              #9DA4B2;
+  --chart-axis:              #9B9B9B;
+
+  /* ── Notion Palette & Tag Tokens (Dark) ── */
+  --notion-hover:            rgba(255, 255, 255, 0.055);
+  --notion-active:           rgba(255, 255, 255, 0.08);
+  --notion-border:           rgba(255, 255, 255, 0.094);
+  --notion-border-strong:    rgba(255, 255, 255, 0.16);
+
+  --notion-gray:             #2F3136;
+  --notion-gray-fg:          #E6E6E5;
+  --notion-brown:            #3B2D26;
+  --notion-brown-fg:         #D8B4A6;
+  --notion-orange:           #482F1D;
+  --notion-orange-fg:        #FFAB76;
+  --notion-yellow:           #453B1F;
+  --notion-yellow-fg:        #F3D372;
+  --notion-green:            #243D35;
+  --notion-green-fg:         #78D3BE;
+  --notion-blue:             #203D4D;
+  --notion-blue-fg:          #71BCE2;
+  --notion-purple:           #3B2D4A;
+  --notion-purple-fg:        #BAA0E5;
+  --notion-pink:             #482837;
+  --notion-pink-fg:          #F188BE;
+  --notion-red:              #452424;
+  --notion-red-fg:           #FF7A7A;
 }
 `;
 }

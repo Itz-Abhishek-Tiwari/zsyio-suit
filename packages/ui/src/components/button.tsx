@@ -6,8 +6,8 @@ import { cn } from "../lib/utils"
 const buttonVariants = cva(
   [
     "inline-flex items-center justify-center gap-2 whitespace-nowrap",
-    "font-semibold text-xs leading-none rounded-md",
-    "transition-all duration-150 ease-out",
+    "font-medium text-xs leading-none rounded-[4px]",
+    "transition-all duration-120 ease-out",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30",
     "disabled:pointer-events-none disabled:opacity-50",
     "active:scale-[0.98]",
@@ -18,24 +18,24 @@ const buttonVariants = cva(
       variant: {
         default: [
           "bg-primary text-primary-foreground",
-          "hover:bg-primary-hover shadow-xs",
+          "hover:bg-primary-hover shadow-2xs",
         ].join(" "),
         secondary: [
-          "bg-primary-light text-primary border border-primary/20",
-          "hover:bg-primary/15 hover:border-primary/30 dark:bg-primary/20",
+          "bg-surface-subtle text-foreground border border-border/80",
+          "hover:bg-notion-hover hover:border-border-strong",
         ].join(" "),
         destructive: [
           "bg-destructive text-destructive-foreground",
-          "hover:bg-destructive-hover shadow-xs",
+          "hover:bg-destructive-hover shadow-2xs",
         ].join(" "),
         outline: [
-          "border border-border bg-surface-elevated text-foreground",
-          "hover:bg-surface-subtle hover:border-border-strong",
-          "shadow-xs",
+          "border border-border/80 bg-background text-foreground",
+          "hover:bg-notion-hover hover:border-border-strong",
+          "shadow-2xs",
         ].join(" "),
         ghost: [
-          "text-muted-foreground",
-          "hover:bg-surface-subtle hover:text-foreground",
+          "text-foreground/80",
+          "hover:bg-notion-hover hover:text-foreground",
         ].join(" "),
         link: "text-primary underline-offset-4 hover:underline rounded-none",
       },
