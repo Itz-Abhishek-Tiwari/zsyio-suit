@@ -34,6 +34,8 @@ import {
   LogAction,
   LeaveType,
   LeaveStatus,
+  RegularizationType,
+  RegularizationStatus,
   SessionStatus,
   ApprovalStatus,
   SalesStage,
@@ -172,8 +174,8 @@ export async function seedZsyio() {
     { name: "Support Desk", email: "support@zsyio.com", role: Role.SUPPORT, customRoleName: "SUPPORT", jobTitle: "Head of Customer Reliability", department: "Customer Success", bio: "Manages SLA monitoring and P1 incident escalation for all enterprise clients.", phone: "+1 (800) 555-0100", timeZone: "America/Chicago" },
     { name: "Fatima Al-Rashid", email: "fatima.alrashid@zsyio.com", role: Role.SUPPORT, customRoleName: "SUPPORT", jobTitle: "Customer Reliability Engineer", department: "Customer Success", bio: "Tier-2 support specialist. Expert in integrations and webhook debugging.", phone: "+971 55 123 4567", timeZone: "Asia/Dubai" },
     { name: "Rachel Green", email: "rachel.green@zsyio.com", role: Role.DEVELOPER, customRoleName: "SALES_REP", jobTitle: "Enterprise Account Executive", department: "Commercial", bio: "Closes complex enterprise deals. 7-figure pipeline management.", phone: "+1 (212) 555-0188", timeZone: "America/New_York" },
-    { name: "Sarah Chen (Admin)", email: "admin@mediloon.de", role: Role.ADMIN, customRoleName: "ADMIN", jobTitle: "Workspace Administrator", department: "Engineering", bio: "Legacy alias account.", timeZone: "Europe/Berlin" },
-    { name: "Alex Vance (Superadmin)", email: "superadmin@mediloon.de", role: Role.ADMIN, customRoleName: "SUPER_ADMIN", jobTitle: "Super Administrator", department: "Executive", bio: "Legacy alias account.", timeZone: "America/New_York" },
+    { name: "Sarah Chen (Admin)", email: "admin@zsyio.de", role: Role.ADMIN, customRoleName: "ADMIN", jobTitle: "Workspace Administrator", department: "Engineering", bio: "Legacy alias account.", timeZone: "Europe/Berlin" },
+    { name: "Alex Vance (Superadmin)", email: "superadmin@zsyio.de", role: Role.ADMIN, customRoleName: "SUPER_ADMIN", jobTitle: "Super Administrator", department: "Executive", bio: "Legacy alias account.", timeZone: "America/New_York" },
   ];
 
   const userMap = new Map<string, any>();
@@ -209,6 +211,7 @@ export async function seedZsyio() {
   const support = userMap.get("support@zsyio.com");
   const fatima = userMap.get("fatima.alrashid@zsyio.com");
   const rachel = userMap.get("rachel.green@zsyio.com");
+  const superadmin = userMap.get("superadmin@zsyio.de");
 
   // ── 5. Teams (6) ────────────────────────────────────────────────────────────
   console.log("🏢 5. Creating 6 teams...");

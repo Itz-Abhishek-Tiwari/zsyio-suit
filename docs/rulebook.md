@@ -1,14 +1,14 @@
-# 📘 Mediloon PMS — Official Rule Book & System Architecture
+# 📘 Zsyio PMS — Official Rule Book & System Architecture
 
 **Version:** 2.0  
-**Application:** Mediloon Internal Product Management System (PMS)  
+**Application:** Zsyio Internal Product Management System (PMS)  
 **Target Audience:** Engineering, Product Managers, Administrators, and AI Agents.
 
 ---
 
 ## 1. Product Scope & Tenets
 
-1. **Internal-Only Workspace**: Mediloon PMS is strictly for internal staff (`SUPER_ADMIN`, `ADMIN`, `MANAGER`, `DEVELOPER`, `SUPPORT`, and custom team roles). There is **no public registration**, no client login portal, and no external access.
+1. **Internal-Only Workspace**: Zsyio PMS is strictly for internal staff (`SUPER_ADMIN`, `ADMIN`, `MANAGER`, `DEVELOPER`, `SUPPORT`, and custom team roles). There is **no public registration**, no client login portal, and no external access.
 2. **Account Provisioning**: Users are provisioned exclusively through Administrator invitations.
 3. **Core Hierarchy**:
    ```

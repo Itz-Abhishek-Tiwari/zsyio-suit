@@ -10,7 +10,7 @@ export interface TokenPrimitives {
 }
 
 export interface BrandingPlugin {
-  id: string; // "mediloon-default"
+  id: string; // "zsyio-default"
   displayName: string; // shown in <title>, email footers
   primitives: TokenPrimitives; // same shape as tokens/primitives.json
   logo: { light: string; dark: string; favicon: string };

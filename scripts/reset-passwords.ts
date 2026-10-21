@@ -7,7 +7,7 @@ export async function resetAllPasswords() {
   const hash = await bcrypt.hash("password", 10);
 
   // Ensure Support user exists if not already present
-  const supportEmail = "support@mediloon.de";
+  const supportEmail = "support@zsyio.de";
   const supportRole = await prisma.customRole.findFirst({
     where: { name: "SUPPORT" },
   });

@@ -1,11 +1,11 @@
-# Mediloon — Internal Product Management Platform
+# Zsyio — Internal Product Management Platform
 ## Build Spec v2 (Architect Consolidation)
 
 **Audience:** This document is written to be handed directly to an AI coding agent (Claude Code, etc.) as the single source of truth. Where it conflicts with anything pasted earlier in the same session, **this file wins.**
 
 **Status of inputs this doc reconciles:**
 1. `product-management-platform.md` — original spec (aspirational, not fully built)
-2. Mediloon CMS feature doc — what's actually running today ("as-built")
+2. Zsyio CMS feature doc — what's actually running today ("as-built")
 3. Figma file (`m8B4jZbK039EV7eUH5HpA6`, node `8150-12795`) — **visual design-system reference only.** It is not a page-by-page spec, not a component-count target, and not a data-model source. Use it for palette, type scale, spacing rhythm, corner radii, and elevation conventions — nothing else. (Note: I don't have edit access to that file, so I couldn't pull its variables programmatically. Section 6 gives whoever *does* have edit access — likely you, in Figma's Dev Mode / variables panel — a 15-minute checklist to populate the token file for real. Until then, the placeholder tokens below are reasonable internal-tool defaults, not final brand values.)
 
 ---
@@ -426,7 +426,7 @@ The token pipeline in §6.1–6.4 makes *values* swappable. This section makes t
 
 ```ts
 export interface BrandingPlugin {
-  id: string;                 // "mediloon-default"
+  id: string;                 // "zsyio-default"
   displayName: string;        // shown in <title>, email footers
   primitives: TokenPrimitives; // same shape as tokens/primitives.json §6.2
   logo: { light: string; dark: string; favicon: string };
@@ -437,17 +437,17 @@ export interface BrandingPlugin {
 **Registry** (`plugins/branding/registry.ts`) — a plain object map, no dynamic filesystem magic:
 
 ```ts
-import mediloonDefault from "./mediloon-default";
+import zsyioDefault from "./zsyio-default";
 // import a future brand the same way: import acmeBrand from "./acme";
 
 export const brandingRegistry: Record<string, BrandingPlugin> = {
-  "mediloon-default": mediloonDefault,
+  "zsyio-default": zsyioDefault,
   // "acme": acmeBrand,
 };
 
 export function getActiveBranding(): BrandingPlugin {
-  const id = process.env.ACTIVE_BRAND ?? "mediloon-default";
-  return brandingRegistry[id] ?? brandingRegistry["mediloon-default"];
+  const id = process.env.ACTIVE_BRAND ?? "zsyio-default";
+  return brandingRegistry[id] ?? brandingRegistry["zsyio-default"];
 }
 ```
 
@@ -483,7 +483,7 @@ export interface StorageProvider { getUploadUrl(fileName: string, size: number):
 Full tree, nothing collapsed — every path below is a real file or folder the build should produce, not a shorthand. Rationale and placement rules follow in §8.2.
 
 ```
-mediloon/
+zsyio/
 ├── .github/
 │   └── workflows/
 │       ├── ci.yml                          # lint → typecheck → unit → integration → build
@@ -491,7 +491,7 @@ mediloon/
 ├── .husky/
 │   └── pre-commit                          # lint-staged: eslint + prettier on staged files
 ├── docs/
-│   ├── mediloon-build-spec-v2.md           # this file — kept in-repo, not just in chat
+│   ├── zsyio-build-spec-v2.md           # this file — kept in-repo, not just in chat
 │   ├── adr/                                # Architecture Decision Records, one file per real decision
 │   │   ├── 0001-soft-delete-tasks.md
 │   │   ├── 0002-plugin-pattern-for-branding-and-providers.md
@@ -509,7 +509,7 @@ mediloon/
 │   └── branding/
 │       ├── types.ts                        # §6.7 — BrandingPlugin contract
 │       ├── registry.ts                     # ACTIVE_BRAND → implementation lookup
-│       └── mediloon-default/
+│       └── zsyio-default/
 │           ├── index.ts                    # implements BrandingPlugin
 │           ├── primitives.json             # this brand's copy of §6.2's shape
 │           ├── logo-light.svg
@@ -860,7 +860,7 @@ This section is what keeps §6.7 (branding/provider plugins) and §14 (Redux/RTK
 
 - **Interface stability over convenience.** `BrandingPlugin`, `EmailProvider`, `StorageProvider` (§6.7) are contracts. Adding a field to one is a breaking change to every implementation — treat it like a public API, bump a comment-noted version, update every file under `plugins/` and `lib/providers/` in the same PR, never partially.
 - **One plugin, one folder, one README.** Every `plugins/branding/<name>/` folder gets its own `README.md` stating what it overrides and why it exists — a rebrand six months from now shouldn't require reverse-engineering which brand is "the real one" from git history.
-- **No cross-imports between plugin implementations.** `plugins/branding/acme/` must never import from `plugins/branding/mediloon-default/`. If two brands need to share something, that shared thing belongs in `types.ts` or a `shared/` helper, not in one plugin depending on another.
+- **No cross-imports between plugin implementations.** `plugins/branding/acme/` must never import from `plugins/branding/zsyio-default/`. If two brands need to share something, that shared thing belongs in `types.ts` or a `shared/` helper, not in one plugin depending on another.
 - **RTK Query tags are the contract between the API layer and every screen.** When adding a new mutation, ask "what should re-fetch after this succeeds" and encode it in `invalidatesTags` — don't add a manual `refetch()` call in a component as a workaround; that's a sign a tag is missing.
 - **Dependency & migration hygiene:** `prisma migrate diff` reviewed in every PR that touches `schema.prisma`; a quarterly pass to update Next.js/Prisma/RTK Query minor versions rather than letting them drift years behind; CI blocks merge on `tsc --noEmit` and the ESLint hex-literal rule from §6.6, not just on tests passing.
 - **New engineers' first PR should be a plugin, not a core-file edit.** If onboarding requires touching `server/services/` or `store/api/` to make a routine change (new brand, new email provider), that's a sign the plugin boundary in §6.7 isn't actually being respected — treat it as a bug in the architecture, not in the new engineer.

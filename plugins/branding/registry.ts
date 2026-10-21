@@ -1,10 +1,8 @@
 import zsyioDefault from "./zsyio-default";
-import mediloonDefault from "./mediloon-default";
 import type { BrandingPlugin } from "./types";
 
 export const brandingRegistry: Record<string, BrandingPlugin> = {
   "zsyio-default": zsyioDefault,
-  "mediloon-default": mediloonDefault,
 };
 
 export function getActiveBranding(): BrandingPlugin {

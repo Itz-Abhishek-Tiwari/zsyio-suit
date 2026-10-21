@@ -1,28 +1,9 @@
-<svg width="180" height="36" viewBox="0 0 180 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="logo-dark-bg" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#6366F1"/>
-      <stop offset="1" stop-color="#4338CA"/>
-    </linearGradient>
-  </defs>
-  <!-- Zsyio Luminous Indigo Icon Mark -->
+<svg width="215" height="36" viewBox="0 0 215 36" fill="none" xmlns="http://www.w3.org/2000/svg">
   <g transform="translate(2, 2)">
-    <rect width="32" height="32" rx="9" fill="url(#logo-dark-bg)"/>
-    <rect x="0.5" y="0.5" width="31" height="31" rx="8.5" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1"/>
-    <!-- Top Horizontal Bar -->
-    <path d="M6.8 5C6.08 5 5.5 5.58 5.5 6.3V9.2C5.5 9.92 6.08 10.5 6.8 10.5H19.5L24.5 5H6.8Z" fill="#FFFFFF"/>
-    <!-- Diagonal Spine - Upper Light Facet -->
-    <path d="M20 5H23.5L8.5 27H6.8C6.08 27 5.5 26.42 5.5 25.7V24L20 5Z" fill="#FFFFFF" fill-opacity="0.96"/>
-    <!-- Diagonal Spine - Lower Shadow Bevel Facet -->
-    <path d="M23.5 5H25.2C25.92 5 26.5 5.58 26.5 6.3V8L12 27H8.5L23.5 5Z" fill="#FFFFFF" fill-opacity="0.72"/>
-    <!-- Bottom Horizontal Bar -->
-    <path d="M25.2 27C25.92 27 26.5 26.42 26.5 25.7V22.8C26.5 22.08 25.92 21.5 25.2 21.5H12.5L7.5 27H25.2Z" fill="#FFFFFF"/>
-    <!-- Optical Bevel Crease Line -->
-    <line x1="23.5" y1="5" x2="8.5" y2="27" stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="0.75" stroke-linecap="round"/>
+    <rect width="32" height="32" rx="9" fill="#6366F1"/>
+    <path d="M6 5.5C6 4.67157 6.67157 4 7.5 4H24.5C25.3284 4 26 4.67157 26 5.5V9C26 9.57863 25.6669 10.1042 25.1481 10.3543L13.7226 15.8613L25.2631 21.6316C25.7171 21.8586 26 22.3229 26 22.8293V26.5C26 27.3284 25.3284 28 24.5 28H7.5C6.67157 28 6 27.3284 6 26.5V23C6 22.4214 6.3331 21.8958 6.8519 21.6457L18.2774 16.1387L6.7369 10.3684C6.2829 10.1414 6 9.6771 6 9.1707V5.5Z" fill="#FFFFFF"/>
   </g>
-  <!-- Brand Wordmark -->
-  <text x="44" y="24" font-family="'Inter', -apple-system, sans-serif" font-size="18" font-weight="900" letter-spacing="1.5" fill="#F8FAFC">ZSYIO</text>
-  <!-- ONE Badge -->
-  <rect x="114" y="10" width="38" height="17" rx="5" fill="rgba(99, 102, 241, 0.18)" stroke="#6366F1" stroke-width="1"/>
-  <text x="122" y="22.5" font-family="'Inter', -apple-system, sans-serif" font-size="10" font-weight="800" letter-spacing="1" fill="#818CF8">ONE</text>
+  <text x="44" y="24" font-family="'Inter', -apple-system, sans-serif" font-size="18" font-weight="900" letter-spacing="1.2" fill="#F8FAFC">ZSYIO</text>
+  <rect x="160" y="10" width="38" height="17" rx="5" fill="rgba(99, 102, 241, 0.18)" stroke="#6366F1" stroke-width="1"/>
+  <text x="168" y="22.5" font-family="'Inter', -apple-system, sans-serif" font-size="10" font-weight="800" letter-spacing="1" fill="#818CF8">ONE</text>
 </svg>

@@ -1,15 +1,15 @@
-# 🎨 Mediloon / Zsyio Design System Specification
+# 🎨 Zsyio / Zsyio Design System Specification
 
 **Version:** 2.1  
 **Design Language:** Sapphire & Charcoal (Stripe-inspired High-Trust Architecture)  
-**Target Systems:** Mediloon PMS, Notes, HRMS, Sales, Admin, and `@zsyio/ui` Monorepo Packages.  
+**Target Systems:** Zsyio PMS, Notes, HRMS, Sales, Admin, and `@zsyio/ui` Monorepo Packages.  
 **Audience:** Frontend Engineers, Designers, Product Managers, and AI Agents.
 
 ---
 
 ## 1. Design Philosophy & Tenets
 
-Mediloon Suite is designed as a **high-density, precision productivity system** inspired by the refined engineering aesthetics of Stripe, Linear, and Vercel. 
+Zsyio Suite is designed as a **high-density, precision productivity system** inspired by the refined engineering aesthetics of Stripe, Linear, and Vercel. 
 
 ### Core Tenets:
 1. **Precision Geometry over Bubbly Consumer Forms**:
@@ -246,7 +246,7 @@ import { Badge, StatusBadge } from "@zsyio/ui";
 
 ## 8. Multi-Brand Token Compilation
 
-Mediloon Suite supports white-label and multi-brand token theming:
+Zsyio Suite supports white-label and multi-brand token theming:
 
 ```
 tokens/

@@ -129,7 +129,7 @@ export async function seedSales() {
   const defaultPasswordHash = await bcrypt.hash("password", 10);
 
   const salesRepUser = await prisma.user.upsert({
-    where: { email: "lucas.vance@mediloon.de" },
+    where: { email: "lucas.vance@zsyio.de" },
     update: {
       name: "Lucas Vance",
       role: "DEVELOPER",
@@ -141,7 +141,7 @@ export async function seedSales() {
     },
     create: {
       name: "Lucas Vance",
-      email: "lucas.vance@mediloon.de",
+      email: "lucas.vance@zsyio.de",
       role: "DEVELOPER",
       customRoleId: salesRepRole.id,
       passwordHash: defaultPasswordHash,
@@ -152,7 +152,7 @@ export async function seedSales() {
   });
 
   const salesManagerUser = await prisma.user.upsert({
-    where: { email: "elena.rostova@mediloon.de" },
+    where: { email: "elena.rostova@zsyio.de" },
     update: {
       name: "Elena Rostova",
       role: "MANAGER",
@@ -164,7 +164,7 @@ export async function seedSales() {
     },
     create: {
       name: "Elena Rostova",
-      email: "elena.rostova@mediloon.de",
+      email: "elena.rostova@zsyio.de",
       role: "MANAGER",
       customRoleId: salesManagerRole.id,
       passwordHash: defaultPasswordHash,

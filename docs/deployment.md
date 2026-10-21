@@ -1,4 +1,4 @@
-# 🚀 Mediloon Suite — Vercel Monorepo Production Deployment Guide
+# 🚀 Zsyio Suite — Vercel Monorepo Production Deployment Guide
 
 > **Monorepo Stack**: Next.js 15 (Turborepo + pnpm) · Prisma ORM · PostgreSQL (Supabase) · NextAuth v5 · Tailwind CSS v4 · Vercel
 
@@ -11,8 +11,8 @@
 3. [Prerequisites](#3-prerequisites)
 4. [Database Setup (Supabase / PostgreSQL)](#4-database-setup-supabase--postgresql)
 5. [Step-by-Step Vercel Deployment](#5-step-by-step-vercel-deployment)
-   - [Deploying `@zsyio/pms` (Project Management)](#51-deploying-mediloonpms-apps-pms)
-   - [Deploying `@zsyio/notes` (Collaborative Notes)](#52-deploying-mediloonnotes-apps-notes)
+   - [Deploying `@zsyio/pms` (Project Management)](#51-deploying-zsyiopms-apps-pms)
+   - [Deploying `@zsyio/notes` (Collaborative Notes)](#52-deploying-zsyionotes-apps-notes)
 6. [Complete Environment Variables Reference](#6-complete-environment-variables-reference)
 7. [Vercel Cron Jobs Configuration](#7-vercel-cron-jobs-configuration)
 8. [Vercel Remote Caching & Turbo-Ignore (Build Optimization)](#8-vercel-remote-caching--turbo-ignore-build-optimization)
@@ -25,20 +25,20 @@
 
 ## 1. Architecture & Deployment Strategy
 
-The **Mediloon Suite** is organized as a Turborepo monorepo powered by **pnpm workspaces**. It contains two Next.js 15 applications that share internal packages (`@zsyio/database`, `@zsyio/auth`, `@zsyio/ui`, `@zsyio/validators`, `@zsyio/editor`, `@zsyio/types`):
+The **Zsyio Suite** is organized as a Turborepo monorepo powered by **pnpm workspaces**. It contains two Next.js 15 applications that share internal packages (`@zsyio/database`, `@zsyio/auth`, `@zsyio/ui`, `@zsyio/validators`, `@zsyio/editor`, `@zsyio/types`):
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                              GitHub Repository                              │
-│                         (Mediloon PMS Monorepo)                             │
+│                         (Zsyio PMS Monorepo)                             │
 └──────────────────────┬───────────────────────────────┬──────────────────────┘
                        │                               │
                        ▼                               ▼
        ┌───────────────────────────────┐ ┌───────────────────────────────┐
        │     Vercel Project 1          │ │     Vercel Project 2          │
-       │     `mediloon-pms`            │ │     `mediloon-notes`          │
+       │     `zsyio-pms`            │ │     `zsyio-notes`          │
        │     Root: `apps/pms`          │ │     Root: `apps/notes`        │
-       │     Domain: pms.mediloon.de   │ │     Domain: notes.mediloon.de │
+       │     Domain: pms.zsyio.de   │ │     Domain: notes.zsyio.de │
        └───────────────┬───────────────┘ └───────────────┬───────────────┘
                        │                                 │
                        │   DATABASE_URL (Port 6543)      │
@@ -55,7 +55,7 @@ The **Mediloon Suite** is organized as a Turborepo monorepo powered by **pnpm wo
 On Vercel, monorepo apps are deployed as **separate Vercel Projects connected to the same Git repository**. Each project has its own:
 - **Root Directory** pointing to its workspace (`apps/pms` or `apps/notes`).
 - **Environment Variables** (scoped to that specific application and shared keys).
-- **Custom Domain** (e.g. `pms.mediloon.de` and `notes.mediloon.de`).
+- **Custom Domain** (e.g. `pms.zsyio.de` and `notes.zsyio.de`).
 - **Build Caching** powered by Turborepo & Vercel Remote Cache.
 
 ---
@@ -71,14 +71,14 @@ A common question in monorepos is: **"Do I need to deploy the packages separatel
 
 | Package | Workspace Name | Purpose | How It Is Consumed in Production |
 |---|---|---|---|
-| [`packages/database`](file:///Users/tw/workspace/Active/Mediloon/PMS-Mediloom/packages/database) | `@zsyio/database` | Prisma ORM multi-schema definitions, migrations, and database singleton client. | Generated during `postinstall` (`turbo run db:generate`), compiled into server runtime. |
-| [`packages/auth`](file:///Users/tw/workspace/Active/Mediloon/PMS-Mediloom/packages/auth) | `@zsyio/auth` | NextAuth v5 configuration, JWT session callbacks, RBAC permissions (`assertCan`). | Bundled directly into Next.js server components and API routes. |
-| [`packages/ui`](file:///Users/tw/workspace/Active/Mediloon/PMS-Mediloom/packages/ui) | `@zsyio/ui` | Shared Radix UI components, modals, dialogs, design token styles. | Transpiled and bundled directly into client & server bundles. |
-| [`packages/validators`](file:///Users/tw/workspace/Active/Mediloon/PMS-Mediloom/packages/validators) | `@zsyio/validators` | Zod validation schemas for forms and API request payloads. | Bundled into client forms and API route validators. |
-| [`packages/editor`](file:///Users/tw/workspace/Active/Mediloon/PMS-Mediloom/packages/editor) | `@zsyio/editor` | Shared Tiptap WYSIWYG rich text editor for notes and task descriptions. | Transpiled directly into React UI bundles. |
-| [`packages/types`](file:///Users/tw/workspace/Active/Mediloon/PMS-Mediloom/packages/types) | `@zsyio/types` | Shared TypeScript interfaces and domain models. | Stripped during TypeScript compilation (zero runtime overhead). |
-| [`packages/config-eslint`](file:///Users/tw/workspace/Active/Mediloon/PMS-Mediloom/packages/config-eslint) | `@zsyio/config-eslint` | Shared ESLint rules and configs. | Used during CI/CD linting checks. |
-| [`packages/config-typescript`](file:///Users/tw/workspace/Active/Mediloon/PMS-Mediloom/packages/config-typescript) | `@zsyio/config-typescript` | Base `tsconfig.json` compiler presets. | Used during TypeScript type checking. |
+| [`packages/database`](file:///Users/tw/workspace/Active/Zsyio/PMS-Mediloom/packages/database) | `@zsyio/database` | Prisma ORM multi-schema definitions, migrations, and database singleton client. | Generated during `postinstall` (`turbo run db:generate`), compiled into server runtime. |
+| [`packages/auth`](file:///Users/tw/workspace/Active/Zsyio/PMS-Mediloom/packages/auth) | `@zsyio/auth` | NextAuth v5 configuration, JWT session callbacks, RBAC permissions (`assertCan`). | Bundled directly into Next.js server components and API routes. |
+| [`packages/ui`](file:///Users/tw/workspace/Active/Zsyio/PMS-Mediloom/packages/ui) | `@zsyio/ui` | Shared Radix UI components, modals, dialogs, design token styles. | Transpiled and bundled directly into client & server bundles. |
+| [`packages/validators`](file:///Users/tw/workspace/Active/Zsyio/PMS-Mediloom/packages/validators) | `@zsyio/validators` | Zod validation schemas for forms and API request payloads. | Bundled into client forms and API route validators. |
+| [`packages/editor`](file:///Users/tw/workspace/Active/Zsyio/PMS-Mediloom/packages/editor) | `@zsyio/editor` | Shared Tiptap WYSIWYG rich text editor for notes and task descriptions. | Transpiled directly into React UI bundles. |
+| [`packages/types`](file:///Users/tw/workspace/Active/Zsyio/PMS-Mediloom/packages/types) | `@zsyio/types` | Shared TypeScript interfaces and domain models. | Stripped during TypeScript compilation (zero runtime overhead). |
+| [`packages/config-eslint`](file:///Users/tw/workspace/Active/Zsyio/PMS-Mediloom/packages/config-eslint) | `@zsyio/config-eslint` | Shared ESLint rules and configs. | Used during CI/CD linting checks. |
+| [`packages/config-typescript`](file:///Users/tw/workspace/Active/Zsyio/PMS-Mediloom/packages/config-typescript) | `@zsyio/config-typescript` | Base `tsconfig.json` compiler presets. | Used during TypeScript type checking. |
 
 ### 2.2 How Vercel Resolves & Bundles Packages Step-by-Step
 
@@ -137,13 +137,13 @@ Before starting your deployment, ensure you have:
 
 ## 4. Database Setup (Supabase / PostgreSQL)
 
-Mediloon PMS uses Prisma ORM with multi-file schema support located in [`packages/database/prisma/schema/`](file:///Users/tw/workspace/Active/Mediloon/PMS-Mediloom/packages/database/prisma/schema/).
+Zsyio PMS uses Prisma ORM with multi-file schema support located in [`packages/database/prisma/schema/`](file:///Users/tw/workspace/Active/Zsyio/PMS-Mediloom/packages/database/prisma/schema/).
 
 ### 4.1 Create a Supabase Project
 
 1. Log into [supabase.com](https://supabase.com) and click **New Project**.
 2. Set:
-   - **Name**: `mediloon-production`
+   - **Name**: `zsyio-production`
    - **Database Password**: Generate a secure password and save it in a password manager.
    - **Region**: Choose the region closest to your users (e.g., `Central EU (Frankfurt)` for Europe or `ap-south-1` for India).
 3. Wait for provisioning (~2 minutes).
@@ -193,7 +193,7 @@ pnpm run db:seed
 1. Go to [vercel.com/new](https://vercel.com/new).
 2. Select your Git repository and click **Import**.
 3. Configure the project settings:
-   - **Project Name**: `mediloon-pms`
+   - **Project Name**: `zsyio-pms`
    - **Framework Preset**: `Next.js`
    - **Root Directory**: Click **Edit** and select `apps/pms`.
    - **Package Manager**: `pnpm` (Vercel auto-detects `pnpm-lock.yaml` at root).
@@ -213,7 +213,7 @@ pnpm run db:seed
 1. Go to [vercel.com/new](https://vercel.com/new) again.
 2. Select the **same** Git repository and click **Import**.
 3. Configure the project settings:
-   - **Project Name**: `mediloon-notes`
+   - **Project Name**: `zsyio-notes`
    - **Framework Preset**: `Next.js`
    - **Root Directory**: Click **Edit** and select `apps/notes`.
 4. **Build and Output Settings**:
@@ -235,25 +235,25 @@ Configure these variables in **Vercel Dashboard → Project Settings → Environ
 | `DATABASE_URL` | Both | Prod, Preview | Supabase Transaction Pooler URL (Port 6543) with `?pgbouncer=true&connection_limit=10&pool_timeout=20` |
 | `DIRECT_URL` | Both | Prod, Preview | Supabase Session Mode URL (Port 5432) |
 | `AUTH_SECRET` | Both | Prod, Preview, Dev | High-entropy 32+ char secret generated via `openssl rand -base64 32` or `npx auth secret` |
-| `AUTH_URL` | Both | Prod, Preview | Canonical URL of the specific app (e.g., `https://pms.mediloon.de` for PMS, `https://notes.mediloon.de` for Notes) |
+| `AUTH_URL` | Both | Prod, Preview | Canonical URL of the specific app (e.g., `https://pms.zsyio.de` for PMS, `https://notes.zsyio.de` for Notes) |
 | `AUTH_TRUST_HOST` | Both | Prod, Preview | Set to `"1"` (Mandatory for NextAuth v5 on Vercel proxy) |
 | `NEXT_PUBLIC_APP_URL` | Both | Prod, Preview | Base URL for the current application |
-| `NEXT_PUBLIC_PMS_URL` | Both | Prod, Preview | Public URL of PMS App (`https://pms.mediloon.de`) |
-| `NEXT_PUBLIC_NOTES_URL` | Both | Prod, Preview | Public URL of Notes App (`https://notes.mediloon.de`) |
+| `NEXT_PUBLIC_PMS_URL` | Both | Prod, Preview | Public URL of PMS App (`https://pms.zsyio.de`) |
+| `NEXT_PUBLIC_NOTES_URL` | Both | Prod, Preview | Public URL of Notes App (`https://notes.zsyio.de`) |
 | `NEXT_PUBLIC_SUPABASE_URL` | Both | Prod, Preview | `https://[PROJECT-REF].supabase.co` |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Both | Prod, Preview | Supabase `anon` public key (used for realtime channels) |
-| `ACTIVE_BRAND` | Both | All | `mediloon-default` |
+| `ACTIVE_BRAND` | Both | All | `zsyio-default` |
 | `CRON_SECRET` | PMS | Prod | Random 32-character secret for securing `/api/cron/*` endpoints |
-| `ALLOWED_EMAIL_DOMAINS` | Both | All | Comma-separated allowed domains, e.g. `mediloon.de,mediloon.com` |
-| `NEXT_PUBLIC_ALLOWED_EMAIL_DOMAINS` | Both | All | Same as above (`mediloon.de,mediloon.com`) |
-| `SUPER_ADMIN_EMAIL` | Both | All | Primary workspace owner email (e.g. `admin@mediloon.de`) |
-| `NEXT_PUBLIC_SUPER_ADMIN_EMAIL` | Both | All | Same as above (`admin@mediloon.de`) |
+| `ALLOWED_EMAIL_DOMAINS` | Both | All | Comma-separated allowed domains, e.g. `zsyio.de,zsyio.com` |
+| `NEXT_PUBLIC_ALLOWED_EMAIL_DOMAINS` | Both | All | Same as above (`zsyio.de,zsyio.com`) |
+| `SUPER_ADMIN_EMAIL` | Both | All | Primary workspace owner email (e.g. `admin@zsyio.de`) |
+| `NEXT_PUBLIC_SUPER_ADMIN_EMAIL` | Both | All | Same as above (`admin@zsyio.de`) |
 | `ZEPTOMAIL_TOKEN` | PMS | Prod, Preview | Zoho ZeptoMail Send Mail Token (`Zoho-enczapikey wSsVR6...`) |
 | `ZEPTOMAIL_URL` | PMS | Prod, Preview | ZeptoMail API endpoint (EU: `https://api.zeptomail.eu/`, US: `https://api.zeptomail.com/`) |
-| `ZEPTOMAIL_FROM_EMAIL` | PMS | Prod, Preview | Verified sender email, e.g. `notifications@mediloon.de` |
-| `ZEPTOMAIL_FROM_NAME` | PMS | Prod, Preview | Sender display name, e.g. `Mediloon Suite` |
-| `EMAIL_FROM` | PMS | Prod, Preview | Sender address fallback (`notifications@mediloon.de`) |
-| `EMAIL_FROM_NAME` | PMS | Prod, Preview | `Mediloon Suite` |
+| `ZEPTOMAIL_FROM_EMAIL` | PMS | Prod, Preview | Verified sender email, e.g. `notifications@zsyio.de` |
+| `ZEPTOMAIL_FROM_NAME` | PMS | Prod, Preview | Sender display name, e.g. `Zsyio Suite` |
+| `EMAIL_FROM` | PMS | Prod, Preview | Sender address fallback (`notifications@zsyio.de`) |
+| `EMAIL_FROM_NAME` | PMS | Prod, Preview | `Zsyio Suite` |
 | `TEAMS_WEBHOOK_URL` | PMS (Optional) | Prod, Preview | Microsoft Teams Workflow Webhook URL for task alerts |
 | `GEMINI_API_KEY` | PMS (Optional) | Prod, Preview | Google Gemini API Key for generating Git branch slugs & QA test cases |
 | `GEMINI_MODEL` | PMS (Optional) | Prod, Preview | AI model override (default: `gemini-2.5-flash`) |
@@ -267,7 +267,7 @@ Configure these variables in **Vercel Dashboard → Project Settings → Environ
 
 ## 7. Vercel Cron Jobs Configuration
 
-Mediloon PMS features an automated daily overdue task digest route at [`apps/pms/src/app/api/cron/overdue-digest/route.ts`](file:///Users/tw/workspace/Active/Mediloon/PMS-Mediloom/apps/pms/src/app/api/cron/overdue-digest/route.ts).
+Zsyio PMS features an automated daily overdue task digest route at [`apps/pms/src/app/api/cron/overdue-digest/route.ts`](file:///Users/tw/workspace/Active/Zsyio/PMS-Mediloom/apps/pms/src/app/api/cron/overdue-digest/route.ts).
 
 To configure automatic execution on Vercel:
 
@@ -291,7 +291,7 @@ Ensure `apps/pms/vercel.json` contains:
 
 ### 7.2 Securing Cron Endpoints with `CRON_SECRET`
 
-1. In Vercel Project Settings for `mediloon-pms`, add `CRON_SECRET=<your-random-token>`.
+1. In Vercel Project Settings for `zsyio-pms`, add `CRON_SECRET=<your-random-token>`.
 2. When Vercel triggers scheduled cron jobs, it automatically attaches the header:
    ```http
    Authorization: Bearer <CRON_SECRET>
@@ -322,11 +322,11 @@ To prevent Vercel from rebuilding `@zsyio/notes` when only `@zsyio/pms` changes 
 
 1. Go to **Vercel Project Settings → Git → Ignored Build Step**.
 2. Select **Custom** and enter:
-   - For **`mediloon-pms`**:
+   - For **`zsyio-pms`**:
      ```bash
      npx turbo-ignore --task=build --filter=@zsyio/pms
      ```
-   - For **`mediloon-notes`**:
+   - For **`zsyio-notes`**:
      ```bash
      npx turbo-ignore --task=build --filter=@zsyio/notes
      ```
@@ -344,14 +344,14 @@ Assign custom domains under **Project Settings → Domains**:
 
 | Application | Recommended Domain |
 |---|---|
-| **PMS App** | `pms.mediloon.de` (or `app.mediloon.de`) |
-| **Notes App** | `notes.mediloon.de` |
+| **PMS App** | `pms.zsyio.de` (or `app.zsyio.de`) |
+| **Notes App** | `notes.zsyio.de` |
 
 ### 9.2 Shared Cookie Domain for NextAuth Session Sharing
 
-If you want users to log in once and remain logged in across both subdomains (`*.mediloon.de`):
+If you want users to log in once and remain logged in across both subdomains (`*.zsyio.de`):
 
-In [`packages/auth/src/auth.ts`](file:///Users/tw/workspace/Active/Mediloon/PMS-Mediloom/packages/auth/src/auth.ts), cookie options can be configured with `domain: ".mediloon.de"`:
+In [`packages/auth/src/auth.ts`](file:///Users/tw/workspace/Active/Zsyio/PMS-Mediloom/packages/auth/src/auth.ts), cookie options can be configured with `domain: ".zsyio.de"`:
 
 ```typescript
 cookies: {
@@ -362,7 +362,7 @@ cookies: {
       sameSite: "lax",
       path: "/",
       secure: process.env.NODE_ENV === "production",
-      domain: process.env.NODE_ENV === "production" ? ".mediloon.de" : undefined,
+      domain: process.env.NODE_ENV === "production" ? ".zsyio.de" : undefined,
     },
   },
 }
@@ -443,7 +443,7 @@ jobs:
 
 ### ❌ Issue: `Module not found: Can't resolve '@zsyio/...'`
 * **Cause**: Monorepo packages not transpiled by Next.js.
-* **Fix**: Verify [`apps/pms/next.config.ts`](file:///Users/tw/workspace/Active/Mediloon/PMS-Mediloom/apps/pms/next.config.ts) and [`apps/notes/next.config.ts`](file:///Users/tw/workspace/Active/Mediloon/PMS-Mediloom/apps/notes/next.config.ts) have:
+* **Fix**: Verify [`apps/pms/next.config.ts`](file:///Users/tw/workspace/Active/Zsyio/PMS-Mediloom/apps/pms/next.config.ts) and [`apps/notes/next.config.ts`](file:///Users/tw/workspace/Active/Zsyio/PMS-Mediloom/apps/notes/next.config.ts) have:
   ```typescript
   transpilePackages: [
     "@zsyio/database",
@@ -484,8 +484,8 @@ Once deployed, perform these verification checks:
 - [ ] **Cross-App Navigation**: Click the **Notes** icon in the PMS sidebar and verify seamless transition to `@zsyio/notes`.
 - [ ] **Email Dispatch**: Trigger a task assignment or password reset to verify ZeptoMail delivery.
 - [ ] **Cron Execution**: Check Vercel Dashboard → **Project** → **Cron Jobs** to verify `/api/cron/overdue-digest` status.
-- [ ] **Security Headers**: Inspect HTTP response headers using `curl -I https://pms.mediloon.de` to verify `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, and `Strict-Transport-Security`.
+- [ ] **Security Headers**: Inspect HTTP response headers using `curl -I https://pms.zsyio.de` to verify `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, and `Strict-Transport-Security`.
 
 ---
 
-*Mediloon Suite Engineering Team · Documentation updated for Turborepo Next.js 15 Monorepo*
+*Zsyio Suite Engineering Team · Documentation updated for Turborepo Next.js 15 Monorepo*
