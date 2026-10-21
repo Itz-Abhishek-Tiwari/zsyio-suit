@@ -101,7 +101,7 @@ export function IconPicker({ currentIcon, onSelect, children, disabled }: IconPi
       </PopoverTrigger>
       <PopoverContent
         align="start"
-        className="w-80 p-3 rounded-2xl shadow-xl border border-border bg-card/95 backdrop-blur-md"
+        className="w-80 p-3 rounded-lg shadow-md border border-border bg-card/95 backdrop-blur-md"
       >
         <div className="flex flex-col gap-2.5">
           {/* Search input */}
@@ -129,7 +129,7 @@ export function IconPicker({ currentIcon, onSelect, children, disabled }: IconPi
           <div className="max-h-64 overflow-y-auto pr-1 flex flex-col gap-3">
             {filteredGroups.map((group) => (
               <div key={group.category} className="flex flex-col gap-1.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground font-mono">
+                <span className="text-xs font-semibold   text-muted-foreground font-mono">
                   {group.category}
                 </span>
                 <div className="grid grid-cols-6 gap-1.5">

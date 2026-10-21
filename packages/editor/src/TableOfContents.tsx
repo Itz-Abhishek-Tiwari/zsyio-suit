@@ -99,7 +99,7 @@ export function TableOfContents({
       )}
       aria-label="Table of Contents"
     >
-      <div className="flex items-center gap-1.5 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground font-mono">
+      <div className="flex items-center gap-1.5 px-2 py-1 text-xs font-semibold   text-muted-foreground font-mono">
         <ListTree className="w-3.5 h-3.5 text-primary" />
         <span>Outline ({headings.length})</span>
       </div>
@@ -116,7 +116,7 @@ export function TableOfContents({
               className={cn(
                 "group flex items-center justify-between py-1.5 pr-2 rounded-lg text-xs transition-all text-left cursor-pointer",
                 isActive
-                  ? "bg-primary-light text-primary font-bold shadow-2xs border-l-2 border-primary"
+                  ? "bg-primary-light text-primary font-semibold shadow-2xs border-l-2 border-primary"
                   : "text-muted-foreground hover:text-foreground hover:bg-surface-elevated"
               )}
             >
@@ -124,8 +124,8 @@ export function TableOfContents({
                 <Hash className={cn(
                   "w-3 h-3 shrink-0 opacity-60",
                   item.level === 1 && "text-primary",
-                  item.level === 2 && "text-purple-500",
-                  item.level === 3 && "text-amber-500"
+                  item.level === 2 && "text-notion-purple-fg",
+                  item.level === 3 && "text-warning"
                 )} />
                 <span className="truncate">{item.text}</span>
               </div>

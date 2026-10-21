@@ -94,7 +94,7 @@ export function MermaidDiagram({
       mermaid.initialize({
         startOnLoad: false,
         theme: isDark ? "dark" : "neutral",
-        securityLevel: "loose",
+        securityLevel: "strict",
         fontFamily: "var(--font-sans, Inter, system-ui, -apple-system, sans-serif)",
         fontSize: 14,
         flowchart: {
@@ -261,7 +261,7 @@ export function MermaidDiagram({
           <button
             type="button"
             onClick={handleZoomReset}
-            className="px-1.5 py-0.5 text-[10px] font-mono text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors cursor-pointer rounded"
+            className="px-1.5 py-0.5 text-xs font-mono text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors cursor-pointer rounded"
             title="Reset Zoom to 100%"
           >
             {Math.round(zoomLevel * 100)}%
@@ -284,7 +284,7 @@ export function MermaidDiagram({
           type="button"
           onClick={() => setViewMode("diagram")}
           className={cn(
-            "flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-all cursor-pointer",
+            "flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium transition-all cursor-pointer",
             viewMode === "diagram"
               ? "bg-primary text-primary-foreground shadow-2xs font-semibold"
               : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
@@ -300,7 +300,7 @@ export function MermaidDiagram({
             type="button"
             onClick={() => setViewMode("interactive")}
             className={cn(
-              "flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-all cursor-pointer",
+              "flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium transition-all cursor-pointer",
               viewMode === "interactive"
                 ? "bg-primary text-primary-foreground shadow-2xs font-semibold"
                 : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
@@ -316,7 +316,7 @@ export function MermaidDiagram({
           type="button"
           onClick={() => setViewMode("code")}
           className={cn(
-            "flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-all cursor-pointer",
+            "flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium transition-all cursor-pointer",
             viewMode === "code"
               ? "bg-primary text-primary-foreground shadow-2xs font-semibold"
               : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
@@ -347,7 +347,7 @@ export function MermaidDiagram({
         className="p-1 rounded-lg text-muted-foreground hover:text-foreground bg-background/80 hover:bg-muted/80 border border-border/70 transition-colors shadow-2xs cursor-pointer"
         title="Copy Mermaid Syntax"
       >
-        {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+        {copied ? <Check className="w-3.5 h-3.5 text-success" /> : <Copy className="w-3.5 h-3.5" />}
       </button>
 
       {/* Fullscreen Expand / Exit */}
@@ -372,12 +372,12 @@ export function MermaidDiagram({
     return (
       <div className="fixed inset-0 z-50 bg-background/95 backdrop-blur-md flex flex-col p-4 sm:p-6 animate-fade-in">
         {/* Fullscreen Header */}
-        <div className="flex items-center justify-between px-4 py-3 bg-card rounded-2xl border border-border/80 shadow-md mb-4 flex-wrap gap-2">
+        <div className="flex items-center justify-between px-4 py-3 bg-card rounded-lg border border-border/80 shadow-md mb-4 flex-wrap gap-2">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center border border-primary/20 shrink-0">
               <Network className="w-4 h-4" />
             </div>
-            <div className="flex items-center gap-2 font-bold text-foreground text-sm">
+            <div className="flex items-center gap-2 font-semibold text-foreground text-sm">
               <span>Architecture Canvas</span>
               <span className="font-mono text-xs px-2.5 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 font-medium">
                 {diagramType}
@@ -400,7 +400,7 @@ export function MermaidDiagram({
 
         {/* Fullscreen Body */}
         <div
-          className="flex-1 w-full rounded-2xl border border-border/80 bg-surface-subtle/40 dark:bg-muted/10 overflow-auto p-8 flex items-center justify-center cursor-grab active:cursor-grabbing select-none"
+          className="flex-1 w-full rounded-lg border border-border/80 bg-surface-subtle/40 dark:bg-muted/10 overflow-auto p-8 flex items-center justify-center cursor-grab active:cursor-grabbing select-none"
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
@@ -434,7 +434,7 @@ export function MermaidDiagram({
             <button
               type="button"
               onClick={handleZoomReset}
-              className="px-1.5 py-0.5 text-[10px] font-mono text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors cursor-pointer rounded"
+              className="px-1.5 py-0.5 text-xs font-mono text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors cursor-pointer rounded"
               title="Reset Zoom to 100%"
             >
               {Math.round(zoomLevel * 100)}%
@@ -478,8 +478,8 @@ export function MermaidDiagram({
 
         {/* Error Fallback Banner */}
         {error && (
-          <div className="p-4 m-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-amber-900 dark:text-amber-200 text-xs flex items-start gap-2.5">
-            <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+          <div className="p-4 m-3 bg-warning/10 border border-warning/30 rounded-lg text-warning text-xs flex items-start gap-2.5">
+            <AlertTriangle className="w-4 h-4 text-warning shrink-0 mt-0.5" />
             <div className="flex-1">
               <span className="font-semibold block mb-0.5">Mermaid Syntax Warning</span>
               <span className="opacity-90 leading-relaxed">{error}</span>
@@ -517,7 +517,7 @@ export function MermaidDiagram({
     <>
       <div
         className={cn(
-          "my-5 overflow-hidden rounded-2xl border border-border/80 bg-card shadow-xs transition-all",
+          "my-5 overflow-hidden rounded-lg border border-border/80 bg-card shadow-xs transition-all",
           className
         )}
       >
@@ -530,7 +530,7 @@ export function MermaidDiagram({
             </div>
             <div className="flex items-center gap-1.5 font-semibold text-foreground tracking-tight text-xs">
               <span>Architecture Diagram</span>
-              <span className="font-mono text-[10px] px-2 py-0.5 rounded-full bg-surface-subtle text-muted-foreground border border-border/60 font-medium">
+              <span className="font-mono text-xs px-2 py-0.5 rounded-full bg-surface-subtle text-muted-foreground border border-border/60 font-medium">
                 {diagramType}
               </span>
             </div>
@@ -557,8 +557,8 @@ export function MermaidDiagram({
 
           {/* Error Fallback Banner */}
           {error && (
-            <div className="p-4 m-4 bg-amber-500/10 border border-amber-500/30 rounded-xl text-amber-900 dark:text-amber-200 text-xs flex items-start gap-2.5">
-              <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+            <div className="p-4 m-4 bg-warning/10 border border-warning/30 rounded-lg text-warning text-xs flex items-start gap-2.5">
+              <AlertTriangle className="w-4 h-4 text-warning shrink-0 mt-0.5" />
               <div className="flex-1">
                 <span className="font-semibold block mb-0.5">Mermaid Syntax Warning</span>
                 <span className="opacity-90 leading-relaxed">{error}</span>
@@ -596,7 +596,7 @@ export function MermaidDiagram({
 
           {/* Raw Code View */}
           {(viewMode === "code" || (error && viewMode === "diagram")) && (
-            <div className="bg-slate-950 dark:bg-slate-900/95 p-4 sm:p-5 text-slate-100 font-mono text-xs overflow-x-auto leading-relaxed max-h-[500px]">
+            <div className="bg-foreground p-4 sm:p-5 text-muted-foreground font-mono text-xs overflow-x-auto leading-relaxed max-h-[500px]">
               <pre>
                 <code>{cleanedCode}</code>
               </pre>

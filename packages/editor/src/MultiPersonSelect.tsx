@@ -93,7 +93,7 @@ export function MultiPersonSelect({
           type="button"
           disabled={disabled}
           className={cn(
-            "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-xl border px-3 py-1.5 text-xs font-semibold shadow-2xs transition-all duration-150 cursor-pointer select-none gap-2 outline-none",
+            "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-lg border px-3 py-1.5 text-xs font-semibold shadow-2xs transition-all duration-150 cursor-pointer select-none gap-2 outline-none",
             hasSelection
               ? "border-primary/50 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/70 shadow-xs"
               : "border-border/80 bg-card text-foreground hover:border-border-strong hover:bg-surface-elevated",
@@ -109,7 +109,7 @@ export function MultiPersonSelect({
               </>
             ) : selectedUserIds.length === 1 && selectedUsers[0] ? (
               <>
-                <span className="w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center shrink-0 shadow-2xs">
+                <span className="w-5 h-5 rounded-full bg-primary text-primary-foreground text-xs font-semibold flex items-center justify-center shrink-0 shadow-2xs">
                   {selectedUsers[0].name
                     .split(" ")
                     .map((w) => w[0])
@@ -120,7 +120,7 @@ export function MultiPersonSelect({
                 <span className="truncate font-semibold text-foreground">
                   {selectedUsers[0].name}
                 </span>
-                <span className="truncate text-[10px] text-muted-foreground hidden sm:inline">
+                <span className="truncate text-xs text-muted-foreground hidden sm:inline">
                   ({selectedUsers[0].email})
                 </span>
               </>
@@ -131,7 +131,7 @@ export function MultiPersonSelect({
                   {selectedUsers.slice(0, 2).map((u) => u.name).join(", ")}
                   {selectedUsers.length > 2 ? ` +${selectedUsers.length - 2} more` : ""}
                 </span>
-                <Badge variant="outline" className="text-[10px] px-1.5 py-0 rounded-full font-bold bg-primary/10 text-primary border-primary/20 shrink-0">
+                <Badge variant="outline" className="text-xs px-1.5 py-0 rounded-full font-semibold bg-primary/10 text-primary border-primary/20 shrink-0">
                   {selectedUserIds.length}
                 </Badge>
               </>
@@ -167,7 +167,7 @@ export function MultiPersonSelect({
       <PopoverContent
         align="start"
         sideOffset={6}
-        className="w-[min(calc(100vw-3rem),380px)] sm:w-[400px] p-0 shadow-2xl rounded-2xl border border-border/80 bg-surface-elevated text-foreground z-50 overflow-hidden backdrop-blur-md"
+        className="w-[min(calc(100vw-3rem),380px)] sm:w-[400px] p-0 shadow-md rounded-lg border border-border/80 bg-surface-elevated text-foreground z-50 overflow-hidden backdrop-blur-md"
       >
         {/* Search header */}
         <div className="p-2.5 border-b border-border/60 bg-surface-subtle/50 flex flex-col gap-2">
@@ -192,7 +192,7 @@ export function MultiPersonSelect({
           </div>
 
           {/* Quick toggle bar */}
-          <div className="flex items-center justify-between px-1 text-[11px] text-muted-foreground font-medium">
+          <div className="flex items-center justify-between px-1 text-xs text-muted-foreground font-medium">
             <span>
               {selectedUserIds.length === 0
                 ? "No people selected"
@@ -242,7 +242,7 @@ export function MultiPersonSelect({
                   type="button"
                   onClick={() => toggleUser(user.id)}
                   className={cn(
-                    "w-full flex items-center justify-between text-xs py-2 px-2.5 rounded-xl hover:bg-surface-subtle transition-colors text-left cursor-pointer group",
+                    "w-full flex items-center justify-between text-xs py-2 px-2.5 rounded-lg hover:bg-surface-subtle transition-colors text-left cursor-pointer group",
                     isSelected
                       ? "bg-primary/10 text-foreground font-semibold"
                       : "text-foreground font-medium"
@@ -251,7 +251,7 @@ export function MultiPersonSelect({
                   <div className="flex items-center gap-2.5 min-w-0 flex-1">
                     <span
                       className={cn(
-                        "w-6.5 h-6.5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 transition-colors shadow-2xs",
+                        "w-6.5 h-6.5 rounded-full flex items-center justify-center text-xs font-semibold shrink-0 transition-colors shadow-2xs",
                         isSelected
                           ? "bg-primary text-primary-foreground"
                           : "bg-primary/15 text-primary group-hover:bg-primary/25"
@@ -268,19 +268,19 @@ export function MultiPersonSelect({
                       <div className="flex items-center gap-1.5">
                         <span className="truncate text-xs font-semibold text-foreground">{user.name}</span>
                         {isAlreadyShared && (
-                          <span className="text-[9px] px-1 py-0.2 rounded bg-surface-subtle text-muted-foreground border border-border/60">
+                          <span className="text-xs px-1 py-0.2 rounded bg-surface-subtle text-muted-foreground border border-border/60">
                             Shared
                           </span>
                         )}
                       </div>
-                      <span className="truncate text-[10px] text-muted-foreground">
+                      <span className="truncate text-xs text-muted-foreground">
                         {user.email}
                       </span>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2 shrink-0 ml-2">
-                    <UserRoleBadge role={user.role} customRole={user.customRole} className="text-[10px]" />
+                    <UserRoleBadge role={user.role} customRole={user.customRole} className="text-xs" />
                     <div
                       className={cn(
                         "w-4 h-4 rounded-md border flex items-center justify-center transition-all",

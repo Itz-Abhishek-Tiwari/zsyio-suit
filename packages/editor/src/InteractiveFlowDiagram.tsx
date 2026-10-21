@@ -23,13 +23,13 @@ function getNodeIcon(label: string, shape?: string) {
     return <Database className="w-4 h-4 text-primary" />;
   }
   if (l.includes("broker") || l.includes("kafka") || l.includes("queue") || l.includes("connector")) {
-    return <Cpu className="w-4 h-4 text-amber-500" />;
+    return <Cpu className="w-4 h-4 text-warning" />;
   }
   if (l.includes("api") || l.includes("service") || l.includes("gateway") || l.includes("server") || l.includes("engine")) {
-    return <Server className="w-4 h-4 text-emerald-500" />;
+    return <Server className="w-4 h-4 text-success" />;
   }
   if (l.includes("flow") || l.includes("pms") || l.includes("task") || l.includes("sprint") || l.includes("app")) {
-    return <Workflow className="w-4 h-4 text-sky-500" />;
+    return <Workflow className="w-4 h-4 text-notion-blue-fg" />;
   }
   return <Layers className="w-4 h-4 text-muted-foreground" />;
 }
@@ -40,7 +40,7 @@ export function CustomArchitectureNode({ data }: NodeProps<Node<FlowNodeData>>) 
   return (
     <div
       className={cn(
-        "group relative flex items-center gap-3 px-4 py-3 rounded-xl border border-border/80 bg-card shadow-xs hover:border-primary/50 hover:shadow-md transition-all select-none min-w-[170px] max-w-[280px]",
+        "group relative flex items-center gap-3 px-4 py-3 rounded-lg border border-border/80 bg-card shadow-xs hover:border-primary/50 hover:shadow-md transition-all select-none min-w-[170px] max-w-[280px]",
         data.shape === "cylinder" && "border-primary/40 bg-primary/5",
         data.shape === "stadium" && "rounded-full px-5"
       )}
@@ -48,7 +48,7 @@ export function CustomArchitectureNode({ data }: NodeProps<Node<FlowNodeData>>) 
       <Handle
         type="target"
         position={Position.Left}
-        className="!w-2.5 !h-2.5 !bg-primary !border-2 !border-card !-left-1.5"
+        className="!w-2.5 !h-2.5 !bg-primary !border !border-card !-left-1.5"
       />
 
       <div className="w-7 h-7 rounded-lg bg-surface-subtle border border-border/60 flex items-center justify-center shrink-0 shadow-2xs">
@@ -60,7 +60,7 @@ export function CustomArchitectureNode({ data }: NodeProps<Node<FlowNodeData>>) 
           {data.label}
         </span>
         {data.shape === "cylinder" && (
-          <span className="text-[9px] uppercase font-mono text-muted-foreground font-bold tracking-wider mt-0.5">
+          <span className="text-xs font-mono text-muted-foreground font-semibold  mt-0.5">
             Data Storage
           </span>
         )}
@@ -69,7 +69,7 @@ export function CustomArchitectureNode({ data }: NodeProps<Node<FlowNodeData>>) 
       <Handle
         type="source"
         position={Position.Right}
-        className="!w-2.5 !h-2.5 !bg-primary !border-2 !border-card !-right-1.5"
+        className="!w-2.5 !h-2.5 !bg-primary !border !border-card !-right-1.5"
       />
     </div>
   );
@@ -128,7 +128,7 @@ export function InteractiveFlowDiagram({
   return (
     <div
       className={cn(
-        "relative w-full rounded-2xl border border-border/80 bg-surface-subtle overflow-hidden select-none",
+        "relative w-full rounded-lg border border-border/80 bg-surface-subtle overflow-hidden select-none",
         className
       )}
       style={{ height }}
@@ -146,7 +146,7 @@ export function InteractiveFlowDiagram({
         <Background gap={20} size={1} color="var(--border-strong)" />
         <Controls
           showInteractive={false}
-          className="!bg-card !border !border-border/80 !rounded-xl !shadow-xs !p-0.5 fill-foreground [&>button]:!bg-transparent [&>button]:!border-b [&>button]:!border-border/60 [&>button:last-child]:!border-b-0"
+          className="!bg-card !border !border-border/80 !rounded-lg !shadow-xs !p-0.5 fill-foreground [&>button]:!bg-transparent [&>button]:!border-b [&>button]:!border-border/60 [&>button:last-child]:!border-b-0"
         />
       </ReactFlow>
     </div>

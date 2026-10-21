@@ -120,7 +120,7 @@ export function RichTextEditor({
         inline: false,
         allowBase64: true,
         HTMLAttributes: {
-          class: "rounded-xl border border-border/80 my-3 max-h-[380px] object-contain shadow-xs",
+          class: "rounded-lg border border-border/80 my-3 max-h-[380px] object-contain shadow-xs",
         },
       }),
       TaskList.configure({
@@ -147,7 +147,7 @@ export function RichTextEditor({
       }),
       TableHeader.configure({
         HTMLAttributes: {
-          class: "bg-surface-subtle border-b border-border px-3 py-2 text-left font-bold text-foreground",
+          class: "bg-surface-subtle border-b border-border px-3 py-2 text-left font-semibold text-foreground",
         },
       }),
       TableCell.configure({
@@ -298,7 +298,7 @@ export function RichTextEditor({
 
   if (!editor) {
     return (
-      <div className={cn("flex flex-col rounded-xl p-4", minHeight, className)}>
+      <div className={cn("flex flex-col rounded-lg p-4", minHeight, className)}>
         <span className="text-xs text-muted-foreground animate-pulse">Loading visual editor...</span>
       </div>
     );
@@ -307,7 +307,7 @@ export function RichTextEditor({
   return (
     <div
       className={cn(
-        "flex flex-col rounded-xl transition-all",
+        "flex flex-col rounded-lg transition-all",
         className
       )}
     >
@@ -319,7 +319,7 @@ export function RichTextEditor({
         className="hidden"
       />
       {editable && (
-        <div className="sticky top-0 z-20 flex flex-col border border-border/70 bg-card/90 dark:bg-card/90 backdrop-blur-md rounded-xl shadow-2xs mb-2 transition-all">
+        <div className="sticky top-0 z-20 flex flex-col border border-border/70 bg-card/90 dark:bg-card/90 backdrop-blur-md rounded-lg shadow-2xs mb-2 transition-all">
           <div className="flex items-center justify-between px-3 py-2 flex-wrap gap-1.5">
             {isReview ? (
               <div className="flex items-center gap-2">
@@ -519,8 +519,8 @@ export function RichTextEditor({
                       <Workflow className="w-3.5 h-3.5 text-primary" />
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="w-64 p-1.5 rounded-xl shadow-xl border border-border/80">
-                    <DropdownMenuLabel className="text-[10px] text-muted-foreground uppercase tracking-wider font-bold px-2 py-1">
+                  <DropdownMenuContent align="start" className="w-64 p-1.5 rounded-lg shadow-md border border-border/80">
+                    <DropdownMenuLabel className="text-xs text-muted-foreground   font-semibold px-2 py-1">
                       Insert Mermaid Diagram
                     </DropdownMenuLabel>
                     <DropdownMenuItem
@@ -530,47 +530,47 @@ export function RichTextEditor({
                       <Workflow className="w-4 h-4 text-primary shrink-0" />
                       <div className="flex flex-col">
                         <span className="font-semibold">Architecture Flow</span>
-                        <span className="text-[10px] text-muted-foreground">graph LR services & components</span>
+                        <span className="text-xs text-muted-foreground">graph LR services & components</span>
                       </div>
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onSelect={() => insertMermaidDiagram("sequence")}
                       className="text-xs gap-2.5 p-2 cursor-pointer rounded-lg"
                     >
-                      <Network className="w-4 h-4 text-emerald-500 shrink-0" />
+                      <Network className="w-4 h-4 text-success shrink-0" />
                       <div className="flex flex-col">
                         <span className="font-semibold">Sequence Diagram</span>
-                        <span className="text-[10px] text-muted-foreground">Client-server request lifecycle</span>
+                        <span className="text-xs text-muted-foreground">Client-server request lifecycle</span>
                       </div>
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onSelect={() => insertMermaidDiagram("state")}
                       className="text-xs gap-2.5 p-2 cursor-pointer rounded-lg"
                     >
-                      <Workflow className="w-4 h-4 text-amber-500 shrink-0" />
+                      <Workflow className="w-4 h-4 text-warning shrink-0" />
                       <div className="flex flex-col">
                         <span className="font-semibold">State Machine</span>
-                        <span className="text-[10px] text-muted-foreground">State transitions & lifecycle</span>
+                        <span className="text-xs text-muted-foreground">State transitions & lifecycle</span>
                       </div>
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onSelect={() => insertMermaidDiagram("er")}
                       className="text-xs gap-2.5 p-2 cursor-pointer rounded-lg"
                     >
-                      <TableProperties className="w-4 h-4 text-purple-500 shrink-0" />
+                      <TableProperties className="w-4 h-4 text-notion-purple-fg shrink-0" />
                       <div className="flex flex-col">
                         <span className="font-semibold">Entity Relationship (ER)</span>
-                        <span className="text-[10px] text-muted-foreground">Database schema relationships</span>
+                        <span className="text-xs text-muted-foreground">Database schema relationships</span>
                       </div>
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onSelect={() => insertMermaidDiagram("git")}
                       className="text-xs gap-2.5 p-2 cursor-pointer rounded-lg"
                     >
-                      <FileCode className="w-4 h-4 text-sky-500 shrink-0" />
+                      <FileCode className="w-4 h-4 text-notion-blue-fg shrink-0" />
                       <div className="flex flex-col">
                         <span className="font-semibold">Git Branch Graph</span>
-                        <span className="text-[10px] text-muted-foreground">Branching & release workflows</span>
+                        <span className="text-xs text-muted-foreground">Branching & release workflows</span>
                       </div>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
@@ -607,10 +607,10 @@ export function RichTextEditor({
                       <TableIcon className="w-3.5 h-3.5" />
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="w-56 p-1.5 rounded-xl shadow-xl border border-border/80">
+                  <DropdownMenuContent align="start" className="w-56 p-1.5 rounded-lg shadow-md border border-border/80">
                     {editor.isActive("table") ? (
                       <>
-                        <DropdownMenuLabel className="text-[10px] text-muted-foreground uppercase tracking-wider font-bold px-2 py-1">
+                        <DropdownMenuLabel className="text-xs text-muted-foreground   font-semibold px-2 py-1">
                           Table Column Controls
                         </DropdownMenuLabel>
                         <DropdownMenuItem
@@ -637,7 +637,7 @@ export function RichTextEditor({
 
                         <DropdownMenuSeparator className="my-1" />
 
-                        <DropdownMenuLabel className="text-[10px] text-muted-foreground uppercase tracking-wider font-bold px-2 py-1">
+                        <DropdownMenuLabel className="text-xs text-muted-foreground   font-semibold px-2 py-1">
                           Table Row Controls
                         </DropdownMenuLabel>
                         <DropdownMenuItem
@@ -681,7 +681,7 @@ export function RichTextEditor({
                       </>
                     ) : (
                       <>
-                        <DropdownMenuLabel className="text-[10px] text-muted-foreground uppercase tracking-wider font-bold px-2 py-1">
+                        <DropdownMenuLabel className="text-xs text-muted-foreground   font-semibold px-2 py-1">
                           Insert Table
                         </DropdownMenuLabel>
                         <DropdownMenuItem
@@ -799,7 +799,7 @@ export function RichTextEditor({
           {!isReview && isTableActive && (
             <div className="flex items-center justify-between px-3 py-1 bg-surface-subtle/90 border-t border-border/60 text-xs select-none gap-2 overflow-x-auto custom-scrollbar flex-nowrap">
               <div className="flex items-center gap-1.5 flex-nowrap shrink-0">
-                <div className="flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-semibold text-primary bg-primary/10 shrink-0">
+                <div className="flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-semibold text-primary bg-primary/10 shrink-0">
                   <TableIcon className="w-3 h-3" />
                   <span>Table</span>
                 </div>
@@ -808,7 +808,7 @@ export function RichTextEditor({
 
                 {/* Column controls */}
                 <div className="flex items-center gap-0.5 shrink-0">
-                  <span className="text-[10px] uppercase tracking-wider font-semibold text-muted-foreground/70 px-1">Col</span>
+                  <span className="text-xs  font-semibold text-muted-foreground/70 px-1">Col</span>
                   <button
                     type="button"
                     onMouseDown={(e) => e.preventDefault()}
@@ -842,7 +842,7 @@ export function RichTextEditor({
 
                 {/* Row controls */}
                 <div className="flex items-center gap-0.5 shrink-0">
-                  <span className="text-[10px] uppercase tracking-wider font-semibold text-muted-foreground/70 px-1">Row</span>
+                  <span className="text-xs  font-semibold text-muted-foreground/70 px-1">Row</span>
                   <button
                     type="button"
                     onMouseDown={(e) => e.preventDefault()}
@@ -881,7 +881,7 @@ export function RichTextEditor({
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => editor.chain().focus().toggleHeaderRow().run()}
                     title="Toggle header row"
-                    className="px-2 py-0.5 rounded text-[11px] font-medium text-muted-foreground hover:text-foreground hover:bg-card transition-colors cursor-pointer flex items-center gap-1"
+                    className="px-2 py-0.5 rounded text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-card transition-colors cursor-pointer flex items-center gap-1"
                   >
                     <TableProperties className="w-3 h-3" />
                     <span>Header</span>
@@ -891,7 +891,7 @@ export function RichTextEditor({
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => editor.chain().focus().mergeOrSplit().run()}
                     title="Merge or split selected cells"
-                    className="px-2 py-0.5 rounded text-[11px] font-medium text-muted-foreground hover:text-foreground hover:bg-card transition-colors cursor-pointer"
+                    className="px-2 py-0.5 rounded text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-card transition-colors cursor-pointer"
                   >
                     Merge/Split
                   </button>
@@ -904,7 +904,7 @@ export function RichTextEditor({
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => editor.chain().focus().deleteTable().run()}
                 title="Delete entire table"
-                className="px-2 py-0.5 rounded text-[11px] font-medium text-destructive/80 hover:text-destructive hover:bg-destructive/10 transition-colors cursor-pointer flex items-center gap-1 shrink-0 ml-auto"
+                className="px-2 py-0.5 rounded text-xs font-medium text-destructive/80 hover:text-destructive hover:bg-destructive/10 transition-colors cursor-pointer flex items-center gap-1 shrink-0 ml-auto"
               >
                 <Trash2 className="w-3.5 h-3.5" />
                 <span>Delete Table</span>

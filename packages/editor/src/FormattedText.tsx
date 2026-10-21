@@ -57,15 +57,15 @@ function CodeBlock({
   }
 
   return (
-    <div className="my-3.5 overflow-hidden rounded-xl border border-border/80 bg-slate-950 dark:bg-slate-900/95 shadow-md group">
-      <div className="flex items-center justify-between px-3.5 py-2 bg-slate-900/90 dark:bg-slate-950/80 border-b border-border/40 text-[11px] select-none">
+    <div className="my-3.5 overflow-hidden rounded-lg border border-border/80 bg-foreground shadow-md group">
+      <div className="flex items-center justify-between px-3.5 py-2 bg-foreground/90 border-b border-border/40 text-xs select-none">
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block" />
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-full bg-destructive/80 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-full bg-warning/80 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-full bg-success/80 inline-block" />
           </div>
-          <span className="text-slate-400 font-mono text-[10px] font-bold tracking-wider ml-1 flex items-center gap-1">
+          <span className="text-muted-foreground font-mono text-xs font-semibold  ml-1 flex items-center gap-1">
             <Code2 className="w-3 h-3 text-primary" />
             {displayLang}
           </span>
@@ -74,24 +74,24 @@ function CodeBlock({
         <button
           type="button"
           onClick={handleCopy}
-          className="flex items-center gap-1 text-[11px] font-medium text-slate-400 hover:text-slate-100 bg-slate-800/80 hover:bg-slate-700/80 px-2 py-0.5 rounded-md transition-colors shadow-2xs cursor-pointer"
+          className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-muted-foreground bg-foreground/80 hover:bg-foreground/80 px-2 py-0.5 rounded-md transition-colors shadow-2xs cursor-pointer"
           title="Copy code"
         >
           {copied ? (
             <>
-              <Check className="w-3 h-3 text-emerald-400" />
-              <span className="text-emerald-400 font-semibold text-[10px]">Copied</span>
+              <Check className="w-3 h-3 text-success" />
+              <span className="text-success font-semibold text-xs">Copied</span>
             </>
           ) : (
             <>
-              <Copy className="w-3 h-3 text-slate-400" />
-              <span className="text-[10px]">Copy</span>
+              <Copy className="w-3 h-3 text-muted-foreground" />
+              <span className="text-xs">Copy</span>
             </>
           )}
         </button>
       </div>
 
-      <pre className="p-4 text-slate-100 font-mono text-[12px] leading-relaxed overflow-x-auto selection:bg-primary/30">
+      <pre className="p-4 text-muted-foreground font-mono text-[12px] leading-relaxed overflow-x-auto selection:bg-primary/30">
         <code>{codeString}</code>
       </pre>
     </div>
@@ -109,33 +109,33 @@ function CalloutBox({ text, children }: { text: string; children: React.ReactNod
   const isCaution = text.includes("[!CAUTION]");
 
   if (isNote || isWarning || isImportant || isTip || isCaution) {
-    let icon = <Info className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />;
+    let icon = <Info className="w-4 h-4 text-notion-blue-fg shrink-0 mt-0.5" />;
     let title = "Note";
-    let bgClass = "bg-blue-50/70 dark:bg-blue-500/10 border-blue-200 dark:border-blue-500/30 text-blue-900 dark:text-blue-200";
+    let bgClass = "bg-notion-blue-fg/70 border-notion-blue-fg/30 text-notion-blue-fg";
 
     if (isWarning) {
-      icon = <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />;
+      icon = <AlertTriangle className="w-4 h-4 text-warning shrink-0 mt-0.5" />;
       title = "Warning";
-      bgClass = "bg-amber-50/70 dark:bg-amber-500/10 border-amber-200 dark:border-amber-500/30 text-amber-900 dark:text-amber-200";
+      bgClass = "bg-warning/70 border-warning/30 text-warning";
     } else if (isImportant) {
-      icon = <AlertOctagon className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0 mt-0.5" />;
+      icon = <AlertOctagon className="w-4 h-4 text-notion-purple-fg shrink-0 mt-0.5" />;
       title = "Important";
-      bgClass = "bg-purple-50/70 dark:bg-purple-500/10 border-purple-200 dark:border-purple-500/30 text-purple-900 dark:text-purple-200";
+      bgClass = "bg-notion-purple-fg/70 border-notion-purple-fg/30 text-notion-purple-fg";
     } else if (isTip) {
-      icon = <Lightbulb className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />;
+      icon = <Lightbulb className="w-4 h-4 text-success shrink-0 mt-0.5" />;
       title = "Tip";
-      bgClass = "bg-emerald-50/70 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/30 text-emerald-900 dark:text-emerald-200";
+      bgClass = "bg-success/70 border-success/30 text-success";
     } else if (isCaution) {
-      icon = <ShieldAlert className="w-4 h-4 text-red-600 dark:text-red-400 shrink-0 mt-0.5" />;
+      icon = <ShieldAlert className="w-4 h-4 text-destructive shrink-0 mt-0.5" />;
       title = "Caution";
-      bgClass = "bg-red-50/70 dark:bg-red-500/10 border-red-200 dark:border-red-500/30 text-red-900 dark:text-red-200";
+      bgClass = "bg-destructive/70 border-destructive/30 text-destructive";
     }
 
     return (
-      <div className={cn("my-3 p-3.5 rounded-xl border flex items-start gap-3 shadow-2xs", bgClass)}>
+      <div className={cn("my-3 p-3.5 rounded-lg border flex items-start gap-3 shadow-2xs", bgClass)}>
         {icon}
         <div className="flex flex-col gap-1 text-xs sm:text-sm leading-relaxed flex-1">
-          <span className="font-bold tracking-tight text-xs uppercase opacity-90">{title}</span>
+          <span className="font-semibold tracking-tight text-xs  opacity-90">{title}</span>
           <div className="[&>p]:my-0">{children}</div>
         </div>
       </div>
@@ -172,10 +172,10 @@ function renderWithMentions(text: string) {
     parts.push(
       <span
         key={`mention-${match.index}`}
-        className="inline-flex items-center gap-1 px-1.5 py-0.5 mx-0.5 rounded-md bg-purple-500/15 text-purple-700 dark:text-purple-300 border border-purple-500/25 font-bold text-[11px] align-baseline shadow-2xs select-none hover:bg-purple-500/25 transition-colors cursor-pointer"
+        className="inline-flex items-center gap-1 px-1.5 py-0.5 mx-0.5 rounded-md bg-notion-purple-fg/15 text-notion-purple-fg border border-notion-purple-fg/25 font-semibold text-xs align-baseline shadow-2xs select-none hover:bg-notion-purple-fg/25 transition-colors cursor-pointer"
         title={`Mention: @${displayName}`}
       >
-        <AtSign className="w-2.5 h-2.5 text-purple-600 dark:text-purple-400 shrink-0" />
+        <AtSign className="w-2.5 h-2.5 text-notion-purple-fg shrink-0" />
         <span>{displayName}</span>
       </span>
     );
@@ -232,22 +232,22 @@ export function FormattedText({ content, className, disableNotePreviews = false 
         urlTransform={(url) => (isSafeMarkdownUrl(url) ? url : "")}
         components={{
           h1: ({ children }) => (
-            <h1 className="text-lg sm:text-xl font-extrabold font-display text-foreground mt-5 mb-2.5 tracking-tight border-b border-border/70 pb-1.5 flex items-center gap-2">
+            <h1 className="text-lg sm:text-xl font-semibold font-display text-foreground mt-5 mb-2.5 tracking-tight border-b border-border/70 pb-1.5 flex items-center gap-2">
               {processChildren(children)}
             </h1>
           ),
           h2: ({ children }) => (
-            <h2 className="text-base sm:text-lg font-bold font-display text-foreground mt-4 mb-2 tracking-tight border-b border-border/40 pb-1">
+            <h2 className="text-base sm:text-lg font-semibold font-display text-foreground mt-4 mb-2 tracking-tight border-b border-border/40 pb-1">
               {processChildren(children)}
             </h2>
           ),
           h3: ({ children }) => (
-            <h3 className="text-sm sm:text-base font-bold font-display text-foreground mt-3.5 mb-1.5 tracking-tight flex items-center gap-1.5">
+            <h3 className="text-sm sm:text-base font-semibold font-display text-foreground mt-3.5 mb-1.5 tracking-tight flex items-center gap-1.5">
               {processChildren(children)}
             </h3>
           ),
           h4: ({ children }) => (
-            <h4 className="text-xs sm:text-sm font-bold font-display text-foreground mt-2.5 mb-1 tracking-tight">
+            <h4 className="text-xs sm:text-sm font-semibold font-display text-foreground mt-2.5 mb-1 tracking-tight">
               {processChildren(children)}
             </h4>
           ),
@@ -266,7 +266,7 @@ export function FormattedText({ content, className, disableNotePreviews = false 
             if (isInline) {
               return (
                 <code
-                  className="font-mono text-[11px] px-1.5 py-0.5 rounded-md bg-muted text-foreground border border-border/80 font-semibold inline-block align-baseline mx-0.5 shadow-2xs"
+                  className="font-mono text-xs px-1.5 py-0.5 rounded-md bg-muted text-foreground border border-border/80 font-semibold inline-block align-baseline mx-0.5 shadow-2xs"
                   {...props}
                 >
                   {children}
@@ -288,10 +288,10 @@ export function FormattedText({ content, className, disableNotePreviews = false 
               const label = String(children).replace(/^@/, "");
               return (
                 <span
-                  className="inline-flex items-center gap-0.5 px-1.5 py-0.5 mx-0.5 rounded-md bg-purple-500/15 text-purple-700 dark:text-purple-300 border border-purple-500/25 font-bold text-[11px] align-baseline shadow-2xs select-none hover:bg-purple-500/25 transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-0.5 px-1.5 py-0.5 mx-0.5 rounded-md bg-notion-purple-fg/15 text-notion-purple-fg border border-notion-purple-fg/25 font-semibold text-xs align-baseline shadow-2xs select-none hover:bg-notion-purple-fg/25 transition-colors cursor-pointer"
                   title={`Mention: @${label}`}
                 >
-                  <AtSign className="w-2.5 h-2.5 text-purple-600 dark:text-purple-400 shrink-0" />
+                  <AtSign className="w-2.5 h-2.5 text-notion-purple-fg shrink-0" />
                   <span>{label}</span>
                 </span>
               );
@@ -330,18 +330,18 @@ export function FormattedText({ content, className, disableNotePreviews = false 
             const srcUrl = typeof src === "string" ? src : undefined;
             if (!srcUrl) return null;
             return (
-              <div className="my-3.5 overflow-hidden rounded-xl border border-border/80 bg-slate-950/20 shadow-md group">
+              <div className="my-3.5 overflow-hidden rounded-lg border border-border/80 bg-foreground/20 shadow-md group">
                 <a href={srcUrl} target="_blank" rel="noopener noreferrer" className="block overflow-hidden relative" title="Click to open full image">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={srcUrl}
                     alt={typeof alt === "string" ? alt : "Task image"}
-                    className="w-full max-h-[480px] object-contain rounded-xl hover:scale-[1.01] transition-transform duration-200"
+                    className="w-full max-h-[480px] object-contain rounded-lg  transition-transform duration-200"
                     loading="lazy"
                   />
                 </a>
                 {alt && (
-                  <p className="text-[11px] text-muted-foreground text-center py-1.5 px-3 border-t border-border/40 bg-surface-subtle/50 font-medium">
+                  <p className="text-xs text-muted-foreground text-center py-1.5 px-3 border-t border-border/40 bg-surface-subtle/50 font-medium">
                     {alt}
                   </p>
                 )}
@@ -349,16 +349,16 @@ export function FormattedText({ content, className, disableNotePreviews = false 
             );
           },
           table: ({ children }) => (
-            <div className="overflow-x-auto my-3.5 rounded-xl border border-border/80 shadow-2xs">
+            <div className="overflow-x-auto my-3.5 rounded-lg border border-border/80 shadow-2xs">
               <table className="w-full text-left text-xs border-collapse">{children}</table>
             </div>
           ),
           thead: ({ children }) => (
-            <thead className="bg-surface-subtle/80 border-b border-border/80 text-foreground font-bold">{children}</thead>
+            <thead className="bg-surface-subtle/80 border-b border-border/80 text-foreground font-semibold">{children}</thead>
           ),
           tbody: ({ children }) => <tbody className="divide-y divide-border/60">{children}</tbody>,
           tr: ({ children }) => <tr className="hover:bg-muted/30 transition-colors">{children}</tr>,
-          th: ({ children }) => <th className="px-3.5 py-2.5 text-xs font-bold text-foreground">{children}</th>,
+          th: ({ children }) => <th className="px-3.5 py-2.5 text-xs font-semibold text-foreground">{children}</th>,
           td: ({ children }) => <td className="px-3.5 py-2.5 text-xs text-foreground/90">{processChildren(children)}</td>,
           hr: () => <hr className="my-5 border-border/60" />,
           input: ({ type, checked, disabled }) => {

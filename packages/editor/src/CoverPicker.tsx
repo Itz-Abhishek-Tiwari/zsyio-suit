@@ -252,7 +252,7 @@ export function CoverPicker({
                   if (file) processFile(file);
                 }}
                 className={cn(
-                  "border-2 border-dashed rounded-xl p-5 text-center flex flex-col items-center justify-center gap-2 cursor-pointer transition-all group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+                  "border border-dashed rounded-xl p-5 text-center flex flex-col items-center justify-center gap-2 cursor-pointer transition-all group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
                   isDragging
                     ? "border-primary bg-primary/10 ring-2 ring-primary/20 scale-[0.99]"
                     : "border-border/80 hover:border-primary/60 bg-surface-subtle/40 hover:bg-surface-elevated",
@@ -271,7 +271,7 @@ export function CoverPicker({
                 {isProcessingFile ? (
                   <Loader2 className="w-7 h-7 animate-spin text-primary" />
                 ) : (
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center  transition-transform">
                     <UploadCloud className="w-5 h-5" />
                   </div>
                 )}
@@ -279,7 +279,7 @@ export function CoverPicker({
                   <span className="text-xs font-bold text-foreground">
                     Click or drag image to upload
                   </span>
-                  <span className="text-[11px] text-muted-foreground">
+                  <span className="text-xs text-muted-foreground">
                     Supports PNG, JPG, WebP, GIF (Max 5MB)
                   </span>
                 </div>
@@ -287,7 +287,7 @@ export function CoverPicker({
 
               {/* URL input */}
               <div className="flex flex-col gap-1.5 pt-1">
-                <label htmlFor="cover-url-input" className="text-[11px] font-semibold text-muted-foreground">
+                <label htmlFor="cover-url-input" className="text-xs font-semibold text-muted-foreground">
                   Or paste an image web link:
                 </label>
                 <div className="flex items-center gap-2">
@@ -335,12 +335,12 @@ export function CoverPicker({
                       "group relative h-16 rounded-xl overflow-hidden border transition-all cursor-pointer text-left p-2 flex flex-col justify-end shadow-2xs bg-cover bg-center bg-surface-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1",
                       isSelected
                         ? "border-primary ring-2 ring-primary/40"
-                        : "border-border/60 hover:scale-[1.02]"
+                        : "border-border/60 "
                     )}
                     style={{ backgroundImage: `url(${item.url})` }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                    <span className="relative z-10 text-[10px] font-bold text-white drop-shadow-md truncate">
+                    <span className="relative z-10 text-xs font-bold text-white drop-shadow-md truncate">
                       {item.name}
                     </span>
                     {isSelected && (
@@ -372,11 +372,11 @@ export function CoverPicker({
                       "group relative h-14 rounded-xl overflow-hidden border transition-all cursor-pointer text-left p-2 flex flex-col justify-end shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1",
                       isSelected
                         ? "border-primary ring-2 ring-primary/40"
-                        : "border-border/60 hover:scale-[1.02]"
+                        : "border-border/60 "
                     )}
                     style={{ background: g.value }}
                   >
-                    <span className="text-[10px] font-bold text-white drop-shadow-md truncate">
+                    <span className="text-xs font-bold text-white drop-shadow-md truncate">
                       {g.name}
                     </span>
                     {isSelected && (
@@ -407,7 +407,7 @@ export function CoverPicker({
                       "h-12 rounded-xl border flex items-center justify-center transition-all cursor-pointer shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1",
                       isSelected
                         ? "border-primary ring-2 ring-primary/40 scale-105"
-                        : "border-border/60 hover:scale-105"
+                        : "border-border/60 "
                     )}
                     style={{ backgroundColor: s.value }}
                     title={s.name}
@@ -423,7 +423,7 @@ export function CoverPicker({
           {/* Footer Action when cover exists */}
           {currentCover && (
             <div className="pt-2 border-t border-border/70 flex items-center justify-between">
-              <span className="text-[11px] text-muted-foreground">Active cover image set</span>
+              <span className="text-xs text-muted-foreground">Active cover image set</span>
               <button
                 type="button"
                 onClick={() => {

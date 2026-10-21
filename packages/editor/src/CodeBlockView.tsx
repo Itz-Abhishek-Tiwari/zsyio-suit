@@ -38,7 +38,7 @@ export function CodeBlockView({ node }: NodeViewProps) {
   if (isMermaid) {
     return (
       <NodeViewWrapper className="my-5 not-prose">
-        <div className="rounded-2xl border border-border/80 bg-card overflow-hidden shadow-xs transition-all">
+        <div className="rounded-lg border border-border/80 bg-card overflow-hidden shadow-xs transition-all">
           {/* Unified Single Header */}
           <div className="flex items-center justify-between px-3.5 py-2.5 bg-surface-subtle/80 dark:bg-card/80 border-b border-border/60 text-xs select-none gap-2 flex-wrap">
             {/* Left: Icon + Title + Diagram Type */}
@@ -47,7 +47,7 @@ export function CodeBlockView({ node }: NodeViewProps) {
                 <Network className="w-3.5 h-3.5" />
               </div>
               <span className="font-semibold text-foreground text-xs">Architecture Diagram</span>
-              <span className="font-mono text-[10px] px-2 py-0.5 rounded-full bg-surface-subtle text-muted-foreground border border-border/60 font-medium">
+              <span className="font-mono text-xs px-2 py-0.5 rounded-full bg-surface-subtle text-muted-foreground border border-border/60 font-medium">
                 {diagramType}
               </span>
             </div>
@@ -59,7 +59,7 @@ export function CodeBlockView({ node }: NodeViewProps) {
                   type="button"
                   onClick={() => setShowCode(false)}
                   className={cn(
-                    "flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-all cursor-pointer",
+                    "flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium transition-all cursor-pointer",
                     !showCode
                       ? "bg-primary text-primary-foreground font-semibold shadow-2xs"
                       : "text-muted-foreground hover:text-foreground"
@@ -73,7 +73,7 @@ export function CodeBlockView({ node }: NodeViewProps) {
                   type="button"
                   onClick={() => setShowCode(true)}
                   className={cn(
-                    "flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium transition-all cursor-pointer",
+                    "flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium transition-all cursor-pointer",
                     showCode
                       ? "bg-primary text-primary-foreground font-semibold shadow-2xs"
                       : "text-muted-foreground hover:text-foreground"
@@ -91,13 +91,13 @@ export function CodeBlockView({ node }: NodeViewProps) {
                 className="p-1 rounded-lg text-muted-foreground hover:text-foreground bg-background/80 hover:bg-muted/80 border border-border/70 transition-colors shadow-2xs cursor-pointer"
                 title="Copy Mermaid Code"
               >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                {copied ? <Check className="w-3.5 h-3.5 text-success" /> : <Copy className="w-3.5 h-3.5" />}
               </button>
             </div>
           </div>
 
           {/* Editable Code View (expanded when editing syntax) */}
-          <div className={showCode ? "p-3 bg-slate-950 text-slate-100 border-b border-border/60" : "hidden"}>
+          <div className={showCode ? "p-3 bg-foreground text-muted-foreground border-b border-border/60" : "hidden"}>
             <pre className="font-mono text-xs leading-relaxed overflow-x-auto selection:bg-primary/30 p-2">
               <NodeViewContent className="outline-none" />
             </pre>
@@ -121,9 +121,9 @@ export function CodeBlockView({ node }: NodeViewProps) {
   // Standard non-mermaid code block
   return (
     <NodeViewWrapper className="my-3.5 not-prose">
-      <div className="overflow-hidden rounded-xl border border-border/80 bg-slate-950 dark:bg-slate-900/95 shadow-md group">
-        <div className="flex items-center justify-between px-3.5 py-2 bg-slate-900/90 dark:bg-slate-950/80 border-b border-border/40 text-[11px] select-none">
-          <span className="text-slate-400 font-mono text-[10px] font-bold tracking-wider flex items-center gap-1.5">
+      <div className="overflow-hidden rounded-lg border border-border/80 bg-foreground shadow-md group">
+        <div className="flex items-center justify-between px-3.5 py-2 bg-foreground/90 border-b border-border/40 text-xs select-none">
+          <span className="text-muted-foreground font-mono text-xs font-semibold  flex items-center gap-1.5">
             <Code2 className="w-3 h-3 text-primary" />
             {(language || "CODE").toUpperCase()}
           </span>
@@ -131,23 +131,23 @@ export function CodeBlockView({ node }: NodeViewProps) {
           <button
             type="button"
             onClick={handleCopy}
-            className="flex items-center gap-1 text-[11px] font-medium text-slate-400 hover:text-slate-100 bg-slate-800/80 hover:bg-slate-700/80 px-2 py-0.5 rounded-md transition-colors cursor-pointer"
+            className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-muted-foreground bg-foreground/80 hover:bg-foreground/80 px-2 py-0.5 rounded-md transition-colors cursor-pointer"
           >
             {copied ? (
               <>
-                <Check className="w-3 h-3 text-emerald-400" />
-                <span className="text-emerald-400 font-semibold text-[10px]">Copied</span>
+                <Check className="w-3 h-3 text-success" />
+                <span className="text-success font-semibold text-xs">Copied</span>
               </>
             ) : (
               <>
-                <Copy className="w-3 h-3 text-slate-400" />
-                <span className="text-[10px]">Copy</span>
+                <Copy className="w-3 h-3 text-muted-foreground" />
+                <span className="text-xs">Copy</span>
               </>
             )}
           </button>
         </div>
 
-        <pre className="p-4 text-slate-100 font-mono text-[12px] leading-relaxed overflow-x-auto selection:bg-primary/30">
+        <pre className="p-4 text-muted-foreground font-mono text-[12px] leading-relaxed overflow-x-auto selection:bg-primary/30">
           <NodeViewContent className="outline-none" />
         </pre>
       </div>
