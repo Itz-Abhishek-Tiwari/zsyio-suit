@@ -3,7 +3,7 @@ import { requireUser, withApiHandler, errorResponse } from "@zsyio/auth/api-help
 import { prisma } from "@zsyio/database";
 import { evaluateNoteAccess, hasPermissionLevel } from "@zsyio/auth/note-permissions";
 import { notificationService } from "@/server/services/notification.service";
-import type { Role, NotePermission } from "@prisma/client";
+import { NotePermission as NotePermissionEnum, Role as RoleEnum, type Role, type NotePermission } from "@prisma/client";
 
 export async function GET(
   _req: NextRequest,
@@ -87,6 +87,13 @@ export async function POST(
       : typeof userId === "string" && userId.trim().length > 0
       ? [userId]
       : [];
+
+    if (!Object.values(NotePermissionEnum).includes(accessLevel)) {
+      throw errorResponse("VALIDATION_ERROR", "Invalid accessLevel.", 400);
+    }
+    if (role !== undefined && role !== null && !Object.values(RoleEnum).includes(role)) {
+      throw errorResponse("VALIDATION_ERROR", "Invalid role.", 400);
+    }
 
     if (allUserIds.length === 0 && !role && !teamId && !customRoleId) {
       throw errorResponse("VALIDATION_ERROR", "Must specify user(s), role, team, or custom role.", 400);

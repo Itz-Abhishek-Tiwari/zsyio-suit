@@ -1,7 +1,8 @@
 import { NextRequest } from "next/server";
 import { requireUser, withApiHandler, errorResponse } from "@zsyio/auth/api-helpers";
 import { prisma } from "@zsyio/database";
-import { evaluateNoteAccess, hasPermissionLevel, getUserTeamIds } from "@zsyio/auth/note-permissions";
+import { NoteGeneralAccess } from "@prisma/client";
+import { evaluateNoteAccess, evaluateFolderAccess, hasPermissionLevel, getUserTeamIds } from "@zsyio/auth/note-permissions";
 
 export async function GET(
   _req: NextRequest,
@@ -97,6 +98,18 @@ export async function PATCH(
     const body = await req.json();
     const { title, content, icon, coverImage, folderId, isPinned, isArchived, generalAccess } = body;
 
+    if (generalAccess !== undefined && !Object.values(NoteGeneralAccess).includes(generalAccess)) {
+      throw errorResponse("VALIDATION_ERROR", "Invalid generalAccess value.", 400);
+    }
+    for (const [k, v] of Object.entries({ title, content, icon, coverImage })) {
+      if (v !== undefined && v !== null && typeof v !== "string") {
+        throw errorResponse("VALIDATION_ERROR", `${k} must be a string.`, 400);
+      }
+    }
+    if (title === null) {
+      throw errorResponse("VALIDATION_ERROR", "title must be a string.", 400);
+    }
+
     // Only owners/admin/FULL access can change general access or permanently archive/move
     if (generalAccess !== undefined && !hasPermissionLevel(effectiveAccess, "FULL")) {
       throw errorResponse("FORBIDDEN", "Only editors with full access can modify note sharing level.", 403);
@@ -105,10 +118,15 @@ export async function PATCH(
     // If moving to a folder, check folder existence
     if (folderId !== undefined && folderId !== null) {
       const targetFolder = await prisma.noteFolder.findUnique({
-        where: { id: folderId },
+        where: { id: String(folderId) },
+        include: { shares: true },
       });
       if (!targetFolder) {
         throw errorResponse("NOT_FOUND", "Target folder not found.", 404);
+      }
+      const targetAccess = await evaluateFolderAccess(targetFolder.id, user, targetFolder);
+      if (!hasPermissionLevel(targetAccess, "EDIT")) {
+        throw errorResponse("FORBIDDEN", "You do not have permission to move notes into this folder.", 403);
       }
     }
 

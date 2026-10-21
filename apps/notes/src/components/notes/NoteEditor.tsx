@@ -394,7 +394,7 @@ export function NoteEditor({
       <div className="flex-1 h-full flex flex-col bg-background overflow-hidden select-none">
         {/* Skeleton Top Bar */}
         <header className="relative h-14 shrink-0 border-b border-border px-4 sm:px-6 flex items-center justify-between suite-header-gradient">
-          <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-primary/30 via-indigo-500/20 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-px pointer-events-none" />
           <div className="flex items-center gap-2">
             <div className="h-3.5 w-12 bg-muted/80 rounded" />
             <ChevronRight className="w-3 h-3 text-muted-foreground/30" />
@@ -403,19 +403,19 @@ export function NoteEditor({
             <div className="h-3.5 w-32 bg-muted/80 rounded" />
           </div>
           <div className="flex items-center gap-2">
-            <div className="h-7 w-16 bg-muted/70 rounded-xl" />
+            <div className="h-7 w-16 bg-muted/70 rounded-lg" />
             <div className="h-7 w-7 bg-muted/70 rounded-lg" />
-            <div className="h-7 w-16 bg-muted/70 rounded-xl" />
+            <div className="h-7 w-16 bg-muted/70 rounded-lg" />
           </div>
         </header>
 
         {/* Skeleton Body */}
         <div className="flex-1 overflow-y-auto relative p-6 sm:px-10 py-6 max-w-4xl mx-auto w-full flex flex-col gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-muted/80" />
+            <div className="w-10 h-10 rounded-lg bg-muted/80" />
           </div>
           <div className="flex flex-col gap-2">
-            <div className="h-8 sm:h-10 w-2/3 bg-muted/90 rounded-xl" />
+            <div className="h-8 sm:h-10 w-2/3 bg-muted/90 rounded-lg" />
             <div className="flex items-center gap-3 pt-2 border-b border-border/60 pb-4">
               <div className="w-5 h-5 rounded-full bg-muted/80" />
               <div className="h-3 w-20 bg-muted/60 rounded" />
@@ -442,11 +442,11 @@ export function NoteEditor({
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="w-14 h-14 rounded-2xl bg-destructive/10 text-destructive flex items-center justify-center mb-3 border border-destructive/20 shadow-xs"
+          className="w-14 h-14 rounded-lg bg-destructive/10 text-destructive flex items-center justify-center mb-3 border border-destructive/20 shadow-xs"
         >
           <Lock className="w-7 h-7" />
         </motion.div>
-        <h3 className="text-base font-bold text-foreground mb-1">Access Restricted or Note Moved</h3>
+        <h3 className="text-base font-semibold text-foreground mb-1">Access Restricted or Note Moved</h3>
         <p className="text-xs text-muted-foreground max-w-sm">
           You might not have permission to view this document, or it has been moved to trash.
         </p>
@@ -464,10 +464,10 @@ export function NoteEditor({
       >
         {/* 1. Control Bar */}
         <header className="relative h-14 shrink-0 border-b border-border px-4 sm:px-6 flex items-center justify-between suite-header-gradient select-none z-20 shadow-2xs">
-          <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-primary/40 via-indigo-500/30 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-px pointer-events-none" />
           {/* Breadcrumb Navigation */}
           <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground min-w-0 pr-4">
-            <span className="hidden sm:inline text-foreground font-bold">Notes</span>
+            <span className="hidden sm:inline text-foreground font-semibold">Notes</span>
             {note.breadcrumbs?.map((b) => (
               <React.Fragment key={b.id}>
                 <ChevronRight className="w-3 h-3 text-muted-foreground/50 shrink-0" />
@@ -501,7 +501,7 @@ export function NoteEditor({
                   <ListTree className="w-4 h-4" />
                 </motion.button>
               </PopoverTrigger>
-              <PopoverContent align="end" className="w-72 p-1 rounded-2xl shadow-xl border border-border/80 bg-card/95 backdrop-blur-md">
+              <PopoverContent align="end" className="w-72 p-1 rounded-lg shadow-md border border-border/80 bg-card/95 backdrop-blur-md">
                 <TableOfContents content={content} />
               </PopoverContent>
             </Popover>
@@ -514,9 +514,9 @@ export function NoteEditor({
                 onClick={handleSave}
                 disabled={isSaving || !hasUnsavedChanges}
                 className={cn(
-                  "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all shadow-xs",
+                  "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shadow-xs",
                   hasUnsavedChanges
-                    ? "bg-primary text-primary-foreground hover:bg-primary-hover shadow-primary/20 cursor-pointer"
+                    ? "bg-primary text-primary-foreground hover:bg-primary-hover  cursor-pointer"
                     : "bg-surface-subtle text-muted-foreground border border-border/80 opacity-80 cursor-default"
                 )}
                 title={hasUnsavedChanges ? "Save changes (Ctrl+S / Cmd+S)" : "All changes saved"}
@@ -552,7 +552,7 @@ export function NoteEditor({
                       exit={{ opacity: 0, scale: 0.8 }}
                       className="flex items-center gap-1.5"
                     >
-                      <Check className="w-3.5 h-3.5 text-emerald-500" />
+                      <Check className="w-3.5 h-3.5 text-success" />
                       <span>Saved</span>
                     </motion.div>
                   )}
@@ -561,7 +561,7 @@ export function NoteEditor({
             )}
 
             {/* View Mode Controls: Edit vs Preview */}
-            <div className="flex items-center bg-muted/60 p-0.5 rounded-xl border border-border/70 shadow-2xs">
+            <div className="flex items-center bg-muted/60 p-0.5 rounded-lg border border-border/70 shadow-2xs">
               {isEditable && (
                 <button
                   type="button"
@@ -601,13 +601,13 @@ export function NoteEditor({
               type="button"
               onClick={() => toggleStar(note.id)}
               disabled={isStarring}
-              className="p-1.5 rounded-lg border border-border/80 hover:bg-surface-elevated text-muted-foreground hover:text-amber-500 transition-colors cursor-pointer shadow-2xs"
+              className="p-1.5 rounded-lg border border-border/80 hover:bg-surface-elevated text-muted-foreground hover:text-warning transition-colors cursor-pointer shadow-2xs"
               title={note.isStarred ? "Remove from Favorites" : "Add to Favorites"}
             >
               <Star
                 className={cn(
                   "w-4 h-4 transition-colors",
-                  note.isStarred ? "fill-amber-400 text-amber-500" : "text-muted-foreground"
+                  note.isStarred ? "fill-warning text-warning" : "text-muted-foreground"
                 )}
               />
             </motion.button>
@@ -618,7 +618,7 @@ export function NoteEditor({
               whileTap={{ scale: 0.96 }}
               type="button"
               onClick={() => onOpenShareModal(note)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary text-primary-foreground text-xs font-bold hover:bg-primary-hover transition-all cursor-pointer shadow-xs shadow-primary/20"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary-hover transition-all cursor-pointer shadow-xs "
             >
               <Share2 className="w-3.5 h-3.5" />
               <span>Share</span>
@@ -664,18 +664,18 @@ export function NoteEditor({
                   <MoreHorizontal className="w-4 h-4" />
                 </motion.button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-52 p-1.5 rounded-2xl shadow-xl border border-border/80">
-                <DropdownMenuItem onClick={handleCopyRawText} className="text-xs gap-2.5 p-2 cursor-pointer rounded-xl">
+              <DropdownMenuContent align="end" className="w-52 p-1.5 rounded-lg shadow-md border border-border/80">
+                <DropdownMenuItem onClick={handleCopyRawText} className="text-xs gap-2.5 p-2 cursor-pointer rounded-lg">
                   <Copy className="w-3.5 h-3.5 text-muted-foreground" />
                   <span>Copy Markdown Text</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={handleExportMarkdown} className="text-xs gap-2.5 p-2 cursor-pointer rounded-xl">
+                <DropdownMenuItem onClick={handleExportMarkdown} className="text-xs gap-2.5 p-2 cursor-pointer rounded-lg">
                   <Download className="w-3.5 h-3.5 text-muted-foreground" />
                   <span>Export Markdown (.md)</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => handlePrint()}
-                  className="text-xs gap-2.5 p-2 cursor-pointer rounded-xl"
+                  className="text-xs gap-2.5 p-2 cursor-pointer rounded-lg"
                 >
                   <Printer className="w-3.5 h-3.5 text-muted-foreground" />
                   <span>Print / Save as PDF</span>
@@ -683,7 +683,7 @@ export function NoteEditor({
                 <DropdownMenuSeparator className="my-1" />
                 <DropdownMenuItem
                   onClick={() => deleteNote({ id: note.id, permanent: false })}
-                  className="text-xs gap-2.5 p-2 text-destructive hover:bg-destructive/10 cursor-pointer rounded-xl"
+                  className="text-xs gap-2.5 p-2 text-destructive hover:bg-destructive/10 cursor-pointer rounded-lg"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   <span>Move to Trash</span>
@@ -722,14 +722,14 @@ export function NoteEditor({
                     }
               }
             >
-              <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 pointer-events-none" />
 
               {/* Repositioning Instructions Pill (Center Top) */}
               {isRepositioning && (
-                <div className="absolute top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-1.5 rounded-full bg-background/95 text-foreground backdrop-blur-md border border-border/80 shadow-lg text-xs font-medium flex items-center gap-2 pointer-events-none select-none z-20 animate-in fade-in zoom-in-95 duration-150 print-hidden">
+                <div className="absolute top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-1.5 rounded-full bg-background/95 text-foreground backdrop-blur-md border border-border/80 shadow-md text-xs font-medium flex items-center gap-2 pointer-events-none select-none z-20 animate-in fade-in zoom-in-95 duration-150 print-hidden">
                   <MoveVertical className="w-3.5 h-3.5 text-primary animate-pulse" />
                   <span>Drag image to reposition</span>
-                  <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-muted text-muted-foreground ml-0.5">
+                  <span className="text-xs font-mono px-1.5 py-0.5 rounded bg-muted text-muted-foreground ml-0.5">
                     {Math.round(coverPositionY)}%
                   </span>
                 </div>
@@ -737,7 +737,7 @@ export function NoteEditor({
 
               {/* Repositioning Floating Action Dock (Bottom Right) */}
               {isRepositioning ? (
-                <div className="absolute bottom-3 right-4 sm:right-6 flex items-center gap-1.5 bg-background/95 backdrop-blur-md border border-border/90 rounded-xl p-1 shadow-lg z-20 print-hidden animate-in fade-in slide-in-from-bottom-2 duration-150">
+                <div className="absolute bottom-3 right-4 sm:right-6 flex items-center gap-1.5 bg-background/95 backdrop-blur-md border border-border/90 rounded-lg p-1 shadow-md z-20 print-hidden animate-in fade-in slide-in-from-bottom-2 duration-150">
                   <div className="flex items-center gap-1 border-r border-border/70 pr-1.5 mr-0.5">
                     <button
                       type="button"
@@ -801,7 +801,7 @@ export function NoteEditor({
                       <button
                         type="button"
                         onClick={() => setIsRepositioning(true)}
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-background/90 hover:bg-background text-foreground transition-all backdrop-blur-md border border-border/80 shadow-xs cursor-pointer"
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-background/90 hover:bg-background text-foreground transition-all backdrop-blur-md border border-border/80 shadow-xs cursor-pointer"
                         title="Reposition image vertically"
                       >
                         <MoveVertical className="w-3.5 h-3.5" />
@@ -811,7 +811,7 @@ export function NoteEditor({
                     <CoverPicker currentCover={note.coverImage} onSelect={handleCoverChange} align="end">
                       <button
                         type="button"
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-background/90 hover:bg-background text-foreground transition-all backdrop-blur-md border border-border/80 shadow-xs cursor-pointer"
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-background/90 hover:bg-background text-foreground transition-all backdrop-blur-md border border-border/80 shadow-xs cursor-pointer"
                       >
                         <ImageIcon className="w-3.5 h-3.5" />
                         <span>Change Cover</span>
@@ -820,7 +820,7 @@ export function NoteEditor({
                     <button
                       type="button"
                       onClick={() => handleCoverChange(null)}
-                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-semibold bg-background/90 hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-all backdrop-blur-md border border-border/80 shadow-xs cursor-pointer"
+                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-background/90 hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-all backdrop-blur-md border border-border/80 shadow-xs cursor-pointer"
                       title="Remove Cover"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -886,9 +886,9 @@ export function NoteEditor({
                     className={cn(
                       "inline-flex items-center justify-center transition-all select-none",
                       note.coverImage
-                        ? "p-2.5 sm:p-3 rounded-2xl bg-card border-2 border-background shadow-lg ring-1 ring-border/50 text-foreground"
-                        : "p-2 rounded-2xl bg-surface-subtle hover:bg-surface-elevated border border-border/50",
-                      isEditable ? "cursor-pointer hover:shadow-xl" : "cursor-default"
+                        ? "p-2.5 sm:p-3 rounded-lg bg-card border border-background shadow-md ring-1 ring-border/50 text-foreground"
+                        : "p-2 rounded-lg bg-surface-subtle hover:bg-surface-elevated border border-border/50",
+                      isEditable ? "cursor-pointer hover:shadow-md" : "cursor-default"
                     )}
                     title={isEditable ? "Change Icon" : undefined}
                   >
@@ -908,17 +908,17 @@ export function NoteEditor({
                     value={title}
                     onChange={handleTitleChange}
                     placeholder="Untitled Document"
-                    className="w-full text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display tracking-tight text-foreground bg-transparent border-none outline-none placeholder:text-muted-foreground/30 leading-tight py-1 font-sans"
+                    className="w-full text-3xl sm:text-4xl lg:text-5xl font-semibold font-display tracking-tight text-foreground bg-transparent border-none outline-none placeholder:text-muted-foreground/30 leading-tight py-1 font-sans"
                   />
                 ) : (
-                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display tracking-tight text-foreground leading-tight py-1 font-sans">
+                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold font-display tracking-tight text-foreground leading-tight py-1 font-sans">
                     {title || "Untitled Document"}
                   </h1>
                 )}
               </div>
 
               {/* Clean print heading */}
-              <h1 className="hidden print-block text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight leading-tight py-1">
+              <h1 className="hidden print-block text-3xl sm:text-4xl font-semibold text-foreground tracking-tight leading-tight py-1">
                 {title || note.title || "Untitled Document"}
               </h1>
 
@@ -932,7 +932,7 @@ export function NoteEditor({
                   style={{ display: "inline-flex", flexDirection: "row", alignItems: "center", gap: "6px" }}
                 >
                   <div
-                    className="w-5 h-5 rounded-full bg-primary/10 text-primary font-bold text-[10px] flex items-center justify-center border border-primary/20 shrink-0"
+                    className="w-5 h-5 rounded-full bg-primary/10 text-primary font-semibold text-xs flex items-center justify-center border border-primary/20 shrink-0"
                     style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "20px", height: "20px", borderRadius: "9999px" }}
                   >
                     {note.author?.name?.[0]?.toUpperCase() || "U"}
@@ -953,7 +953,7 @@ export function NoteEditor({
                 <span>•</span>
 
                 <div
-                  className="flex items-center gap-1 font-mono text-[11px]"
+                  className="flex items-center gap-1 font-mono text-xs"
                   style={{ display: "inline-flex", flexDirection: "row", alignItems: "center", gap: "4px" }}
                 >
                   <BookOpen className="w-3.5 h-3.5 shrink-0" />
@@ -961,7 +961,7 @@ export function NoteEditor({
                 </div>
 
                 {!isEditable && (
-                  <Badge variant="outline" className="ml-auto text-[10px] font-mono border-amber-500/30 text-amber-600 bg-amber-500/5 print-hidden">
+                  <Badge variant="outline" className="ml-auto text-xs font-mono border-warning/30 text-warning bg-warning/5 print-hidden">
                     View Only (Read-Only)
                   </Badge>
                 )}

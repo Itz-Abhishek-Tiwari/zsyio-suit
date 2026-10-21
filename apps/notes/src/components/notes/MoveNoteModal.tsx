@@ -103,7 +103,7 @@ export function MoveNoteModal({ open, onOpenChange, item, folders }: MoveNoteMod
             disabled={isSubmitting}
             onClick={() => handleMove(null)}
             className={cn(
-              "w-full flex items-center justify-between p-2.5 rounded-xl text-left text-xs transition-all cursor-pointer border select-none",
+              "w-full flex items-center justify-between p-2.5 rounded-lg text-left text-xs transition-all cursor-pointer border select-none",
               currentParentId === null
                 ? "bg-surface-elevated text-foreground border-border font-semibold shadow-xs"
                 : "border-transparent hover:bg-surface-elevated/70 text-muted-foreground hover:text-foreground"
@@ -126,14 +126,14 @@ export function MoveNoteModal({ open, onOpenChange, item, folders }: MoveNoteMod
                 disabled={isSubmitting}
                 onClick={() => handleMove(f.id)}
                 className={cn(
-                  "w-full flex items-center justify-between p-2.5 rounded-xl text-left text-xs transition-all cursor-pointer border select-none",
+                  "w-full flex items-center justify-between p-2.5 rounded-lg text-left text-xs transition-all cursor-pointer border select-none",
                   isCurrent
                     ? "bg-surface-elevated text-foreground border-border font-semibold shadow-xs"
                     : "border-transparent hover:bg-surface-elevated/70 text-muted-foreground hover:text-foreground"
                 )}
               >
                 <div className="flex items-center gap-2 min-w-0">
-                  <Folder className="w-4 h-4 text-purple-500 shrink-0" />
+                  <Folder className="w-4 h-4 text-notion-purple-fg shrink-0" />
                   <span className="truncate">{f.name}</span>
                 </div>
                 {isCurrent && <Check className="w-3.5 h-3.5 text-primary shrink-0" />}

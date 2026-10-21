@@ -2,8 +2,8 @@ import { NextRequest } from "next/server";
 import { requireUser, withApiHandler, errorResponse } from "@zsyio/auth/api-helpers";
 import { prisma } from "@zsyio/database";
 import { assertCan } from "@zsyio/auth/permissions";
-import { getUserTeamIds, computeAccessibleFolderIds } from "@zsyio/auth/note-permissions";
-import type { Role, NoteGeneralAccess } from "@prisma/client";
+import { getUserTeamIds, computeAccessibleFolderIds, evaluateFolderAccess, hasPermissionLevel } from "@zsyio/auth/note-permissions";
+import { NoteGeneralAccess as NoteGeneralAccessEnum, type Role, type NoteGeneralAccess } from "@prisma/client";
 import { NOTE_TEMPLATES } from "@zsyio/editor";
 
 export async function GET(req: NextRequest) {
@@ -86,12 +86,16 @@ export async function GET(req: NextRequest) {
       const matchedFolders = activeFolders.filter((f) => f.name.toLowerCase().includes(qLower)).slice(0, 15);
       const notes = await prisma.note.findMany({
         where: {
-          ...noteAccessFilter,
-          isArchived: false,
-          OR: [
-            { title: { contains: query, mode: "insensitive" } },
-            { content: { contains: query, mode: "insensitive" } },
+          AND: [
+            noteAccessFilter,
+            {
+              OR: [
+                { title: { contains: query, mode: "insensitive" } },
+                { content: { contains: query, mode: "insensitive" } },
+              ],
+            },
           ],
+          isArchived: false,
         },
         include: {
           author: { select: { id: true, name: true, email: true, role: true } },
@@ -223,13 +227,30 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Verify folder exists if specified
+    if (generalAccess !== undefined && !Object.values(NoteGeneralAccessEnum).includes(generalAccess)) {
+      throw errorResponse("VALIDATION_ERROR", "Invalid generalAccess value.", 400);
+    }
+    for (const [k, v] of Object.entries({ title, content, icon, coverImage })) {
+      if (v !== undefined && v !== null && typeof v !== "string") {
+        throw errorResponse("VALIDATION_ERROR", `${k} must be a string.`, 400);
+      }
+    }
+
+    // Verify folder exists and user may add notes to it
     if (folderId) {
+      if (typeof folderId !== "string") {
+        throw errorResponse("VALIDATION_ERROR", "Invalid folderId.", 400);
+      }
       const folder = await prisma.noteFolder.findUnique({
         where: { id: folderId },
+        include: { shares: true },
       });
       if (!folder) {
         throw errorResponse("NOT_FOUND", "Specified folder does not exist.", 404);
+      }
+      const folderAccess = await evaluateFolderAccess(folder.id, user, folder);
+      if (!hasPermissionLevel(folderAccess, "EDIT")) {
+        throw errorResponse("FORBIDDEN", "You do not have permission to add notes to this folder.", 403);
       }
     }
 

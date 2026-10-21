@@ -67,13 +67,13 @@ interface NoteSidebarTreeProps {
 }
 
 const FOLDER_COLOR_MAP: Record<string, string> = {
-  purple: "text-purple-500 fill-purple-500/10",
-  blue: "text-blue-500 fill-blue-500/10",
-  emerald: "text-emerald-500 fill-emerald-500/10",
-  amber: "text-amber-500 fill-amber-500/10",
-  rose: "text-rose-500 fill-rose-500/10",
-  cyan: "text-cyan-500 fill-cyan-500/10",
-  slate: "text-slate-400 fill-slate-400/10",
+  purple: "text-notion-purple-fg fill-notion-purple-fg/10",
+  blue: "text-notion-blue-fg fill-notion-blue-fg/10",
+  emerald: "text-success fill-success/10",
+  amber: "text-warning fill-warning/10",
+  rose: "text-destructive fill-destructive/10",
+  cyan: "text-notion-blue-fg fill-notion-blue-fg/10",
+  slate: "text-muted-foreground fill-muted-foreground/10",
 };
 
 type DragPayload = {
@@ -97,10 +97,14 @@ export function NoteSidebarTree({
   onToggleCollapse,
 }: NoteSidebarTreeProps) {
   const [internalCollapsed, setInternalCollapsed] = useState(false);
-  const isCollapsed = controlledCollapsed !== undefined ? controlledCollapsed : internalCollapsed;
-  const toggleCollapse = onToggleCollapse || (() => setInternalCollapsed((prev) => !prev));
+  const isCollapsed =
+    controlledCollapsed !== undefined ? controlledCollapsed : internalCollapsed;
+  const toggleCollapse =
+    onToggleCollapse || (() => setInternalCollapsed((prev) => !prev));
 
-  const [expandedFolderIds, setExpandedFolderIds] = useState<Set<string>>(new Set());
+  const [expandedFolderIds, setExpandedFolderIds] = useState<Set<string>>(
+    new Set(),
+  );
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<ViewFilter>("all");
   const [showTrash, setShowTrash] = useState(false);
@@ -111,7 +115,9 @@ export function NoteSidebarTree({
 
   // Move Modal state
   const [moveModalItem, setMoveModalItem] = useState<
-    { type: "note"; note: NoteItem } | { type: "folder"; folder: FolderItem } | null
+    | { type: "note"; note: NoteItem }
+    | { type: "folder"; folder: FolderItem }
+    | null
   >(null);
 
   const [createNote, { isLoading: isCreating }] = useCreateNoteMutation();
@@ -152,7 +158,9 @@ export function NoteSidebarTree({
   const handleDeleteNotePrompt = async (noteId: string, permanent = false) => {
     try {
       await deleteNote({ id: noteId, permanent }).unwrap();
-      toast.success(permanent ? "Note permanently deleted" : "Note moved to trash");
+      toast.success(
+        permanent ? "Note permanently deleted" : "Note moved to trash",
+      );
     } catch {
       toast.error("Failed to delete note");
     }
@@ -167,7 +175,10 @@ export function NoteSidebarTree({
     }
   };
 
-  const handleDeleteFolderPrompt = async (folderId: string, permanent = false) => {
+  const handleDeleteFolderPrompt = async (
+    folderId: string,
+    permanent = false,
+  ) => {
     try {
       await deleteFolder({ id: folderId, permanent }).unwrap();
       toast.success(permanent ? "Folder deleted" : "Folder moved to trash");
@@ -188,7 +199,8 @@ export function NoteSidebarTree({
     e.preventDefault();
     e.stopPropagation();
     if (draggingItem) {
-      if (draggingItem.type === "folder" && draggingItem.id === targetId) return;
+      if (draggingItem.type === "folder" && draggingItem.id === targetId)
+        return;
       setDragOverTargetId(targetId);
       e.dataTransfer.dropEffect = "move";
     }
@@ -202,7 +214,10 @@ export function NoteSidebarTree({
     }
   };
 
-  const handleDrop = async (e: React.DragEvent, targetFolderId: string | null) => {
+  const handleDrop = async (
+    e: React.DragEvent,
+    targetFolderId: string | null,
+  ) => {
     e.preventDefault();
     e.stopPropagation();
     setDragOverTargetId(null);
@@ -278,7 +293,9 @@ export function NoteSidebarTree({
   }, [tree.notes, folderMap]);
 
   const rootFolders = useMemo(() => {
-    return tree.folders.filter((f) => !f.parentId || !folderMap.has(f.parentId));
+    return tree.folders.filter(
+      (f) => !f.parentId || !folderMap.has(f.parentId),
+    );
   }, [tree.folders, folderMap]);
 
   // Filter notes by search if typed
@@ -288,27 +305,36 @@ export function NoteSidebarTree({
     return tree.notes.filter(
       (n) =>
         n.title.toLowerCase().includes(filterQuery) ||
-        (n.content && n.content.toLowerCase().includes(filterQuery))
+        (n.content && n.content.toLowerCase().includes(filterQuery)),
     );
   }, [tree.notes, filterQuery]);
 
   // Recent notes (sorted by updatedAt descending)
   const recentNotes = useMemo(() => {
     return [...tree.notes]
-      .sort((a, b) => new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime())
+      .sort(
+        (a, b) =>
+          new Date(b.updatedAt || 0).getTime() -
+          new Date(a.updatedAt || 0).getTime(),
+      )
       .slice(0, 10);
   }, [tree.notes]);
 
   const renderNoteItem = (note: NoteItem, depth = 0) => {
     const isActive = activeNoteId === note.id;
-    const isBeingDragged = draggingItem?.type === "note" && draggingItem.id === note.id;
+    const isBeingDragged =
+      draggingItem?.type === "note" && draggingItem.id === note.id;
 
     return (
       <div
         key={note.id}
         draggable
         onDragStart={(e) =>
-          handleDragStart(e, { type: "note", id: note.id, title: note.title || "Untitled" })
+          handleDragStart(e, {
+            type: "note",
+            id: note.id,
+            title: note.title || "Untitled",
+          })
         }
         onDragEnd={() => {
           setDraggingItem(null);
@@ -319,8 +345,8 @@ export function NoteSidebarTree({
           "group relative flex items-center justify-between py-1.5 px-2 rounded-md text-xs transition-all duration-150 cursor-pointer select-none hover:translate-x-0.5",
           isBeingDragged && "opacity-30 scale-95",
           isActive
-            ? "bg-primary/10 text-primary font-bold shadow-2xs border border-primary/20"
-            : "text-muted-foreground hover:text-foreground hover:bg-surface-elevated/80 border border-transparent"
+            ? "bg-primary/10 text-primary font-semibold shadow-2xs border border-primary/20"
+            : "text-muted-foreground hover:text-foreground hover:bg-surface-elevated/80 border border-transparent",
         )}
         onClick={() => onSelectNote(note.id)}
       >
@@ -331,11 +357,15 @@ export function NoteSidebarTree({
             size="sm"
             className={cn(
               "shrink-0 transition-transform duration-150",
-              isActive ? "text-primary scale-110" : "text-muted-foreground group-hover:text-foreground"
+              isActive
+                ? "text-primary scale-110"
+                : "text-muted-foreground group-hover:text-foreground",
             )}
           />
           <span className="truncate">{note.title || "Untitled"}</span>
-          {note.isPinned && <Star className="w-3 h-3 fill-amber-400 text-amber-500 shrink-0" />}
+          {note.isPinned && (
+            <Star className="w-3 h-3 fill-warning text-warning shrink-0" />
+          )}
         </div>
 
         {isActive && (
@@ -356,7 +386,10 @@ export function NoteSidebarTree({
                 <MoreHorizontal className="w-3.5 h-3.5" />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48 p-1 rounded-md shadow-lg border border-border/80">
+            <DropdownMenuContent
+              align="end"
+              className="w-48 p-1 rounded-md shadow-md border border-border/80"
+            >
               <DropdownMenuItem
                 onClick={() => setMoveModalItem({ type: "note", note })}
                 className="text-xs gap-2 cursor-pointer"
@@ -397,16 +430,23 @@ export function NoteSidebarTree({
     const isExpanded = expandedFolderIds.has(folder.id);
     const subfolders = childrenMap.get(folder.id) || [];
     const notesInFolder = folderNotesMap.get(folder.id) || [];
-    const colorClass = FOLDER_COLOR_MAP[folder.color || "purple"] || "text-purple-500 fill-purple-500/10";
+    const colorClass =
+      FOLDER_COLOR_MAP[folder.color || "purple"] ||
+      "text-notion-purple-fg fill-notion-purple-fg/10";
     const isDragOver = dragOverTargetId === folder.id;
-    const isBeingDragged = draggingItem?.type === "folder" && draggingItem.id === folder.id;
+    const isBeingDragged =
+      draggingItem?.type === "folder" && draggingItem.id === folder.id;
 
     return (
       <div key={folder.id} className="flex flex-col">
         <div
           draggable
           onDragStart={(e) =>
-            handleDragStart(e, { type: "folder", id: folder.id, title: folder.name })
+            handleDragStart(e, {
+              type: "folder",
+              id: folder.id,
+              title: folder.name,
+            })
           }
           onDragEnd={() => {
             setDraggingItem(null);
@@ -421,16 +461,23 @@ export function NoteSidebarTree({
             isBeingDragged && "opacity-30 scale-95",
             isDragOver
               ? "bg-primary/15 ring-2 ring-primary border border-primary/40 text-foreground"
-              : "hover:bg-surface-elevated text-foreground/90"
+              : "hover:bg-surface-elevated text-foreground/90",
           )}
           onClick={() => toggleFolder(folder.id)}
         >
           <div className="flex items-center gap-1.5 min-w-0 flex-1">
             <GripVertical className="w-3 h-3 text-muted-foreground/30 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 -ml-1 cursor-grab" />
             <span className="p-0.5 text-muted-foreground hover:text-foreground inline-flex items-center">
-              <ChevronRight className={cn("w-3.5 h-3.5 transition-transform duration-150", isExpanded && "rotate-90")} />
+              <ChevronRight
+                className={cn(
+                  "w-3.5 h-3.5 transition-transform duration-150",
+                  isExpanded && "rotate-90",
+                )}
+              />
             </span>
-            <Folder className={cn("w-4 h-4 shrink-0 transition-colors", colorClass)} />
+            <Folder
+              className={cn("w-4 h-4 shrink-0 transition-colors", colorClass)}
+            />
             <span className="truncate font-semibold text-foreground/90">
               {folder.name}
             </span>
@@ -462,7 +509,10 @@ export function NoteSidebarTree({
                   <MoreHorizontal className="w-3.5 h-3.5" />
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48 p-1 rounded-md shadow-lg border border-border/80">
+              <DropdownMenuContent
+                align="end"
+                className="w-48 p-1 rounded-md shadow-md border border-border/80"
+              >
                 <DropdownMenuItem
                   onClick={() => setMoveModalItem({ type: "folder", folder })}
                   className="text-xs gap-2 cursor-pointer"
@@ -474,7 +524,7 @@ export function NoteSidebarTree({
                   onClick={() => onOpenShareFolder(folder)}
                   className="text-xs gap-2 cursor-pointer"
                 >
-                  <Share2 className="w-3.5 h-3.5 text-purple-500" />
+                  <Share2 className="w-3.5 h-3.5 text-notion-purple-fg" />
                   <span>Share Folder</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem
@@ -512,7 +562,7 @@ export function NoteSidebarTree({
             {subfolders.length === 0 && notesInFolder.length === 0 && (
               <div
                 style={{ paddingLeft: `${(depth + 1) * 14 + 8}px` }}
-                className="py-1 text-[10px] text-muted-foreground/50 italic"
+                className="py-1 text-xs text-muted-foreground/50 italic"
               >
                 Empty folder
               </div>
@@ -528,14 +578,14 @@ export function NoteSidebarTree({
       <aside
         className={cn(
           "h-full flex flex-col border-r border-border suite-sidebar-gradient shadow-xs select-none shrink-0 transition-[width] duration-150 ease-out z-20 overflow-hidden relative",
-          isCollapsed ? "w-16" : "w-72"
+          isCollapsed ? "w-16" : "w-72",
         )}
       >
         {/* Top ambient radial gradient glow */}
-        <div className="absolute top-0 left-0 right-0 h-44 bg-gradient-to-b from-primary/6 via-indigo-500/3 to-transparent pointer-events-none dark:from-primary/12 dark:via-indigo-500/6" />
+        <div className="absolute top-0 left-0 right-0 h-44 pointer-events-none" />
 
         {/* Right border fine gradient accent */}
-        <div className="absolute top-0 right-0 bottom-0 w-px bg-gradient-to-b from-primary/35 via-indigo-500/20 to-transparent pointer-events-none" />
+        <div className="absolute top-0 right-0 bottom-0 w-px pointer-events-none" />
 
         {isCollapsed ? (
           /* ── Collapsed Rail Content (Instant Render) ── */
@@ -562,7 +612,7 @@ export function NoteSidebarTree({
                     type="button"
                     onClick={() => handleQuickCreateNote(null)}
                     disabled={isCreating}
-                    className="w-10 h-10 rounded-md bg-primary text-primary-foreground flex items-center justify-center shadow-xs shadow-primary/20 hover:bg-primary-hover transition-all cursor-pointer"
+                    className="w-10 h-10 rounded-md bg-primary text-primary-foreground flex items-center justify-center shadow-xs  hover:bg-primary-hover transition-all cursor-pointer"
                   >
                     <FilePlus className="w-4 h-4" />
                   </button>
@@ -609,12 +659,16 @@ export function NoteSidebarTree({
                     className="w-10 h-10 rounded-md border border-border/80 bg-surface-subtle hover:bg-surface-elevated text-muted-foreground hover:text-foreground flex items-center justify-center transition-all cursor-pointer relative"
                   >
                     <Trash2 className="w-4 h-4" />
-                    {(tree.archivedNotes.length + tree.archivedFolders.length) > 0 && (
+                    {tree.archivedNotes.length + tree.archivedFolders.length >
+                      0 && (
                       <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-destructive" />
                     )}
                   </button>
                 </TooltipTrigger>
-                <TooltipContent side="right">Trash ({tree.archivedNotes.length + tree.archivedFolders.length})</TooltipContent>
+                <TooltipContent side="right">
+                  Trash (
+                  {tree.archivedNotes.length + tree.archivedFolders.length})
+                </TooltipContent>
               </Tooltip>
             </div>
           </div>
@@ -622,12 +676,12 @@ export function NoteSidebarTree({
           /* ── Expanded Full Sidebar Content ── */
           <div className="w-72 h-full flex flex-col min-w-[288px] relative z-10">
             {/* 1. Header with search & actions */}
-            <div className="relative p-3 border-b border-border/70 flex flex-col gap-2.5 bg-gradient-to-r from-primary/4 via-transparent to-primary/4 dark:via-primary/8">
-              <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-primary/30 via-indigo-500/20 to-transparent pointer-events-none" />
+            <div className="relative p-3 border-b border-border/70 flex flex-col gap-2.5 bg-background">
+              <div className="absolute inset-x-0 bottom-0 h-px pointer-events-none" />
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold font-display uppercase tracking-wider text-muted-foreground font-mono">
-                    Knowledge Base
+                  <span className="text-sm font-semibold text-foreground">
+                    Knowledge base
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
@@ -651,7 +705,7 @@ export function NoteSidebarTree({
                     type="button"
                     onClick={() => handleQuickCreateNote(null)}
                     disabled={isCreating}
-                    className="p-1.5 rounded-md bg-primary text-primary-foreground hover:bg-primary-hover transition-all cursor-pointer shadow-2xs shadow-primary/20"
+                    className="p-1.5 rounded-md bg-primary text-primary-foreground hover:bg-primary-hover transition-all cursor-pointer shadow-2xs "
                     title="New Page"
                   >
                     <FilePlus className="w-3.5 h-3.5" />
@@ -689,58 +743,34 @@ export function NoteSidebarTree({
 
               {/* Quick Filter Chips */}
               {!searchQuery && (
-                <div className="flex items-center gap-1 pt-0.5 overflow-x-auto no-scrollbar">
-                  <button
-                    type="button"
-                    onClick={() => setActiveFilter("all")}
-                    className={cn(
-                      "px-2 py-1 rounded-md text-[11px] font-semibold transition-all whitespace-nowrap cursor-pointer",
-                      activeFilter === "all"
-                        ? "bg-surface-elevated text-foreground shadow-2xs border border-border/80"
-                        : "text-muted-foreground hover:text-foreground hover:bg-surface-elevated/50"
-                    )}
-                  >
-                    All
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveFilter("starred")}
-                    className={cn(
-                      "px-2 py-1 rounded-md text-[11px] font-semibold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1",
-                      activeFilter === "starred"
-                        ? "bg-surface-elevated text-foreground shadow-2xs border border-border/80"
-                        : "text-muted-foreground hover:text-foreground hover:bg-surface-elevated/50"
-                    )}
-                  >
-                    <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
-                    <span>Starred</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveFilter("shared")}
-                    className={cn(
-                      "px-2 py-1 rounded-md text-[11px] font-semibold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1",
-                      activeFilter === "shared"
-                        ? "bg-surface-elevated text-foreground shadow-2xs border border-border/80"
-                        : "text-muted-foreground hover:text-foreground hover:bg-surface-elevated/50"
-                    )}
-                  >
-                    <Users className="w-3 h-3 text-purple-500" />
-                    <span>Shared</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveFilter("recent")}
-                    className={cn(
-                      "px-2 py-1 rounded-md text-[11px] font-semibold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1",
-                      activeFilter === "recent"
-                        ? "bg-surface-elevated text-foreground shadow-2xs border border-border/80"
-                        : "text-muted-foreground hover:text-foreground hover:bg-surface-elevated/50"
-                    )}
-                  >
-                    <Clock className="w-3 h-3 text-blue-500" />
-                    <span>Recent</span>
-                  </button>
+                <div
+                  className="grid grid-cols-4 gap-1 pt-1"
+                  role="group"
+                  aria-label="Filter pages"
+                >
+                  {(
+                    [
+                      { id: "all", label: "All" },
+                      { id: "starred", label: "Starred" },
+                      { id: "shared", label: "Shared" },
+                      { id: "recent", label: "Recent" },
+                    ] as const
+                  ).map((filter) => (
+                    <button
+                      key={filter.id}
+                      type="button"
+                      aria-pressed={activeFilter === filter.id}
+                      onClick={() => setActiveFilter(filter.id)}
+                      className={cn(
+                        "min-w-0 py-1.5 rounded-md text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer",
+                        activeFilter === filter.id
+                          ? "bg-primary-light text-primary"
+                          : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                      )}
+                    >
+                      {filter.label}
+                    </button>
+                  ))}
                 </div>
               )}
             </div>
@@ -750,7 +780,7 @@ export function NoteSidebarTree({
               {filterQuery ? (
                 /* Search Results */
                 <div className="flex flex-col gap-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70 px-2 font-mono">
+                  <span className="text-xs font-semibold   text-muted-foreground/70 px-2 font-mono">
                     Search Results ({searchMatchingNotes.length})
                   </span>
                   {searchMatchingNotes.map((n) => renderNoteItem(n, 0))}
@@ -763,8 +793,8 @@ export function NoteSidebarTree({
               ) : activeFilter === "starred" ? (
                 /* Starred Filter View */
                 <div className="flex flex-col gap-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70 px-2 pb-1 flex items-center gap-1.5 font-mono">
-                    <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
+                  <span className="text-xs font-semibold   text-muted-foreground/70 px-2 pb-1 flex items-center gap-1.5 font-mono">
+                    <Star className="w-3 h-3 text-warning fill-warning" />
                     <span>Starred Pages ({tree.starredNotes.length})</span>
                   </span>
                   {tree.starredNotes.map((n) => renderNoteItem(n, 0))}
@@ -777,9 +807,11 @@ export function NoteSidebarTree({
               ) : activeFilter === "shared" ? (
                 /* Shared Filter View */
                 <div className="flex flex-col gap-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70 px-2 pb-1 flex items-center gap-1.5 font-mono">
-                    <Users className="w-3 h-3 text-purple-500" />
-                    <span>Shared with You ({tree.sharedWithMeNotes.length})</span>
+                  <span className="text-xs font-semibold   text-muted-foreground/70 px-2 pb-1 flex items-center gap-1.5 font-mono">
+                    <Users className="w-3 h-3 text-notion-purple-fg" />
+                    <span>
+                      Shared with You ({tree.sharedWithMeNotes.length})
+                    </span>
                   </span>
                   {tree.sharedWithMeNotes.map((n) => renderNoteItem(n, 0))}
                   {tree.sharedWithMeNotes.length === 0 && (
@@ -791,8 +823,8 @@ export function NoteSidebarTree({
               ) : activeFilter === "recent" ? (
                 /* Recent Filter View */
                 <div className="flex flex-col gap-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70 px-2 pb-1 flex items-center gap-1.5 font-mono">
-                    <Clock className="w-3 h-3 text-blue-500" />
+                  <span className="text-xs font-semibold   text-muted-foreground/70 px-2 pb-1 flex items-center gap-1.5 font-mono">
+                    <Clock className="w-3 h-3 text-notion-blue-fg" />
                     <span>Recently Updated</span>
                   </span>
                   {recentNotes.map((n) => renderNoteItem(n, 0))}
@@ -803,8 +835,8 @@ export function NoteSidebarTree({
                   {/* ⭐ Starred / Favorites */}
                   {tree.starredNotes.length > 0 && (
                     <div className="flex flex-col gap-0.5">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70 px-2 pb-1 flex items-center gap-1.5 font-mono">
-                        <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
+                      <span className="text-xs font-semibold   text-muted-foreground/70 px-2 pb-1 flex items-center gap-1.5 font-mono">
+                        <Star className="w-3 h-3 text-warning fill-warning" />
                         <span>Favorites</span>
                       </span>
                       {tree.starredNotes.map((n) => renderNoteItem(n, 0))}
@@ -815,14 +847,15 @@ export function NoteSidebarTree({
                   <div
                     className={cn(
                       "flex flex-col gap-0.5 rounded-md transition-all duration-150",
-                      dragOverTargetId === "workspace-root" && "bg-primary/10 ring-2 ring-primary p-1"
+                      dragOverTargetId === "workspace-root" &&
+                        "bg-primary/10 ring-2 ring-primary p-1",
                     )}
                     onDragOver={(e) => handleDragOver(e, "workspace-root")}
                     onDragLeave={(e) => handleDragLeave(e, "workspace-root")}
                     onDrop={(e) => handleDrop(e, null)}
                   >
                     <div className="flex items-center justify-between px-2 pb-1">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70 font-mono flex items-center gap-1">
+                      <span className="text-xs font-semibold   text-muted-foreground/70 font-mono flex items-center gap-1">
                         <Layers className="w-3 h-3 text-primary" />
                         <span>Folders & Workspaces</span>
                       </span>
@@ -839,7 +872,7 @@ export function NoteSidebarTree({
                     {rootFolders.map((f) => renderFolderTree(f, 0))}
 
                     {rootFolders.length === 0 && (
-                      <div className="py-2 px-2 text-[11px] text-muted-foreground/60 italic">
+                      <div className="py-2 px-2 text-xs text-muted-foreground/60 italic">
                         No folders yet. Click + to organize.
                       </div>
                     )}
@@ -848,8 +881,8 @@ export function NoteSidebarTree({
                   {/* 👥 Shared with Me */}
                   {tree.sharedWithMeNotes.length > 0 && (
                     <div className="flex flex-col gap-0.5 pt-2 border-t border-border/50">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70 px-2 pb-1 flex items-center gap-1.5 font-mono">
-                        <Users className="w-3 h-3 text-purple-500" />
+                      <span className="text-xs font-semibold   text-muted-foreground/70 px-2 pb-1 flex items-center gap-1.5 font-mono">
+                        <Users className="w-3 h-3 text-notion-purple-fg" />
                         <span>Shared with Me</span>
                       </span>
                       {tree.sharedWithMeNotes.map((n) => renderNoteItem(n, 0))}
@@ -860,19 +893,20 @@ export function NoteSidebarTree({
                   <div
                     className={cn(
                       "flex flex-col gap-0.5 pt-2 border-t border-border/50 rounded-md transition-all duration-150",
-                      dragOverTargetId === "private-root" && "bg-primary/10 ring-2 ring-primary p-1"
+                      dragOverTargetId === "private-root" &&
+                        "bg-primary/10 ring-2 ring-primary p-1",
                     )}
                     onDragOver={(e) => handleDragOver(e, "private-root")}
                     onDragLeave={(e) => handleDragLeave(e, "private-root")}
                     onDrop={(e) => handleDrop(e, null)}
                   >
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70 px-2 pb-1 font-mono flex items-center gap-1">
+                    <span className="text-xs font-semibold   text-muted-foreground/70 px-2 pb-1 font-mono flex items-center gap-1">
                       <FileText className="w-3 h-3 text-muted-foreground" />
                       <span>Private Pages</span>
                     </span>
                     {tree.myRootNotes.map((n) => renderNoteItem(n, 0))}
                     {tree.myRootNotes.length === 0 && (
-                      <div className="py-2 px-2 text-[11px] text-muted-foreground/60 italic">
+                      <div className="py-2 px-2 text-xs text-muted-foreground/60 italic">
                         Drag pages here to unfile from folders
                       </div>
                     )}
@@ -890,9 +924,17 @@ export function NoteSidebarTree({
               >
                 <div className="flex items-center gap-2">
                   <Trash2 className="w-3.5 h-3.5" />
-                  <span>Trash ({tree.archivedNotes.length + tree.archivedFolders.length})</span>
+                  <span>
+                    Trash (
+                    {tree.archivedNotes.length + tree.archivedFolders.length})
+                  </span>
                 </div>
-                <ChevronDown className={cn("w-3 h-3 transition-transform duration-150", showTrash && "rotate-180")} />
+                <ChevronDown
+                  className={cn(
+                    "w-3 h-3 transition-transform duration-150",
+                    showTrash && "rotate-180",
+                  )}
+                />
               </button>
 
               {showTrash && (
@@ -902,7 +944,9 @@ export function NoteSidebarTree({
                       key={an.id}
                       className="flex items-center justify-between p-1.5 rounded-md bg-surface-subtle/70 text-xs"
                     >
-                      <span className="truncate text-muted-foreground">{an.title || "Untitled"}</span>
+                      <span className="truncate text-muted-foreground">
+                        {an.title || "Untitled"}
+                      </span>
                       <div className="flex items-center gap-1">
                         <button
                           type="button"
@@ -923,9 +967,12 @@ export function NoteSidebarTree({
                       </div>
                     </div>
                   ))}
-                  {tree.archivedNotes.length === 0 && tree.archivedFolders.length === 0 && (
-                    <span className="text-[11px] text-muted-foreground/60 text-center py-2">Trash is empty</span>
-                  )}
+                  {tree.archivedNotes.length === 0 &&
+                    tree.archivedFolders.length === 0 && (
+                      <span className="text-xs text-muted-foreground/60 text-center py-2">
+                        Trash is empty
+                      </span>
+                    )}
                 </div>
               )}
             </div>

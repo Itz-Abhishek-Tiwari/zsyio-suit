@@ -86,7 +86,7 @@ export function NoteTemplatesModal({
             <span className="text-xs font-semibold text-muted-foreground hidden sm:inline">
               Category:
             </span>
-            <Badge variant="outline" className="text-[11px] font-mono border-primary/20 text-primary bg-primary/5">
+            <Badge variant="outline" className="text-xs font-mono border-primary/20 text-primary bg-primary/5">
               {selectedTemplate?.category || "General"}
             </Badge>
           </div>
@@ -104,7 +104,7 @@ export function NoteTemplatesModal({
               type="button"
               onClick={handleUseTemplate}
               disabled={isCreating || !selectedTemplate}
-              className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-xs font-bold hover:bg-primary-hover disabled:opacity-50 transition-all cursor-pointer flex items-center gap-2 shadow-xs shadow-primary/20"
+              className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary-hover disabled:opacity-50 transition-all cursor-pointer flex items-center gap-2 shadow-xs "
             >
               {isCreating ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -188,10 +188,10 @@ export function NoteTemplatesModal({
                   <NoteIcon icon={t.icon} size="sm" />
                 </div>
                 <div className="flex flex-col min-w-0 flex-1">
-                  <span className={cn("text-xs truncate leading-tight", isSelected ? "font-bold text-foreground" : "font-medium")}>
+                  <span className={cn("text-xs truncate leading-tight", isSelected ? "font-semibold text-foreground" : "font-medium")}>
                     {t.title}
                   </span>
-                  <span className="text-[11px] text-muted-foreground line-clamp-1 mt-1 leading-snug">
+                  <span className="text-xs text-muted-foreground line-clamp-1 mt-1 leading-snug">
                     {t.description}
                   </span>
                 </div>
@@ -235,7 +235,7 @@ export function NoteTemplatesModal({
 
               {/* Title & Description */}
               <div className="flex flex-col gap-1">
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground font-display tracking-tight leading-tight">
+                <h2 className="text-2xl sm:text-3xl font-semibold text-foreground font-display tracking-tight leading-tight">
                   {selectedTemplate.title}
                 </h2>
                 <p className="text-xs text-muted-foreground leading-relaxed">{selectedTemplate.description}</p>

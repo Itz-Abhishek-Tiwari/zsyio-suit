@@ -104,7 +104,7 @@ export function Header({
   };
 
   const allowedApps = useMemo<AppId[]>(() => {
-    return (["pms", "notes", "hrms", "admin", "sales"] as const).filter((appId) =>
+    return (["pms", "notes", "hrms", "admin", "sales", "recruit"] as const).filter((appId) =>
       canAccessApp(role, appId, permissions)
     );
   }, [role, permissions]);
@@ -128,14 +128,14 @@ export function Header({
           <>
             <DropdownMenuItem
               onClick={() => setProfileModalOpen(true)}
-              className="rounded-lg text-xs gap-2.5 p-2 font-medium cursor-pointer text-foreground hover:bg-surface-subtle"
+              className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer text-foreground hover:bg-surface-subtle"
             >
               <User className="w-4 h-4 text-primary" />
               <span>My Profile &amp; Settings</span>
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => setChangePasswordOpen(true)}
-              className="rounded-xl text-xs gap-2.5 p-2 font-medium cursor-pointer"
+              className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer"
             >
               <KeyRound className="w-4 h-4 text-muted-foreground" />
               <span>Change Password</span>
@@ -164,19 +164,19 @@ export function Header({
         size="lg"
         bodyClassName="p-4 flex flex-col gap-3"
         footer={
-          <div className="flex items-center justify-between w-full text-[11px] text-muted-foreground font-mono">
+          <div className="flex items-center justify-between w-full text-xs text-muted-foreground font-mono">
             <span className="flex items-center gap-1.5">
-              <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-[10px]">↑↓</kbd>
+              <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-xs">↑↓</kbd>
               <span>Navigate</span>
             </span>
             <span className="flex items-center gap-1.5">
-              <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-[10px] flex items-center gap-0.5">
+              <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-xs flex items-center gap-0.5">
                 <CornerDownLeft className="w-2.5 h-2.5" /> Enter
               </kbd>
               <span>Select</span>
             </span>
             <span className="flex items-center gap-1.5">
-              <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-[10px]">ESC</kbd>
+              <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-xs">ESC</kbd>
               <span>Close</span>
             </span>
           </div>
@@ -190,7 +190,7 @@ export function Header({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={handleSearchKeyDown}
-            className="pl-10 pr-10 h-11 text-xs sm:text-sm rounded-xl bg-surface-subtle/80 border-border font-sans focus:bg-background"
+            className="pl-10 pr-10 h-11 text-xs sm:text-sm rounded-md bg-surface-subtle/80 border-border font-sans focus:bg-background"
           />
           {isFetching ? (
             <Loader2 className="absolute right-3.5 w-4 h-4 text-muted-foreground animate-spin" />
@@ -212,7 +212,7 @@ export function Header({
           {debouncedQuery.trim() ? (
             matchingNotes.length > 0 ? (
               <div className="flex flex-col gap-1 pr-1">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground px-2 pt-1 pb-0.5 font-mono">
+                <p className="text-xs font-semibold   text-muted-foreground px-2 pt-1 pb-0.5 font-mono">
                   Documents ({matchingNotes.length})
                 </p>
                 {matchingNotes.map((note, idx) => {
@@ -226,7 +226,7 @@ export function Header({
                       onClick={() => handleResultActivate(note.id)}
                       onMouseEnter={() => setHighlightedIndex(idx)}
                       className={cn(
-                        "w-full flex items-center justify-between p-2.5 rounded-xl border text-left transition-all group cursor-pointer",
+                        "w-full flex items-center justify-between p-2.5 rounded-md border text-left transition-all group cursor-pointer",
                         isActive
                           ? "border-primary/40 bg-primary-light/70 shadow-2xs"
                           : "border-transparent hover:border-border hover:bg-surface-subtle/80"
@@ -235,15 +235,15 @@ export function Header({
                       <div className="flex items-center gap-2.5 min-w-0 pr-2">
                         <FileText className="w-4 h-4 text-primary shrink-0" />
                         <div className="flex flex-col min-w-0">
-                          <span className={cn("text-xs font-bold truncate", isActive ? "text-primary" : "text-foreground group-hover:text-primary")}>
+                          <span className={cn("text-xs font-semibold truncate", isActive ? "text-primary" : "text-foreground group-hover:text-primary")}>
                             {note.title || "Untitled"}
                           </span>
-                          <span className="text-[10px] text-muted-foreground font-mono mt-0.5 truncate">
+                          <span className="text-xs text-muted-foreground font-mono mt-0.5 truncate">
                             {note.folderId ? "Nested Document" : "Root Document"}
                           </span>
                         </div>
                       </div>
-                      <Badge variant="outline" className="text-[10px] shrink-0 font-mono">
+                      <Badge variant="outline" className="text-xs shrink-0 font-mono">
                         {note.generalAccess}
                       </Badge>
                     </button>
@@ -257,14 +257,14 @@ export function Header({
             ) : null
           ) : (
             <div className="py-4 px-2 flex flex-col gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground font-mono">
+              <span className="text-xs font-semibold   text-muted-foreground font-mono">
                 Recent Folders
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {notesTree?.folders?.slice(0, 4).map((f) => (
                   <div
                     key={f.id}
-                    className="p-3 rounded-xl border border-border/80 bg-surface-subtle/80 flex items-center gap-2.5 text-xs font-semibold text-foreground shadow-2xs"
+                    className="p-3 rounded-md border border-border/80 bg-surface-subtle/80 flex items-center gap-2.5 text-xs font-semibold text-foreground shadow-2xs"
                   >
                     <Folder className="w-4 h-4 text-primary shrink-0" />
                     <span className="truncate">{f.name}</span>

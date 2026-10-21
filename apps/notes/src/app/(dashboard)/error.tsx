@@ -18,10 +18,10 @@ export default function DashboardError({
 
   return (
     <div className="w-full min-h-[60vh] flex flex-col items-center justify-center p-8 text-center bg-card rounded-lg border border-border shadow-xs animate-fade-in my-6">
-      <div className="w-12 h-12 rounded-md bg-amber-500/10 text-amber-500 flex items-center justify-center mb-4 border border-amber-500/20">
+      <div className="w-12 h-12 rounded-md bg-warning/10 text-warning flex items-center justify-center mb-4 border border-warning/20">
         <AlertTriangle className="w-6 h-6" />
       </div>
-      <h2 className="text-2xl font-display font-bold tracking-tight mb-2">Unable to load this section</h2>
+      <h2 className="text-2xl font-display font-semibold tracking-tight mb-2">Unable to load this section</h2>
       <p className="text-sm text-muted-foreground max-w-md mb-6">
         There was an issue processing your request in this section. The rest of the dashboard remains operational.
       </p>

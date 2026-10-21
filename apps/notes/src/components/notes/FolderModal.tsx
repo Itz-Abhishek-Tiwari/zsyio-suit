@@ -20,13 +20,13 @@ import { Input } from "@zsyio/ui";
 import { toast } from "sonner";
 
 const FOLDER_COLORS = [
-  { name: "Purple", value: "purple", bg: "bg-purple-500", ring: "ring-purple-500" },
-  { name: "Blue", value: "blue", bg: "bg-blue-500", ring: "ring-blue-500" },
-  { name: "Emerald", value: "emerald", bg: "bg-emerald-500", ring: "ring-emerald-500" },
-  { name: "Amber", value: "amber", bg: "bg-amber-500", ring: "ring-amber-500" },
-  { name: "Rose", value: "rose", bg: "bg-rose-500", ring: "ring-rose-500" },
-  { name: "Cyan", value: "cyan", bg: "bg-cyan-500", ring: "ring-cyan-500" },
-  { name: "Slate", value: "slate", bg: "bg-slate-500", ring: "ring-slate-500" },
+  { name: "Purple", value: "purple", bg: "bg-notion-purple-fg", ring: "ring-notion-purple-fg/30" },
+  { name: "Blue", value: "blue", bg: "bg-notion-blue-fg", ring: "ring-notion-blue-fg/30" },
+  { name: "Emerald", value: "emerald", bg: "bg-success", ring: "ring-success/30" },
+  { name: "Amber", value: "amber", bg: "bg-warning", ring: "ring-warning/30" },
+  { name: "Rose", value: "rose", bg: "bg-destructive", ring: "ring-destructive/30" },
+  { name: "Cyan", value: "cyan", bg: "bg-notion-blue-fg", ring: "ring-notion-blue-fg/30" },
+  { name: "Slate", value: "slate", bg: "bg-muted-foreground", ring: "ring-border" },
 ];
 
 interface FolderModalProps {
@@ -121,19 +121,19 @@ export function FolderModal({ open, onOpenChange, folder, defaultParentId }: Fol
     >
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-bold text-foreground">Folder Name *</label>
+          <label className="text-xs font-semibold text-foreground">Folder Name *</label>
           <Input
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="e.g. Engineering Docs, Sprint 42 Specs..."
-            className="h-10 text-xs rounded-xl bg-surface-subtle"
+            className="h-10 text-xs rounded-lg bg-surface-subtle"
             autoFocus
             required
           />
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-bold text-foreground">Color Theme</label>
+          <label className="text-xs font-semibold text-foreground">Color Theme</label>
           <div className="flex items-center gap-2.5">
             {FOLDER_COLORS.map((c) => (
               <button
@@ -141,7 +141,7 @@ export function FolderModal({ open, onOpenChange, folder, defaultParentId }: Fol
                 type="button"
                 onClick={() => setColor(c.value)}
                 className={`w-6 h-6 rounded-full ${c.bg} transition-all cursor-pointer ${
-                  color === c.value ? `ring-2 ${c.ring} ring-offset-2 scale-110` : "hover:scale-105 opacity-80 hover:opacity-100"
+                  color === c.value ? `ring-2 ${c.ring} ring-offset-2 scale-110` : " opacity-80 hover:opacity-100"
                 }`}
                 title={c.name}
               />
@@ -150,10 +150,10 @@ export function FolderModal({ open, onOpenChange, folder, defaultParentId }: Fol
         </div>
 
         {!folder && (
-          <div className="flex items-center justify-between p-3 rounded-xl border border-border bg-surface-subtle/50">
+          <div className="flex items-center justify-between p-3 rounded-lg border border-border bg-surface-subtle/50">
             <div className="flex flex-col">
-              <span className="text-xs font-bold text-foreground">Top-Level Workspace</span>
-              <span className="text-[10px] text-muted-foreground">
+              <span className="text-xs font-semibold text-foreground">Top-Level Workspace</span>
+              <span className="text-xs text-muted-foreground">
                 Display as an independent root workspace in the sidebar
               </span>
             </div>
@@ -171,12 +171,12 @@ export function FolderModal({ open, onOpenChange, folder, defaultParentId }: Fol
 
         {!isWorkspaceRoot && eligibleParents.length > 0 && (
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-foreground">Parent Folder (Optional)</label>
+            <label className="text-xs font-semibold text-foreground">Parent Folder (Optional)</label>
             <Select
               value={parentId || "none"}
               onValueChange={(val) => setParentId(val === "none" ? null : val)}
             >
-              <SelectTrigger className="w-full h-10 rounded-xl bg-card">
+              <SelectTrigger className="w-full h-10 rounded-lg bg-card">
                 <SelectValue placeholder="(None - Root Level)" />
               </SelectTrigger>
               <SelectContent>
@@ -192,12 +192,12 @@ export function FolderModal({ open, onOpenChange, folder, defaultParentId }: Fol
         )}
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-bold text-foreground">Description (Optional)</label>
+          <label className="text-xs font-semibold text-foreground">Description (Optional)</label>
           <Input
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Brief purpose of this folder..."
-            className="h-10 text-xs rounded-xl bg-surface-subtle"
+            className="h-10 text-xs rounded-lg bg-surface-subtle"
           />
         </div>
 
@@ -205,14 +205,14 @@ export function FolderModal({ open, onOpenChange, folder, defaultParentId }: Fol
           <button
             type="button"
             onClick={() => onOpenChange(false)}
-            className="px-3.5 py-2 rounded-xl text-xs font-semibold text-muted-foreground hover:bg-surface-elevated transition-colors cursor-pointer"
+            className="px-3.5 py-2 rounded-lg text-xs font-semibold text-muted-foreground hover:bg-surface-elevated transition-colors cursor-pointer"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={isLoading || !name.trim()}
-            className="px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-bold hover:bg-primary-hover disabled:opacity-50 transition-all cursor-pointer flex items-center gap-2"
+            className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary-hover disabled:opacity-50 transition-all cursor-pointer flex items-center gap-2"
           >
             {isLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
             <span>{folder ? "Save Changes" : "Create Folder"}</span>

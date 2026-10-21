@@ -135,7 +135,7 @@ export function NotificationPreferencesModal({
       ) : (
         <div className="flex flex-col gap-2.5">
           <div className="flex items-center justify-between pt-1 pb-1">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground font-mono">
+            <span className="text-xs font-semibold   text-muted-foreground font-mono">
               Delivery Channels
             </span>
             <Button
@@ -151,7 +151,7 @@ export function NotificationPreferencesModal({
           </div>
 
           <PreferenceRow
-            icon={<Globe className="w-4 h-4 text-sky-600 dark:text-sky-400" />}
+            icon={<Globe className="w-4 h-4 text-notion-blue-fg" />}
             title="Browser Desktop Notifications"
             description={
               permission === "denied"
@@ -160,11 +160,11 @@ export function NotificationPreferencesModal({
             }
             badge={
               permission === "granted" ? (
-                <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold">
+                <span className="inline-flex items-center gap-1 text-xs text-success font-semibold">
                   <CheckCircle2 className="w-3 h-3" /> Allowed
                 </span>
               ) : permission === "denied" ? (
-                <span className="inline-flex items-center gap-1 text-[10px] text-rose-600 dark:text-rose-400 font-semibold">
+                <span className="inline-flex items-center gap-1 text-xs text-destructive font-semibold">
                   <AlertCircle className="w-3 h-3" /> Blocked
                 </span>
               ) : null
@@ -175,7 +175,7 @@ export function NotificationPreferencesModal({
           />
 
           <PreferenceRow
-            icon={<Volume2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />}
+            icon={<Volume2 className="w-4 h-4 text-success" />}
             title="Audio Alert Chime"
             description="Play a subtle two-tone audio chime when new alerts or task updates arrive."
             checked={prefs?.browserSound ?? true}
@@ -193,12 +193,12 @@ export function NotificationPreferencesModal({
           />
 
           <div className="border-t border-border/60 my-1" />
-          <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground font-mono">
+          <span className="text-xs font-semibold   text-muted-foreground font-mono">
             Trigger Events
           </span>
 
           <PreferenceRow
-            icon={<CheckSquare className="w-4 h-4 text-blue-600 dark:text-blue-400" />}
+            icon={<CheckSquare className="w-4 h-4 text-notion-blue-fg" />}
             title="Task Assignments"
             description="Receive an alert when you are assigned as owner or team assignee on a task."
             checked={prefs?.taskAssigned ?? true}
@@ -207,7 +207,7 @@ export function NotificationPreferencesModal({
           />
 
           <PreferenceRow
-            icon={<RefreshCw className="w-4 h-4 text-amber-600 dark:text-amber-400" />}
+            icon={<RefreshCw className="w-4 h-4 text-warning" />}
             title="Task Status Changes"
             description="Get notified when tasks you're assigned to or watching change status."
             checked={prefs?.statusChanged ?? true}
@@ -216,7 +216,7 @@ export function NotificationPreferencesModal({
           />
 
           <PreferenceRow
-            icon={<AtSign className="w-4 h-4 text-purple-600 dark:text-purple-400" />}
+            icon={<AtSign className="w-4 h-4 text-notion-purple-fg" />}
             title="@Mentions in Discussions"
             description="Alert you immediately whenever a teammate tags @you in comments or notes."
             checked={prefs?.mentions ?? true}
@@ -225,7 +225,7 @@ export function NotificationPreferencesModal({
           />
 
           <PreferenceRow
-            icon={<MessageSquare className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />}
+            icon={<MessageSquare className="w-4 h-4 text-success" />}
             title="Comments & Direct Replies"
             description="Notify when team members leave comments on your tasks or reply to your threads."
             checked={prefs?.comments ?? true}
@@ -234,7 +234,7 @@ export function NotificationPreferencesModal({
           />
 
           <PreferenceRow
-            icon={<Clock className="w-4 h-4 text-rose-600 dark:text-rose-400" />}
+            icon={<Clock className="w-4 h-4 text-destructive" />}
             title="Due Date & Overdue Reminders"
             description="Stay on track with alerts for upcoming task deadlines and overdue digests."
             checked={prefs?.dueDateReminders ?? true}
@@ -243,7 +243,7 @@ export function NotificationPreferencesModal({
           />
 
           <PreferenceRow
-            icon={<StickyNote className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />}
+            icon={<StickyNote className="w-4 h-4 text-notion-purple-fg" />}
             title="Workspace Announcements & Notes"
             description="Receive notifications for company-wide announcements or notes for your team."
             checked={prefs?.dashboardNotes ?? true}
@@ -274,17 +274,17 @@ function PreferenceRow({
   onChange: () => void;
 }) {
   return (
-    <div className="flex items-start justify-between gap-3 p-3 rounded-xl border border-border/70 bg-surface-subtle/50 hover:bg-surface-subtle/80 transition-colors">
+    <div className="flex items-start justify-between gap-3 p-3 rounded-lg border border-border/70 bg-surface-subtle/50 hover:bg-surface-subtle/80 transition-colors">
       <div className="flex items-start gap-2.5">
         <div className="p-1.5 rounded-lg bg-card border border-border/80 shrink-0 mt-0.5 shadow-2xs">
           {icon}
         </div>
         <div className="flex flex-col gap-0.5">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-foreground">{title}</span>
+            <span className="text-xs font-semibold text-foreground">{title}</span>
             {badge}
           </div>
-          <p className="text-[11px] text-muted-foreground leading-snug">{description}</p>
+          <p className="text-xs text-muted-foreground leading-snug">{description}</p>
         </div>
       </div>
 
@@ -295,14 +295,14 @@ function PreferenceRow({
         disabled={disabled}
         onClick={onChange}
         className={cn(
-          "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-primary mt-1 shadow-2xs",
+          "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-primary mt-1 shadow-2xs",
           checked ? "bg-primary" : "bg-muted-foreground/30 dark:bg-white/20",
           disabled && "opacity-50 cursor-not-allowed"
         )}
       >
         <span
           className={cn(
-            "pointer-events-none inline-block h-4 w-4 rounded-full bg-white shadow-lg transform ring-0 transition duration-200 ease-in-out",
+            "pointer-events-none inline-block h-4 w-4 rounded-full bg-card shadow-md transform ring-0 transition duration-200 ease-in-out",
             checked ? "translate-x-4" : "translate-x-0"
           )}
         />

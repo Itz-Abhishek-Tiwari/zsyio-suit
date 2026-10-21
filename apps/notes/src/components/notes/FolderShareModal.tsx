@@ -201,15 +201,15 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
           <button
             type="button"
             onClick={handleCopyLink}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-border bg-card/80 hover:bg-card text-xs font-semibold text-foreground transition-all cursor-pointer shadow-2xs"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-card/80 hover:bg-card text-xs font-semibold text-foreground transition-all cursor-pointer shadow-2xs"
           >
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <LinkIcon className="w-3.5 h-3.5 text-muted-foreground" />}
+            {copied ? <Check className="w-3.5 h-3.5 text-success" /> : <LinkIcon className="w-3.5 h-3.5 text-muted-foreground" />}
             <span>{copied ? "Link Copied!" : "Copy Folder Link"}</span>
           </button>
           <button
             type="button"
             onClick={() => onOpenChange(false)}
-            className="px-4 py-1.5 rounded-xl bg-primary text-primary-foreground text-xs font-bold hover:bg-primary-hover transition-colors cursor-pointer"
+            className="px-4 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary-hover transition-colors cursor-pointer"
           >
             Done
           </button>
@@ -218,8 +218,8 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
     >
       {/* 1. Add Collaborator Form or Read-Only Notice */}
       {!canManage ? (
-        <div className="flex items-start gap-2.5 p-3 rounded-xl bg-surface-subtle/80 border border-border text-xs text-muted-foreground">
-          <Lock className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+        <div className="flex items-start gap-2.5 p-3 rounded-lg bg-surface-subtle/80 border border-border text-xs text-muted-foreground">
+          <Lock className="w-4 h-4 text-warning shrink-0 mt-0.5" />
           <div className="flex flex-col gap-0.5">
             <span className="font-semibold text-foreground">Sharing permissions are restricted</span>
             <span>
@@ -228,9 +228,9 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
           </div>
         </div>
       ) : (
-        <div className="flex flex-col gap-2 p-3 rounded-xl border border-border/80 bg-surface-subtle/50">
+        <div className="flex flex-col gap-2 p-3 rounded-lg border border-border/80 bg-surface-subtle/50">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+            <span className="text-xs font-semibold   text-muted-foreground">
               Share Folder With People, Roles or Teams
             </span>
             <div className="flex items-center gap-1 bg-surface-subtle p-0.5 rounded-lg border border-border/60">
@@ -241,7 +241,7 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
                   setSelectedTargetId("");
                 }}
                 className={cn(
-                  "px-2 py-0.5 text-[11px] font-semibold rounded-md transition-all cursor-pointer",
+                  "px-2 py-0.5 text-xs font-semibold rounded-md transition-all cursor-pointer",
                   targetType === "user" ? "bg-card text-foreground shadow-2xs" : "text-muted-foreground hover:text-foreground"
                 )}
               >
@@ -255,7 +255,7 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
                   setSelectedTargetId("");
                 }}
                 className={cn(
-                  "px-2 py-0.5 text-[11px] font-semibold rounded-md transition-all cursor-pointer",
+                  "px-2 py-0.5 text-xs font-semibold rounded-md transition-all cursor-pointer",
                   targetType === "role" ? "bg-card text-foreground shadow-2xs" : "text-muted-foreground hover:text-foreground"
                 )}
               >
@@ -269,7 +269,7 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
                   setSelectedTargetId("");
                 }}
                 className={cn(
-                  "px-2 py-0.5 text-[11px] font-semibold rounded-md transition-all cursor-pointer",
+                  "px-2 py-0.5 text-xs font-semibold rounded-md transition-all cursor-pointer",
                   targetType === "team" ? "bg-card text-foreground shadow-2xs" : "text-muted-foreground hover:text-foreground"
                 )}
               >
@@ -283,7 +283,7 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
                   setSelectedTargetId("");
                 }}
                 className={cn(
-                  "px-2 py-0.5 text-[11px] font-semibold rounded-md transition-all cursor-pointer",
+                  "px-2 py-0.5 text-xs font-semibold rounded-md transition-all cursor-pointer",
                   targetType === "everyone" ? "bg-card text-foreground shadow-2xs" : "text-muted-foreground hover:text-foreground"
                 )}
               >
@@ -295,11 +295,11 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
           <div className="flex items-center gap-2 mt-1 min-w-0">
             <div className="flex-1 min-w-0">
               {targetType === "everyone" && (
-                <div className="flex items-center gap-2.5 px-3 h-9 rounded-xl bg-card border border-border text-xs text-foreground min-w-0">
+                <div className="flex items-center gap-2.5 px-3 h-9 rounded-lg bg-card border border-border text-xs text-foreground min-w-0">
                   <Globe className="w-4 h-4 text-primary shrink-0" />
                   <div className="flex flex-col min-w-0">
                     <span className="font-semibold text-xs truncate">Everyone at Zsyio</span>
-                    <span className="text-[10px] text-muted-foreground truncate">All organization members</span>
+                    <span className="text-xs text-muted-foreground truncate">All organization members</span>
                   </div>
                 </div>
               )}
@@ -316,7 +316,7 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
 
               {targetType === "role" && (
                 <Select value={selectedTargetId} onValueChange={setSelectedTargetId}>
-                  <SelectTrigger className="w-full h-9 rounded-xl bg-card min-w-0">
+                  <SelectTrigger className="w-full h-9 rounded-lg bg-card min-w-0">
                     <SelectValue placeholder="Select a role..." />
                   </SelectTrigger>
                   <SelectContent>
@@ -343,7 +343,7 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
 
               {targetType === "team" && (
                 <Select value={selectedTargetId} onValueChange={setSelectedTargetId}>
-                  <SelectTrigger className="w-full h-9 rounded-xl bg-card min-w-0">
+                  <SelectTrigger className="w-full h-9 rounded-lg bg-card min-w-0">
                     <SelectValue placeholder="Select a team..." />
                   </SelectTrigger>
                   <SelectContent>
@@ -362,7 +362,7 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
                 value={everyoneAccess}
                 onValueChange={(val) => setEveryoneAccess(val as "WORKSPACE_VIEW" | "WORKSPACE_EDIT")}
               >
-                <SelectTrigger className="w-28 shrink-0 h-9 rounded-xl bg-card font-semibold">
+                <SelectTrigger className="w-28 shrink-0 h-9 rounded-lg bg-card font-semibold">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -375,7 +375,7 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
                 value={selectedAccess}
                 onValueChange={(val) => setSelectedAccess(val as "VIEW" | "EDIT" | "FULL")}
               >
-                <SelectTrigger className="w-28 shrink-0 h-9 rounded-xl bg-card font-semibold">
+                <SelectTrigger className="w-28 shrink-0 h-9 rounded-lg bg-card font-semibold">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -390,7 +390,7 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
               type="button"
               onClick={handleAddShare}
               disabled={isInviteDisabled || isAdding}
-              className="h-9 px-3.5 rounded-xl bg-primary text-primary-foreground font-bold text-xs hover:bg-primary-hover disabled:opacity-50 transition-all cursor-pointer shrink-0"
+              className="h-9 px-3.5 rounded-lg bg-primary text-primary-foreground font-semibold text-xs hover:bg-primary-hover disabled:opacity-50 transition-all cursor-pointer shrink-0"
             >
               {isAdding ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -412,7 +412,7 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
                 .map((u) => (
                   <span
                     key={u.id}
-                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-primary/10 text-primary text-[11px] font-semibold border border-primary/20"
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-primary/10 text-primary text-xs font-semibold border border-primary/20"
                   >
                     <span className="truncate max-w-[140px]">{u.name}</span>
                     <button
@@ -430,18 +430,18 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
       )}
 
       {/* 2. General Folder Access */}
-      <div className="flex items-center justify-between p-3 rounded-xl border border-border/80 bg-card">
+      <div className="flex items-center justify-between p-3 rounded-lg border border-border/80 bg-card">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center border border-border shrink-0">
             {generalAccess === "PRIVATE" ? (
-              <Lock className="w-4 h-4 text-amber-500" />
+              <Lock className="w-4 h-4 text-warning" />
             ) : (
               <Globe className="w-4 h-4 text-primary" />
             )}
           </div>
           <div className="flex flex-col min-w-0">
-            <span className="text-xs font-bold text-foreground">General Workspace Access</span>
-            <span className="text-[11px] text-muted-foreground">
+            <span className="text-xs font-semibold text-foreground">General Workspace Access</span>
+            <span className="text-xs text-muted-foreground">
               {generalAccess === "PRIVATE" && "Only people and roles invited have access"}
               {generalAccess === "WORKSPACE_VIEW" && "Anyone in organization can view contents"}
               {generalAccess === "WORKSPACE_EDIT" && "Anyone in organization can create & edit contents"}
@@ -464,7 +464,7 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
                 <ChevronDown className="w-3 h-3 text-muted-foreground" />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48 p-1 rounded-xl">
+            <DropdownMenuContent align="end" className="w-48 p-1 rounded-lg">
               <DropdownMenuItem
                 onClick={() => handleUpdateGeneralAccess("PRIVATE")}
                 className="text-xs cursor-pointer font-medium"
@@ -496,25 +496,25 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
 
       {/* 3. Who has access list */}
       <div className="flex flex-col gap-1.5">
-        <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground px-1">
+        <span className="text-xs font-semibold   text-muted-foreground px-1">
           Who has access
         </span>
 
         <div className="max-h-56 overflow-y-auto flex flex-col gap-1 pr-1">
           {/* Owner */}
-          <div className="flex items-center justify-between p-2 rounded-xl hover:bg-surface-subtle/60 transition-colors">
+          <div className="flex items-center justify-between p-2 rounded-lg hover:bg-surface-subtle/60 transition-colors">
             <div className="flex items-center gap-2.5 min-w-0">
-              <div className="w-7 h-7 rounded-full bg-primary-light text-primary font-bold text-xs flex items-center justify-center shrink-0 border border-primary/20">
+              <div className="w-7 h-7 rounded-full bg-primary-light text-primary font-semibold text-xs flex items-center justify-center shrink-0 border border-primary/20">
                 {folder.createdBy?.name?.[0]?.toUpperCase() || "U"}
               </div>
               <div className="flex flex-col min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-xs font-bold text-foreground truncate">{folder.createdBy?.name || "Creator"}</span>
-                  <Badge variant="outline" className="text-[9px] py-0 px-1 font-mono">
+                  <span className="text-xs font-semibold text-foreground truncate">{folder.createdBy?.name || "Creator"}</span>
+                  <Badge variant="outline" className="text-xs py-0 px-1 font-mono">
                     Owner
                   </Badge>
                 </div>
-                <span className="text-[10px] text-muted-foreground truncate">{folder.createdBy?.email}</span>
+                <span className="text-xs text-muted-foreground truncate">{folder.createdBy?.email}</span>
               </div>
             </div>
             <span className="text-xs text-muted-foreground font-semibold px-2">Full access</span>
@@ -522,19 +522,19 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
 
           {/* Workspace-wide Access (Everyone in Organization) */}
           {generalAccess && generalAccess !== "PRIVATE" && (
-            <div className="flex items-center justify-between p-2 rounded-xl bg-primary/5 border border-primary/20 transition-colors">
+            <div className="flex items-center justify-between p-2 rounded-lg bg-primary/5 border border-primary/20 transition-colors">
               <div className="flex items-center gap-2.5 min-w-0">
                 <div className="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 border border-primary/20">
                   <Globe className="w-3.5 h-3.5" />
                 </div>
                 <div className="flex flex-col min-w-0">
                   <div className="flex items-center gap-1.5">
-                    <span className="text-xs font-bold text-foreground truncate">Everyone in Organization</span>
-                    <Badge variant="outline" className="text-[9px] py-0 px-1 font-mono text-primary border-primary/30">
+                    <span className="text-xs font-semibold text-foreground truncate">Everyone in Organization</span>
+                    <Badge variant="outline" className="text-xs py-0 px-1 font-mono text-primary border-primary/30">
                       Workspace
                     </Badge>
                   </div>
-                  <span className="text-[10px] text-muted-foreground truncate">All members of Zsyio</span>
+                  <span className="text-xs text-muted-foreground truncate">All members of Zsyio</span>
                 </div>
               </div>
 
@@ -551,7 +551,7 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
                           <ChevronDown className="w-3 h-3" />
                         </button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="w-36 p-1 rounded-xl">
+                      <DropdownMenuContent align="end" className="w-36 p-1 rounded-lg">
                         <DropdownMenuItem
                           onClick={() => handleUpdateGeneralAccess("WORKSPACE_VIEW")}
                           className="text-xs cursor-pointer"
@@ -597,9 +597,9 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
             const icon = s.user ? (
               <Users className="w-3.5 h-3.5 text-primary" />
             ) : s.team ? (
-              <Users2 className="w-3.5 h-3.5 text-emerald-500" />
+              <Users2 className="w-3.5 h-3.5 text-success" />
             ) : (
-              <Shield className="w-3.5 h-3.5 text-purple-500" />
+              <Shield className="w-3.5 h-3.5 text-notion-purple-fg" />
             );
 
             const accessLabel =
@@ -608,15 +608,15 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
             return (
               <div
                 key={s.id}
-                className="flex items-center justify-between p-2 rounded-xl hover:bg-surface-subtle/60 transition-colors"
+                className="flex items-center justify-between p-2 rounded-lg hover:bg-surface-subtle/60 transition-colors"
               >
                 <div className="flex items-center gap-2.5 min-w-0">
                   <div className="w-7 h-7 rounded-lg bg-surface-subtle flex items-center justify-center shrink-0 border border-border">
                     {icon}
                   </div>
                   <div className="flex flex-col min-w-0">
-                    <span className="text-xs font-bold text-foreground truncate">{label}</span>
-                    <span className="text-[10px] text-muted-foreground truncate">{sub}</span>
+                    <span className="text-xs font-semibold text-foreground truncate">{label}</span>
+                    <span className="text-xs text-muted-foreground truncate">{sub}</span>
                   </div>
                 </div>
 
@@ -633,7 +633,7 @@ export function FolderShareModal({ folder, open, onOpenChange }: FolderShareModa
                             <ChevronDown className="w-3 h-3" />
                           </button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-36 p-1 rounded-xl">
+                        <DropdownMenuContent align="end" className="w-36 p-1 rounded-lg">
                           <DropdownMenuItem
                             onClick={() =>
                               addFolderShare({

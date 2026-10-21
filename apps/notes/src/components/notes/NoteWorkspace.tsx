@@ -225,7 +225,7 @@ export function NoteWorkspace() {
                     }}
                     accentTone="cyan"
                     title={
-                      <h1 className="text-2xl sm:text-3xl font-extrabold font-display text-foreground tracking-tight">
+                      <h1 className="text-2xl sm:text-3xl font-semibold font-display text-foreground tracking-tight">
                         Knowledge Hub &amp; Workspaces
                       </h1>
                     }
@@ -287,7 +287,7 @@ export function NoteWorkspace() {
                 {/* Featured Templates Grid with Staggered Cascading Entrance */}
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground font-mono flex items-center gap-1.5">
+                    <span className="text-xs font-semibold   text-muted-foreground font-mono flex items-center gap-1.5">
                       <LayoutTemplate className="w-3.5 h-3.5 text-primary" />
                       <span>Quick-Start Templates</span>
                     </span>
@@ -318,16 +318,16 @@ export function NoteWorkspace() {
                               <NoteIcon icon={template.icon} size="md" />
                             </motion.div>
                             <div className="flex flex-col min-w-0">
-                              <span className="text-xs font-bold text-foreground group-hover:text-primary transition-colors truncate">
+                              <span className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors truncate">
                                 {template.title}
                               </span>
-                              <span className="text-[11px] text-muted-foreground line-clamp-2 mt-0.5 leading-relaxed">
+                              <span className="text-xs text-muted-foreground line-clamp-2 mt-0.5 leading-relaxed">
                                 {template.description}
                               </span>
                             </div>
                           </div>
 
-                          <div className="flex items-center justify-between pt-2 border-t border-border/60 text-[11px] text-muted-foreground font-mono">
+                          <div className="flex items-center justify-between pt-2 border-t border-border/60 text-xs text-muted-foreground font-mono">
                             <span className="px-2 py-0.5 rounded-md bg-surface-subtle border border-border/60">
                               {template.category}
                             </span>
@@ -345,28 +345,28 @@ export function NoteWorkspace() {
                 {/* Keyboard Shortcuts & Productivity Tips */}
                 <FadeIn direction="up" delay={0.25}>
                   <div className="p-5 rounded-lg border border-border/80 bg-surface-subtle/50 shadow-2xs flex flex-col gap-3">
-                    <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground font-mono flex items-center gap-1.5">
+                    <span className="text-xs font-semibold   text-muted-foreground font-mono flex items-center gap-1.5">
                       <Command className="w-3.5 h-3.5 text-primary" />
                       <span>Keyboard Shortcuts & Tips</span>
                     </span>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                       <motion.div whileHover={{ y: -2 }} className="flex items-center gap-2 p-2.5 rounded-md bg-card border border-border/60 shadow-2xs">
-                        <kbd className="px-2 py-0.5 rounded-md bg-muted border border-border text-[11px] font-mono text-foreground font-bold">
+                        <kbd className="px-2 py-0.5 rounded-md bg-muted border border-border text-xs font-mono text-foreground font-semibold">
                           ⌘ + S
                         </kbd>
-                        <span className="text-muted-foreground text-[11px]">Instant Document Save</span>
+                        <span className="text-muted-foreground text-xs">Instant Document Save</span>
                       </motion.div>
                       <motion.div whileHover={{ y: -2 }} className="flex items-center gap-2 p-2.5 rounded-md bg-card border border-border/60 shadow-2xs">
-                        <kbd className="px-2 py-0.5 rounded-md bg-muted border border-border text-[11px] font-mono text-foreground font-bold">
+                        <kbd className="px-2 py-0.5 rounded-md bg-muted border border-border text-xs font-mono text-foreground font-semibold">
                           ⌘ + K
                         </kbd>
-                        <span className="text-muted-foreground text-[11px]">Global Command Search</span>
+                        <span className="text-muted-foreground text-xs">Global Command Search</span>
                       </motion.div>
                       <motion.div whileHover={{ y: -2 }} className="flex items-center gap-2 p-2.5 rounded-md bg-card border border-border/60 shadow-2xs">
-                        <kbd className="px-2 py-0.5 rounded-md bg-muted border border-border text-[11px] font-mono text-foreground font-bold">
+                        <kbd className="px-2 py-0.5 rounded-md bg-muted border border-border text-xs font-mono text-foreground font-semibold">
                           /
                         </kbd>
-                        <span className="text-muted-foreground text-[11px]">Slash Blocks & Formatting</span>
+                        <span className="text-muted-foreground text-xs">Slash Blocks & Formatting</span>
                       </motion.div>
                     </div>
                   </div>

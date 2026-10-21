@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireUser, withApiHandler, errorResponse } from "@zsyio/auth/api-helpers";
 import { prisma } from "@zsyio/database";
+import { NoteGeneralAccess } from "@prisma/client";
 import { assertCan } from "@zsyio/auth/permissions";
-import { getUserTeamIds, computeAccessibleFolderIds } from "@zsyio/auth/note-permissions";
+import { getUserTeamIds, computeAccessibleFolderIds, evaluateFolderAccess, hasPermissionLevel } from "@zsyio/auth/note-permissions";
 
 export async function GET() {
   return withApiHandler(async () => {
@@ -57,12 +58,24 @@ export async function POST(req: NextRequest) {
       throw errorResponse("VALIDATION_ERROR", "Folder name is required.", 400);
     }
 
+    if (typeof name !== "string") {
+      throw errorResponse("VALIDATION_ERROR", "Folder name must be a string.", 400);
+    }
+    if (generalAccess !== undefined && !Object.values(NoteGeneralAccess).includes(generalAccess)) {
+      throw errorResponse("VALIDATION_ERROR", "Invalid generalAccess value.", 400);
+    }
+
     if (parentId) {
       const parent = await prisma.noteFolder.findUnique({
-        where: { id: parentId },
+        where: { id: String(parentId) },
+        include: { shares: true },
       });
       if (!parent) {
         throw errorResponse("NOT_FOUND", "Parent folder not found.", 404);
+      }
+      const parentAccess = await evaluateFolderAccess(parent.id, user, parent);
+      if (!hasPermissionLevel(parentAccess, "EDIT")) {
+        throw errorResponse("FORBIDDEN", "You do not have permission to create folders here.", 403);
       }
     }
 

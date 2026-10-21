@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Header } from "@/components/layout/Header";
 import { BrowserNotificationManager } from "@/components/notifications/BrowserNotificationManager";
-import { SuiteSideRail } from "@zsyio/ui";
 import type { Role } from "@zsyio/auth/permissions";
 
 interface NotesShellProps {
@@ -41,9 +40,6 @@ export function NotesShell({
           {children}
         </main>
       </div>
-
-      {/* Gmail-style Right-Hand Suite Side Rail (Full Height) */}
-      <SuiteSideRail currentApp="notes" />
 
       {/* Background Notification Manager */}
       <BrowserNotificationManager />
