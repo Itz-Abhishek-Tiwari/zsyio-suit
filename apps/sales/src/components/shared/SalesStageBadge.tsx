@@ -18,7 +18,7 @@ export function SalesStageBadge({ stage, size = "sm", className }: SalesStageBad
     <span
       className={cn(
         "inline-flex items-center gap-1 rounded-full font-medium",
-        size === "xs" && "px-1.5 py-0.5 text-[10px]",
+        size === "xs" && "px-1.5 py-0.5 text-xs",
         size === "sm" && "px-2 py-0.5 text-xs",
         size === "md" && "px-3 py-1 text-sm",
         className
@@ -57,7 +57,7 @@ export function SalesPriorityBadge({ priority, size = "xs", className }: SalesPr
     <span
       className={cn(
         "inline-flex items-center gap-1 rounded-full font-medium",
-        size === "xs" && "px-1.5 py-0.5 text-[10px]",
+        size === "xs" && "px-1.5 py-0.5 text-xs",
         size === "sm" && "px-2 py-0.5 text-xs",
         className
       )}

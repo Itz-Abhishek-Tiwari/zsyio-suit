@@ -130,7 +130,7 @@ export function ActivityForm({ leadId: propLeadId, onSuccess, onCancel }: Activi
         <div className="flex flex-col gap-1.5">
           <Label className="text-xs font-semibold text-foreground">Sales Lead *</Label>
           <Select value={selectedLeadId} onValueChange={(v) => setValue("leadId", v)}>
-            <SelectTrigger className="h-9.5 text-xs rounded-xl">
+            <SelectTrigger className="h-9.5 text-xs rounded-lg">
               <SelectValue placeholder="Select a sales lead..." />
             </SelectTrigger>
             <SelectContent>
@@ -151,7 +151,7 @@ export function ActivityForm({ leadId: propLeadId, onSuccess, onCancel }: Activi
             value={type}
             onValueChange={(v) => setValue("type", v as FormValues["type"], { shouldDirty: true })}
           >
-            <SelectTrigger className="h-9.5 text-xs rounded-xl">
+            <SelectTrigger className="h-9.5 text-xs rounded-lg">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -178,7 +178,7 @@ export function ActivityForm({ leadId: propLeadId, onSuccess, onCancel }: Activi
               setValue("priority", v as FormValues["priority"], { shouldDirty: true })
             }
           >
-            <SelectTrigger className="h-9.5 text-xs rounded-xl">
+            <SelectTrigger className="h-9.5 text-xs rounded-lg">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -201,7 +201,7 @@ export function ActivityForm({ leadId: propLeadId, onSuccess, onCancel }: Activi
             Activity Title <span className="text-destructive">*</span>
           </span>
           {errors.title && (
-            <span className="text-[10px] font-bold text-destructive uppercase tracking-wider">
+            <span className="text-xs font-semibold text-destructive  ">
               Required
             </span>
           )}
@@ -211,12 +211,12 @@ export function ActivityForm({ leadId: propLeadId, onSuccess, onCancel }: Activi
           {...register("title")}
           placeholder="e.g. Discovery call with Chief Medical Officer"
           className={cn(
-            "h-9.5 text-xs rounded-xl",
+            "h-9.5 text-xs rounded-lg",
             errors.title && "border-destructive focus-visible:ring-destructive/20 bg-destructive/5"
           )}
         />
         {errors.title && (
-          <p className="text-[11px] text-destructive font-medium mt-0.5">{errors.title.message}</p>
+          <p className="text-xs text-destructive font-medium mt-0.5">{errors.title.message}</p>
         )}
       </div>
 
@@ -228,7 +228,7 @@ export function ActivityForm({ leadId: propLeadId, onSuccess, onCancel }: Activi
           id="act-description"
           {...register("description")}
           placeholder="Record call summary, client expectations, pain points, or next steps…"
-          className="text-xs rounded-xl resize-none min-h-[85px] leading-relaxed"
+          className="text-xs rounded-lg resize-none min-h-[85px] leading-relaxed"
           rows={3}
         />
       </div>
@@ -240,7 +240,7 @@ export function ActivityForm({ leadId: propLeadId, onSuccess, onCancel }: Activi
             value={dueAt || null}
             onChange={(val) => setValue("dueAt", val, { shouldDirty: true })}
             placeholder="Select due date"
-            className="h-9.5 text-xs rounded-xl"
+            className="h-9.5 text-xs rounded-lg"
           />
         </div>
 
@@ -252,7 +252,7 @@ export function ActivityForm({ leadId: propLeadId, onSuccess, onCancel }: Activi
               setValue("assignedToId", v === "UNASSIGNED" ? "" : v, { shouldDirty: true })
             }
           >
-            <SelectTrigger className="h-9.5 text-xs rounded-xl">
+            <SelectTrigger className="h-9.5 text-xs rounded-lg">
               <SelectValue placeholder="Unassigned" />
             </SelectTrigger>
             <SelectContent>
@@ -277,7 +277,7 @@ export function ActivityForm({ leadId: propLeadId, onSuccess, onCancel }: Activi
             type="button"
             variant="outline"
             onClick={onCancel}
-            className="h-10 px-5 text-xs font-semibold rounded-xl"
+            className="h-10 px-5 text-xs font-semibold rounded-lg"
           >
             Cancel
           </Button>
@@ -285,7 +285,7 @@ export function ActivityForm({ leadId: propLeadId, onSuccess, onCancel }: Activi
         <Button
           type="submit"
           disabled={isLoading}
-          className="h-10 px-6 text-xs font-semibold rounded-xl shadow-xs gap-2 min-w-[130px]"
+          className="h-10 px-6 text-xs font-semibold rounded-lg shadow-xs gap-2 min-w-[130px]"
         >
           {isLoading ? (
             <Loader2 className="w-4 h-4 animate-spin" />

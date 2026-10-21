@@ -101,14 +101,14 @@ export function SalesKanbanFilters({ filters, onChange }: SalesKanbanFiltersProp
               <X className="w-3.5 h-3.5" />
             </button>
           ) : (
-            <kbd className="absolute right-2.5 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono text-muted-foreground bg-muted/60 rounded border border-border/60 pointer-events-none">
+            <kbd className="absolute right-2.5 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-xs font-mono text-muted-foreground bg-muted/60 rounded border border-border/60 pointer-events-none">
               ⌘K
             </kbd>
           )}
         </div>
 
         {hasActiveFilters && (
-          <span className="shrink-0 hidden md:inline-flex items-center gap-1.5 text-[11px] font-semibold px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/20 animate-fade-in">
+          <span className="shrink-0 hidden md:inline-flex items-center gap-1.5 text-xs font-semibold px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/20 animate-fade-in">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             {activeCount} active filter{activeCount > 1 ? "s" : ""}
           </span>
@@ -154,7 +154,7 @@ export function SalesKanbanFilters({ filters, onChange }: SalesKanbanFiltersProp
             <Layers className={`w-3.5 h-3.5 shrink-0 ${filters.stage ? "text-primary" : "text-muted-foreground"}`} />
             <SelectValue placeholder="All Stages" />
           </SelectTrigger>
-          <SelectContent className="rounded-md border-border/80 bg-surface-elevated shadow-xl">
+          <SelectContent className="rounded-md border-border/80 bg-surface-elevated shadow-md">
             <SelectItem value="ALL">All Stages</SelectItem>
             {ALL_STAGES.map((s) => (
               <SelectItem key={s} value={s}>
@@ -179,7 +179,7 @@ export function SalesKanbanFilters({ filters, onChange }: SalesKanbanFiltersProp
             <Flame className={`w-3.5 h-3.5 shrink-0 ${filters.priority ? "text-primary" : "text-muted-foreground"}`} />
             <SelectValue placeholder="All Priorities" />
           </SelectTrigger>
-          <SelectContent className="rounded-md border-border/80 bg-surface-elevated shadow-xl">
+          <SelectContent className="rounded-md border-border/80 bg-surface-elevated shadow-md">
             <SelectItem value="ALL">All Priorities</SelectItem>
             {ALL_PRIORITIES.map((p) => (
               <SelectItem key={p} value={p}>
@@ -204,7 +204,7 @@ export function SalesKanbanFilters({ filters, onChange }: SalesKanbanFiltersProp
             <Users2 className={`w-3.5 h-3.5 shrink-0 ${filters.assignedToId ? "text-primary" : "text-muted-foreground"}`} />
             <SelectValue placeholder="All Salespeople" />
           </SelectTrigger>
-          <SelectContent className="rounded-md border-border/80 bg-surface-elevated shadow-xl">
+          <SelectContent className="rounded-md border-border/80 bg-surface-elevated shadow-md">
             <SelectItem value="ALL">All Salespeople</SelectItem>
             {users?.map((u) => (
               <SelectItem key={u.id} value={u.id}>

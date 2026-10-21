@@ -40,24 +40,24 @@ export default async function LoginPage() {
         },
         {
           icon: <DollarSign className="w-4 h-4" />,
-          iconClassName: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+          iconClassName: "bg-success/10 text-success",
           title: "Deal Forecasting",
           description: "Track win probabilities, expected close dates, and values.",
         },
         {
           icon: <Users className="w-4 h-4" />,
-          iconClassName: "bg-sky-500/10 text-sky-600 dark:text-sky-400",
+          iconClassName: "bg-notion-blue-fg/10 text-notion-blue-fg",
           title: "Client Conversion",
           description: "One-click transition from Sales Client to Development Client.",
         },
         {
           icon: <BarChart3 className="w-4 h-4" />,
-          iconClassName: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+          iconClassName: "bg-warning/10 text-warning",
           title: "Full Audit Trail",
           description: "Complete timeline of calls, emails, notes, and stage changes.",
         },
       ]}
-      footerRight={<span className="font-mono text-[10px] text-muted-foreground">Zsyio v1.2 · Enterprise Edition</span>}
+      footerRight={<span className="font-mono text-xs text-muted-foreground">Zsyio v1.2 · Enterprise Edition</span>}
       formHeading="Welcome back"
       formSubtitle="Enter your corporate username with approved domain to access Sales CRM."
       securityNote={

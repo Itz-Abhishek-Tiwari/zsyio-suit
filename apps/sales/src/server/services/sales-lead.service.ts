@@ -83,7 +83,8 @@ export const salesLeadService = {
         : {}),
     };
 
-    const orderBy = sortBy && sortBy !== "createdAt"
+    const SORTABLE = ["createdAt", "updatedAt", "dealValue", "probability", "expectedCloseAt", "lastContactAt", "nextFollowUpAt", "leadSource", "currentStage", "priority"];
+    const orderBy = sortBy && sortBy !== "createdAt" && SORTABLE.includes(sortBy)
       ? { [sortBy]: sortDir }
       : { createdAt: sortDir };
 

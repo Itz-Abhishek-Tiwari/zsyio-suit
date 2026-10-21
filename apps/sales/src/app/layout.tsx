@@ -32,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`h-full antialiased ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <body className="min-h-full bg-background text-foreground font-sans">
-        <ThemeProvider attribute={["class", "data-theme"]} defaultTheme="light" enableSystem>
+        <ThemeProvider accentCookieDomain={process.env.COOKIE_DOMAIN} attribute={["class", "data-theme"]} defaultTheme="light" enableSystem>
           <ReduxProvider>
             {children}
             <Toaster />

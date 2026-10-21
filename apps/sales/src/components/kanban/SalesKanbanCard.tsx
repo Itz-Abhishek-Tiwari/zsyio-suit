@@ -102,7 +102,7 @@ function SalesKanbanCardImpl({
             {canEdit && (
               <>
                 <DropdownMenuSeparator />
-                <DropdownMenuLabel className="text-[10px] text-muted-foreground font-normal">
+                <DropdownMenuLabel className="text-xs text-muted-foreground font-normal">
                   Move to Stage
                 </DropdownMenuLabel>
                 {STAGE_ORDER.filter((s) => s !== lead.currentStage).map((stage) => (
@@ -140,7 +140,7 @@ function SalesKanbanCardImpl({
           {lead.dealValue ? (
             <KanbanMetricBadge
               variant="success"
-              icon={<TrendingUp className="w-2.5 h-2.5 text-emerald-600 dark:text-emerald-400 shrink-0" />}
+              icon={<TrendingUp className="w-2.5 h-2.5 text-success shrink-0" />}
             >
               {formatCurrency(lead.dealValue)}
             </KanbanMetricBadge>

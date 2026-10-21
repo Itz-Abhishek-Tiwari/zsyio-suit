@@ -116,10 +116,10 @@ export function SalesLeadDetail({ leadId }: SalesLeadDetailProps) {
     return (
       <div className="space-y-6">
         <Skeleton className="h-8 w-48 rounded-lg" />
-        <Skeleton className="h-28 w-full rounded-xl" />
+        <Skeleton className="h-28 w-full rounded-lg" />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <Skeleton className="h-96 rounded-xl" />
-          <Skeleton className="h-96 lg:col-span-2 rounded-xl" />
+          <Skeleton className="h-96 rounded-lg" />
+          <Skeleton className="h-96 lg:col-span-2 rounded-lg" />
         </div>
       </div>
     );
@@ -127,7 +127,7 @@ export function SalesLeadDetail({ leadId }: SalesLeadDetailProps) {
 
   if (isError || !lead) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 gap-3 rounded-xl border border-destructive/20 bg-destructive/5 p-8">
+      <div className="flex flex-col items-center justify-center py-20 gap-3 rounded-lg border border-destructive/20 bg-destructive/5 p-8">
         <AlertTriangle className="w-8 h-8 text-destructive" />
         <p className="text-sm font-semibold text-foreground">Failed to load lead details</p>
         <p className="text-xs text-muted-foreground">The requested lead could not be found or retrieved.</p>
@@ -238,7 +238,7 @@ export function SalesLeadDetail({ leadId }: SalesLeadDetailProps) {
               className={cn(
                 "h-9 gap-1.5 text-xs font-semibold rounded-lg shadow-xs transition-all",
                 canConvert
-                  ? "bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer"
+                  ? "bg-success hover:bg-success text-white cursor-pointer"
                   : "bg-muted text-muted-foreground border border-border cursor-not-allowed opacity-60"
               )}
             >
@@ -246,7 +246,7 @@ export function SalesLeadDetail({ leadId }: SalesLeadDetailProps) {
               <span>Move to Dev</span>
             </Button>
           ) : (
-            <span className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+            <span className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg text-xs font-semibold bg-success/10 text-success border border-success/20">
               <Check className="w-3.5 h-3.5" />
               <span>Dev Client</span>
             </span>
@@ -279,23 +279,23 @@ export function SalesLeadDetail({ leadId }: SalesLeadDetailProps) {
       </div>
 
       {/* 2. Hero Opportunity Profile Card */}
-      <div className="rounded-xl border border-border/80 bg-card p-6 shadow-xs flex flex-col gap-6">
+      <div className="rounded-lg border border-border/80 bg-card p-6 shadow-xs flex flex-col gap-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-5">
           <div className="flex items-start gap-4">
-            <div className="w-14 h-14 rounded-xl bg-primary/10 text-primary border border-primary/20 flex items-center justify-center font-extrabold text-lg shrink-0 shadow-2xs">
+            <div className="w-14 h-14 rounded-lg bg-primary/10 text-primary border border-primary/20 flex items-center justify-center font-semibold text-lg shrink-0 shadow-2xs">
               {companyInitials}
             </div>
 
             <div className="flex flex-col gap-1.5 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
                 <KanbanIdentifierBadge id={formatLeadId(lead.id)} />
-                <h1 className="text-xl sm:text-2xl font-extrabold text-foreground tracking-tight truncate">
+                <h1 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight truncate">
                   {lead.client?.name ?? "Sales Opportunity"}
                 </h1>
                 <SalesStageBadge stage={lead.currentStage} size="sm" />
                 <KanbanPriorityBadge priority={lead.priority} />
                 {isDevClient && (
-                  <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
+                  <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-success/10 text-success border border-success/20 flex items-center gap-1">
                     <ShieldCheck className="w-3 h-3" />
                     Dev Client
                   </span>
@@ -368,7 +368,7 @@ export function SalesLeadDetail({ leadId }: SalesLeadDetailProps) {
                       "flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold border transition-all shrink-0",
                       canEdit ? "cursor-pointer" : "cursor-default opacity-70",
                       isCurrent
-                        ? "bg-primary/10 text-primary border-primary/40 shadow-2xs font-bold"
+                        ? "bg-primary/10 text-primary border-primary/40 shadow-2xs font-semibold"
                         : isCompleted
                         ? "bg-muted/40 text-foreground/80 border-border/60 hover:bg-muted"
                         : "bg-surface-subtle/40 text-muted-foreground border-transparent hover:border-border/60 hover:text-foreground"
@@ -376,11 +376,11 @@ export function SalesLeadDetail({ leadId }: SalesLeadDetailProps) {
                   >
                     <span
                       className={cn(
-                        "w-4 h-4 rounded-full flex items-center justify-center text-[10px] shrink-0 font-bold",
+                        "w-4 h-4 rounded-full flex items-center justify-center text-xs shrink-0 font-semibold",
                         isCurrent
                           ? "text-white"
                           : isCompleted
-                          ? "bg-emerald-500 text-white"
+                          ? "bg-success text-white"
                           : "bg-muted text-muted-foreground"
                       )}
                       style={isCurrent ? { backgroundColor: stageColor } : undefined}
@@ -399,27 +399,27 @@ export function SalesLeadDetail({ leadId }: SalesLeadDetailProps) {
       {/* 3. KPI Highlights (4 Tokenized Cards) */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Deal Value */}
-        <div className="rounded-xl border border-border/80 bg-card p-4 sm:p-5 shadow-xs flex flex-col justify-between gap-3">
+        <div className="rounded-lg border border-border/80 bg-card p-4 sm:p-5 shadow-xs flex flex-col justify-between gap-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+            <span className="text-xs font-semibold   text-muted-foreground">
               Deal Value
             </span>
-            <span className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 flex items-center justify-center shrink-0">
+            <span className="w-8 h-8 rounded-lg bg-success/10 text-success border border-success/20 flex items-center justify-center shrink-0">
               <Euro className="w-4 h-4" />
             </span>
           </div>
           <div>
-            <span className="text-2xl font-extrabold font-mono text-foreground tracking-tight block">
+            <span className="text-2xl font-semibold font-mono text-foreground tracking-tight block">
               {lead.dealValue ? formatCurrency(lead.dealValue) : "-"}
             </span>
-            <span className="text-[11px] text-muted-foreground">Projected revenue</span>
+            <span className="text-xs text-muted-foreground">Projected revenue</span>
           </div>
         </div>
 
         {/* Win Probability */}
-        <div className="rounded-xl border border-border/80 bg-card p-4 sm:p-5 shadow-xs flex flex-col justify-between gap-3">
+        <div className="rounded-lg border border-border/80 bg-card p-4 sm:p-5 shadow-xs flex flex-col justify-between gap-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+            <span className="text-xs font-semibold   text-muted-foreground">
               Win Probability
             </span>
             <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary border border-primary/20 flex items-center justify-center shrink-0">
@@ -427,40 +427,40 @@ export function SalesLeadDetail({ leadId }: SalesLeadDetailProps) {
             </span>
           </div>
           <div>
-            <span className="text-2xl font-extrabold font-mono text-foreground tracking-tight block">
+            <span className="text-2xl font-semibold font-mono text-foreground tracking-tight block">
               {lead.probability !== null && lead.probability !== undefined
                 ? `${lead.probability}%`
                 : "-"}
             </span>
-            <span className="text-[11px] text-muted-foreground">Confidence level</span>
+            <span className="text-xs text-muted-foreground">Confidence level</span>
           </div>
         </div>
 
         {/* Expected Close */}
-        <div className="rounded-xl border border-border/80 bg-card p-4 sm:p-5 shadow-xs flex flex-col justify-between gap-3">
+        <div className="rounded-lg border border-border/80 bg-card p-4 sm:p-5 shadow-xs flex flex-col justify-between gap-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+            <span className="text-xs font-semibold   text-muted-foreground">
               Expected Close
             </span>
-            <span className="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-600 border border-amber-500/20 flex items-center justify-center shrink-0">
+            <span className="w-8 h-8 rounded-lg bg-warning/10 text-warning border border-warning/20 flex items-center justify-center shrink-0">
               <Calendar className="w-4 h-4" />
             </span>
           </div>
           <div>
-            <span className="text-sm font-bold text-foreground block">
+            <span className="text-sm font-semibold text-foreground block">
               {lead.expectedCloseAt ? formatDate(lead.expectedCloseAt) : "Not set"}
             </span>
-            <span className="text-[11px] text-muted-foreground">Target closing date</span>
+            <span className="text-xs text-muted-foreground">Target closing date</span>
           </div>
         </div>
 
         {/* Assigned Salesperson */}
-        <div className="rounded-xl border border-border/80 bg-card p-4 sm:p-5 shadow-xs flex flex-col justify-between gap-3">
+        <div className="rounded-lg border border-border/80 bg-card p-4 sm:p-5 shadow-xs flex flex-col justify-between gap-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+            <span className="text-xs font-semibold   text-muted-foreground">
               Assigned Rep
             </span>
-            <span className="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-600 border border-purple-500/20 flex items-center justify-center shrink-0">
+            <span className="w-8 h-8 rounded-lg bg-notion-purple-fg/10 text-notion-purple-fg border border-notion-purple-fg/20 flex items-center justify-center shrink-0">
               <User2 className="w-4 h-4" />
             </span>
           </div>
@@ -468,7 +468,7 @@ export function SalesLeadDetail({ leadId }: SalesLeadDetailProps) {
             {lead.assignedTo ? (
               <>
                 <UserAvatar user={lead.assignedTo} size="xs" />
-                <span className="text-xs font-bold text-foreground truncate">
+                <span className="text-xs font-semibold text-foreground truncate">
                   {lead.assignedTo.name ?? lead.assignedTo.email}
                 </span>
               </>
@@ -484,14 +484,14 @@ export function SalesLeadDetail({ leadId }: SalesLeadDetailProps) {
         {/* Left Column (1 col): Lead & Account Attributes */}
         <div className="space-y-6">
           {/* Account Profile Card */}
-          <div className="rounded-xl border border-border/80 bg-card p-5 shadow-xs flex flex-col gap-4">
+          <div className="rounded-lg border border-border/80 bg-card p-5 shadow-xs flex flex-col gap-4">
             <div className="flex items-center gap-2.5 border-b border-border/60 pb-3">
               <span className="w-7 h-7 rounded-lg bg-primary/10 text-primary border border-primary/20 flex items-center justify-center shrink-0">
                 <Building2 className="w-3.5 h-3.5" />
               </span>
               <div>
-                <h2 className="text-xs font-bold text-foreground">Contact Channels</h2>
-                <p className="text-[10px] text-muted-foreground">Key communication touchpoints</p>
+                <h2 className="text-xs font-semibold text-foreground">Contact Channels</h2>
+                <p className="text-xs text-muted-foreground">Key communication touchpoints</p>
               </div>
             </div>
 
@@ -551,24 +551,24 @@ export function SalesLeadDetail({ leadId }: SalesLeadDetailProps) {
           </div>
 
           {/* PMS Development Integration Card */}
-          <div className="rounded-xl border border-border/80 bg-card p-5 shadow-xs flex flex-col gap-3.5">
+          <div className="rounded-lg border border-border/80 bg-card p-5 shadow-xs flex flex-col gap-3.5">
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
               <div className="flex items-center gap-2.5">
-                <span className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                <span className="w-7 h-7 rounded-lg bg-success/10 text-success border border-success/20 flex items-center justify-center shrink-0">
                   <Sparkles className="w-3.5 h-3.5" />
                 </span>
                 <div>
-                  <h2 className="text-xs font-bold text-foreground">Development Status</h2>
-                  <p className="text-[10px] text-muted-foreground">PMS Client Roster Sync</p>
+                  <h2 className="text-xs font-semibold text-foreground">Development Status</h2>
+                  <p className="text-xs text-muted-foreground">PMS Client Roster Sync</p>
                 </div>
               </div>
               {isDevClient ? (
-                <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-success bg-success/10 border border-success/20 px-2 py-0.5 rounded-full">
                   <Check className="w-3 h-3" />
                   In Dev
                 </span>
               ) : (
-                <span className="inline-flex items-center gap-1 text-[11px] font-medium text-muted-foreground bg-muted/50 border border-border/60 px-2 py-0.5 rounded-full">
+                <span className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground bg-muted/50 border border-border/60 px-2 py-0.5 rounded-full">
                   Sales Only
                 </span>
               )}
@@ -589,7 +589,7 @@ export function SalesLeadDetail({ leadId }: SalesLeadDetailProps) {
                 className={cn(
                   "w-full h-9 gap-1.5 text-xs font-semibold rounded-lg shadow-xs transition-all",
                   canConvert
-                    ? "bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer"
+                    ? "bg-success hover:bg-success text-white cursor-pointer"
                     : "bg-muted text-muted-foreground border border-border cursor-not-allowed opacity-60"
                 )}
               >
@@ -599,7 +599,7 @@ export function SalesLeadDetail({ leadId }: SalesLeadDetailProps) {
             ) : (
               <div className="flex items-center justify-between pt-1 border-t border-border/40 text-xs">
                 <span className="text-muted-foreground">PMS Roster:</span>
-                <span className="font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                <span className="font-semibold text-success flex items-center gap-1">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   Synced with Dev Clients
                 </span>
@@ -608,14 +608,14 @@ export function SalesLeadDetail({ leadId }: SalesLeadDetailProps) {
           </div>
 
           {/* Deal Meta Details Card */}
-          <div className="rounded-xl border border-border/80 bg-card p-5 shadow-xs flex flex-col gap-3.5">
+          <div className="rounded-lg border border-border/80 bg-card p-5 shadow-xs flex flex-col gap-3.5">
             <div className="flex items-center gap-2.5 border-b border-border/60 pb-3">
-              <span className="w-7 h-7 rounded-lg bg-purple-500/10 text-purple-600 border border-purple-500/20 flex items-center justify-center shrink-0">
+              <span className="w-7 h-7 rounded-lg bg-notion-purple-fg/10 text-notion-purple-fg border border-notion-purple-fg/20 flex items-center justify-center shrink-0">
                 <Layers className="w-3.5 h-3.5" />
               </span>
               <div>
-                <h2 className="text-xs font-bold text-foreground">Deal Parameters</h2>
-                <p className="text-[10px] text-muted-foreground">Source and timeline data</p>
+                <h2 className="text-xs font-semibold text-foreground">Deal Parameters</h2>
+                <p className="text-xs text-muted-foreground">Source and timeline data</p>
               </div>
             </div>
 
@@ -657,7 +657,7 @@ export function SalesLeadDetail({ leadId }: SalesLeadDetailProps) {
 
             {lead.client?.notes && (
               <div className="pt-2 border-t border-border/40">
-                <span className="text-xs font-bold text-muted-foreground block mb-1.5">
+                <span className="text-xs font-semibold text-muted-foreground block mb-1.5">
                   Internal Notes
                 </span>
                 <p className="text-xs text-foreground bg-muted/30 border border-border/60 p-3 rounded-lg whitespace-pre-wrap leading-relaxed">
@@ -676,10 +676,10 @@ export function SalesLeadDetail({ leadId }: SalesLeadDetailProps) {
                 <History className="w-4 h-4" />
               </span>
               <div>
-                <h2 className="text-sm font-bold text-foreground">
+                <h2 className="text-sm font-semibold text-foreground">
                   Activities & Audit History
                 </h2>
-                <p className="text-[11px] text-muted-foreground">
+                <p className="text-xs text-muted-foreground">
                   Chronological interaction history, communications, and pipeline audit logs.
                 </p>
               </div>
@@ -694,7 +694,7 @@ export function SalesLeadDetail({ leadId }: SalesLeadDetailProps) {
             </Button>
           </div>
 
-          <div className="p-5 sm:p-6 rounded-xl bg-card border border-border/80 shadow-xs">
+          <div className="p-5 sm:p-6 rounded-lg bg-card border border-border/80 shadow-xs">
             <ActivityTimeline
               activities={lead.activities ?? []}
               auditLogs={lead.auditLogs ?? []}

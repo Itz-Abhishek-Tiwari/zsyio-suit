@@ -93,7 +93,7 @@ export function Header({
   };
 
   const allowedApps = useMemo<AppId[]>(() => {
-    return (["pms", "notes", "hrms", "admin", "sales"] as const).filter((appId) =>
+    return (["pms", "notes", "hrms", "admin", "sales", "recruit"] as const).filter((appId) =>
       canAccessApp(role, appId, permissions)
     );
   }, [role, permissions]);
@@ -116,7 +116,7 @@ export function Header({
           <>
             <DropdownMenuItem
               onClick={() => setProfileModalOpen(true)}
-              className="rounded-lg text-xs gap-2.5 p-2 font-medium cursor-pointer text-foreground hover:bg-surface-subtle"
+              className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer text-foreground hover:bg-surface-subtle"
             >
               <User className="w-4 h-4 text-primary" />
               <span>My Profile &amp; Settings</span>
@@ -127,16 +127,16 @@ export function Header({
                   const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:3003";
                   window.location.href = `${adminUrl}/users`;
                 }}
-                className="rounded-xl text-xs gap-2.5 p-2 font-medium cursor-pointer text-rose-600 dark:text-rose-400 focus:text-rose-600"
+                className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer text-destructive focus:text-destructive"
               >
-                <ShieldCheck className="w-4 h-4 text-rose-600 dark:text-rose-400" />
+                <ShieldCheck className="w-4 h-4 text-destructive" />
                 <span>Zsyio Console (Users &amp; Roles)</span>
               </DropdownMenuItem>
             )}
 
             <DropdownMenuItem
               onClick={() => router.push("/kanban")}
-              className="rounded-xl text-xs gap-2.5 p-2 font-medium cursor-pointer"
+              className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer"
             >
               <Kanban className="w-4 h-4 text-muted-foreground" />
               <span>Pipeline Kanban Board</span>
@@ -144,7 +144,7 @@ export function Header({
 
             <DropdownMenuItem
               onClick={() => router.push("/leads")}
-              className="rounded-xl text-xs gap-2.5 p-2 font-medium cursor-pointer"
+              className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer"
             >
               <Users className="w-4 h-4 text-muted-foreground" />
               <span>Manage All Leads</span>
@@ -152,7 +152,7 @@ export function Header({
 
             <DropdownMenuItem
               onClick={() => setChangePasswordOpen(true)}
-              className="rounded-xl text-xs gap-2.5 p-2 font-medium cursor-pointer"
+              className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer"
             >
               <KeyRound className="w-4 h-4 text-muted-foreground" />
               <span>Change Password</span>
@@ -181,19 +181,19 @@ export function Header({
         size="lg"
         bodyClassName="p-4 flex flex-col gap-3"
         footer={
-          <div className="flex items-center justify-between w-full text-[11px] text-muted-foreground font-mono">
+          <div className="flex items-center justify-between w-full text-xs text-muted-foreground font-mono">
             <span className="flex items-center gap-1.5">
-              <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-[10px]">↑↓</kbd>
+              <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-xs">↑↓</kbd>
               <span>Navigate</span>
             </span>
             <span className="flex items-center gap-1.5">
-              <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-[10px] flex items-center gap-0.5">
+              <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-xs flex items-center gap-0.5">
                 <CornerDownLeft className="w-2.5 h-2.5" /> Enter
               </kbd>
               <span>Select</span>
             </span>
             <span className="flex items-center gap-1.5">
-              <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-[10px]">ESC</kbd>
+              <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-xs">ESC</kbd>
               <span>Close</span>
             </span>
           </div>
@@ -215,7 +215,7 @@ export function Header({
           {debouncedQuery.trim() ? (
             leads.length > 0 ? (
               <>
-                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground px-2 pt-1 pb-0.5">
+                <p className="text-xs font-semibold   text-muted-foreground px-2 pt-1 pb-0.5">
                   Sales Leads
                 </p>
                 {leads.map((lead, idx) => {
@@ -231,7 +231,7 @@ export function Header({
                       onClick={() => handleResultActivate(lead.id)}
                       onMouseEnter={() => setHighlightedIndex(idx)}
                       className={cn(
-                        "w-full flex items-center justify-between p-2.5 rounded-xl border text-left transition-all group cursor-pointer",
+                        "w-full flex items-center justify-between p-2.5 rounded-md border text-left transition-all group cursor-pointer",
                         isActive
                           ? "border-primary/40 bg-primary-light/70 shadow-2xs"
                           : "border-transparent hover:border-border hover:bg-surface-subtle/80"
@@ -242,24 +242,24 @@ export function Header({
                         <div className="flex flex-col min-w-0">
                           <span
                             className={cn(
-                              "text-xs font-bold truncate",
+                              "text-xs font-semibold truncate",
                               isActive ? "text-primary" : "text-foreground group-hover:text-primary"
                             )}
                           >
                             {lead.client?.name ?? "Unknown Lead"}
                           </span>
                           {lead.client?.domain && (
-                            <span className="text-[10px] text-muted-foreground font-mono mt-0.5 truncate">
+                            <span className="text-xs text-muted-foreground font-mono mt-0.5 truncate">
                               {lead.client.domain}
                             </span>
                           )}
                         </div>
                       </div>
                       <div className="flex items-center gap-1.5 shrink-0">
-                        <Badge variant="outline" className="text-[10px] font-mono">
+                        <Badge variant="outline" className="text-xs font-mono">
                           {lead.stage?.name ?? lead.currentStage}
                         </Badge>
-                        <Badge variant="secondary" className="text-[10px] font-mono capitalize">
+                        <Badge variant="secondary" className="text-xs font-mono capitalize">
                           {lead.priority.toLowerCase()}
                         </Badge>
                       </div>
@@ -274,7 +274,7 @@ export function Header({
             ) : null
           ) : (
             <div className="py-3 px-1 flex flex-col gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+              <span className="text-xs font-semibold   text-muted-foreground">
                 Quick Navigation
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -284,7 +284,7 @@ export function Header({
                     setSearchOpen(false);
                     router.push("/kanban");
                   }}
-                  className="p-3 rounded-xl border border-border/80 bg-surface-subtle hover:border-primary/30 hover:bg-surface-elevated text-left flex items-center gap-2.5 text-xs font-semibold text-foreground transition-all cursor-pointer shadow-2xs"
+                  className="p-3 rounded-md border border-border/80 bg-surface-subtle hover:border-primary/30 hover:bg-surface-elevated text-left flex items-center gap-2.5 text-xs font-semibold text-foreground transition-all cursor-pointer shadow-2xs"
                 >
                   <Kanban className="w-4 h-4 text-primary" />
                   <span>Kanban Pipeline</span>
@@ -296,7 +296,7 @@ export function Header({
                     setSearchOpen(false);
                     router.push("/leads");
                   }}
-                  className="p-3 rounded-xl border border-border/80 bg-surface-subtle hover:border-primary/30 hover:bg-surface-elevated text-left flex items-center gap-2.5 text-xs font-semibold text-foreground transition-all cursor-pointer shadow-2xs"
+                  className="p-3 rounded-md border border-border/80 bg-surface-subtle hover:border-primary/30 hover:bg-surface-elevated text-left flex items-center gap-2.5 text-xs font-semibold text-foreground transition-all cursor-pointer shadow-2xs"
                 >
                   <Users className="w-4 h-4 text-primary" />
                   <span>All Sales Leads</span>
@@ -308,7 +308,7 @@ export function Header({
                     setSearchOpen(false);
                     router.push("/activities");
                   }}
-                  className="p-3 rounded-xl border border-border/80 bg-surface-subtle hover:border-primary/30 hover:bg-surface-elevated text-left flex items-center gap-2.5 text-xs font-semibold text-foreground transition-all cursor-pointer shadow-2xs"
+                  className="p-3 rounded-md border border-border/80 bg-surface-subtle hover:border-primary/30 hover:bg-surface-elevated text-left flex items-center gap-2.5 text-xs font-semibold text-foreground transition-all cursor-pointer shadow-2xs"
                 >
                   <Activity className="w-4 h-4 text-primary" />
                   <span>Sales Activities</span>

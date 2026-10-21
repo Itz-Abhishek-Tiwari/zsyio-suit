@@ -52,15 +52,15 @@ const STAGE_STRIP: readonly { stage: SalesStage; label: string; color: string }[
 function getActivityIcon(type: string) {
   switch (type) {
     case "CALL":
-      return <PhoneCall className="w-3.5 h-3.5 text-blue-500" />;
+      return <PhoneCall className="w-3.5 h-3.5 text-notion-blue-fg" />;
     case "EMAIL":
-      return <Mail className="w-3.5 h-3.5 text-purple-500" />;
+      return <Mail className="w-3.5 h-3.5 text-notion-purple-fg" />;
     case "MEETING":
-      return <CalendarIcon className="w-3.5 h-3.5 text-amber-500" />;
+      return <CalendarIcon className="w-3.5 h-3.5 text-warning" />;
     case "NOTE":
-      return <FileText className="w-3.5 h-3.5 text-slate-500" />;
+      return <FileText className="w-3.5 h-3.5 text-muted-foreground" />;
     case "TASK":
-      return <CheckSquare className="w-3.5 h-3.5 text-emerald-500" />;
+      return <CheckSquare className="w-3.5 h-3.5 text-success" />;
     default:
       return <Activity className="w-3.5 h-3.5 text-primary" />;
   }
@@ -221,6 +221,7 @@ export function SalesDashboard({ userName, userRole }: SalesDashboardProps) {
     },
     {
       id: "value",
+      centerLabel: "Total value",
       label: "By Value",
       icon: Euro,
       items: data.stageBreakdown.map((s) => ({
@@ -309,10 +310,10 @@ export function SalesDashboard({ userName, userRole }: SalesDashboardProps) {
               </div>
 
               <div className="flex items-baseline justify-between gap-1">
-                <span className="text-xl font-bold font-mono text-foreground tracking-tight">
+                <span className="text-xl font-semibold font-mono text-foreground tracking-tight">
                   {count}
                 </span>
-                <span className="text-[11px] font-semibold text-muted-foreground font-mono">
+                <span className="text-xs font-semibold text-muted-foreground font-mono">
                   {formatCurrency(value)}
                 </span>
               </div>
@@ -325,7 +326,7 @@ export function SalesDashboard({ userName, userRole }: SalesDashboardProps) {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
         <PipelineFunnelChart
           stages={funnelData}
-          title="Pipeline Velocity Funnel"
+          title="Pipeline by stage"
           description="Lead count and projected deal volume across active sales stages."
           chartHeight={220}
           showStageMetrics={false}
@@ -352,8 +353,8 @@ export function SalesDashboard({ userName, userRole }: SalesDashboardProps) {
                   <Briefcase className="w-4 h-4" />
                 </span>
                 <div>
-                  <h2 className="text-sm font-bold text-foreground">Recent Opportunities</h2>
-                  <p className="text-[11px] text-muted-foreground">
+                  <h2 className="text-sm font-semibold text-foreground">Recent Opportunities</h2>
+                  <p className="text-xs text-muted-foreground">
                     Latest active leads and deal status updates.
                   </p>
                 </div>
@@ -384,11 +385,11 @@ export function SalesDashboard({ userName, userRole }: SalesDashboardProps) {
                       <div className="min-w-0">
                         <Link
                           href={`/leads/${lead.id}?from=dashboard`}
-                          className="text-xs font-bold text-foreground hover:text-primary transition-colors truncate block"
+                          className="text-xs font-semibold text-foreground hover:text-primary transition-colors truncate block"
                         >
                           {lead.client?.name ?? "Unnamed Client"}
                         </Link>
-                        <p className="text-[11px] text-muted-foreground truncate">
+                        <p className="text-xs text-muted-foreground truncate">
                           {lead.client?.contactName || lead.client?.contactEmail || "No contact specified"}
                         </p>
                       </div>
@@ -399,10 +400,10 @@ export function SalesDashboard({ userName, userRole }: SalesDashboardProps) {
                       <KanbanPriorityBadge priority={lead.priority} />
 
                       <div className="text-right min-w-[70px]">
-                        <span className="text-xs font-bold font-mono text-foreground block">
+                        <span className="text-xs font-semibold font-mono text-foreground block">
                           {formatCurrency(lead.dealValue)}
                         </span>
-                        <span className="text-[10px] text-muted-foreground block">
+                        <span className="text-xs text-muted-foreground block">
                           {formatRelativeTime(lead.updatedAt)}
                         </span>
                       </div>
@@ -444,18 +445,18 @@ export function SalesDashboard({ userName, userRole }: SalesDashboardProps) {
           <div className="bg-card border border-border/80 rounded-lg p-5 sm:p-6 shadow-xs flex flex-col gap-4">
             <div className="flex items-center justify-between border-b border-border/60 pb-3.5">
               <div className="flex items-center gap-2.5">
-                <span className="w-8 h-8 rounded-md bg-amber-500/10 text-amber-600 border border-amber-500/20 flex items-center justify-center">
+                <span className="w-8 h-8 rounded-md bg-warning/10 text-warning border border-warning/20 flex items-center justify-center">
                   <Clock className="w-4 h-4" />
                 </span>
                 <div>
-                  <h2 className="text-sm font-bold text-foreground">Upcoming Outreach</h2>
-                  <p className="text-[11px] text-muted-foreground">Scheduled follow-up dates</p>
+                  <h2 className="text-sm font-semibold text-foreground">Upcoming Outreach</h2>
+                  <p className="text-xs text-muted-foreground">Scheduled follow-up dates</p>
                 </div>
               </div>
 
               <Link
                 href="/kanban"
-                className="text-[11px] font-semibold text-primary hover:underline flex items-center gap-0.5"
+                className="text-xs font-semibold text-primary hover:underline flex items-center gap-0.5"
               >
                 Board
                 <ChevronRight className="w-3 h-3" />
@@ -476,7 +477,7 @@ export function SalesDashboard({ userName, userRole }: SalesDashboardProps) {
                       >
                         {lead.client?.name ?? "Lead"}
                       </Link>
-                      <span className="text-[10px] text-muted-foreground font-mono">
+                      <span className="text-xs text-muted-foreground font-mono">
                         {formatCurrency(lead.dealValue)}
                       </span>
                     </div>
@@ -499,12 +500,12 @@ export function SalesDashboard({ userName, userRole }: SalesDashboardProps) {
           {data.recentActivities && data.recentActivities.length > 0 && (
             <div className="bg-card border border-border/80 rounded-lg p-5 sm:p-6 shadow-xs flex flex-col gap-4">
               <div className="flex items-center gap-2.5 border-b border-border/60 pb-3.5">
-                <span className="w-8 h-8 rounded-md bg-purple-500/10 text-purple-600 border border-purple-500/20 flex items-center justify-center">
+                <span className="w-8 h-8 rounded-md bg-notion-purple-fg/10 text-notion-purple-fg border border-notion-purple-fg/20 flex items-center justify-center">
                   <Activity className="w-4 h-4" />
                 </span>
                 <div>
-                  <h2 className="text-sm font-bold text-foreground">Recent Activities</h2>
-                  <p className="text-[11px] text-muted-foreground">Calls, meetings, notes & emails</p>
+                  <h2 className="text-sm font-semibold text-foreground">Recent Activities</h2>
+                  <p className="text-xs text-muted-foreground">Calls, meetings, notes & emails</p>
                 </div>
               </div>
 
@@ -521,7 +522,7 @@ export function SalesDashboard({ userName, userRole }: SalesDashboardProps) {
                       <p className="text-xs font-semibold text-foreground truncate">
                         {activity.title}
                       </p>
-                      <p className="text-[10px] text-muted-foreground truncate">
+                      <p className="text-xs text-muted-foreground truncate">
                         {activity.lead?.client?.name ?? "Client"} • {formatRelativeTime(activity.createdAt)}
                       </p>
                     </div>
@@ -535,12 +536,12 @@ export function SalesDashboard({ userName, userRole }: SalesDashboardProps) {
           {/* Quick Navigation Card matching PMS */}
           <div className="rounded-lg border border-border/80 bg-card p-5 sm:p-6 flex flex-col gap-4 shadow-xs">
             <div className="flex items-center gap-2.5 border-b border-border/60 pb-3.5">
-              <span className="w-8 h-8 rounded-md bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 flex items-center justify-center">
+              <span className="w-8 h-8 rounded-md bg-success/10 text-success border border-success/20 flex items-center justify-center">
                 <TrendingUp className="w-4 h-4" />
               </span>
               <div>
-                <h2 className="text-sm font-bold text-foreground">Sales Navigation</h2>
-                <p className="text-[11px] text-muted-foreground">Quick pipeline workspace shortcuts.</p>
+                <h2 className="text-sm font-semibold text-foreground">Sales Navigation</h2>
+                <p className="text-xs text-muted-foreground">Quick pipeline workspace shortcuts.</p>
               </div>
             </div>
 
@@ -549,36 +550,36 @@ export function SalesDashboard({ userName, userRole }: SalesDashboardProps) {
                 href="/kanban"
                 className="p-3 rounded-md border border-border/70 bg-surface-subtle/50 hover:bg-surface-subtle hover:border-primary/40 flex flex-col gap-1.5 transition-all group shadow-2xs"
               >
-                <Kanban className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-bold text-foreground truncate">Kanban Board</span>
-                <span className="text-[10px] text-muted-foreground line-clamp-1">Drag & drop deals</span>
+                <Kanban className="w-4 h-4 text-primary  transition-transform" />
+                <span className="text-xs font-semibold text-foreground truncate">Kanban Board</span>
+                <span className="text-xs text-muted-foreground line-clamp-1">Drag & drop deals</span>
               </Link>
 
               <Link
                 href="/leads"
                 className="p-3 rounded-md border border-border/70 bg-surface-subtle/50 hover:bg-surface-subtle hover:border-primary/40 flex flex-col gap-1.5 transition-all group shadow-2xs"
               >
-                <Users className="w-4 h-4 text-blue-500 group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-bold text-foreground truncate">All Leads</span>
-                <span className="text-[10px] text-muted-foreground line-clamp-1">Tabular lead directory</span>
+                <Users className="w-4 h-4 text-notion-blue-fg  transition-transform" />
+                <span className="text-xs font-semibold text-foreground truncate">All Leads</span>
+                <span className="text-xs text-muted-foreground line-clamp-1">Tabular lead directory</span>
               </Link>
 
               <Link
                 href="/leads/new"
                 className="p-3 rounded-md border border-border/70 bg-surface-subtle/50 hover:bg-surface-subtle hover:border-primary/40 flex flex-col gap-1.5 transition-all group shadow-2xs"
               >
-                <Plus className="w-4 h-4 text-emerald-500 group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-bold text-foreground truncate">New Lead</span>
-                <span className="text-[10px] text-muted-foreground line-clamp-1">Add sales prospect</span>
+                <Plus className="w-4 h-4 text-success  transition-transform" />
+                <span className="text-xs font-semibold text-foreground truncate">New Lead</span>
+                <span className="text-xs text-muted-foreground line-clamp-1">Add sales prospect</span>
               </Link>
 
               <Link
                 href="/clients"
                 className="p-3 rounded-md border border-border/70 bg-surface-subtle/50 hover:bg-surface-subtle hover:border-primary/40 flex flex-col gap-1.5 transition-all group shadow-2xs"
               >
-                <Building2 className="w-4 h-4 text-purple-500 group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-bold text-foreground truncate">Clients</span>
-                <span className="text-[10px] text-muted-foreground line-clamp-1">Accounts & contacts</span>
+                <Building2 className="w-4 h-4 text-notion-purple-fg  transition-transform" />
+                <span className="text-xs font-semibold text-foreground truncate">Clients</span>
+                <span className="text-xs text-muted-foreground line-clamp-1">Accounts & contacts</span>
               </Link>
             </div>
           </div>

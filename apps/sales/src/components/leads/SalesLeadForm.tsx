@@ -216,14 +216,14 @@ export function SalesLeadForm({
           {/* LEFT 2 COLUMNS: Company Profile & Discovery Notes */}
           <div className="lg:col-span-2 flex flex-col gap-6">
             {/* Card 1: Company Profile */}
-            <div className="rounded-xl border border-border/80 bg-card p-5 sm:p-6 shadow-xs flex flex-col gap-5">
+            <div className="rounded-lg border border-border/80 bg-card p-5 sm:p-6 shadow-xs flex flex-col gap-5">
               <div className="flex items-center justify-between border-b border-border/60 pb-3.5">
                 <div className="flex items-center gap-2.5">
                   <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary border border-primary/20 flex items-center justify-center shrink-0 shadow-2xs">
                     <Building2 className="w-4 h-4" />
                   </span>
                   <div>
-                    <h2 className="text-sm font-bold text-foreground">Company & Account Details</h2>
+                    <h2 className="text-sm font-semibold text-foreground">Company & Account Details</h2>
                     <p className="text-xs text-muted-foreground">
                       Company name, web domain, and primary business contact channels.
                     </p>
@@ -239,10 +239,10 @@ export function SalesLeadForm({
                     className="text-xs font-semibold text-foreground flex items-center justify-between"
                   >
                     <span>
-                      Company Name <span className="text-destructive font-bold">*</span>
+                      Company Name <span className="text-destructive font-semibold">*</span>
                     </span>
                     {errors.clientName && (
-                      <span className="text-[10px] font-bold text-destructive uppercase tracking-wider">
+                      <span className="text-xs font-semibold text-destructive  ">
                         Required
                       </span>
                     )}
@@ -261,7 +261,7 @@ export function SalesLeadForm({
                     />
                   </div>
                   {errors.clientName && (
-                    <p className="text-[11px] text-destructive font-medium mt-0.5">
+                    <p className="text-xs text-destructive font-medium mt-0.5">
                       {errors.clientName.message}
                     </p>
                   )}
@@ -331,7 +331,7 @@ export function SalesLeadForm({
                     />
                   </div>
                   {errors.contactEmail && (
-                    <p className="text-[11px] text-destructive font-medium mt-0.5">
+                    <p className="text-xs text-destructive font-medium mt-0.5">
                       {errors.contactEmail.message}
                     </p>
                   )}
@@ -340,14 +340,14 @@ export function SalesLeadForm({
             </div>
 
             {/* Card 2: Discovery Notes & Context */}
-            <div className="rounded-xl border border-border/80 bg-card p-5 sm:p-6 shadow-xs flex flex-col gap-4">
+            <div className="rounded-lg border border-border/80 bg-card p-5 sm:p-6 shadow-xs flex flex-col gap-4">
               <div className="flex items-center justify-between border-b border-border/60 pb-3.5">
                 <div className="flex items-center gap-2.5">
-                  <span className="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-600 border border-purple-500/20 flex items-center justify-center shrink-0 shadow-2xs">
+                  <span className="w-8 h-8 rounded-lg bg-notion-purple-fg/10 text-notion-purple-fg border border-notion-purple-fg/20 flex items-center justify-center shrink-0 shadow-2xs">
                     <FileText className="w-4 h-4" />
                   </span>
                   <div>
-                    <h2 className="text-sm font-bold text-foreground">Internal Notes & Context</h2>
+                    <h2 className="text-sm font-semibold text-foreground">Internal Notes & Context</h2>
                     <p className="text-xs text-muted-foreground">
                       Document customer requirements, key pain points, and discovery takeaways.
                     </p>
@@ -366,7 +366,7 @@ export function SalesLeadForm({
 
                 {/* Quick Note Presets */}
                 <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
-                  <span className="text-[10px] font-semibold text-muted-foreground flex items-center gap-1 mr-1">
+                  <span className="text-xs font-semibold text-muted-foreground flex items-center gap-1 mr-1">
                     <Tag className="w-3 h-3 text-muted-foreground/80" /> Quick Add:
                   </span>
                   {NOTE_SUGGESTIONS.map((sug, idx) => (
@@ -377,7 +377,7 @@ export function SalesLeadForm({
                         const current = notesValue?.trim() ? `${notesValue}\n• ${sug}` : `• ${sug}`;
                         setValue("notes", current, { shouldDirty: true });
                       }}
-                      className="text-[10px] font-medium px-2 py-0.5 rounded border border-border/70 bg-surface-subtle hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                      className="text-xs font-medium px-2 py-0.5 rounded border border-border/70 bg-surface-subtle hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                     >
                       {sug.split(";")[0]}...
                     </button>
@@ -390,14 +390,14 @@ export function SalesLeadForm({
           {/* RIGHT 1 COLUMN: Deal Metrics & Scheduling Sidebar */}
           <div className="flex flex-col gap-6">
             {/* Card 1: Pipeline & Deal Value */}
-            <div className="rounded-xl border border-border/80 bg-card p-5 shadow-xs flex flex-col gap-4">
+            <div className="rounded-lg border border-border/80 bg-card p-5 shadow-xs flex flex-col gap-4">
               <div className="flex items-center gap-2.5 border-b border-border/60 pb-3">
-                <span className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                <span className="w-7 h-7 rounded-lg bg-success/10 text-success border border-success/20 flex items-center justify-center shrink-0">
                   <TrendingUp className="w-3.5 h-3.5" />
                 </span>
                 <div>
-                  <h3 className="text-xs font-bold text-foreground">Deal Configuration</h3>
-                  <p className="text-[11px] text-muted-foreground">Stage and monetary projections</p>
+                  <h3 className="text-xs font-semibold text-foreground">Deal Configuration</h3>
+                  <p className="text-xs text-muted-foreground">Stage and monetary projections</p>
                 </div>
               </div>
 
@@ -459,7 +459,7 @@ export function SalesLeadForm({
                   <Label htmlFor="dealValue" className="text-xs font-semibold text-foreground">
                     Deal Value (€)
                   </Label>
-                  <span className="text-[10px] text-muted-foreground font-mono">EUR</span>
+                  <span className="text-xs text-muted-foreground font-mono">EUR</span>
                 </div>
                 <div className="relative">
                   <Euro className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
@@ -468,7 +468,7 @@ export function SalesLeadForm({
                     {...register("dealValue")}
                     type="number"
                     placeholder="25000"
-                    className="h-9.5 text-xs rounded-lg pl-9.5 font-mono font-bold"
+                    className="h-9.5 text-xs rounded-lg pl-9.5 font-mono font-semibold"
                   />
                 </div>
 
@@ -480,9 +480,9 @@ export function SalesLeadForm({
                       type="button"
                       onClick={() => setValue("dealValue", String(val), { shouldDirty: true })}
                       className={cn(
-                        "text-[10px] font-mono px-2 py-0.5 rounded border transition-all cursor-pointer",
+                        "text-xs font-mono px-2 py-0.5 rounded border transition-all cursor-pointer",
                         dealValue === String(val)
-                          ? "bg-primary text-primary-foreground border-primary font-bold"
+                          ? "bg-primary text-primary-foreground border-primary font-semibold"
                           : "border-border/70 bg-surface-subtle hover:bg-muted text-muted-foreground"
                       )}
                     >
@@ -498,7 +498,7 @@ export function SalesLeadForm({
                   <Label htmlFor="probability" className="text-xs font-semibold text-foreground">
                     Win Probability (%)
                   </Label>
-                  <span className="text-[10px] text-muted-foreground font-mono">
+                  <span className="text-xs text-muted-foreground font-mono">
                     {probability ? `${probability}%` : "Estimated"}
                   </span>
                 </div>
@@ -523,9 +523,9 @@ export function SalesLeadForm({
                       type="button"
                       onClick={() => setValue("probability", String(pct), { shouldDirty: true })}
                       className={cn(
-                        "text-[10px] font-mono px-2 py-0.5 rounded border transition-all cursor-pointer",
+                        "text-xs font-mono px-2 py-0.5 rounded border transition-all cursor-pointer",
                         probability === String(pct)
-                          ? "bg-primary text-primary-foreground border-primary font-bold"
+                          ? "bg-primary text-primary-foreground border-primary font-semibold"
                           : "border-border/70 bg-surface-subtle hover:bg-muted text-muted-foreground"
                       )}
                     >
@@ -537,14 +537,14 @@ export function SalesLeadForm({
             </div>
 
             {/* Card 2: Schedule & Ownership */}
-            <div className="rounded-xl border border-border/80 bg-card p-5 shadow-xs flex flex-col gap-4">
+            <div className="rounded-lg border border-border/80 bg-card p-5 shadow-xs flex flex-col gap-4">
               <div className="flex items-center gap-2.5 border-b border-border/60 pb-3">
-                <span className="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-600 border border-amber-500/20 flex items-center justify-center shrink-0">
+                <span className="w-7 h-7 rounded-lg bg-warning/10 text-warning border border-warning/20 flex items-center justify-center shrink-0">
                   <Calendar className="w-3.5 h-3.5" />
                 </span>
                 <div>
-                  <h3 className="text-xs font-bold text-foreground">Timeline & Assignment</h3>
-                  <p className="text-[11px] text-muted-foreground">Touchpoints & salesperson</p>
+                  <h3 className="text-xs font-semibold text-foreground">Timeline & Assignment</h3>
+                  <p className="text-xs text-muted-foreground">Touchpoints & salesperson</p>
                 </div>
               </div>
 
@@ -627,12 +627,12 @@ export function SalesLeadForm({
             </div>
 
             {/* Card 3: Action Buttons */}
-            <div className="rounded-xl border border-border/80 bg-card p-5 shadow-xs flex flex-col gap-3">
+            <div className="rounded-lg border border-border/80 bg-card p-5 shadow-xs flex flex-col gap-3">
               <Button
                 type="submit"
                 disabled={isLoading}
                 size="default"
-                className="w-full h-10 text-xs font-bold rounded-lg shadow-xs gap-2"
+                className="w-full h-10 text-xs font-semibold rounded-lg shadow-xs gap-2"
               >
                 {isLoading ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
@@ -660,7 +660,7 @@ export function SalesLeadForm({
                 </Button>
               )}
 
-              <p className="text-[11px] text-muted-foreground text-center leading-relaxed mt-1">
+              <p className="text-xs text-muted-foreground text-center leading-relaxed mt-1">
                 New leads appear in the Sales Pipeline and Kanban board immediately.
               </p>
             </div>
@@ -676,14 +676,14 @@ export function SalesLeadForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 animate-fade-in">
       {/* 1. Client Information */}
-      <div className="rounded-xl border border-border/80 bg-surface-subtle/30 p-4 flex flex-col gap-3.5 shadow-2xs">
+      <div className="rounded-lg border border-border/80 bg-surface-subtle/30 p-4 flex flex-col gap-3.5 shadow-2xs">
         <div className="flex items-center gap-2.5 border-b border-border/60 pb-2.5">
           <span className="w-6 h-6 rounded-md bg-primary-light text-primary border border-primary/20 flex items-center justify-center shrink-0 shadow-2xs">
             <Building2 className="w-3.5 h-3.5" />
           </span>
           <div>
-            <h3 className="text-xs font-bold text-foreground">Client Information</h3>
-            <p className="text-[11px] text-muted-foreground">
+            <h3 className="text-xs font-semibold text-foreground">Client Information</h3>
+            <p className="text-xs text-muted-foreground">
               Company name, primary contact person, and communication channels.
             </p>
           </div>
@@ -696,10 +696,10 @@ export function SalesLeadForm({
               className="text-xs font-semibold text-foreground flex items-center justify-between"
             >
               <span>
-                Company Name <span className="text-destructive font-bold">*</span>
+                Company Name <span className="text-destructive font-semibold">*</span>
               </span>
               {errors.clientName && (
-                <span className="text-[10px] font-bold text-destructive uppercase tracking-wider">
+                <span className="text-xs font-semibold text-destructive  ">
                   Required
                 </span>
               )}
@@ -714,7 +714,7 @@ export function SalesLeadForm({
               )}
             />
             {errors.clientName && (
-              <p className="text-[11px] text-destructive font-medium mt-0.5">
+              <p className="text-xs text-destructive font-medium mt-0.5">
                 {errors.clientName.message}
               </p>
             )}
@@ -777,7 +777,7 @@ export function SalesLeadForm({
               />
             </div>
             {errors.contactEmail && (
-              <p className="text-[11px] text-destructive font-medium mt-0.5">
+              <p className="text-xs text-destructive font-medium mt-0.5">
                 {errors.contactEmail.message}
               </p>
             )}
@@ -786,14 +786,14 @@ export function SalesLeadForm({
       </div>
 
       {/* 2. Deal & Pipeline */}
-      <div className="rounded-xl border border-border/80 bg-surface-subtle/30 p-4 flex flex-col gap-3.5 shadow-2xs">
+      <div className="rounded-lg border border-border/80 bg-surface-subtle/30 p-4 flex flex-col gap-3.5 shadow-2xs">
         <div className="flex items-center gap-2.5 border-b border-border/60 pb-2.5">
           <span className="w-6 h-6 rounded-md bg-primary-light text-primary border border-primary/20 flex items-center justify-center shrink-0 shadow-2xs">
             <TrendingUp className="w-3.5 h-3.5" />
           </span>
           <div>
-            <h3 className="text-xs font-bold text-foreground">Deal & Pipeline</h3>
-            <p className="text-[11px] text-muted-foreground">
+            <h3 className="text-xs font-semibold text-foreground">Deal & Pipeline</h3>
+            <p className="text-xs text-muted-foreground">
               Stage progression, expected deal revenue, and target closing dates.
             </p>
           </div>
@@ -949,14 +949,14 @@ export function SalesLeadForm({
       </div>
 
       {/* 3. Internal Notes */}
-      <div className="rounded-xl border border-border/80 bg-surface-subtle/30 p-4 flex flex-col gap-2.5 shadow-2xs">
+      <div className="rounded-lg border border-border/80 bg-surface-subtle/30 p-4 flex flex-col gap-2.5 shadow-2xs">
         <div className="flex items-center gap-2.5 border-b border-border/60 pb-2">
           <span className="w-6 h-6 rounded-md bg-primary-light text-primary border border-primary/20 flex items-center justify-center shrink-0 shadow-2xs">
             <FileText className="w-3.5 h-3.5" />
           </span>
           <div>
-            <h3 className="text-xs font-bold text-foreground">Internal Notes</h3>
-            <p className="text-[11px] text-muted-foreground">
+            <h3 className="text-xs font-semibold text-foreground">Internal Notes</h3>
+            <p className="text-xs text-muted-foreground">
               Context, initial customer requirements, and meeting takeaways.
             </p>
           </div>

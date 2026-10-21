@@ -58,32 +58,32 @@ const ACTIVITY_TYPE_CONFIG: Record<
   CALL: {
     label: "Call",
     icon: PhoneCall,
-    badgeClass: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/25",
-    nodeClass: "border-sky-500/30 bg-sky-500/10 text-sky-600 dark:text-sky-400",
+    badgeClass: "bg-notion-blue-fg/10 text-notion-blue-fg border-notion-blue-fg/25",
+    nodeClass: "border-notion-blue-fg/30 bg-notion-blue-fg/10 text-notion-blue-fg",
   },
   EMAIL: {
     label: "Email",
     icon: Mail,
-    badgeClass: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/25",
-    nodeClass: "border-purple-500/30 bg-purple-500/10 text-purple-600 dark:text-purple-400",
+    badgeClass: "bg-notion-purple-fg/10 text-notion-purple-fg border-notion-purple-fg/25",
+    nodeClass: "border-notion-purple-fg/30 bg-notion-purple-fg/10 text-notion-purple-fg",
   },
   MEETING: {
     label: "Meeting",
     icon: Users2,
-    badgeClass: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/25",
-    nodeClass: "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+    badgeClass: "bg-success/10 text-success border-success/25",
+    nodeClass: "border-success/30 bg-success/10 text-success",
   },
   FOLLOWUP: {
     label: "Follow-up",
     icon: Clock,
-    badgeClass: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/25",
-    nodeClass: "border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400",
+    badgeClass: "bg-warning/10 text-warning border-warning/25",
+    nodeClass: "border-warning/30 bg-warning/10 text-warning",
   },
   TASK: {
     label: "Task",
     icon: CheckSquare,
-    badgeClass: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/25",
-    nodeClass: "border-indigo-500/30 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
+    badgeClass: "bg-notion-purple-fg/10 text-notion-purple-fg border-notion-purple-fg/25",
+    nodeClass: "border-notion-purple-fg/30 bg-notion-purple-fg/10 text-notion-purple-fg",
   },
   NOTE: {
     label: "Note",
@@ -94,8 +94,8 @@ const ACTIVITY_TYPE_CONFIG: Record<
   STAGE_CHANGE: {
     label: "Stage",
     icon: ArrowRight,
-    badgeClass: "bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-500/25",
-    nodeClass: "border-orange-500/30 bg-orange-500/10 text-orange-600 dark:text-orange-400",
+    badgeClass: "bg-notion-orange-fg/10 text-notion-orange-fg border-notion-orange-fg/25",
+    nodeClass: "border-notion-orange-fg/30 bg-notion-orange-fg/10 text-notion-orange-fg",
   },
   SYSTEM: {
     label: "System",
@@ -223,7 +223,7 @@ export function ActivityTimeline({
             {
               id: "activities",
               label: "Activities",
-              icon: <PhoneCall className="w-3.5 h-3.5 text-sky-500" />,
+              icon: <PhoneCall className="w-3.5 h-3.5 text-notion-blue-fg" />,
               count: activities.length,
               badgeVariant: "primary",
             },
@@ -246,7 +246,7 @@ export function ActivityTimeline({
               placeholder="Search updates..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-8 pr-7 h-8.5 text-xs rounded-xl border border-input-border bg-input text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-1 focus:ring-primary/50 focus:border-primary transition-all"
+              className="w-full pl-8 pr-7 h-8.5 text-xs rounded-lg border border-input-border bg-input text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-1 focus:ring-primary/50 focus:border-primary transition-all"
             />
             {searchQuery && (
               <button
@@ -345,7 +345,7 @@ export function ActivityTimeline({
             <span className="w-12 h-12 rounded-md bg-surface-subtle border border-border/80 text-muted-foreground flex items-center justify-center mb-3 shadow-2xs">
               <History className="w-6 h-6 opacity-60" />
             </span>
-            <p className="text-sm font-bold text-foreground">
+            <p className="text-sm font-semibold text-foreground">
               {searchQuery
                 ? "No matching updates found"
                 : activeTab === "activities"
@@ -393,9 +393,9 @@ function ActivityNodeBubble({
   return (
     <div
       className={cn(
-        "w-9 h-9 rounded-md flex items-center justify-center border shadow-xs transition-transform group-hover:scale-105 bg-card select-none",
+        "w-9 h-9 rounded-md flex items-center justify-center border shadow-xs transition-transform  bg-card select-none",
         isDone
-          ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+          ? "border-success/30 bg-success/10 text-success"
           : cfg.nodeClass
       )}
       title={isDone ? "Completed Activity" : cfg.label}
@@ -414,19 +414,19 @@ function AuditNodeBubble({ action }: { action: string }) {
     colorClass = "border-primary/30 bg-primary/10 text-primary";
   } else if (action === "STAGE_CHANGED") {
     icon = <TrendingUp className="w-4 h-4" />;
-    colorClass = "border-orange-500/30 bg-orange-500/10 text-orange-600 dark:text-orange-400";
+    colorClass = "border-notion-orange-fg/30 bg-notion-orange-fg/10 text-notion-orange-fg";
   } else if (action === "DEAL_VALUE_CHANGED") {
     icon = <ArrowRight className="w-4 h-4" />;
-    colorClass = "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400";
+    colorClass = "border-success/30 bg-success/10 text-success";
   } else if (action === "ASSIGNED" || action === "REASSIGNED") {
     icon = <UserCheck className="w-4 h-4" />;
-    colorClass = "border-blue-500/30 bg-blue-500/10 text-blue-600 dark:text-blue-400";
+    colorClass = "border-notion-blue-fg/30 bg-notion-blue-fg/10 text-notion-blue-fg";
   }
 
   return (
     <div
       className={cn(
-        "w-9 h-9 rounded-md flex items-center justify-center border shadow-xs transition-transform group-hover:scale-105 bg-card select-none",
+        "w-9 h-9 rounded-md flex items-center justify-center border shadow-xs transition-transform  bg-card select-none",
         colorClass
       )}
       title={action}
@@ -481,12 +481,12 @@ function ActivityItemCard({
           )}
 
           {isDone ? (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-semibold bg-success/10 text-success border border-success/20">
               <Check className="w-3 h-3" />
               <span>Done</span>
             </span>
           ) : isOverdue ? (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-destructive/10 text-destructive border border-destructive/20 animate-pulse">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20 animate-pulse">
               <AlertTriangle className="w-3 h-3" />
               <span>Overdue</span>
             </span>
@@ -501,8 +501,8 @@ function ActivityItemCard({
             className={cn(
               "w-6 h-6 rounded-lg border flex items-center justify-center transition-all cursor-pointer shadow-2xs",
               isDone
-                ? "bg-emerald-500/15 border-emerald-500/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/25"
-                : "bg-surface-subtle border-border/80 text-muted-foreground hover:text-emerald-600 hover:border-emerald-500/40 hover:bg-emerald-500/10"
+                ? "bg-success/15 border-success/30 text-success hover:bg-success/25"
+                : "bg-surface-subtle border-border/80 text-muted-foreground hover:text-success hover:border-success/40 hover:bg-success/10"
             )}
             title={isDone ? "Click to reopen" : "Click to mark done"}
           >
@@ -510,7 +510,7 @@ function ActivityItemCard({
           </button>
 
           <span
-            className="text-[11px] font-medium text-muted-foreground whitespace-nowrap"
+            className="text-xs font-medium text-muted-foreground whitespace-nowrap"
             title={formatDate(activity.createdAt)}
           >
             {formatRelativeTime(activity.createdAt)}
@@ -532,7 +532,7 @@ function ActivityItemCard({
       <div className="space-y-1">
         <h4
           className={cn(
-            "text-sm font-bold text-foreground leading-snug",
+            "text-sm font-semibold text-foreground leading-snug",
             isDone && "line-through text-muted-foreground"
           )}
         >
@@ -551,7 +551,7 @@ function ActivityItemCard({
           {activity.dueAt && (
             <div
               className={cn(
-                "inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg border text-[11px] font-medium",
+                "inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg border text-xs font-medium",
                 isOverdue
                   ? "bg-destructive/10 text-destructive border-destructive/20"
                   : "bg-surface-subtle text-muted-foreground border-border/60"
@@ -573,7 +573,7 @@ function ActivityItemCard({
         </div>
 
         {activity.createdBy?.name && (
-          <span className="text-[11px] text-muted-foreground/80">
+          <span className="text-xs text-muted-foreground/80">
             logged by <strong className="font-semibold text-foreground">{activity.createdBy.name}</strong>
           </span>
         )}
@@ -605,7 +605,7 @@ function AuditItemCard({ log }: { log: SalesAuditLog }) {
               {prevLabel}
             </span>
             <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/70 shrink-0" />
-            <span className="px-2.5 py-0.5 rounded-lg bg-primary/10 text-primary font-bold border border-primary/25 shadow-2xs">
+            <span className="px-2.5 py-0.5 rounded-lg bg-primary/10 text-primary font-semibold border border-primary/25 shadow-2xs">
               {nextLabel}
             </span>
           </div>
@@ -621,7 +621,7 @@ function AuditItemCard({ log }: { log: SalesAuditLog }) {
               {prevVal !== null ? formatCurrency(prevVal) : "-"}
             </span>
             <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/70 shrink-0" />
-            <span className="px-2.5 py-0.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/25 shadow-2xs">
+            <span className="px-2.5 py-0.5 rounded-lg bg-success/10 text-success font-semibold border border-success/25 shadow-2xs">
               {nextVal !== null ? formatCurrency(nextVal) : "-"}
             </span>
           </div>
@@ -656,8 +656,8 @@ function AuditItemCard({ log }: { log: SalesAuditLog }) {
 
       case "TYPE_CONVERTED": {
         return (
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 font-bold text-xs border border-emerald-500/25 shadow-2xs mt-1">
-            <Building2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-success/10 text-success font-semibold text-xs border border-success/25 shadow-2xs mt-1">
+            <Building2 className="w-3.5 h-3.5 text-success shrink-0" />
             <span>Successfully provisioned white-label client in PMS workspace</span>
           </div>
         );
@@ -698,24 +698,24 @@ function AuditItemCard({ log }: { log: SalesAuditLog }) {
   };
 
   return (
-    <div className="rounded-xl border border-border/70 bg-surface-subtle/30 p-3.5 hover:bg-surface-subtle/50 transition-all flex flex-col gap-1.5 shadow-2xs">
+    <div className="rounded-lg border border-border/70 bg-surface-subtle/30 p-3.5 hover:bg-surface-subtle/50 transition-all flex flex-col gap-1.5 shadow-2xs">
       <div className="flex items-center justify-between gap-2 flex-wrap text-xs">
         <div className="flex items-center gap-2">
           {log.actor ? (
             <UserAvatar user={log.actor} size="xs" />
           ) : (
-            <span className="w-5 h-5 rounded-full bg-surface-subtle border border-border flex items-center justify-center text-[9px] font-bold text-muted-foreground shrink-0">
+            <span className="w-5 h-5 rounded-full bg-surface-subtle border border-border flex items-center justify-center text-xs font-semibold text-muted-foreground shrink-0">
               SYS
             </span>
           )}
-          <span className="font-bold text-foreground">
+          <span className="font-semibold text-foreground">
             {log.actor?.name || "System"}
           </span>
           <span className="text-muted-foreground">{getActionHeadline()}</span>
         </div>
 
         <span
-          className="text-[11px] font-medium text-muted-foreground whitespace-nowrap ml-auto"
+          className="text-xs font-medium text-muted-foreground whitespace-nowrap ml-auto"
           title={formatDate(log.createdAt)}
         >
           {formattedTime}

@@ -23,31 +23,31 @@ const STAGE_ICON_CONFIG: Record<
 > = {
   NEW_LEAD: {
     icon: Sparkles,
-    dotClass: "text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-500/15 border border-purple-200/80 dark:border-purple-500/30",
+    dotClass: "text-notion-purple-fg bg-notion-purple border border-notion-purple-fg/80",
   },
   CONTACTED: {
     icon: PhoneCall,
-    dotClass: "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/15 border border-blue-200/80 dark:border-blue-500/30",
+    dotClass: "text-notion-blue-fg bg-notion-blue border border-notion-blue-fg/80",
   },
   QUALIFIED: {
     icon: CheckCircle2,
-    dotClass: "text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-500/15 border border-cyan-200/80 dark:border-cyan-500/30",
+    dotClass: "text-notion-blue-fg bg-notion-blue border border-notion-blue-fg/80",
   },
   PROPOSAL_SENT: {
     icon: FileText,
-    dotClass: "text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/15 border border-amber-200/80 dark:border-amber-500/30",
+    dotClass: "text-warning bg-warning-light border border-warning/80",
   },
   NEGOTIATION: {
     icon: Handshake,
-    dotClass: "text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-500/15 border border-orange-200/80 dark:border-orange-500/30",
+    dotClass: "text-notion-orange-fg bg-notion-orange border border-notion-orange-fg/80",
   },
   WON: {
     icon: Trophy,
-    dotClass: "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/15 border border-emerald-200/80 dark:border-emerald-500/30",
+    dotClass: "text-success bg-success-light border border-success/80",
   },
   LOST: {
     icon: XCircle,
-    dotClass: "text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-500/15 border border-red-200/80 dark:border-red-500/30",
+    dotClass: "text-destructive bg-destructive-light border border-destructive/80",
   },
 };
 
@@ -104,7 +104,7 @@ export function SalesKanbanColumn({
       iconBadgeClass={iconCfg.dotClass}
       subtitle={
         totalValue > 0 ? (
-          <span className="text-[10px] font-medium text-muted-foreground/70">
+          <span className="text-xs font-medium text-muted-foreground/70">
             {formatCurrency(totalValue)}
           </span>
         ) : undefined

@@ -53,14 +53,14 @@ const ACTIVITY_ICONS: Record<SalesActivityType, typeof Phone> = {
 };
 
 const ACTIVITY_COLORS: Record<SalesActivityType, string> = {
-  CALL: "text-blue-500 bg-blue-500/10 border-blue-500/20",
-  EMAIL: "text-purple-500 bg-purple-500/10 border-purple-500/20",
-  MEETING: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20",
-  FOLLOWUP: "text-amber-500 bg-amber-500/10 border-amber-500/20",
-  TASK: "text-indigo-500 bg-indigo-500/10 border-indigo-500/20",
-  NOTE: "text-slate-500 bg-slate-500/10 border-slate-500/20",
-  STAGE_CHANGE: "text-orange-500 bg-orange-500/10 border-orange-500/20",
-  SYSTEM: "text-gray-500 bg-gray-500/10 border-gray-500/20",
+  CALL: "text-notion-blue-fg bg-notion-blue-fg/10 border-notion-blue-fg/20",
+  EMAIL: "text-notion-purple-fg bg-notion-purple-fg/10 border-notion-purple-fg/20",
+  MEETING: "text-success bg-success/10 border-success/20",
+  FOLLOWUP: "text-warning bg-warning/10 border-warning/20",
+  TASK: "text-notion-purple-fg bg-notion-purple-fg/10 border-notion-purple-fg/20",
+  NOTE: "text-muted-foreground bg-muted-foreground/10 border-border/20",
+  STAGE_CHANGE: "text-notion-orange-fg bg-notion-orange-fg/10 border-notion-orange-fg/20",
+  SYSTEM: "text-muted-foreground bg-muted-foreground/10 border-border/20",
 };
 
 export default function ActivitiesPage() {
@@ -193,7 +193,7 @@ export default function ActivitiesPage() {
             const Icon = ACTIVITY_ICONS[activity.type] || Clock;
             const colorClass =
               ACTIVITY_COLORS[activity.type] ||
-              "text-gray-500 bg-gray-500/10 border-gray-500/20";
+              "text-muted-foreground bg-muted-foreground/10 border-border/20";
             const isCompleted = activity.status === "DONE";
             const isOverdue =
               activity.dueAt &&
@@ -226,7 +226,7 @@ export default function ActivitiesPage() {
                       >
                         {activity.title}
                       </span>
-                      <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-muted text-muted-foreground">
+                      <span className="text-xs font-semibold  px-2 py-0.5 rounded-md bg-muted text-muted-foreground">
                         {SALES_ACTIVITY_LABELS[activity.type]}
                       </span>
                       <SalesPriorityBadge priority={activity.priority} size="sm" />
@@ -253,7 +253,7 @@ export default function ActivitiesPage() {
                         <div
                           className={`flex items-center gap-1 ${
                             isOverdue
-                              ? "text-rose-600 dark:text-rose-400 font-semibold"
+                              ? "text-destructive font-semibold"
                               : ""
                           }`}
                         >

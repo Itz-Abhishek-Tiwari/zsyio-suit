@@ -107,21 +107,21 @@ export function SalesLeadTable() {
         <KpiCard
           label="Total Pipeline Value"
           value={formatCurrency(stats.totalVal)}
-          icon={<DollarSign className="w-4 h-4 text-emerald-500" />}
+          icon={<DollarSign className="w-4 h-4 text-success" />}
           variant="emerald"
         />
         <KpiCard
           label="Won Deals Value"
           value={formatCurrency(stats.wonVal)}
           subtext={`${stats.wonCount} won`}
-          icon={<Sparkles className="w-4 h-4 text-amber-500" />}
+          icon={<Sparkles className="w-4 h-4 text-warning" />}
           variant="amber"
         />
         <KpiCard
           label="Follow-ups Due"
           value={stats.followUpsDue}
           subtext={stats.followUpsDue > 0 ? "Requires attention" : "All caught up"}
-          icon={<Clock className={`w-4 h-4 ${stats.followUpsDue > 0 ? "text-rose-500" : "text-muted-foreground"}`} />}
+          icon={<Clock className={`w-4 h-4 ${stats.followUpsDue > 0 ? "text-destructive" : "text-muted-foreground"}`} />}
           variant={stats.followUpsDue > 0 ? "rose" : "default"}
         />
       </div>
@@ -221,7 +221,7 @@ export function SalesLeadTable() {
       {isLoading ? (
         <div className="space-y-3">
           {Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={i} className="h-14 w-full rounded-xl" />
+            <Skeleton key={i} className="h-14 w-full rounded-lg" />
           ))}
         </div>
       ) : isError ? (
@@ -255,7 +255,7 @@ export function SalesLeadTable() {
             return (
               <div
                 key={lead.id}
-                className="group relative flex flex-col rounded-lg border border-border/80 bg-card hover:border-primary/40 hover:shadow-md hover:shadow-primary/5 transition-all duration-200 overflow-hidden p-5"
+                className="group relative flex flex-col rounded-lg border border-border/80 bg-card hover:border-primary/40 hover:shadow-md  transition-all duration-200 overflow-hidden p-5"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
@@ -280,7 +280,7 @@ export function SalesLeadTable() {
 
                 <div className="mt-4 pt-3 border-t border-border/60 flex items-center justify-between text-xs">
                   <div className="flex items-center gap-1 font-semibold text-foreground">
-                    <DollarSign className="w-3.5 h-3.5 text-emerald-500" />
+                    <DollarSign className="w-3.5 h-3.5 text-success" />
                     <span>{lead.dealValue ? formatCurrency(lead.dealValue) : "-"}</span>
                   </div>
                   {lead.assignedTo ? (
@@ -301,9 +301,9 @@ export function SalesLeadTable() {
 
                 {lead.nextFollowUpAt && (
                   <div
-                    className={`mt-2.5 flex items-center gap-1.5 text-[11px] ${
+                    className={`mt-2.5 flex items-center gap-1.5 text-xs ${
                       isOverdue
-                        ? "text-rose-600 dark:text-rose-400 font-medium"
+                        ? "text-destructive font-medium"
                         : "text-muted-foreground"
                     }`}
                   >
@@ -327,7 +327,7 @@ export function SalesLeadTable() {
                         variant="ghost"
                         size="sm"
                         onClick={() => setConvertTarget(lead)}
-                        className="h-7 text-xs text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/40"
+                        className="h-7 text-xs text-success hover:text-success hover:bg-success-light"
                       >
                         Convert
                       </Button>
@@ -347,10 +347,10 @@ export function SalesLeadTable() {
           })}
         </div>
       ) : (
-        <div className="rounded-xl border border-border bg-card overflow-hidden">
+        <div className="rounded-lg border border-border bg-card overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="bg-muted/40 border-b border-border text-xs uppercase text-muted-foreground font-semibold">
+              <thead className="bg-muted/40 border-b border-border text-xs  text-muted-foreground font-semibold">
                 <tr>
                   <th className="py-3 px-4">Lead / Client</th>
                   <th className="py-3 px-4">Stage</th>
@@ -421,7 +421,7 @@ export function SalesLeadTable() {
                           <span
                             className={
                               isOverdue
-                                ? "text-rose-600 dark:text-rose-400 font-semibold"
+                                ? "text-destructive font-semibold"
                                 : "text-muted-foreground"
                             }
                           >
@@ -439,7 +439,7 @@ export function SalesLeadTable() {
                               variant="outline"
                               size="sm"
                               onClick={() => setConvertTarget(lead)}
-                              className="h-7 text-xs border-emerald-500/30 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/30"
+                              className="h-7 text-xs border-success/30 text-success hover:bg-success-light"
                             >
                               Convert to Dev
                             </Button>
