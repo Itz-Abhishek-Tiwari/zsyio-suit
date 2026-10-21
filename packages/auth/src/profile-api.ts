@@ -13,7 +13,7 @@ const updateProfileSchema = z.object({
   department: z.string().max(100).nullable().optional(),
   bio: z.string().max(500).nullable().optional(),
   phone: z.string().max(30).nullable().optional(),
-  avatarUrl: z.string().url().nullable().optional().or(z.literal("")).or(z.null()),
+  avatarUrl: z.string().url().refine((v) => /^https?:\/\//i.test(v), "Avatar URL must use http or https.").nullable().optional().or(z.literal("")).or(z.null()),
   timeZone: z.string().max(60).optional(),
   theme: z.string().max(30).optional(),
 });

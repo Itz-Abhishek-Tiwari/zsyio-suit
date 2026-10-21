@@ -11,6 +11,7 @@ import {
   DEFAULT_ROLE_PERMISSIONS,
   ALL_ACTIONS,
   canAccessApp,
+  can,
   type AppId,
 } from "./permissions";
 import { isSuperAdmin } from "./super-admin";
@@ -41,6 +42,21 @@ export async function requireAppAccess(appId: AppId): Promise<AuthenticatedUser>
       `Role ${user.role} does not have access to Zsyio ${appId.toUpperCase()}.`,
       403
     );
+  }
+  return user;
+}
+
+/**
+ * Mirrors the Admin dashboard layout clearance check for API routes.
+ */
+export async function requireAdminAccess(): Promise<AuthenticatedUser> {
+  const user = await requireUser();
+  const hasAccess =
+    canAccessApp(user.role, "admin", user.permissions) ||
+    can(user.role, "user:manage", user.permissions) ||
+    can(user.role, "role:manage", user.permissions);
+  if (!hasAccess) {
+    throw errorResponse("FORBIDDEN", "Role " + user.role + " does not have access to Zsyio ADMIN.", 403);
   }
   return user;
 }

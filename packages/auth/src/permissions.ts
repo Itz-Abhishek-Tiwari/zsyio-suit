@@ -62,6 +62,8 @@ export type Action =
   | "app:access:notes"
   | "app:access:hrms"
   | "app:access:admin"
+  | "app:access:recruit"
+  | "recruit:manage"
   | "app:access:sales"
   // Sales CRM
   | "sales:view"
@@ -74,6 +76,8 @@ export type Action =
   | "sales:convert";
 
 export const ALL_ACTIONS: Action[] = [
+  "app:access:recruit",
+  "recruit:manage",
   // Application Suite Access
   "app:access:pms",
   "app:access:notes",
@@ -183,6 +187,8 @@ export const ACTION_GROUPS: ActionGroup[] = [
         label: "Access Zsyio Console",
         description: "Allow sign-in and access to Zsyio Console (Role permission matrix, user directory, and security).",
       },
+      { id: "app:access:recruit", label: "Access Zsyio Recruit", description: "View jobs, applicants, interviews, and hiring feedback." },
+      { id: "recruit:manage", label: "Manage recruitment", description: "Create and edit jobs, applicants, interviews, and hiring feedback." },
       {
         id: "app:access:sales",
         label: "Access Zsyio Pulse",
@@ -731,7 +737,7 @@ export function assertCan(role: Role | string | undefined | null, action: Action
   }
 }
 
-export type AppId = "pms" | "notes" | "hrms" | "admin" | "sales";
+export type AppId = "pms" | "notes" | "hrms" | "admin" | "sales" | "recruit";
 
 export function canAccessApp(
   role: Role | string | undefined | null,
@@ -744,6 +750,7 @@ export function canAccessApp(
     hrms: "app:access:hrms",
     admin: "app:access:admin",
     sales: "app:access:sales",
+    recruit: "app:access:recruit",
   };
   return can(role, actionMap[appId], customPermissions);
 }

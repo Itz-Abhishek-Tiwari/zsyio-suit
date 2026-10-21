@@ -38,7 +38,7 @@ export function createAuthMiddleware(options: AuthMiddlewareOptions = {}) {
       pathname.startsWith("/branding") ||
       pathname === "/sw.js" ||
       pathname === "/favicon.ico" ||
-      /\.(?:svg|png|jpg|jpeg|gif|webp|ico|js|css|woff2?|map)$/i.test(pathname)
+      (!pathname.startsWith("/api") && /\.(?:svg|png|jpg|jpeg|gif|webp|ico|js|css|woff2?|map)$/i.test(pathname))
     ) {
       return NextResponse.next();
     }

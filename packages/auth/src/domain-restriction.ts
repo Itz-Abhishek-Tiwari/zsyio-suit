@@ -3,7 +3,7 @@
  * Ensures only authorized corporate email domains (e.g. zsyio.com) can access or join the platform.
  */
 
-export const DEFAULT_ALLOWED_DOMAINS = ["zsyio.com", "mediloon.de"];
+export const DEFAULT_ALLOWED_DOMAINS = ["zsyio.com", "zsyio.de"];
 
 let dynamicDomainsCache: string[] | null = null;
 
@@ -68,7 +68,7 @@ export function isEmailDomainAllowed(email: string | null | undefined): boolean 
 }
 
 /**
- * Returns a human-friendly string listing the allowed domains (e.g. "@zsyio.com, @mediloon.de").
+ * Returns a human-friendly string listing the allowed domains (e.g. "@zsyio.com, @zsyio.de").
  */
 export function getAllowedDomainsNotice(): string {
   const domains = getAllowedEmailDomains();

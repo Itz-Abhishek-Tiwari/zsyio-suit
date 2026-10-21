@@ -66,10 +66,9 @@ function getAuthSecret(): string {
   const secret = process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET;
   if (!secret) {
     // When building in CI / Next.js static page data collection, use a placeholder so the build worker doesn't fail
+    // Never fall back to the known placeholder at runtime in production (VERCEL/CI are set there too).
     if (
       process.env.NEXT_PHASE === "phase-production-build" ||
-      process.env.VERCEL ||
-      process.env.CI ||
       process.env.NODE_ENV !== "production"
     ) {
       return "mediloom-build-time-secret-key-32-chars-min";
@@ -79,6 +78,37 @@ function getAuthSecret(): string {
     );
   }
   return secret;
+}
+
+// In-memory login throttle (per email + per instance): 10 failures per 15 minutes.
+const LOGIN_WINDOW_MS = 15 * 60 * 1000;
+const LOGIN_MAX_FAILURES = 10;
+const globalForLoginThrottle = globalThis as unknown as {
+  loginFailures?: Map<string, { count: number; resetAt: number }>;
+};
+const loginFailures =
+  globalForLoginThrottle.loginFailures ??
+  (globalForLoginThrottle.loginFailures = new Map<string, { count: number; resetAt: number }>());
+
+function isLoginThrottled(key: string): boolean {
+  const entry = loginFailures.get(key);
+  if (!entry) return false;
+  if (entry.resetAt < Date.now()) {
+    loginFailures.delete(key);
+    return false;
+  }
+  return entry.count >= LOGIN_MAX_FAILURES;
+}
+
+function recordLoginFailure(key: string): void {
+  const now = Date.now();
+  const entry = loginFailures.get(key);
+  if (!entry || entry.resetAt < now) {
+    if (loginFailures.size > 10000) loginFailures.clear();
+    loginFailures.set(key, { count: 1, resetAt: now + LOGIN_WINDOW_MS });
+  } else {
+    entry.count += 1;
+  }
 }
 
 const useSecureCookies = process.env.NODE_ENV === "production";
@@ -139,6 +169,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         const normalizedEmail = email.toLowerCase().trim();
+        if (isLoginThrottled(normalizedEmail)) return null;
         let user = await prisma.user.findUnique({
           where: { email: normalizedEmail },
           include: { customRole: true },
@@ -165,11 +196,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           user.invitationStatus === "PENDING" ||
           user.invitationStatus === "REJECTED"
         ) {
+          // Equalise timing with the valid-user path to limit account enumeration
+          await bcrypt.compare(password, "$2a$12$CwTycUXWue0Thq9StjUM0uJ8e1Y5v0Zr1t3b8Vq6x3uQ0m1J8c9yS");
+          recordLoginFailure(normalizedEmail);
           return null;
         }
 
         const valid = await bcrypt.compare(password, user.passwordHash);
-        if (!valid) return null;
+        if (!valid) {
+          recordLoginFailure(normalizedEmail);
+          return null;
+        }
+        loginFailures.delete(normalizedEmail);
 
         const authData = await resolveUserAuth(user);
         setCachedUserAuth(authData);
