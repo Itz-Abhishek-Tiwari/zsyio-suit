@@ -138,14 +138,14 @@ export function AdminNotesDrawer({
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <SheetContent
         side="right"
-        className="w-full sm:max-w-[440px] p-0 flex flex-col h-full bg-card border-border shadow-2xl z-50"
+        className="w-full sm:max-w-[440px] p-0 flex flex-col h-full bg-card border-border shadow-md z-50"
       >
         {/* Header */}
         <div className="p-5 border-b border-border/80 bg-surface/50 shrink-0">
           <SheetHeader>
-            <div className="flex items-center gap-2 text-primary font-bold text-base">
+            <div className="flex items-center gap-2 text-primary font-semibold text-base">
               <StickyNote className="w-5 h-5" />
-              <SheetTitle className="text-foreground text-base font-bold">
+              <SheetTitle className="text-foreground text-base font-semibold">
                 Admin Short Notes & Feed
               </SheetTitle>
             </div>
@@ -157,10 +157,10 @@ export function AdminNotesDrawer({
           {/* Quick Create Note Card */}
           <form
             onSubmit={handleCreateNote}
-            className="mt-4 p-3.5 rounded-xl border border-primary/25 bg-background shadow-xs space-y-3"
+            className="mt-4 p-3.5 rounded-lg border border-primary/25 bg-background shadow-xs space-y-3"
           >
             <div className="flex items-center justify-between gap-2">
-              <span className="text-[11px] font-bold text-foreground uppercase tracking-wider flex items-center gap-1.5">
+              <span className="text-xs font-semibold text-foreground   flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-primary" />
                 Quick Note
               </span>
@@ -193,7 +193,7 @@ export function AdminNotesDrawer({
             />
 
             <div className="flex items-center justify-between gap-2 pt-1">
-              <label className="flex items-center gap-1.5 text-[11px] text-muted-foreground cursor-pointer select-none">
+              <label className="flex items-center gap-1.5 text-xs text-muted-foreground cursor-pointer select-none">
                 <input
                   type="checkbox"
                   checked={isPersonal}
@@ -262,10 +262,10 @@ export function AdminNotesDrawer({
               <span className="text-xs">Loading notes...</span>
             </div>
           ) : filteredNotes.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-12 text-center text-muted-foreground gap-2 border border-dashed border-border rounded-xl p-6">
+            <div className="flex flex-col items-center justify-center py-12 text-center text-muted-foreground gap-2 border border-dashed border-border rounded-lg p-6">
               <StickyNote className="w-8 h-8 text-muted-foreground/40" />
               <p className="text-xs font-semibold text-foreground">No notes recorded yet</p>
-              <p className="text-[11px] text-muted-foreground max-w-[220px]">
+              <p className="text-xs text-muted-foreground max-w-[220px]">
                 Use the input box above to jot down quick notes for any client.
               </p>
             </div>
@@ -273,24 +273,24 @@ export function AdminNotesDrawer({
             filteredNotes.map((note) => (
               <div
                 key={note.id}
-                className="group relative rounded-xl border border-border/80 bg-background/80 hover:bg-background hover:border-primary/40 hover:shadow-sm p-3.5 transition-all space-y-2.5"
+                className="group relative rounded-lg border border-border/80 bg-background/80 hover:bg-background hover:border-primary/40 hover:shadow-sm p-3.5 transition-all space-y-2.5"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-1.5 flex-wrap">
                     {note.client ? (
-                      <Badge variant="default" className="text-[10px] font-bold gap-1 py-0 h-5">
+                      <Badge variant="default" className="text-xs font-semibold gap-1 py-0 h-5">
                         <Building2 className="w-3 h-3" />
                         <span>{note.client.name}</span>
                       </Badge>
                     ) : (
-                      <Badge variant="secondary" className="text-[10px] font-medium gap-1 py-0 h-5">
+                      <Badge variant="secondary" className="text-xs font-medium gap-1 py-0 h-5">
                         <Globe className="w-3 h-3" />
                         <span>General</span>
                       </Badge>
                     )}
 
                     {note.isPersonal && (
-                      <Badge variant="warning" className="text-[10px] font-semibold gap-1 py-0 h-5">
+                      <Badge variant="warning" className="text-xs font-semibold gap-1 py-0 h-5">
                         <Lock className="w-2.5 h-2.5" />
                         <span>Private</span>
                       </Badge>
@@ -313,7 +313,7 @@ export function AdminNotesDrawer({
                   {note.content}
                 </p>
 
-                <div className="flex items-center justify-between text-[10px] text-muted-foreground/70 pt-1.5 border-t border-border/40">
+                <div className="flex items-center justify-between text-xs text-muted-foreground/70 pt-1.5 border-t border-border/40">
                   <div className="flex items-center gap-1.5 font-medium text-foreground/80">
                     <UserAvatar
                       name={note.author?.name || "Admin"}

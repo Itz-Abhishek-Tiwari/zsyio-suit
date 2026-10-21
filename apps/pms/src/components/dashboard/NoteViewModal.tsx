@@ -123,38 +123,38 @@ export function NoteViewModal({
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <SheetContent
         side="right"
-        className="w-full sm:max-w-2xl md:max-w-3xl p-0 gap-0 border-l border-border/80 bg-background shadow-2xl flex flex-col h-full overflow-hidden"
+        className="w-full sm:max-w-2xl md:max-w-3xl p-0 gap-0 border-l border-border/80 bg-background shadow-md flex flex-col h-full overflow-hidden"
       >
-        <div className="shrink-0 relative border-b border-border/70 bg-gradient-to-r from-surface-subtle via-card to-surface-subtle p-5 sm:p-6 pr-14">
+        <div className="shrink-0 relative border-b border-border/70 p-5 sm:p-6 pr-14 bg-surface-subtle">
           <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
             <div className="flex items-start gap-3.5">
-              <div className="w-11 h-11 rounded-md bg-primary/10 text-primary border border-primary/20 flex items-center justify-center text-sm font-bold shadow-xs shrink-0 mt-0.5">
+              <div className="w-11 h-11 rounded-md bg-primary/10 text-primary border border-primary/20 flex items-center justify-center text-sm font-semibold shadow-xs shrink-0 mt-0.5">
                 {authorInitials || "U"}
               </div>
 
               <div className="flex flex-col gap-1">
                 <div className="flex flex-wrap items-center gap-2">
                   <SheetHeader className="p-0 border-none space-y-0 text-left">
-                    <SheetTitle className="text-base sm:text-lg font-bold font-display text-foreground leading-tight">
+                    <SheetTitle className="text-base sm:text-lg font-semibold font-display text-foreground leading-tight">
                       {activeNote.author.name}
                     </SheetTitle>
                   </SheetHeader>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-muted text-muted-foreground border border-border/60">
+                  <span className="text-xs font-mono font-semibold   px-2 py-0.5 rounded-md bg-muted text-muted-foreground border border-border/60">
                     {activeNote.author.role}
                   </span>
 
                   {activeNote.isPersonal ? (
-                    <Badge className="bg-amber-500/10 hover:bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/30 gap-1 text-[11px] font-bold shadow-2xs">
+                    <Badge className="bg-warning/10 hover:bg-warning/15 text-warning border-warning/30 gap-1 text-xs font-semibold shadow-2xs">
                       <Lock className="w-3 h-3" />
                       <span>Personal Note (Private)</span>
                     </Badge>
                   ) : activeNote.client ? (
-                    <Badge variant="outline" className="bg-primary-light text-primary border-primary/30 gap-1 text-[11px] font-semibold">
+                    <Badge variant="outline" className="bg-primary-light text-primary border-primary/30 gap-1 text-xs font-semibold">
                       <Building2 className="w-3 h-3" />
                       <span>{activeNote.client.name}</span>
                     </Badge>
                   ) : (
-                    <Badge variant="outline" className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30 gap-1 text-[11px] font-semibold">
+                    <Badge variant="outline" className="bg-success/10 text-success border-success/30 gap-1 text-xs font-semibold">
                       <Globe className="w-3 h-3" />
                       <span>Workspace Announcement</span>
                     </Badge>
@@ -183,8 +183,8 @@ export function NoteViewModal({
               >
                 {copied ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                    <span className="text-emerald-600 dark:text-emerald-400">Copied</span>
+                    <Check className="w-3.5 h-3.5 text-success" />
+                    <span className="text-success">Copied</span>
                   </>
                 ) : (
                   <>
@@ -222,9 +222,9 @@ export function NoteViewModal({
               <Link href={`/tasks?taskId=${activeNote.task.id}`} onClick={onClose}>
                 <Badge
                   variant="secondary"
-                  className="gap-1.5 text-xs py-1 px-2.5 hover:bg-muted font-medium cursor-pointer transition-colors border border-amber-500/20 bg-amber-500/5 text-foreground"
+                  className="gap-1.5 text-xs py-1 px-2.5 hover:bg-muted font-medium cursor-pointer transition-colors border border-warning/20 bg-warning/5 text-foreground"
                 >
-                  <CheckSquare className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                  <CheckSquare className="w-3.5 h-3.5 text-warning" />
                   <span>Ticket: <strong>{activeNote.task.title}</strong></span>
                   <ExternalLink className="w-3 h-3 text-muted-foreground ml-0.5" />
                 </Badge>
@@ -232,22 +232,22 @@ export function NoteViewModal({
             )}
 
             {activeNote.isPersonal ? (
-              <Badge variant="outline" className="gap-1.5 bg-amber-500/5 text-amber-800 dark:text-amber-300 border-amber-500/30 text-xs py-1 px-2.5">
-                <Shield className="w-3.5 h-3.5 text-amber-600" />
+              <Badge variant="outline" className="gap-1.5 bg-warning/5 text-warning border-warning/30 text-xs py-1 px-2.5">
+                <Shield className="w-3.5 h-3.5 text-warning" />
                 <span>Visibility: <strong>Only You (Private)</strong></span>
               </Badge>
             ) : activeNote.targetAll ? (
-              <Badge variant="outline" className="gap-1.5 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30 text-xs py-1 px-2.5">
+              <Badge variant="outline" className="gap-1.5 bg-success/10 text-success border-success/30 text-xs py-1 px-2.5">
                 <Globe className="w-3.5 h-3.5" />
                 <span>Visibility: <strong>Everyone in Workspace</strong></span>
               </Badge>
             ) : activeNote.targetTeams && activeNote.targetTeams.length > 0 ? (
-              <Badge variant="outline" className="gap-1.5 bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/30 text-xs py-1 px-2.5">
+              <Badge variant="outline" className="gap-1.5 bg-notion-purple-fg/10 text-notion-purple-fg border-notion-purple-fg/30 text-xs py-1 px-2.5">
                 <Users className="w-3.5 h-3.5" />
                 <span>Teams: <strong>{activeNote.targetTeams.map((t) => t.team.name).join(", ")}</strong></span>
               </Badge>
             ) : activeNote.targetUsers && activeNote.targetUsers.length > 0 ? (
-              <Badge variant="outline" className="gap-1.5 bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/30 text-xs py-1 px-2.5">
+              <Badge variant="outline" className="gap-1.5 bg-notion-blue-fg/10 text-notion-blue-fg border-notion-blue-fg/30 text-xs py-1 px-2.5">
                 <User className="w-3.5 h-3.5" />
                 <span>Targeted to: <strong>{activeNote.targetUsers.map((u) => u.user.name).join(", ")}</strong></span>
               </Badge>

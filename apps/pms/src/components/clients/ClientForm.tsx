@@ -231,14 +231,14 @@ export function ClientForm({ client }: { client?: Client }) {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 flex flex-col gap-6">
-          <div className="rounded-2xl border border-border/80 bg-card p-6 flex flex-col gap-5 shadow-xs transition-shadow hover:shadow-md">
+          <div className="rounded-lg border border-border/80 bg-card p-6 flex flex-col gap-5 shadow-xs transition-shadow hover:shadow-md">
             <div className="flex items-center gap-2.5 border-b border-border/60 pb-3.5">
-              <span className="w-8 h-8 rounded-xl bg-primary-light text-primary border border-primary/20 flex items-center justify-center shadow-2xs">
+              <span className="w-8 h-8 rounded-lg bg-primary-light text-primary border border-primary/20 flex items-center justify-center shadow-2xs">
                 <Building2 className="w-4 h-4" />
               </span>
               <div>
-                <h2 className="text-sm font-bold text-foreground">Organization Details</h2>
-                <p className="text-[11px] text-muted-foreground">Client brand name, website domain, and account status.</p>
+                <h2 className="text-sm font-semibold text-foreground">Organization Details</h2>
+                <p className="text-xs text-muted-foreground">Client brand name, website domain, and account status.</p>
               </div>
             </div>
 
@@ -260,10 +260,10 @@ export function ClientForm({ client }: { client?: Client }) {
               <div className="flex flex-col gap-1.5 sm:col-span-2">
                 <Label htmlFor="name" className="text-xs font-semibold text-foreground flex items-center justify-between">
                   <span>
-                    Client Name <span className="text-destructive font-bold">*</span>
+                    Client Name <span className="text-destructive font-semibold">*</span>
                   </span>
                   {errors.name && (
-                    <span className="text-[10px] font-bold text-destructive uppercase tracking-wider">
+                    <span className="text-xs font-semibold text-destructive  ">
                       Required
                     </span>
                   )}
@@ -278,7 +278,7 @@ export function ClientForm({ client }: { client?: Client }) {
                   )}
                 />
                 {errors.name && (
-                  <p className="text-[11px] font-semibold text-destructive flex items-center gap-1">
+                  <p className="text-xs font-semibold text-destructive flex items-center gap-1">
                     <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                     <span>{errors.name.message}</span>
                   </p>
@@ -301,7 +301,7 @@ export function ClientForm({ client }: { client?: Client }) {
               <div className="flex flex-col gap-1.5">
                 <Label className="text-xs font-semibold text-foreground flex items-center gap-1.5">
                   <Shield className="w-3.5 h-3.5 text-primary/70" />
-                  <span>Account Status <span className="text-destructive font-bold">*</span></span>
+                  <span>Account Status <span className="text-destructive font-semibold">*</span></span>
                 </Label>
                 <Select
                   value={currentStatus}
@@ -323,7 +323,7 @@ export function ClientForm({ client }: { client?: Client }) {
                           <SelectItem key={st} value={st} className="text-xs">
                             <div className="flex items-center gap-2">
                               <ClientStatusBadge status={st} />
-                              <span className="text-[11px] text-muted-foreground hidden sm:inline">- {info.desc}</span>
+                              <span className="text-xs text-muted-foreground hidden sm:inline">- {info.desc}</span>
                             </div>
                           </SelectItem>
                         );
@@ -335,25 +335,25 @@ export function ClientForm({ client }: { client?: Client }) {
               <div className="flex flex-col gap-1.5 sm:col-span-2">
                 <Label className="text-xs font-semibold text-foreground flex items-center gap-1.5">
                   <Building2 className="w-3.5 h-3.5 text-primary/70" />
-                  <span>Client Purpose &amp; Classification <span className="text-destructive font-bold">*</span></span>
+                  <span>Client Purpose &amp; Classification <span className="text-destructive font-semibold">*</span></span>
                 </Label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div
                     onClick={() => setValue("clientType", "DEVELOPMENT", { shouldDirty: true })}
                     className={cn(
-                      "p-3.5 rounded-xl border cursor-pointer transition-all flex flex-col gap-1 text-left",
+                      "p-3.5 rounded-lg border cursor-pointer transition-all flex flex-col gap-1 text-left",
                       currentClientType === "DEVELOPMENT"
                         ? "border-primary bg-primary/5 ring-1 ring-primary/20"
                         : "border-border hover:border-primary/40 bg-card"
                     )}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-foreground">Development Client</span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-semibold border border-blue-500/20">
+                      <span className="text-xs font-semibold text-foreground">Development Client</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-notion-blue-fg/10 text-notion-blue-fg font-semibold border border-notion-blue-fg/20">
                         PMS &amp; Engineering
                       </span>
                     </div>
-                    <p className="text-[11px] text-muted-foreground leading-relaxed">
+                    <p className="text-xs text-muted-foreground leading-relaxed">
                       Active client with provisioned products, engineering deliverables, sprint tickets, and SLA support.
                     </p>
                   </div>
@@ -361,19 +361,19 @@ export function ClientForm({ client }: { client?: Client }) {
                   <div
                     onClick={() => setValue("clientType", "SALES", { shouldDirty: true })}
                     className={cn(
-                      "p-3.5 rounded-xl border cursor-pointer transition-all flex flex-col gap-1 text-left",
+                      "p-3.5 rounded-lg border cursor-pointer transition-all flex flex-col gap-1 text-left",
                       currentClientType === "SALES"
                         ? "border-primary bg-primary/5 ring-1 ring-primary/20"
                         : "border-border hover:border-primary/40 bg-card"
                     )}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-foreground">Sales Client</span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 font-semibold border border-purple-500/20">
+                      <span className="text-xs font-semibold text-foreground">Sales Client</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-notion-purple-fg/10 text-notion-purple-fg font-semibold border border-notion-purple-fg/20">
                         Sales CRM &amp; Leads
                       </span>
                     </div>
-                    <p className="text-[11px] text-muted-foreground leading-relaxed">
+                    <p className="text-xs text-muted-foreground leading-relaxed">
                       Prospect or pipeline lead managed by the Sales team. Can be converted to Development client once won.
                     </p>
                   </div>
@@ -382,14 +382,14 @@ export function ClientForm({ client }: { client?: Client }) {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-border/80 bg-card p-6 flex flex-col gap-5 shadow-xs transition-shadow hover:shadow-md">
+          <div className="rounded-lg border border-border/80 bg-card p-6 flex flex-col gap-5 shadow-xs transition-shadow hover:shadow-md">
             <div className="flex items-center gap-2.5 border-b border-border/60 pb-3.5">
-              <span className="w-8 h-8 rounded-xl bg-primary-light text-primary border border-primary/20 flex items-center justify-center shadow-2xs">
+              <span className="w-8 h-8 rounded-lg bg-primary-light text-primary border border-primary/20 flex items-center justify-center shadow-2xs">
                 <UserCheck className="w-4 h-4" />
               </span>
               <div>
-                <h2 className="text-sm font-bold text-foreground">Primary Contact Person</h2>
-                <p className="text-[11px] text-muted-foreground">Main stakeholder or admin for communication.</p>
+                <h2 className="text-sm font-semibold text-foreground">Primary Contact Person</h2>
+                <p className="text-xs text-muted-foreground">Main stakeholder or admin for communication.</p>
               </div>
             </div>
 
@@ -435,7 +435,7 @@ export function ClientForm({ client }: { client?: Client }) {
                   )}
                 />
                 {errors.contactEmail && (
-                  <p className="text-[11px] font-semibold text-destructive flex items-center gap-1">
+                  <p className="text-xs font-semibold text-destructive flex items-center gap-1">
                     <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                     <span>{errors.contactEmail.message}</span>
                   </p>
@@ -446,14 +446,14 @@ export function ClientForm({ client }: { client?: Client }) {
         </div>
 
         <div className="flex flex-col gap-6">
-          <div className="rounded-2xl border border-border/80 bg-card p-6 flex flex-col gap-5 shadow-xs transition-shadow hover:shadow-md">
+          <div className="rounded-lg border border-border/80 bg-card p-6 flex flex-col gap-5 shadow-xs transition-shadow hover:shadow-md">
             <div className="flex items-center gap-2.5 border-b border-border/60 pb-3.5">
-              <span className="w-8 h-8 rounded-xl bg-primary-light text-primary border border-primary/20 flex items-center justify-center shadow-2xs">
+              <span className="w-8 h-8 rounded-lg bg-primary-light text-primary border border-primary/20 flex items-center justify-center shadow-2xs">
                 <Calendar className="w-4 h-4" />
               </span>
               <div>
-                <h2 className="text-sm font-bold text-foreground">Contract Term</h2>
-                <p className="text-[11px] text-muted-foreground">Start and end dates for active service agreements.</p>
+                <h2 className="text-sm font-semibold text-foreground">Contract Term</h2>
+                <p className="text-xs text-muted-foreground">Start and end dates for active service agreements.</p>
               </div>
             </div>
 
@@ -482,14 +482,14 @@ export function ClientForm({ client }: { client?: Client }) {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-border/80 bg-card p-6 flex flex-col gap-5 shadow-xs transition-shadow hover:shadow-md">
+          <div className="rounded-lg border border-border/80 bg-card p-6 flex flex-col gap-5 shadow-xs transition-shadow hover:shadow-md">
             <div className="flex items-center gap-2.5 border-b border-border/60 pb-3.5">
-              <span className="w-8 h-8 rounded-xl bg-primary-light text-primary border border-primary/20 flex items-center justify-center shadow-2xs">
+              <span className="w-8 h-8 rounded-lg bg-primary-light text-primary border border-primary/20 flex items-center justify-center shadow-2xs">
                 <FileText className="w-4 h-4" />
               </span>
               <div>
-                <h2 className="text-sm font-bold text-foreground">Internal Notes</h2>
-                <p className="text-[11px] text-muted-foreground">Private company remarks or SLA details.</p>
+                <h2 className="text-sm font-semibold text-foreground">Internal Notes</h2>
+                <p className="text-xs text-muted-foreground">Private company remarks or SLA details.</p>
               </div>
             </div>
 
@@ -506,12 +506,12 @@ export function ClientForm({ client }: { client?: Client }) {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-border bg-surface-subtle p-5 flex flex-col gap-3">
+          <div className="rounded-lg border border-border bg-surface-subtle p-5 flex flex-col gap-3">
             <Button
               type="submit"
               disabled={submitting || isDeleting}
               size="lg"
-              className="w-full font-bold shadow-xs gap-2 h-10 text-xs rounded-xl"
+              className="w-full font-semibold shadow-xs gap-2 h-10 text-xs rounded-lg"
             >
               {submitting ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -541,7 +541,7 @@ export function ClientForm({ client }: { client?: Client }) {
                   size="sm"
                   onClick={() => setConfirmDeleteOpen(true)}
                   disabled={isDeleting || submitting}
-                  className="w-full text-xs font-semibold text-destructive hover:bg-destructive/10 border-destructive/20 hover:border-destructive/40 transition-colors gap-1.5 h-9 rounded-xl"
+                  className="w-full text-xs font-semibold text-destructive hover:bg-destructive/10 border-destructive/20 hover:border-destructive/40 transition-colors gap-1.5 h-9 rounded-lg"
                 >
                   {isDeleting ? (
                     <Loader2 className="w-3.5 h-3.5 animate-spin" />

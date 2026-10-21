@@ -9,7 +9,7 @@ export default function SettingsLoading() {
           <Skeleton className="h-4 w-72 rounded-md mt-1.5" />
         </div>
         <div className="flex items-center gap-2.5">
-          <Skeleton className="h-10 w-32 rounded-xl" />
+          <Skeleton className="h-10 w-32 rounded-lg" />
         </div>
       </div>
 
@@ -17,11 +17,11 @@ export default function SettingsLoading() {
         {[1, 2, 3, 4, 5, 6].map((i) => (
           <div
             key={i}
-            className="rounded-2xl border border-border/80 bg-card p-5 flex flex-col justify-between gap-4 shadow-xs"
+            className="rounded-lg border border-border/80 bg-card p-5 flex flex-col justify-between gap-4 shadow-xs"
           >
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2.5">
-                <Skeleton className="w-9 h-9 rounded-xl" />
+                <Skeleton className="w-9 h-9 rounded-lg" />
                 <div className="flex flex-col gap-1">
                   <Skeleton className="h-4 w-28 rounded-md" />
                   <Skeleton className="h-3 w-16 rounded-sm" />

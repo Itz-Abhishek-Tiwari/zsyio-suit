@@ -181,7 +181,7 @@ export default async function ProductPage({
             <img
               src={product.imageUrl}
               alt={product.name}
-              className="w-full h-full object-cover rounded-xl"
+              className="w-full h-full object-cover rounded-lg"
             />
           ) : (
             <Box className="w-5 h-5 text-primary" />
@@ -218,7 +218,7 @@ export default async function ProductPage({
           label="Delivery Rate"
           value={`${progressPercent}%`}
           subtext={`${completedTasks} of ${totalTasks} tasks resolved`}
-          icon={<CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />}
+          icon={<CheckCircle2 className="w-5 h-5 text-success" />}
         />
         <KpiCard
           label="In-Flight Tasks"
@@ -228,13 +228,13 @@ export default async function ProductPage({
               ? `${urgentTasks} critical / high priority`
               : `${inProgressTasks} currently in progress`
           }
-          icon={<Clock className="w-5 h-5 text-amber-500" />}
+          icon={<Clock className="w-5 h-5 text-warning" />}
         />
         <KpiCard
           label="Team Members"
           value={assignedUsersCount}
           subtext={assignedUsersCount === 1 ? "1 active developer" : `${assignedUsersCount} active developers`}
-          icon={<Users className="w-5 h-5 text-sky-500" />}
+          icon={<Users className="w-5 h-5 text-notion-blue-fg" />}
         />
       </div>
 

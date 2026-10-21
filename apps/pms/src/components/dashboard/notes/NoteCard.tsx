@@ -51,7 +51,7 @@ export function NoteCard({
       className={cn(
         "group relative flex flex-col gap-3 p-4.5 rounded-lg border transition-all cursor-pointer shadow-2xs hover:shadow-md",
         note.isPersonal
-          ? "border-amber-500/30 bg-amber-500/5 hover:bg-amber-500/10 hover:border-amber-500/50"
+          ? "border-warning/30 bg-warning/5 hover:bg-warning/10 hover:border-warning/50"
           : "border-border/70 bg-surface-subtle/50 hover:bg-surface-subtle/80 hover:border-border"
       )}
     >
@@ -59,9 +59,9 @@ export function NoteCard({
         <div className="flex items-center gap-2.5">
           <div
             className={cn(
-              "w-8 h-8 rounded-md flex items-center justify-center text-xs font-bold shrink-0 border",
+              "w-8 h-8 rounded-md flex items-center justify-center text-xs font-semibold shrink-0 border",
               note.isPersonal
-                ? "bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-500/30"
+                ? "bg-warning/20 text-warning border-warning/30"
                 : "bg-primary-light text-primary border-primary/20"
             )}
           >
@@ -70,21 +70,21 @@ export function NoteCard({
 
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-xs font-bold text-foreground">
+              <span className="text-xs font-semibold text-foreground">
                 {note.author.name}
               </span>
-              <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.2 rounded bg-muted text-muted-foreground border border-border/40">
+              <span className="text-xs font-semibold   px-1.5 py-0.2 rounded bg-muted text-muted-foreground border border-border/40">
                 {note.author.role}
               </span>
 
               {note.isPersonal && (
-                <Badge className="bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30 gap-1 text-[10px] py-0 px-1.5 font-bold">
+                <Badge className="bg-warning/15 text-warning border-warning/30 gap-1 text-xs py-0 px-1.5 font-semibold">
                   <Lock className="w-2.5 h-2.5" />
                   <span>Personal</span>
                 </Badge>
               )}
             </div>
-            <span className="text-[10px] text-muted-foreground">{dateFormatted}</span>
+            <span className="text-xs text-muted-foreground">{dateFormatted}</span>
           </div>
         </div>
 
@@ -111,7 +111,7 @@ export function NoteCard({
 
       <div className="flex flex-wrap items-center gap-1.5 text-xs">
         {note.client && (
-          <Badge variant="outline" className="gap-1 bg-background text-foreground text-[11px] font-medium border-border/70">
+          <Badge variant="outline" className="gap-1 bg-background text-foreground text-xs font-medium border-border/70">
             <Building2 className="w-3 h-3 text-primary" />
             <span>{note.client.name}</span>
           </Badge>
@@ -120,30 +120,30 @@ export function NoteCard({
         {note.task && (
           <Badge
             variant="secondary"
-            className="gap-1 text-[11px] font-medium border border-amber-500/20 bg-amber-500/5 text-foreground"
+            className="gap-1 text-xs font-medium border border-warning/20 bg-warning/5 text-foreground"
           >
-            <CheckSquare className="w-3 h-3 text-amber-600" />
+            <CheckSquare className="w-3 h-3 text-warning" />
             <span className="truncate max-w-[180px]">{note.task.title}</span>
           </Badge>
         )}
 
         {note.isPersonal ? (
-          <Badge variant="outline" className="gap-1 bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30 text-[11px]">
+          <Badge variant="outline" className="gap-1 bg-warning/10 text-warning border-warning/30 text-xs">
             <Shield className="w-3 h-3" />
             <span>Private to You</span>
           </Badge>
         ) : note.targetAll ? (
-          <Badge variant="outline" className="gap-1 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30 text-[11px]">
+          <Badge variant="outline" className="gap-1 bg-success/10 text-success border-success/30 text-xs">
             <Globe className="w-3 h-3" />
             <span>Everyone</span>
           </Badge>
         ) : note.targetTeams && note.targetTeams.length > 0 ? (
-          <Badge variant="outline" className="gap-1 bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/30 text-[11px]">
+          <Badge variant="outline" className="gap-1 bg-notion-purple-fg/10 text-notion-purple-fg border-notion-purple-fg/30 text-xs">
             <Users className="w-3 h-3" />
             <span>Teams: {note.targetTeams.map((t) => t.team.name).join(", ")}</span>
           </Badge>
         ) : note.targetUsers && note.targetUsers.length > 0 ? (
-          <Badge variant="outline" className="gap-1 bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/30 text-[11px]">
+          <Badge variant="outline" className="gap-1 bg-notion-blue-fg/10 text-notion-blue-fg border-notion-blue-fg/30 text-xs">
             <User className="w-3 h-3" />
             <span>Targeted: {note.targetUsers.map((u) => u.user.name).join(", ")}</span>
           </Badge>
@@ -154,12 +154,12 @@ export function NoteCard({
         <FormattedText content={note.content} />
       </div>
 
-      <div className="flex items-center justify-between text-[11px] text-muted-foreground pt-2 border-t border-border/40 font-medium">
+      <div className="flex items-center justify-between text-xs text-muted-foreground pt-2 border-t border-border/40 font-medium">
         <span className="text-primary group-hover:underline inline-flex items-center gap-1">
           <span>View full note</span>
           <ArrowRight className="w-3 h-3" />
         </span>
-        <span className="text-[10px] text-muted-foreground/60">Click card to open modal</span>
+        <span className="text-xs text-muted-foreground/60">Click card to open modal</span>
       </div>
     </StaggerItem>
   );

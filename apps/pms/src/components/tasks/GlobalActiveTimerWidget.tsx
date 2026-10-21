@@ -67,11 +67,11 @@ export function GlobalActiveTimerWidget() {
 
   return (
     <div className="fixed bottom-5 right-5 z-50 animate-fade-in pointer-events-auto">
-      <div className="flex items-center gap-3 bg-card/95 dark:bg-card/90 backdrop-blur-md border border-emerald-500/40 rounded-full py-1.5 pl-3.5 pr-1.5 shadow-2xl ring-1 ring-emerald-500/20 hover:border-emerald-500/70 transition-all duration-300">
+      <div className="flex items-center gap-3 bg-card/95 dark:bg-card/90 backdrop-blur-md border border-success/40 rounded-full py-1.5 pl-3.5 pr-1.5 shadow-md ring-1 ring-success/20 hover:border-success/70 transition-all duration-150">
         {/* Pulsing indicator */}
         <span className="relative flex h-2.5 w-2.5 shrink-0">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+          <span className=" absolute inline-flex h-full w-full rounded-full bg-success opacity-75" />
+          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-success" />
         </span>
 
         {/* Task link and title */}
@@ -80,15 +80,15 @@ export function GlobalActiveTimerWidget() {
           className="flex items-center gap-1.5 text-xs font-medium text-foreground hover:text-primary transition-colors max-w-[200px] truncate"
           title={`Active on: ${activeEntry.task?.title || "Task"}`}
         >
-          <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400 shrink-0">
+          <span className="font-mono font-semibold text-success shrink-0">
             {shortId}
           </span>
           <span className="truncate text-muted-foreground">{activeEntry.task?.title}</span>
         </Link>
 
         {/* Monospace Digital Counter */}
-        <div className="flex items-center gap-1.5 font-mono text-xs font-extrabold text-foreground bg-emerald-500/10 dark:bg-emerald-500/20 px-2.5 py-0.5 rounded-full border border-emerald-500/30 shrink-0 tracking-wider">
-          <Clock className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
+        <div className="flex items-center gap-1.5 font-mono text-xs font-semibold text-foreground bg-success/10 px-2.5 py-0.5 rounded-full border border-success/30 shrink-0 ">
+          <Clock className="w-3 h-3 text-success" />
           <span>{formatStopwatch(elapsedSeconds)}</span>
         </div>
 
@@ -99,7 +99,7 @@ export function GlobalActiveTimerWidget() {
           variant="destructive"
           onClick={handleStop}
           disabled={isStopping}
-          className="h-7 w-7 p-0 rounded-full shadow-2xs shrink-0 cursor-pointer active:scale-95 transition-transform"
+          className="h-7 w-7 p-0 rounded-full shadow-2xs shrink-0 cursor-pointer  transition-transform"
           title="Stop & Log Timer"
         >
           {isStopping ? (

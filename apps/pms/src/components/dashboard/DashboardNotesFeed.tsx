@@ -248,7 +248,7 @@ export function DashboardNotesFeed({ userRole: initialUserRole }: { userRole: st
     <div className="flex flex-col gap-4.5 rounded-lg border border-border/80 bg-card p-5 sm:p-6 shadow-xs">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-border/60 pb-4">
         <div>
-          <h2 className="text-lg sm:text-xl font-bold font-display text-foreground flex items-center gap-2">
+          <h2 className="text-lg sm:text-xl font-semibold font-display text-foreground flex items-center gap-2">
             <StickyNote className="w-5 h-5 text-primary" />
             <span>Workspace & Client Notes</span>
             {notes.length > 0 && (
@@ -265,7 +265,7 @@ export function DashboardNotesFeed({ userRole: initialUserRole }: { userRole: st
         <Button
           onClick={handleOpenLeaveModal}
           size="sm"
-          className="font-bold gap-1.5 shrink-0 self-start sm:self-auto shadow-xs rounded-md cursor-pointer"
+          className="font-semibold gap-1.5 shrink-0 self-start sm:self-auto shadow-xs rounded-md cursor-pointer"
         >
           <MessageSquarePlus className="w-4 h-4" />
           <span>Leave Note</span>
@@ -389,7 +389,7 @@ export function DashboardNotesFeed({ userRole: initialUserRole }: { userRole: st
           <div className="w-12 h-12 rounded-md bg-muted/60 flex items-center justify-center mb-3">
             <StickyNote className="w-6 h-6 text-muted-foreground/60" />
           </div>
-          <p className="text-sm font-bold text-foreground">No Notes Found</p>
+          <p className="text-sm font-semibold text-foreground">No Notes Found</p>
           <p className="text-xs text-muted-foreground mt-1 max-w-sm">
             {searchQuery || selectedFilterClient || activeTab !== "ALL"
               ? "No notes match your current search or tab filters."

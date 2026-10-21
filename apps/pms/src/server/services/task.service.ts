@@ -164,6 +164,12 @@ async function logAssignmentChanges(
   }
 }
 
+function assertSafeFileUrl(url: string) {
+  if (!/^(https?:\/\/|\/uploads\/)/i.test(url.trim())) {
+    throw new BadRequestError("Attachment URL must be an http(s) URL or an uploaded file path.");
+  }
+}
+
 function assertCanManageAttachment(
   user: Session["user"],
   existing: NonNullable<Awaited<ReturnType<typeof taskRepository.findOwnershipInfo>>>
@@ -253,6 +259,7 @@ export const taskService = {
         },
       });
       if (input.attachments?.length) {
+        input.attachments.forEach((att) => assertSafeFileUrl(att.fileUrl));
         await tx.attachment.createMany({
           data: input.attachments.map((att) => ({
             taskId: task.id,
@@ -356,6 +363,7 @@ export const taskService = {
   async update(user: Session["user"], id: string, input: UpdateTaskInput) {
     const existing = await taskRepository.findOwnershipInfo(id);
     if (!existing) throw new ForbiddenError("Task not found.");
+    id = existing.id;
 
     const owns = isOwner(user.id, existing);
     if (!can(user.role, "task:edit:any", user.permissions) && !(can(user.role, "task:edit:own", user.permissions) && owns)) {
@@ -636,6 +644,7 @@ export const taskService = {
     const hasGlobalEdit = can(user.role, "task:edit:any", user.permissions);
     const existing = await taskRepository.findOwnershipInfo(id);
     if (!existing) throw new ForbiddenError("Task not found.");
+    id = existing.id;
 
     if (!hasGlobalEdit) {
       const owns = isOwner(user.id, existing);
@@ -769,6 +778,7 @@ export const taskService = {
   async addComment(user: Session["user"], taskId: string, body: string, parentId?: string | null) {
     const existing = await taskRepository.findOwnershipInfo(taskId);
     if (!existing) throw new ForbiddenError("Task not found.");
+    taskId = existing.id;
     if (!can(user.role, "task:view:all", user.permissions) && !isOwner(user.id, existing)) {
       throw new ForbiddenError("You can only comment on tasks you're assigned to.");
     }
@@ -777,9 +787,12 @@ export const taskService = {
     if (parentId) {
       const parentComment = await prisma.comment.findUnique({
         where: { id: parentId },
-        select: { authorId: true },
+        select: { authorId: true, taskId: true },
       });
-      parentAuthorId = parentComment?.authorId || null;
+      if (!parentComment || parentComment.taskId !== taskId) {
+        throw new BadRequestError("Parent comment does not belong to this task.");
+      }
+      parentAuthorId = parentComment.authorId || null;
     }
 
     let validActorId = user.id;
@@ -828,9 +841,11 @@ export const taskService = {
   ) {
     const existing = await taskRepository.findOwnershipInfo(taskId);
     if (!existing) throw new NotFoundError("Task not found.");
+    taskId = existing.id;
 
     assertCanManageAttachment(user, existing);
 
+    if (input.fileUrl) assertSafeFileUrl(input.fileUrl);
     let finalUrl = input.fileUrl;
     let uploadUrl = "";
 
@@ -881,6 +896,7 @@ export const taskService = {
   ) {
     const existing = await taskRepository.findOwnershipInfo(taskId);
     if (!existing) throw new NotFoundError("Task not found.");
+    taskId = existing.id;
 
     assertCanManageAttachment(user, existing);
 
@@ -920,6 +936,9 @@ export const taskService = {
 
   async softDelete(user: Session["user"], id: string) {
     assertCan(user.role, "task:delete", user.permissions);
+    const target = await taskRepository.findOwnershipInfo(id);
+    if (!target) throw new NotFoundError("Task not found.");
+    id = target.id;
     return prisma.$transaction(
       async (tx) => {
         const validActorId = await resolveValidUserId(tx, user.id, user.email);

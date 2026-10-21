@@ -101,14 +101,14 @@ export function AnalyticsChartsSection({
           <MetricBarChart
             title="Priority Spread"
             description="Urgency distribution across active sprint tasks."
-            icon={<ShieldAlert className="w-4 h-4 text-red-500" />}
+            icon={<ShieldAlert className="w-4 h-4 text-destructive" />}
             items={priorityItems}
           />
 
-          <div className="rounded-2xl border border-border/80 bg-card p-5 flex flex-col gap-3 shadow-xs">
+          <div className="rounded-md border border-border bg-card p-5 flex flex-col gap-3 shadow-none">
 
           <div className="flex flex-col gap-2 pt-1">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+            <span className="text-xs font-semibold   text-muted-foreground">
               Task Category Breakdown
             </span>
             <div className="grid grid-cols-2 gap-x-4 gap-y-2">
@@ -125,13 +125,13 @@ export function AnalyticsChartsSection({
                       <span className="text-foreground font-semibold flex items-center gap-1.5">
                         {cfg.icon} {cfg.label}
                       </span>
-                      <span className="text-muted-foreground font-mono text-[11px]">
+                      <span className="text-muted-foreground font-mono text-xs">
                         {t.count} ({pct}%)
                       </span>
                     </div>
-                    <div className="w-full bg-muted h-1.5 rounded-full overflow-hidden">
+                    <div className="w-full bg-muted h-2 rounded-sm overflow-hidden">
                       <div
-                        className={`${cfg.barBg} h-full rounded-full transition-all`}
+                        className={`${cfg.barBg} h-full rounded-sm transition-all`}
                         style={{ width: `${pct}%` }}
                       />
                     </div>
@@ -145,14 +145,14 @@ export function AnalyticsChartsSection({
       </div>
 
       {productsBreakdown.length > 0 && (
-        <div className="rounded-2xl border border-border/80 bg-card p-6 flex flex-col gap-4 shadow-xs">
+        <div className="rounded-lg border border-border/80 bg-card p-6 flex flex-col gap-4 shadow-xs">
           <div className="flex items-center gap-2.5 border-b border-border/60 pb-3.5">
-            <span className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 flex items-center justify-center">
+            <span className="w-8 h-8 rounded-lg bg-success/10 text-success border border-success/20 flex items-center justify-center">
               <Package className="w-4 h-4" />
             </span>
             <div>
-              <h2 className="text-sm font-bold text-foreground">Product Performance Matrix</h2>
-              <p className="text-[11px] text-muted-foreground">
+              <h2 className="text-sm font-semibold text-foreground">Product Performance Matrix</h2>
+              <p className="text-xs text-muted-foreground">
                 Delivery stats per product suite under this client account.
               </p>
             </div>
@@ -162,25 +162,25 @@ export function AnalyticsChartsSection({
             {productsBreakdown.map((p) => (
               <div
                 key={p.id}
-                className="p-4 rounded-xl border border-border/70 bg-surface-subtle/50 flex flex-col gap-3"
+                className="p-4 rounded-lg border border-border/70 bg-surface-subtle/50 flex flex-col gap-3"
               >
                 <div className="flex items-start justify-between gap-2">
-                  <span className="font-bold text-xs text-foreground truncate">{p.name}</span>
+                  <span className="font-semibold text-xs text-foreground truncate">{p.name}</span>
                   {p.version && (
-                    <span className="text-[10px] font-mono bg-surface-elevated px-2 py-0.5 rounded-md border border-border/60 text-muted-foreground">
+                    <span className="text-xs font-mono bg-surface-elevated px-2 py-0.5 rounded-md border border-border/60 text-muted-foreground">
                       v{p.version}
                     </span>
                   )}
                 </div>
 
                 <div className="flex flex-col gap-1">
-                  <div className="flex items-center justify-between text-[11px] font-semibold">
+                  <div className="flex items-center justify-between text-xs font-semibold">
                     <span className="text-muted-foreground">Completion</span>
-                    <span className="text-foreground font-bold">{p.completionRate}%</span>
+                    <span className="text-foreground font-semibold">{p.completionRate}%</span>
                   </div>
-                  <div className="w-full h-1.5 rounded-full bg-muted overflow-hidden">
+                  <div className="w-full h-2 rounded-sm bg-muted overflow-hidden">
                     <div
-                      className="h-full bg-emerald-500 rounded-full transition-all duration-300"
+                      className="h-full bg-success rounded-full transition-all duration-150"
                       style={{ width: `${p.completionRate}%` }}
                     />
                   </div>
@@ -188,16 +188,16 @@ export function AnalyticsChartsSection({
 
                 <div className="grid grid-cols-3 gap-2 text-center text-xs pt-1">
                   <div className="bg-card p-1.5 rounded-lg border border-border/50">
-                    <span className="text-[9px] text-muted-foreground block">Total</span>
-                    <span className="font-bold">{p.totalTasks}</span>
+                    <span className="text-xs text-muted-foreground block">Total</span>
+                    <span className="font-semibold">{p.totalTasks}</span>
                   </div>
                   <div className="bg-card p-1.5 rounded-lg border border-border/50">
-                    <span className="text-[9px] text-emerald-600 block">Done</span>
-                    <span className="font-bold text-emerald-600">{p.doneTasks}</span>
+                    <span className="text-xs text-success block">Done</span>
+                    <span className="font-semibold text-success">{p.doneTasks}</span>
                   </div>
                   <div className="bg-card p-1.5 rounded-lg border border-border/50">
-                    <span className="text-[9px] text-red-500 block">Blocked</span>
-                    <span className="font-bold text-red-500">{p.blockedTasks}</span>
+                    <span className="text-xs text-destructive block">Blocked</span>
+                    <span className="font-semibold text-destructive">{p.blockedTasks}</span>
                   </div>
                 </div>
               </div>

@@ -255,8 +255,8 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
   return (
     <form onSubmit={onSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <div className="lg:col-span-2 flex flex-col gap-6">
-        <div className="rounded-xl border border-border bg-card p-5 flex flex-col gap-4 shadow-xs">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground border-b border-border pb-3">
+        <div className="rounded-lg border border-border bg-card p-5 flex flex-col gap-4 shadow-xs">
+          <h2 className="text-xs font-semibold   text-muted-foreground border-b border-border pb-3">
             Client & Product Assignment
           </h2>
 
@@ -264,8 +264,8 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
             {/* 1. Client selection */}
             <div className="flex flex-col gap-1.5">
               <Label className="text-xs font-semibold text-foreground flex items-center justify-between">
-                <span>Client <span className="text-destructive font-bold">*</span></span>
-                {attemptedSubmit && !clientId && <span className="text-[10px] font-bold text-destructive uppercase">Mandatory</span>}
+                <span>Client <span className="text-destructive font-semibold">*</span></span>
+                {attemptedSubmit && !clientId && <span className="text-xs font-semibold text-destructive ">Mandatory</span>}
               </Label>
               <Select
                 value={clientId}
@@ -274,7 +274,7 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
                   setProductId("");
                 }}
               >
-                <SelectTrigger className={cn("h-10 text-xs font-semibold rounded-xl transition-colors", attemptedSubmit && !clientId && "border-destructive ring-1 ring-destructive bg-destructive/5")}>
+                <SelectTrigger className={cn("h-10 text-xs font-semibold rounded-lg transition-colors", attemptedSubmit && !clientId && "border-destructive ring-1 ring-destructive bg-destructive/5")}>
                   <SelectValue placeholder="Select client account..." />
                 </SelectTrigger>
                 <SelectContent className="max-h-[300px]">
@@ -289,7 +289,7 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
                 </SelectContent>
               </Select>
               {attemptedSubmit && !clientId && (
-                <p className="text-[11px] font-semibold text-destructive mt-0.5 flex items-center gap-1">
+                <p className="text-xs font-semibold text-destructive mt-0.5 flex items-center gap-1">
                   <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                   <span>Client selection is mandatory.</span>
                 </p>
@@ -299,15 +299,15 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
             {/* 2. Product selection (Loads after client is chosen) */}
             <div className="flex flex-col gap-1.5">
               <Label className="text-xs font-semibold text-foreground flex items-center justify-between">
-                <span>Product <span className="text-destructive font-bold">*</span></span>
-                {attemptedSubmit && !productId && <span className="text-[10px] font-bold text-destructive uppercase">Mandatory</span>}
+                <span>Product <span className="text-destructive font-semibold">*</span></span>
+                {attemptedSubmit && !productId && <span className="text-xs font-semibold text-destructive ">Mandatory</span>}
               </Label>
               <Select
                 value={productId}
                 onValueChange={setProductId}
                 disabled={!clientId}
               >
-                <SelectTrigger className={cn("h-10 text-xs font-semibold rounded-xl transition-colors", attemptedSubmit && !productId && "border-destructive ring-1 ring-destructive bg-destructive/5")}>
+                <SelectTrigger className={cn("h-10 text-xs font-semibold rounded-lg transition-colors", attemptedSubmit && !productId && "border-destructive ring-1 ring-destructive bg-destructive/5")}>
                   <SelectValue placeholder={clientId ? (isFetchingProducts ? "Loading products..." : "Select product...") : "Select client first"} />
                 </SelectTrigger>
                 <SelectContent className="max-h-[300px]">
@@ -315,10 +315,10 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
                     <SelectItem key={p.id} value={p.id} className="text-xs font-medium">
                       <div className="flex items-center justify-between gap-2 w-full">
                         <span className="inline-flex items-center gap-2">
-                          <Package className="w-3.5 h-3.5 text-orange-600 shrink-0" />
+                          <Package className="w-3.5 h-3.5 text-notion-orange-fg shrink-0" />
                           <span>{p.name}</span>
                         </span>
-                        <span className="text-[10px] font-mono uppercase text-muted-foreground/80 bg-surface-subtle px-1.5 py-0.5 rounded border border-border/50 ml-auto shrink-0">
+                        <span className="text-xs font-mono  text-muted-foreground/80 bg-surface-subtle px-1.5 py-0.5 rounded border border-border/50 ml-auto shrink-0">
                           {p.environment}
                         </span>
                       </div>
@@ -327,7 +327,7 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
                 </SelectContent>
               </Select>
               {attemptedSubmit && !productId && (
-                <p className="text-[11px] font-semibold text-destructive mt-0.5 flex items-center gap-1">
+                <p className="text-xs font-semibold text-destructive mt-0.5 flex items-center gap-1">
                   <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                   <span>{clientId ? "Product selection is mandatory." : "Please select a client first."}</span>
                 </p>
@@ -349,15 +349,15 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
           )}
         </div>
 
-        <div className="rounded-xl border border-border bg-card p-5 flex flex-col gap-4 shadow-xs">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground border-b border-border pb-3">
+        <div className="rounded-lg border border-border bg-card p-5 flex flex-col gap-4 shadow-xs">
+          <h2 className="text-xs font-semibold   text-muted-foreground border-b border-border pb-3">
             Task Overview
           </h2>
 
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="title" className="text-xs font-semibold text-foreground flex items-center justify-between">
-              <span>Task Title <span className="text-destructive font-bold">*</span></span>
-              {attemptedSubmit && !title.trim() && <span className="text-[10px] font-bold text-destructive uppercase">Mandatory</span>}
+              <span>Task Title <span className="text-destructive font-semibold">*</span></span>
+              {attemptedSubmit && !title.trim() && <span className="text-xs font-semibold text-destructive ">Mandatory</span>}
             </Label>
             <Input
               id="title"
@@ -368,7 +368,7 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
               autoFocus
             />
             {attemptedSubmit && !title.trim() && (
-              <p className="text-[11px] font-semibold text-destructive mt-0.5 flex items-center gap-1">
+              <p className="text-xs font-semibold text-destructive mt-0.5 flex items-center gap-1">
                 <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                 <span>Task title is mandatory.</span>
               </p>
@@ -380,7 +380,7 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
               <Label htmlFor="description" className="text-xs font-semibold text-foreground">
                 Description <span className="text-muted-foreground font-normal ml-1">(Optional)</span>
               </Label>
-              <span className="text-[10px] text-muted-foreground font-medium">Rich visual editor</span>
+              <span className="text-xs text-muted-foreground font-medium">Rich visual editor</span>
             </div>
             <RichTextEditor
               value={description}
@@ -392,18 +392,18 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
           </div>
         </div>
 
-        <div className="rounded-xl border border-border bg-card p-5 flex flex-col gap-4 shadow-xs">
+        <div className="rounded-lg border border-border bg-card p-5 flex flex-col gap-4 shadow-xs">
           <div className="flex items-center justify-between border-b border-border pb-3">
             <div className="flex items-center gap-2">
               <span className="w-6 h-6 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
                 <Paperclip className="w-3.5 h-3.5" />
               </span>
-              <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              <h2 className="text-xs font-semibold   text-muted-foreground">
                 Attachments & Screenshots
               </h2>
             </div>
             {attachments.length > 0 && (
-              <span className="text-[11px] font-semibold text-muted-foreground">
+              <span className="text-xs font-semibold text-muted-foreground">
                 {attachments.length} {attachments.length === 1 ? "file attached" : "files attached"}
               </span>
             )}
@@ -420,9 +420,9 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
             />
             <label
               htmlFor="task-file-upload"
-              className="flex flex-col items-center justify-center p-6 rounded-xl border-2 border-dashed border-border/80 hover:border-primary/50 hover:bg-surface-subtle/50 transition-all cursor-pointer text-center group bg-surface-subtle/20"
+              className="flex flex-col items-center justify-center p-6 rounded-lg border border-dashed border-border/80 hover:border-primary/50 hover:bg-surface-subtle/50 transition-all cursor-pointer text-center group bg-surface-subtle/20"
             >
-              <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-105 transition-transform mb-2">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary  transition-transform mb-2">
                 {isUploadingFile ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
                 ) : (
@@ -432,7 +432,7 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
               <span className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors">
                 {isUploadingFile ? "Processing files..." : "Click, drag & drop, or paste (⌘V / Ctrl+V) screenshots"}
               </span>
-              <span className="text-[11px] text-muted-foreground mt-0.5">
+              <span className="text-xs text-muted-foreground mt-0.5">
                 Paste screenshots directly or attach PNG, JPG, WebP, PDF, Docs up to 10MB
               </span>
             </label>
@@ -448,7 +448,7 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
                 return (
                   <div
                     key={index}
-                    className="flex items-center justify-between gap-2.5 p-2.5 rounded-xl border border-border/80 bg-surface-subtle/60 hover:bg-surface-subtle transition-colors"
+                    className="flex items-center justify-between gap-2.5 p-2.5 rounded-lg border border-border/80 bg-surface-subtle/60 hover:bg-surface-subtle transition-colors"
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
                       {isImage ? (
@@ -469,7 +469,7 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
                         <span className="text-xs font-semibold text-foreground truncate" title={att.fileName}>
                           {att.fileName}
                         </span>
-                        <span className="text-[10px] text-muted-foreground">
+                        <span className="text-xs text-muted-foreground">
                           {att.fileSize >= 1024 * 1024
                             ? `${(att.fileSize / (1024 * 1024)).toFixed(1)} MB`
                             : `${Math.round(att.fileSize / 1024)} KB`}
@@ -521,8 +521,8 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
           onTagsChange={setTags}
         />
 
-        <div className="rounded-2xl border border-border/80 bg-card p-4 flex flex-col gap-2.5 shadow-xs">
-          <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+        <div className="rounded-lg border border-border/80 bg-card p-4 flex flex-col gap-2.5 shadow-xs">
+          <Label className="text-xs font-semibold   text-muted-foreground flex items-center gap-1.5">
             <Clock className="w-3.5 h-3.5 text-primary" />
             <span>Estimated Effort (Hours)</span>
           </Label>
@@ -535,17 +535,17 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
             onChange={(e) => setEstimatedHours(e.target.value)}
             className="text-xs font-mono"
           />
-          <span className="text-[11px] text-muted-foreground">
+          <span className="text-xs text-muted-foreground">
             Optional initial estimate for velocity & budget tracking.
           </span>
         </div>
 
-        <div className="rounded-2xl border border-border/80 bg-card p-5 flex flex-col gap-3 shadow-xs">
+        <div className="rounded-lg border border-border/80 bg-card p-5 flex flex-col gap-3 shadow-xs">
           <Button
             type="submit"
             disabled={submitting}
             size="lg"
-            className="w-full font-bold shadow-xs gap-2"
+            className="w-full font-semibold shadow-xs gap-2"
           >
             {submitting ? (
               <span className="flex items-center gap-2">
@@ -566,7 +566,7 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
       <Dialog open={isCustomTypeOpen} onOpenChange={setIsCustomTypeOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2 text-base font-bold">
+            <DialogTitle className="flex items-center gap-2 text-base font-semibold">
               <Tag className="w-4 h-4 text-primary" /> Create Custom Task Type
             </DialogTitle>
           </DialogHeader>
@@ -603,7 +603,7 @@ export function TaskForm({ role, permissions }: { role: Role | string; permissio
               size="sm"
               onClick={handleCreateCustomType}
               disabled={!newTypeName.trim() || isCreatingType}
-              className="text-xs font-bold gap-1.5"
+              className="text-xs font-semibold gap-1.5"
             >
               {isCreatingType ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Plus className="w-3.5 h-3.5" />}
               <span>Save & Select</span>

@@ -179,31 +179,31 @@ export function AiSummaryCard({
   return (
     <div
       className={cn(
-        "w-full rounded-2xl border border-purple-500/30 bg-card transition-all duration-300 overflow-hidden shadow-2xs min-h-[90px] flex flex-col",
+        "w-full rounded-lg border border-notion-purple-fg/30 bg-card transition-all duration-150 overflow-hidden shadow-2xs min-h-[90px] flex flex-col",
         isStreaming
-          ? "ring-2 ring-purple-500/40 border-purple-500/60 shadow-[0_0_25px_rgba(168,85,247,0.15)]"
-          : "hover:border-purple-500/40",
+          ? "ring-2 ring-notion-purple-fg/40 border-notion-purple-fg/60 shadow-[0_0_25px_rgba(168,85,247,0.15)]"
+          : "hover:border-notion-purple-fg/40",
         className
       )}
     >
-      <div className="flex items-center justify-between px-4.5 py-3 border-b border-purple-500/20 bg-purple-500/[0.06] shrink-0">
+      <div className="flex items-center justify-between px-4.5 py-3 border-b border-notion-purple-fg/20 bg-notion-purple-fg/[0.06] shrink-0">
         <div className="flex items-center gap-2">
-          <span className="w-6 h-6 rounded-lg bg-purple-500/15 border border-purple-500/25 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
+          <span className="w-6 h-6 rounded-lg bg-notion-purple-fg/15 border border-notion-purple-fg/25 text-notion-purple-fg flex items-center justify-center shrink-0">
             <Sparkles
               className={cn(
                 "w-3.5 h-3.5",
-                isStreaming && "animate-spin text-purple-500"
+                isStreaming && "animate-spin text-notion-purple-fg"
               )}
             />
           </span>
-          <span className="text-xs font-bold uppercase tracking-wider text-purple-700 dark:text-purple-300">
+          <span className="text-xs font-semibold   text-notion-purple-fg">
             AI Summary
           </span>
-          <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-purple-600 dark:text-purple-400 bg-purple-500/10 border border-purple-500/20 px-2 py-0.5 rounded-full">
+          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-notion-purple-fg bg-notion-purple-fg/10 border border-notion-purple-fg/20 px-2 py-0.5 rounded-full">
             <span
               className={cn(
-                "w-1.5 h-1.5 rounded-full bg-purple-500",
-                isStreaming ? "animate-ping" : "animate-pulse"
+                "w-1.5 h-1.5 rounded-full bg-notion-purple-fg",
+                isStreaming ? "" : "animate-pulse"
               )}
             />
             {isStreaming
@@ -219,11 +219,11 @@ export function AiSummaryCard({
             <button
               type="button"
               onClick={handleCopy}
-              className="inline-flex items-center gap-1 text-[11px] font-semibold text-muted-foreground hover:text-foreground bg-muted/40 hover:bg-muted/70 border border-border/60 px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-foreground bg-muted/40 hover:bg-muted/70 border border-border/60 px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
               title="Copy summary text"
             >
               {hasCopied ? (
-                <Check className="w-3 h-3 text-emerald-500" />
+                <Check className="w-3 h-3 text-success" />
               ) : (
                 <Copy className="w-3 h-3" />
               )}
@@ -238,7 +238,7 @@ export function AiSummaryCard({
               size="sm"
               onClick={handleStartStream}
               disabled={isStreaming}
-              className="h-7 text-[11px] font-semibold text-purple-700 dark:text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 border-purple-500/30 gap-1.5 rounded-lg transition-all"
+              className="h-7 text-xs font-semibold text-notion-purple-fg bg-notion-purple-fg/10 hover:bg-notion-purple-fg/20 border-notion-purple-fg/30 gap-1.5 rounded-lg transition-all"
             >
               <RefreshCw className={cn("w-3 h-3", isStreaming && "animate-spin")} />
               <span>{isStreaming ? "Streaming..." : "Regenerate AI"}</span>
@@ -252,11 +252,11 @@ export function AiSummaryCard({
           <div className="relative">
             <p className="text-sm leading-relaxed text-foreground font-[450] whitespace-pre-wrap">
               {displayText}
-              <span className="inline-block w-2 h-4 ml-1 bg-purple-500 animate-pulse align-middle rounded-xs" />
+              <span className="inline-block w-2 h-4 ml-1 bg-notion-purple-fg animate-pulse align-middle rounded-xs" />
             </p>
             {!displayText && (
               <span className="text-xs text-muted-foreground italic flex items-center gap-2">
-                <Sparkles className="w-3.5 h-3.5 text-purple-400 animate-spin" />
+                <Sparkles className="w-3.5 h-3.5 text-notion-purple-fg animate-spin" />
                 Connecting to Gemini AI stream...
               </span>
             )}
@@ -268,14 +268,14 @@ export function AiSummaryCard({
         ) : (
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 py-1">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-500 shrink-0">
+              <div className="w-9 h-9 rounded-lg bg-notion-purple-fg/10 border border-notion-purple-fg/20 flex items-center justify-center text-notion-purple-fg shrink-0">
                 <Sparkles className="w-4.5 h-4.5" />
               </div>
               <div className="flex flex-col">
-                <span className="text-xs font-bold text-foreground">
+                <span className="text-xs font-semibold text-foreground">
                   AI Management Summary
                 </span>
-                <span className="text-[11px] text-muted-foreground">
+                <span className="text-xs text-muted-foreground">
                   Stream a clear executive-level summary tailored for stakeholders in real time.
                 </span>
               </div>
@@ -286,7 +286,7 @@ export function AiSummaryCard({
                 type="button"
                 size="sm"
                 onClick={handleStartStream}
-                className="h-8 text-xs font-bold bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-xs gap-1.5 shrink-0 cursor-pointer"
+                className="h-8 text-xs font-semibold bg-notion-purple-fg hover:bg-notion-purple-fg text-white rounded-lg shadow-xs gap-1.5 shrink-0 cursor-pointer"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Stream Summary</span>
@@ -297,12 +297,12 @@ export function AiSummaryCard({
       </div>
 
       {hasText && !isStreaming && (
-        <div className="px-4.5 pb-3 pt-0 flex items-center justify-between text-[10px] text-muted-foreground/60 border-t border-border/30 pt-2.5">
+        <div className="px-4.5 pb-3 pt-0 flex items-center justify-between text-xs text-muted-foreground/60 border-t border-border/30 pt-2.5">
           <div className="flex items-center gap-1.5">
-            <Sparkles className="w-2.5 h-2.5 text-purple-500/60" />
+            <Sparkles className="w-2.5 h-2.5 text-notion-purple-fg/60" />
             <span>AI Management Briefing · Focuses on business context &amp; purpose</span>
           </div>
-          <span className="font-mono text-[9px]">Gemini 2.5 Flash</span>
+          <span className="font-mono text-xs">Gemini 2.5 Flash</span>
         </div>
       )}
     </div>

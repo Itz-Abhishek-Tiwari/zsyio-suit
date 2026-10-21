@@ -113,7 +113,7 @@ export function ClientProfileTabs({
               description="Add software suites, web applications, or tools belonging to this client account."
               action={
                 canCreateProduct ? (
-                  <Button asChild size="sm" className="mt-2 text-xs font-semibold gap-1.5 rounded-xl">
+                  <Button asChild size="sm" className="mt-2 text-xs font-semibold gap-1.5 rounded-lg">
                     <Link href={`/clients/${clientId}/products/new`}>
                       <Plus className="w-3.5 h-3.5" />
                       <span>Create First Product</span>
@@ -141,30 +141,30 @@ export function ClientProfileTabs({
               description="Tasks created across any of this client's product boards will appear here."
             />
           ) : (
-            <div className="rounded-2xl border border-border/80 bg-card overflow-hidden shadow-xs">
+            <div className="rounded-lg border border-border/80 bg-card overflow-hidden shadow-xs">
               <div className="overflow-x-auto">
                 <Table>
                   <TableHeader className="bg-surface-subtle/50">
                     <TableRow className="border-b border-border/60">
-                      <TableHead className="w-[100px] min-w-[100px] font-bold text-xs uppercase tracking-wider text-muted-foreground py-3 pl-4 whitespace-nowrap">
+                      <TableHead className="w-[100px] min-w-[100px] font-semibold text-xs   text-muted-foreground py-3 pl-4 whitespace-nowrap">
                         ID
                       </TableHead>
-                      <TableHead className="min-w-[200px] font-bold text-xs uppercase tracking-wider text-muted-foreground py-3">
+                      <TableHead className="min-w-[200px] font-semibold text-xs   text-muted-foreground py-3">
                         Task Title
                       </TableHead>
-                      <TableHead className="min-w-[150px] font-bold text-xs uppercase tracking-wider text-muted-foreground py-3 whitespace-nowrap">
+                      <TableHead className="min-w-[150px] font-semibold text-xs   text-muted-foreground py-3 whitespace-nowrap">
                         Product
                       </TableHead>
-                      <TableHead className="w-[120px] min-w-[120px] font-bold text-xs uppercase tracking-wider text-muted-foreground py-3 whitespace-nowrap">
+                      <TableHead className="w-[120px] min-w-[120px] font-semibold text-xs   text-muted-foreground py-3 whitespace-nowrap">
                         Status
                       </TableHead>
-                      <TableHead className="w-[110px] min-w-[110px] font-bold text-xs uppercase tracking-wider text-muted-foreground py-3 whitespace-nowrap">
+                      <TableHead className="w-[110px] min-w-[110px] font-semibold text-xs   text-muted-foreground py-3 whitespace-nowrap">
                         Priority
                       </TableHead>
-                      <TableHead className="w-[150px] min-w-[150px] font-bold text-xs uppercase tracking-wider text-muted-foreground py-3 whitespace-nowrap">
+                      <TableHead className="w-[150px] min-w-[150px] font-semibold text-xs   text-muted-foreground py-3 whitespace-nowrap">
                         Assignee
                       </TableHead>
-                      <TableHead className="w-[110px] min-w-[110px] font-bold text-xs uppercase tracking-wider text-muted-foreground py-3 whitespace-nowrap">
+                      <TableHead className="w-[110px] min-w-[110px] font-semibold text-xs   text-muted-foreground py-3 whitespace-nowrap">
                         Due Date
                       </TableHead>
                       <TableHead className="w-[44px] min-w-[44px] text-right py-3 pr-4"></TableHead>
@@ -174,7 +174,7 @@ export function ClientProfileTabs({
                     {tasks.map((task) => (
                       <TableRow key={task.id} className="hover:bg-surface-subtle/40 transition-colors border-b border-border/50">
                         <TableCell className="font-mono text-xs font-semibold py-3.5 pl-4 whitespace-nowrap">
-                          <TaskShortIdBadge task={task} className="text-[11px]" />
+                          <TaskShortIdBadge task={task} className="text-xs" />
                         </TableCell>
                         <TableCell className="font-semibold text-foreground text-xs py-3.5 min-w-[180px]">
                           <Link

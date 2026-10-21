@@ -22,12 +22,12 @@ interface MultiAssigneeFilterProps {
 }
 
 const ROLE_BADGE_STYLE: Record<string, string> = {
-  ADMIN: "bg-purple-500/10 text-purple-500 border-purple-500/20",
-  DEVELOPER: "bg-blue-500/10 text-blue-500 border-blue-500/20",
-  QA: "bg-amber-500/10 text-amber-500 border-amber-500/20",
-  SUPPORT: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20",
-  PRODUCT_OWNER: "bg-rose-500/10 text-rose-500 border-rose-500/20",
-  CLIENT: "bg-slate-500/10 text-slate-400 border-slate-500/20",
+  ADMIN: "bg-notion-purple-fg/10 text-notion-purple-fg border-notion-purple-fg/20",
+  DEVELOPER: "bg-notion-blue-fg/10 text-notion-blue-fg border-notion-blue-fg/20",
+  QA: "bg-warning/10 text-warning border-warning/20",
+  SUPPORT: "bg-success/10 text-success border-success/20",
+  PRODUCT_OWNER: "bg-destructive/10 text-destructive border-destructive/20",
+  CLIENT: "bg-muted-foreground/10 text-muted-foreground border-border/20",
 };
 
 export function MultiAssigneeFilter({
@@ -87,7 +87,7 @@ export function MultiAssigneeFilter({
       <PopoverTrigger asChild>
         <button
           type="button"
-          className={`flex h-8.5 w-auto min-w-fit max-w-[210px] items-center justify-between whitespace-nowrap rounded-xl border px-3 py-1.5 text-xs font-semibold shadow-2xs transition-all duration-150 cursor-pointer select-none gap-2 outline-none ${
+          className={`flex h-8.5 w-auto min-w-fit max-w-[210px] items-center justify-between whitespace-nowrap rounded-lg border px-3 py-1.5 text-xs font-semibold shadow-2xs transition-all duration-150 cursor-pointer select-none gap-2 outline-none ${
             hasSelection
               ? "border-primary/50 bg-primary/10 text-primary hover:bg-primary/15 hover:border-primary/70 shadow-xs"
               : "border-input-border bg-input text-foreground hover:border-border-strong hover:bg-surface-elevated"
@@ -101,7 +101,7 @@ export function MultiAssigneeFilter({
               </>
             ) : selectedUserIds.length === 1 && selectedUsers[0] ? (
               <>
-                <span className="w-4.5 h-4.5 rounded-full bg-primary text-primary-foreground text-[9px] font-bold flex items-center justify-center shrink-0 shadow-2xs">
+                <span className="w-4.5 h-4.5 rounded-full bg-primary text-primary-foreground text-xs font-semibold flex items-center justify-center shrink-0 shadow-2xs">
                   {selectedUsers[0].name
                     .split(" ")
                     .map((w) => w[0])
@@ -119,7 +119,7 @@ export function MultiAssigneeFilter({
                 <span className="truncate font-semibold text-primary">
                   {selectedUserIds.length} Assignees
                 </span>
-                <span className="inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-bold rounded-full bg-primary text-primary-foreground leading-none shrink-0">
+                <span className="inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-semibold rounded-full bg-primary text-primary-foreground leading-none shrink-0">
                   {selectedUserIds.length}
                 </span>
               </>
@@ -153,7 +153,7 @@ export function MultiAssigneeFilter({
       <PopoverContent
         align="start"
         sideOffset={6}
-        className="w-76 p-0 shadow-2xl rounded-2xl border border-border/80 bg-surface-elevated text-foreground z-50 overflow-hidden backdrop-blur-md"
+        className="w-76 p-0 shadow-md rounded-lg border border-border/80 bg-surface-elevated text-foreground z-50 overflow-hidden backdrop-blur-md"
       >
         {/* Search header */}
         <div className="p-2.5 border-b border-border/60 bg-surface-subtle/50 flex flex-col gap-2">
@@ -178,7 +178,7 @@ export function MultiAssigneeFilter({
           </div>
 
           {/* Quick toggle bar */}
-          <div className="flex items-center justify-between px-1 text-[11px] text-muted-foreground font-medium">
+          <div className="flex items-center justify-between px-1 text-xs text-muted-foreground font-medium">
             <span>
               {selectedUserIds.length === 0
                 ? "No assignees selected"
@@ -234,7 +234,7 @@ export function MultiAssigneeFilter({
                   key={user.id}
                   type="button"
                   onClick={() => toggleUser(user.id)}
-                  className={`w-full flex items-center justify-between text-xs py-2 px-2.5 rounded-xl hover:bg-surface-subtle transition-colors text-left cursor-pointer group ${
+                  className={`w-full flex items-center justify-between text-xs py-2 px-2.5 rounded-lg hover:bg-surface-subtle transition-colors text-left cursor-pointer group ${
                     isSelected
                       ? "bg-primary/10 text-foreground font-semibold"
                       : "text-foreground font-medium"
@@ -242,7 +242,7 @@ export function MultiAssigneeFilter({
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
                     <span
-                      className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 transition-colors shadow-2xs ${
+                      className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold shrink-0 transition-colors shadow-2xs ${
                         isSelected
                           ? "bg-primary text-primary-foreground"
                           : "bg-primary/15 text-primary group-hover:bg-primary/25"
@@ -257,7 +257,7 @@ export function MultiAssigneeFilter({
                     </span>
                     <div className="flex flex-col min-w-0">
                       <span className="truncate text-xs font-semibold">{user.name}</span>
-                      <span className="truncate text-[10px] text-muted-foreground">
+                      <span className="truncate text-xs text-muted-foreground">
                         {user.email}
                       </span>
                     </div>
@@ -265,7 +265,7 @@ export function MultiAssigneeFilter({
 
                   <div className="flex items-center gap-2 shrink-0 ml-2">
                     <span
-                      className={`text-[9px] font-semibold px-1.5 py-0.5 rounded-md border uppercase tracking-wider ${roleBadgeClass}`}
+                      className={`text-xs font-semibold px-1.5 py-0.5 rounded-md border   ${roleBadgeClass}`}
                     >
                       {roleLabel}
                     </span>

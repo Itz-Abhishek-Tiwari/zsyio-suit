@@ -180,11 +180,11 @@ function TaskCardImpl({
         onClick={handleCardClick}
         title={!canMove ? "Only assignees or managers can move this task" : undefined}
         className={cn(
-          "group relative flex flex-col gap-2.5 rounded-xl border p-3.5 shadow-2xs transition-all duration-200 select-none",
+          "group relative flex flex-col gap-2.5 rounded-lg border p-3.5 shadow-2xs transition-all duration-200 select-none",
           cardBgClass,
           canMove ? "cursor-grab active:cursor-grabbing" : "cursor-pointer",
           isDragging
-            ? "opacity-50 scale-[0.98] border-dashed border-primary shadow-lg ring-2 ring-primary/20"
+            ? "opacity-50 scale-[0.98] border-dashed border-primary shadow-md ring-2 ring-primary/20"
             : "opacity-100"
         )}
       >
@@ -192,14 +192,14 @@ function TaskCardImpl({
         <div className="flex items-center justify-between gap-1.5 text-xs">
           <div className="flex items-center gap-1.5 min-w-0 flex-wrap">
             {/* Ticket Identifier */}
-            <span className="font-mono text-[11px] font-bold text-muted-foreground/80 group-hover:text-primary transition-colors shrink-0">
+            <span className="font-mono text-xs font-semibold text-muted-foreground/80 group-hover:text-primary transition-colors shrink-0">
               {shortId}
             </span>
 
             {/* Admin Created Dot */}
             {isAdmin && (
               <span
-                className="w-1.5 h-1.5 rounded-full bg-violet-500 shrink-0"
+                className="w-1.5 h-1.5 rounded-full bg-notion-purple-fg shrink-0"
                 title="Executive / Admin created ticket"
               />
             )}
@@ -207,7 +207,7 @@ function TaskCardImpl({
             {/* Priority Indicator Pill */}
             <div
               className={cn(
-                "inline-flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.25 rounded-md border select-none transition-colors shrink-0",
+                "inline-flex items-center gap-1 text-xs font-semibold px-1.5 py-0.25 rounded-md border select-none transition-colors shrink-0",
                 priorityCfg.bgClass,
                 priorityCfg.textClass,
                 priorityCfg.borderClass
@@ -220,7 +220,7 @@ function TaskCardImpl({
 
             {/* Overdue Alert Pill */}
             {isOverdue && (
-              <span className="inline-flex items-center gap-0.5 text-[9px] font-bold text-rose-600 dark:text-rose-400 bg-rose-500/10 border border-rose-500/20 px-1.5 py-0.25 rounded-md shrink-0">
+              <span className="inline-flex items-center gap-0.5 text-xs font-semibold text-destructive bg-destructive/10 border border-destructive/20 px-1.5 py-0.25 rounded-md shrink-0">
                 <AlertCircle className="w-2.5 h-2.5" />
                 <span>Overdue</span>
               </span>
@@ -240,7 +240,7 @@ function TaskCardImpl({
                   <MoreHorizontal className="w-3.5 h-3.5" />
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-44 text-xs shadow-xl">
+              <DropdownMenuContent align="end" className="w-44 text-xs shadow-md">
                 <DropdownMenuLabel className="text-xs">Task Options</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 {onViewTask ? (
@@ -261,7 +261,7 @@ function TaskCardImpl({
                     <DropdownMenuSubTrigger className="cursor-pointer text-xs">
                       Move Status
                     </DropdownMenuSubTrigger>
-                    <DropdownMenuSubContent className="text-xs w-36 shadow-lg">
+                    <DropdownMenuSubContent className="text-xs w-36 shadow-md">
                       {availableStatuses.map((s) => (
                         <DropdownMenuItem
                           key={s.status}
@@ -312,7 +312,7 @@ function TaskCardImpl({
 
         {/* Client & Product Context */}
         {(task.product || task.assignedTeam) && (
-          <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground/80 font-medium truncate">
+          <div className="flex items-center gap-1.5 text-xs text-muted-foreground/80 font-medium truncate">
             {task.product?.client && (
               <span className="flex items-center gap-1 truncate text-foreground/80" title={task.product.client.name}>
                 <Building2 className="w-3 h-3 text-primary/70 shrink-0" />
@@ -321,12 +321,12 @@ function TaskCardImpl({
             )}
 
             {task.product?.client && task.product && (
-              <span className="text-muted-foreground/40 text-[10px]">/</span>
+              <span className="text-muted-foreground/40 text-xs">/</span>
             )}
 
             {task.product && (
               <span className="flex items-center gap-1 truncate text-foreground/80" title={task.product.name}>
-                <Package className="w-3 h-3 text-orange-500/70 shrink-0" />
+                <Package className="w-3 h-3 text-notion-orange-fg/70 shrink-0" />
                 <span className="truncate">{task.product.name}</span>
               </span>
             )}
@@ -352,7 +352,7 @@ function TaskCardImpl({
               />
             ))}
             {task.tags.length > 3 && (
-              <span className="text-[9px] font-semibold text-muted-foreground bg-muted/60 px-1.5 py-0.5 rounded-md border border-border/50">
+              <span className="text-xs font-semibold text-muted-foreground bg-muted/60 px-1.5 py-0.5 rounded-md border border-border/50">
                 +{task.tags.length - 3}
               </span>
             )}
@@ -379,15 +379,15 @@ function TaskCardImpl({
                 className="relative flex items-center shrink-0"
                 title={`Reviewer${assignedReviewers.length > 1 ? "s" : ""}: ${assignedReviewers.map((r) => r.name).join(", ")}`}
               >
-                <div className="w-5 h-5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-[8px] font-bold flex items-center justify-center">
+                <div className="w-5 h-5 rounded-full bg-success/15 border border-success/30 text-success text-[8px] font-semibold flex items-center justify-center">
                   {assignedReviewers[0].name.slice(0, 2).toUpperCase()}
                 </div>
                 {assignedReviewers.length > 1 ? (
-                  <span className="absolute -top-1 -right-1 text-[8px] px-1 font-bold bg-emerald-600 text-white rounded-full ring-1 ring-background">
+                  <span className="absolute -top-1 -right-1 text-[8px] px-1 font-semibold bg-success text-white rounded-full ring-1 ring-background">
                     +{assignedReviewers.length - 1}
                   </span>
                 ) : (
-                  <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-emerald-500 ring-1 ring-background" />
+                  <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-success ring-1 ring-background" />
                 )}
               </div>
             )}

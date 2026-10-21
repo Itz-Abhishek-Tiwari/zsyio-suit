@@ -58,7 +58,7 @@ export function TaskModalHeader({
 
           {product && (
             <div className="flex items-center gap-1.5 font-medium text-foreground/80">
-              <Package className="w-3.5 h-3.5 text-orange-500" />
+              <Package className="w-3.5 h-3.5 text-notion-orange-fg" />
               <span>{product.name}</span>
               <ChevronRight className="w-3 h-3 text-muted-foreground/40" />
             </div>
@@ -68,11 +68,11 @@ export function TaskModalHeader({
             type="button"
             onClick={onCopyId}
             title="Click to copy Ticket ID"
-            className="group inline-flex items-center gap-1 font-mono text-[11px] font-bold text-primary bg-primary/10 hover:bg-primary/20 px-2 py-0.5 rounded-md border border-primary/20 transition-all cursor-pointer select-none active:scale-95"
+            className="group inline-flex items-center gap-1 font-mono text-xs font-semibold text-primary bg-primary/10 hover:bg-primary/20 px-2 py-0.5 rounded-md border border-primary/20 transition-all cursor-pointer select-none "
           >
             <span>{shortId}</span>
             {hasCopiedId ? (
-              <Check className="w-3 h-3 text-emerald-500" />
+              <Check className="w-3 h-3 text-success" />
             ) : (
               <Copy className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
             )}
@@ -81,7 +81,7 @@ export function TaskModalHeader({
       </div>
 
       <SheetHeader className="p-0 border-none space-y-0 text-left">
-        <SheetTitle className="text-xl sm:text-2xl md:text-3xl font-extrabold font-display text-foreground leading-snug tracking-tight">
+        <SheetTitle className="text-xl sm:text-2xl md:text-3xl font-semibold font-display text-foreground leading-snug tracking-tight">
           {title}
         </SheetTitle>
       </SheetHeader>
@@ -100,7 +100,7 @@ export function TaskModalHeader({
                 <UserAvatar key={u.id} user={u} size="xs" />
               ))}
             </div>
-            <span className="text-[11px] font-semibold text-muted-foreground ml-1">
+            <span className="text-xs font-semibold text-muted-foreground ml-1">
               {assignedUsers.length === 1 ? assignedUsers[0].name : `${assignedUsers.length} assignees`}
             </span>
           </div>

@@ -97,7 +97,7 @@ export function TestCaseCard({
 
             return (
               <div key={i} className="flex items-start gap-2.5">
-                <span className="w-5 h-5 rounded-md bg-surface-subtle text-foreground-secondary border border-border/80 flex items-center justify-center font-mono text-[10px] font-bold shrink-0 mt-0.5 shadow-2xs">
+                <span className="w-5 h-5 rounded-md bg-surface-subtle text-foreground-secondary border border-border/80 flex items-center justify-center font-mono text-xs font-semibold shrink-0 mt-0.5 shadow-2xs">
                   {stepNum}
                 </span>
                 <span className="text-xs text-foreground/90 leading-relaxed pt-0.5">
@@ -132,7 +132,7 @@ export function TestCaseCard({
         )}
       >
         <div className="flex items-center gap-2.5 flex-1 min-w-0">
-          <span className="font-mono text-[10px] font-bold text-muted-foreground bg-surface-subtle px-1.5 py-0.5 rounded-md border border-border/80 shrink-0">
+          <span className="font-mono text-xs font-semibold text-muted-foreground bg-surface-subtle px-1.5 py-0.5 rounded-md border border-border/80 shrink-0">
             #{String(index + 1).padStart(2, "0")}
           </span>
 
@@ -143,7 +143,7 @@ export function TestCaseCard({
                   <button
                     type="button"
                     className={cn(
-                      "flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold border shrink-0 transition-all cursor-pointer shadow-2xs",
+                      "flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold border shrink-0 transition-all cursor-pointer shadow-2xs",
                       statusInfo.bg,
                       statusInfo.border,
                       statusInfo.textColor,
@@ -155,7 +155,7 @@ export function TestCaseCard({
                     <ChevronDown className="w-3 h-3 opacity-60 ml-0.5" />
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-36 rounded-md p-1 shadow-lg border border-border/80">
+                <DropdownMenuContent align="start" className="w-36 rounded-md p-1 shadow-md border border-border/80">
                   {(Object.keys(STATUS_CONFIG) as TestCaseStatus[]).map((st) => {
                     const conf = STATUS_CONFIG[st];
                     const ItemIcon = conf.icon;
@@ -165,7 +165,7 @@ export function TestCaseCard({
                         onClick={() => onStatusChange(tc.id, st)}
                         className={cn(
                           "flex items-center gap-2 text-xs font-medium cursor-pointer rounded-md px-2.5 py-1.5",
-                          tc.status === st && "bg-muted font-bold text-foreground"
+                          tc.status === st && "bg-muted font-semibold text-foreground"
                         )}
                       >
                         <ItemIcon className={cn("w-3.5 h-3.5", conf.color)} />
@@ -179,7 +179,7 @@ export function TestCaseCard({
             ) : (
               <div
                 className={cn(
-                  "flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold border shrink-0 select-none shadow-2xs",
+                  "flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold border shrink-0 select-none shadow-2xs",
                   statusInfo.bg,
                   statusInfo.border,
                   statusInfo.textColor
@@ -208,8 +208,8 @@ export function TestCaseCard({
                 className={cn(
                   "text-xs sm:text-sm font-medium tracking-tight truncate",
                   tc.status === "PASSED" && "text-foreground",
-                  tc.status === "FAILED" && "text-rose-600 dark:text-rose-400 font-semibold",
-                  tc.status === "BLOCKED" && "text-amber-600 dark:text-amber-400 font-semibold",
+                  tc.status === "FAILED" && "text-destructive font-semibold",
+                  tc.status === "BLOCKED" && "text-warning font-semibold",
                   tc.status === "PENDING" && "text-foreground"
                 )}
               >
@@ -227,7 +227,7 @@ export function TestCaseCard({
                   type="button"
                   onClick={() => onStatusChange(tc.id, "PASSED")}
                   title="Mark as Passed"
-                  className="w-7 h-7 rounded-lg text-muted-foreground hover:text-emerald-600 hover:bg-emerald-500/10 flex items-center justify-center transition-colors cursor-pointer"
+                  className="w-7 h-7 rounded-lg text-muted-foreground hover:text-success hover:bg-success/10 flex items-center justify-center transition-colors cursor-pointer"
                 >
                   <CheckCircle2 className="w-4 h-4" />
                 </button>
@@ -238,7 +238,7 @@ export function TestCaseCard({
                   type="button"
                   onClick={() => onStatusChange(tc.id, "FAILED")}
                   title="Mark as Failed"
-                  className="w-7 h-7 rounded-lg text-muted-foreground hover:text-rose-600 hover:bg-rose-500/10 flex items-center justify-center transition-colors cursor-pointer"
+                  className="w-7 h-7 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 flex items-center justify-center transition-colors cursor-pointer"
                 >
                   <XCircle className="w-4 h-4" />
                 </button>
@@ -267,7 +267,7 @@ export function TestCaseCard({
           {isEditing ? (
             <div className="flex flex-col gap-3.5">
               <div>
-                <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <label className="text-xs font-semibold text-muted-foreground   mb-1.5 flex items-center gap-1.5">
                   <FileText className="w-3.5 h-3.5" />
                   Description / Objective
                 </label>
@@ -283,7 +283,7 @@ export function TestCaseCard({
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                  <label className="text-xs font-semibold text-muted-foreground   mb-1.5 flex items-center gap-1.5">
                     <ListChecks className="w-3.5 h-3.5" />
                     Steps to Execute
                   </label>
@@ -299,7 +299,7 @@ export function TestCaseCard({
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                  <label className="text-xs font-semibold text-muted-foreground   mb-1.5 flex items-center gap-1.5">
                     <Target className="w-3.5 h-3.5" />
                     Expected Result
                   </label>
@@ -319,7 +319,7 @@ export function TestCaseCard({
               </div>
 
               <div>
-                <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <label className="text-xs font-semibold text-muted-foreground   mb-1.5 flex items-center gap-1.5">
                   <AlertCircle className="w-3.5 h-3.5" />
                   Execution Notes & Observations
                 </label>
@@ -366,7 +366,7 @@ export function TestCaseCard({
                 <div className="flex flex-col gap-1.5">
                   <div className="flex items-center gap-1.5 text-muted-foreground">
                     <ListChecks className="w-3.5 h-3.5 text-primary" />
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-muted-foreground">
+                    <span className="text-xs font-mono font-semibold   text-muted-foreground">
                       Steps to Test
                     </span>
                   </div>
@@ -375,8 +375,8 @@ export function TestCaseCard({
 
                 <div className="flex flex-col gap-1.5">
                   <div className="flex items-center gap-1.5 text-muted-foreground">
-                    <Target className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-muted-foreground">
+                    <Target className="w-3.5 h-3.5 text-success" />
+                    <span className="text-xs font-mono font-semibold   text-muted-foreground">
                       Expected Result
                     </span>
                   </div>
@@ -388,9 +388,9 @@ export function TestCaseCard({
 
               {tc.notes && (
                 <div className="rounded-md border border-border/80 bg-surface-subtle/70 dark:bg-card/40 p-3 flex flex-col gap-1.5">
-                  <div className="flex items-center gap-1.5 text-amber-700 dark:text-amber-400">
+                  <div className="flex items-center gap-1.5 text-warning">
                     <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider">
+                    <span className="text-xs font-mono font-semibold  ">
                       Tester Notes
                     </span>
                   </div>
@@ -403,23 +403,23 @@ export function TestCaseCard({
               <div className="flex items-center justify-between gap-3 pt-2.5 border-t border-border/60 text-xs text-muted-foreground">
                 <div className="flex items-center gap-2">
                   {tc.testedBy ? (
-                    <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-surface-subtle border border-border/80 text-[11px] shadow-2xs">
+                    <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-surface-subtle border border-border/80 text-xs shadow-2xs">
                       <UserAvatar
                         user={{ name: tc.testedBy.name, email: tc.testedBy.email }}
                         size="xs"
-                        className="w-4.5 h-4.5 text-[9px]"
+                        className="w-4.5 h-4.5 text-xs"
                       />
                       <span className="font-semibold text-foreground">
                         {tc.testedBy.name}
                       </span>
                       {tc.testedAt && (
-                        <span className="text-muted-foreground text-[10px]">
+                        <span className="text-muted-foreground text-xs">
                           · {formatRelativeTime(tc.testedAt)}
                         </span>
                       )}
                     </div>
                   ) : (
-                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-surface-subtle/60 border border-border/60 text-[10px] font-mono text-muted-foreground">
+                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-surface-subtle/60 border border-border/60 text-xs font-mono text-muted-foreground">
                       <Clock className="w-3 h-3 text-muted-foreground" />
                       Untested
                     </span>

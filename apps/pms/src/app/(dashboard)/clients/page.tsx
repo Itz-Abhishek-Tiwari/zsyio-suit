@@ -58,7 +58,7 @@ export default async function ClientsPage() {
               <Button
                 variant="outline"
                 asChild
-                className="h-9 px-3 text-xs font-semibold gap-1.5 border-purple-500/30 text-purple-600 dark:text-purple-400 hover:bg-purple-500/10 shadow-2xs"
+                className="h-9 px-3 text-xs font-semibold gap-1.5 border-notion-purple-fg/30 text-notion-purple-fg hover:bg-notion-purple-fg/10 shadow-2xs"
               >
                 <a
                   href={process.env.NEXT_PUBLIC_SALES_URL || "http://localhost:3005/kanban"}

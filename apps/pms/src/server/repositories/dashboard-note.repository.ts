@@ -1,21 +1,8 @@
 import { prisma } from "@zsyio/database";
 import type { CreateDashboardNoteInput } from "@zsyio/validators";
 
-export const dashboardNoteRepository = {
-  async listForUser(
-    userId: string,
-    role: string,
-    filters?: { clientId?: string; taskId?: string }
-  ) {
-    // Build base filter from optional query params
-    const baseWhere: Record<string, unknown> = {};
-    if (filters?.clientId) baseWhere.clientId = filters.clientId;
-    if (filters?.taskId) baseWhere.taskId = filters.taskId;
-
-    // Non-admin/manager users: collapse the previous 2-query pattern
-    // into a single query with nested relation filters
-    const visibilityFilter =
-      role === "ADMIN" || role === "MANAGER" || role === "SUPER_ADMIN"
+function buildVisibilityFilter(userId: string, role: string) {
+  return role === "ADMIN" || role === "MANAGER" || role === "SUPER_ADMIN"
         ? {
             OR: [
               { isPersonal: false },
@@ -31,6 +18,22 @@ export const dashboardNoteRepository = {
               { isPersonal: false, targetTeams: { some: { team: { members: { some: { userId } } } } } },
             ],
           };
+}
+
+export const dashboardNoteRepository = {
+  async listForUser(
+    userId: string,
+    role: string,
+    filters?: { clientId?: string; taskId?: string }
+  ) {
+    // Build base filter from optional query params
+    const baseWhere: Record<string, unknown> = {};
+    if (filters?.clientId) baseWhere.clientId = filters.clientId;
+    if (filters?.taskId) baseWhere.taskId = filters.taskId;
+
+    // Non-admin/manager users: collapse the previous 2-query pattern
+    // into a single query with nested relation filters
+    const visibilityFilter = buildVisibilityFilter(userId, role);
 
     const where = { ...baseWhere, ...visibilityFilter };
 
@@ -53,6 +56,14 @@ export const dashboardNoteRepository = {
       },
       orderBy: { createdAt: "desc" },
     });
+  },
+
+  async isVisibleTo(id: string, userId: string, role: string) {
+    const found = await prisma.dashboardNote.findFirst({
+      where: { id, ...buildVisibilityFilter(userId, role) },
+      select: { id: true },
+    });
+    return Boolean(found);
   },
 
   async findById(id: string) {

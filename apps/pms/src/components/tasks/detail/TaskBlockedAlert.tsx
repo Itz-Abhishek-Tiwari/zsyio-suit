@@ -27,10 +27,10 @@ export function TaskBlockedAlert({
   if (task.status !== "BLOCKED") return null;
 
   return (
-    <div className="rounded-xl border border-destructive/30 bg-destructive-light p-4 flex flex-col gap-2 text-destructive">
+    <div className="rounded-lg border border-destructive/30 bg-destructive-light p-4 flex flex-col gap-2 text-destructive">
       <div className="flex items-center justify-between">
         <span className="font-semibold text-xs flex items-center gap-1.5">
-          <AlertOctagon className="w-4 h-4 text-red-600" /> Task is Blocked
+          <AlertOctagon className="w-4 h-4 text-destructive" /> Task is Blocked
         </span>
         {canEdit && !isEditingBlocked && (
           <button
@@ -54,7 +54,7 @@ export function TaskBlockedAlert({
             className="text-xs bg-card text-foreground"
           />
           <div className="flex gap-2 justify-end">
-            <Button size="sm" variant="destructive" onClick={handleBlockedSave} className="gap-1 font-bold">
+            <Button size="sm" variant="destructive" onClick={handleBlockedSave} className="gap-1 font-semibold">
               <Save className="w-3.5 h-3.5" /> Save Reason
             </Button>
             <Button size="sm" variant="ghost" onClick={() => setIsEditingBlocked(false)}>

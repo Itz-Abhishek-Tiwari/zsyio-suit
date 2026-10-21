@@ -1,4 +1,6 @@
-export { defaultAuthMiddleware as middleware } from "@zsyio/auth/middleware";
+import { createAuthMiddleware, DEFAULT_PUBLIC_PATHS } from "@zsyio/auth/middleware";
+
+export const middleware = createAuthMiddleware({ publicPaths: [...DEFAULT_PUBLIC_PATHS, "/api/careers/applications"] });
 
 export const config = {
   matcher: [

@@ -160,7 +160,7 @@ export function CommentThread({
     <div className="flex flex-col gap-4">
       <form
         onSubmit={handlePostTopLevel}
-        className="flex flex-col gap-2 rounded-xl border border-border/70 bg-surface-subtle/40 p-3"
+        className="flex flex-col gap-2 rounded-lg border border-border/70 bg-surface-subtle/40 p-3"
       >
         <input
           type="file"
@@ -194,8 +194,8 @@ export function CommentThread({
                   className="w-9 h-9 rounded-md object-cover border border-border/60 shrink-0"
                 />
                 <div className="flex flex-col min-w-0 max-w-[150px]">
-                  <span className="text-[11px] font-semibold text-foreground truncate">{img.fileName}</span>
-                  <span className="text-[9px] text-muted-foreground">{(img.fileSize / 1024).toFixed(0)} KB</span>
+                  <span className="text-xs font-semibold text-foreground truncate">{img.fileName}</span>
+                  <span className="text-xs text-muted-foreground">{(img.fileSize / 1024).toFixed(0)} KB</span>
                 </div>
                 <button
                   type="button"
@@ -212,7 +212,7 @@ export function CommentThread({
 
         <div className="flex items-center justify-between pt-0.5">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] text-muted-foreground/70 font-mono flex items-center gap-1.5">
+            <span className="text-xs text-muted-foreground/70 font-mono flex items-center gap-1.5">
               <span className="inline-flex items-center gap-0.5 px-1 py-0.2 rounded bg-muted/60 text-muted-foreground font-semibold">
                 <AtSign className="w-2.5 h-2.5 text-primary" /> @mention
               </span>
@@ -222,7 +222,7 @@ export function CommentThread({
             <button
               type="button"
               onClick={() => topFileInputRef.current?.click()}
-              className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors cursor-pointer"
               title="Attach image or paste screenshot (⌘V)"
             >
               <ImageIcon className="w-3 h-3 text-primary" />
@@ -234,7 +234,7 @@ export function CommentThread({
             type="submit"
             size="sm"
             disabled={isLoading || (!topLevelBody.trim() && topLevelImages.length === 0)}
-            className="h-7 text-xs font-bold px-3.5 rounded-lg shadow-2xs cursor-pointer"
+            className="h-7 text-xs font-semibold px-3.5 rounded-lg shadow-2xs cursor-pointer"
           >
             {isLoading ? "Posting..." : "Comment"}
           </Button>
@@ -246,7 +246,7 @@ export function CommentThread({
         {isLoadingTask ? (
           <div className="flex flex-col gap-3 py-1 animate-fade-in">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="flex items-start gap-3 p-3 rounded-xl border border-border/60 bg-surface-subtle/30">
+              <div key={i} className="flex items-start gap-3 p-3 rounded-lg border border-border/60 bg-surface-subtle/30">
                 <Skeleton className="w-6 h-6 rounded-full shrink-0 mt-0.5" />
                 <div className="flex flex-col gap-1.5 flex-1">
                   <div className="flex items-center gap-2">
@@ -278,10 +278,10 @@ export function CommentThread({
             />
           ))
         ) : (
-          <div className="flex flex-col items-center justify-center py-6 rounded-xl border border-dashed border-border/60 bg-surface-subtle/30 text-center">
+          <div className="flex flex-col items-center justify-center py-6 rounded-lg border border-dashed border-border/60 bg-surface-subtle/30 text-center">
             <MessageSquare className="w-4 h-4 text-muted-foreground/40 mb-1" />
-            <p className="text-xs font-bold text-foreground">No comments yet</p>
-            <p className="text-[10px] text-muted-foreground/70">
+            <p className="text-xs font-semibold text-foreground">No comments yet</p>
+            <p className="text-xs text-muted-foreground/70">
               Be the first to share a comment on this task.
             </p>
           </div>
@@ -351,22 +351,22 @@ function RedditCommentItem({
   return (
     <div className="flex flex-col relative group/comment">
       <div className="flex items-start gap-2.5 py-1">
-        <div className="w-5 h-5 rounded-full bg-primary-light text-primary border border-primary/20 font-bold text-[9px] flex items-center justify-center shrink-0 mt-0.5">
+        <div className="w-5 h-5 rounded-full bg-primary-light text-primary border border-primary/20 font-semibold text-xs flex items-center justify-center shrink-0 mt-0.5">
           {initials}
         </div>
 
         <div className="flex flex-col gap-0.5 flex-1 min-w-0">
           <div className="flex items-center gap-1.5 flex-wrap text-xs">
-            <span className="font-bold text-foreground hover:underline cursor-pointer">
+            <span className="font-semibold text-foreground hover:underline cursor-pointer">
               {authorName}
             </span>
             {comment.author?.role && (
-              <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-muted/80 text-muted-foreground uppercase">
+              <span className="text-xs font-mono px-1 py-0.2 rounded bg-muted/80 text-muted-foreground ">
                 {comment.author.role}
               </span>
             )}
             <span className="text-muted-foreground/40">•</span>
-            <span className="text-[10px] text-muted-foreground/70">{formattedTime}</span>
+            <span className="text-xs text-muted-foreground/70">{formattedTime}</span>
           </div>
 
           <FormattedText content={comment.body} className="py-0.5" />
@@ -384,14 +384,14 @@ function RedditCommentItem({
                   setReplyImages([]);
                 }
               }}
-              className="inline-flex items-center gap-1 text-[10px] font-bold text-muted-foreground hover:text-primary transition-colors"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-primary transition-colors"
             >
               <Reply className="w-3 h-3" />
               <span>{isReplying ? "Cancel" : "Reply"}</span>
             </button>
 
             {childReplies.length > 0 && depth === 0 && (
-              <span className="inline-flex items-center gap-1 text-[10px] font-medium text-muted-foreground/70">
+              <span className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground/70">
                 <MessageSquare className="w-2.5 h-2.5" />
                 <span>{childReplies.length} {childReplies.length === 1 ? "reply" : "replies"}</span>
               </span>
@@ -409,11 +409,11 @@ function RedditCommentItem({
             accept="image/*"
             className="hidden"
           />
-          <div className="flex items-center justify-between text-[10px]">
+          <div className="flex items-center justify-between text-xs">
             <span className="font-semibold text-primary flex items-center gap-1">
-              <CornerDownRight className="w-3 h-3" /> Replying to <span className="underline font-bold">@{authorName}</span>
+              <CornerDownRight className="w-3 h-3" /> Replying to <span className="underline font-semibold">@{authorName}</span>
             </span>
-            <span className="text-[9px] text-muted-foreground/70 font-mono">⌘ + Enter</span>
+            <span className="text-xs text-muted-foreground/70 font-mono">⌘ + Enter</span>
           </div>
 
           <MentionTextarea
@@ -441,8 +441,8 @@ function RedditCommentItem({
                     className="w-9 h-9 rounded-md object-cover border border-border/60 shrink-0"
                   />
                   <div className="flex flex-col min-w-0 max-w-[150px]">
-                    <span className="text-[11px] font-semibold text-foreground truncate">{img.fileName}</span>
-                    <span className="text-[9px] text-muted-foreground">{(img.fileSize / 1024).toFixed(0)} KB</span>
+                    <span className="text-xs font-semibold text-foreground truncate">{img.fileName}</span>
+                    <span className="text-xs text-muted-foreground">{(img.fileSize / 1024).toFixed(0)} KB</span>
                   </div>
                   <button
                     type="button"
@@ -461,7 +461,7 @@ function RedditCommentItem({
             <button
               type="button"
               onClick={() => replyFileInputRef.current?.click()}
-              className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors cursor-pointer"
               title="Attach image or paste screenshot (⌘V)"
             >
               <ImageIcon className="w-3 h-3 text-primary" />
@@ -478,7 +478,7 @@ function RedditCommentItem({
                   setReplyBody("");
                   setReplyImages([]);
                 }}
-                className="h-6 text-[10px] px-2"
+                className="h-6 text-xs px-2"
               >
                 Cancel
               </Button>
@@ -487,7 +487,7 @@ function RedditCommentItem({
                 size="sm"
                 disabled={isLoading || (!replyBody.trim() && replyImages.length === 0)}
                 onClick={() => onPostReply(comment.id, authorName)}
-                className="h-6 text-[10px] font-bold px-2.5 rounded-md shadow-2xs"
+                className="h-6 text-xs font-semibold px-2.5 rounded-md shadow-2xs"
               >
                 {isLoading ? "Replying..." : "Reply"}
               </Button>
@@ -497,7 +497,7 @@ function RedditCommentItem({
       )}
 
       {childReplies.length > 0 && (
-        <div className="ml-2.5 pl-4 border-l border-border/60 hover:border-red-500/40 transition-colors flex flex-col gap-2 mt-1">
+        <div className="ml-2.5 pl-4 border-l border-border/60 hover:border-destructive/40 transition-colors flex flex-col gap-2 mt-1">
           {childReplies.map((reply) => (
             <RedditCommentItem
               key={reply.id}

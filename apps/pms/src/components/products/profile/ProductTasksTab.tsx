@@ -83,14 +83,14 @@ export function ProductTasksTab({
 }: ProductTasksTabProps) {
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between gap-3 flex-wrap p-3 rounded-2xl border border-border/80 bg-card shadow-2xs">
+      <div className="flex items-center justify-between gap-3 flex-wrap p-3 rounded-lg border border-border/80 bg-card shadow-2xs">
         <div className="relative flex-1 min-w-[220px]">
           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground/70" />
           <Input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search tasks by title, ticket ID, or assignee..."
-            className="pl-9 h-9 text-xs rounded-xl bg-surface-subtle/60 border-border/60"
+            className="pl-9 h-9 text-xs rounded-lg bg-surface-subtle/60 border-border/60"
           />
           {searchQuery && (
             <button
@@ -105,7 +105,7 @@ export function ProductTasksTab({
 
         <div className="flex items-center gap-2 flex-wrap">
           <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="h-9 text-xs rounded-xl w-[135px] bg-surface-subtle/60">
+            <SelectTrigger className="h-9 text-xs rounded-lg w-[135px] bg-surface-subtle/60">
               <SelectValue placeholder="Status" />
             </SelectTrigger>
             <SelectContent>
@@ -121,7 +121,7 @@ export function ProductTasksTab({
           </Select>
 
           <Select value={priorityFilter} onValueChange={setPriorityFilter}>
-            <SelectTrigger className="h-9 text-xs rounded-xl w-[135px] bg-surface-subtle/60">
+            <SelectTrigger className="h-9 text-xs rounded-lg w-[135px] bg-surface-subtle/60">
               <SelectValue placeholder="Priority" />
             </SelectTrigger>
             <SelectContent>
@@ -152,11 +152,11 @@ export function ProductTasksTab({
       </div>
 
       {filteredTasks.length === 0 ? (
-        <div className="flex flex-col items-center justify-center p-14 text-center rounded-2xl border border-dashed border-border/80 bg-card/50">
-          <div className="w-12 h-12 rounded-2xl bg-surface-subtle border border-border flex items-center justify-center mb-3">
+        <div className="flex flex-col items-center justify-center p-14 text-center rounded-lg border border-dashed border-border/80 bg-card/50">
+          <div className="w-12 h-12 rounded-lg bg-surface-subtle border border-border flex items-center justify-center mb-3">
             <ListTodo className="w-6 h-6 text-muted-foreground/60" />
           </div>
-          <h3 className="text-sm font-bold text-foreground">No tasks found</h3>
+          <h3 className="text-sm font-semibold text-foreground">No tasks found</h3>
           <p className="text-xs text-muted-foreground max-w-sm mt-1 mb-4">
             {tasks.length === 0
               ? `No tasks have been created for ${productName} yet.`
@@ -172,26 +172,26 @@ export function ProductTasksTab({
           )}
         </div>
       ) : (
-        <div className="rounded-2xl border border-border/80 bg-card overflow-hidden shadow-xs">
+        <div className="rounded-lg border border-border/80 bg-card overflow-hidden shadow-xs">
           <Table>
             <TableHeader>
               <TableRow className="hover:bg-transparent border-border/80 bg-surface-subtle/50">
-                <TableHead className="w-[110px] text-xs font-bold uppercase tracking-wider text-muted-foreground pl-4">
+                <TableHead className="w-[110px] text-xs font-semibold   text-muted-foreground pl-4">
                   ID
                 </TableHead>
-                <TableHead className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <TableHead className="text-xs font-semibold   text-muted-foreground">
                   Task
                 </TableHead>
-                <TableHead className="w-[120px] text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <TableHead className="w-[120px] text-xs font-semibold   text-muted-foreground">
                   Status
                 </TableHead>
-                <TableHead className="w-[110px] text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <TableHead className="w-[110px] text-xs font-semibold   text-muted-foreground">
                   Priority
                 </TableHead>
-                <TableHead className="w-[160px] text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <TableHead className="w-[160px] text-xs font-semibold   text-muted-foreground">
                   Assignee
                 </TableHead>
-                <TableHead className="w-[120px] text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <TableHead className="w-[120px] text-xs font-semibold   text-muted-foreground">
                   Due Date
                 </TableHead>
                 <TableHead className="w-[45px] text-right pr-4" />
@@ -219,7 +219,7 @@ export function ProductTasksTab({
                       <div className="flex items-center gap-1.5 flex-wrap">
                         <TaskTypeBadge type={task.type} />
                         {task.gitBranchSlug && (
-                          <span className="inline-flex items-center gap-1 text-[10px] font-mono text-muted-foreground/80 bg-surface-subtle px-1.5 py-0.5 rounded border border-border/50">
+                          <span className="inline-flex items-center gap-1 text-xs font-mono text-muted-foreground/80 bg-surface-subtle px-1.5 py-0.5 rounded border border-border/50">
                             <GitBranch className="w-2.5 h-2.5" />
                             <span className="truncate max-w-[180px]">{task.gitBranchSlug}</span>
                           </span>
@@ -237,7 +237,7 @@ export function ProductTasksTab({
                     {task.assignedTo ? (
                       <DeveloperBadge name={task.assignedTo.name} />
                     ) : (
-                      <span className="text-[11px] text-muted-foreground/60 italic">Unassigned</span>
+                      <span className="text-xs text-muted-foreground/60 italic">Unassigned</span>
                     )}
                   </TableCell>
                   <TableCell className="py-3.5">

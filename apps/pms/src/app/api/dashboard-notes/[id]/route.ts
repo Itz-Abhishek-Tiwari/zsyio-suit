@@ -19,6 +19,9 @@ export async function GET(
     if (note.isPersonal && note.authorId !== user.id) {
       throw new ForbiddenError("This is a private personal note.");
     }
+    if (!(await dashboardNoteService.isVisibleTo(user, id))) {
+      throw new ForbiddenError("You do not have access to this note.");
+    }
 
     return NextResponse.json(note);
   });

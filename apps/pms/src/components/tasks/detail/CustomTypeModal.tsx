@@ -45,7 +45,7 @@ export function CustomTypeModal({
             size="sm"
             onClick={handleCreateCustomType}
             disabled={!newTypeName.trim() || isCreatingType}
-            className="text-xs font-bold gap-1.5"
+            className="text-xs font-semibold gap-1.5"
           >
             {isCreatingType ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Plus className="w-3.5 h-3.5" />}
             <span>Save & Assign</span>

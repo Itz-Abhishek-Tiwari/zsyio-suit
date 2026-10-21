@@ -98,9 +98,9 @@ function ClientKanbanCardImpl({
       draggable={canEdit}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      className={`group relative flex flex-col rounded-xl border bg-card p-4 transition-all duration-200 select-none shadow-2xs hover:shadow-md hover:border-primary/40 ${
+      className={`group relative flex flex-col rounded-lg border bg-card p-4 transition-all duration-200 select-none shadow-2xs hover:shadow-md hover:border-primary/40 ${
         isDragging
-          ? "opacity-40 scale-[0.98] border-primary shadow-lg ring-2 ring-primary/20"
+          ? "opacity-40 scale-[0.98] border-primary shadow-md ring-2 ring-primary/20"
           : "border-border/80"
       } ${canEdit ? "cursor-grab active:cursor-grabbing" : "cursor-default"}`}
     >
@@ -108,7 +108,7 @@ function ClientKanbanCardImpl({
       <div className="flex items-start justify-between gap-2.5">
         <div className="flex items-center gap-2.5 min-w-0 flex-1">
           {/* Avatar / Monogram */}
-          <div className="relative w-9 h-9 rounded-xl bg-primary-light text-primary border border-primary/20 flex items-center justify-center shrink-0 font-bold text-xs group-hover:scale-105 group-hover:border-primary/50 transition-all overflow-hidden shadow-2xs">
+          <div className="relative w-9 h-9 rounded-lg bg-primary-light text-primary border border-primary/20 flex items-center justify-center shrink-0 font-semibold text-xs  group-hover:border-primary/50 transition-all overflow-hidden shadow-2xs">
             {client.logoUrl ? (
               /* eslint-disable-next-line @next/next/no-img-element */
               <img
@@ -124,7 +124,7 @@ function ClientKanbanCardImpl({
           <div className="min-w-0 flex-1">
             <Link
               href={`/clients/${client.id}`}
-              className="font-bold text-foreground text-xs leading-snug hover:text-primary transition-colors truncate block"
+              className="font-semibold text-foreground text-xs leading-snug hover:text-primary transition-colors truncate block"
               title={client.name}
             >
               {client.name}
@@ -136,14 +136,14 @@ function ClientKanbanCardImpl({
                 target="_blank"
                 rel="noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-1 text-[11px] text-muted-foreground/80 hover:text-primary truncate max-w-[150px] transition-colors"
+                className="inline-flex items-center gap-1 text-xs text-muted-foreground/80 hover:text-primary truncate max-w-[150px] transition-colors"
               >
                 <Globe className="w-2.5 h-2.5 shrink-0" />
                 <span className="truncate">{client.domain.replace(/^https?:\/\//, "")}</span>
                 <ExternalLink className="w-2.5 h-2.5 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
               </a>
             ) : (
-              <span className="text-[10px] text-muted-foreground/50">No domain</span>
+              <span className="text-xs text-muted-foreground/50">No domain</span>
             )}
           </div>
         </div>
@@ -160,7 +160,7 @@ function ClientKanbanCardImpl({
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48 text-xs">
-              <DropdownMenuLabel className="text-[10px] uppercase tracking-wider text-muted-foreground">
+              <DropdownMenuLabel className="text-xs  text-muted-foreground">
                 Client Options
               </DropdownMenuLabel>
               <DropdownMenuItem asChild>
@@ -189,7 +189,7 @@ function ClientKanbanCardImpl({
               {canEdit && (
                 <>
                   <DropdownMenuSeparator />
-                  <DropdownMenuLabel className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                  <DropdownMenuLabel className="text-xs  text-muted-foreground">
                     Move Status
                   </DropdownMenuLabel>
                   {STATUS_TRANSITIONS.filter((t) => {
@@ -232,9 +232,9 @@ function ClientKanbanCardImpl({
 
       {/* Contract & Expiry Badges */}
       {(client.contractStart || client.contractEnd || contractExpiryWarning) && (
-        <div className="mt-2.5 flex items-center gap-2 flex-wrap text-[10px]">
+        <div className="mt-2.5 flex items-center gap-2 flex-wrap text-xs">
           {client.contractEnd && (
-            <Badge variant="secondary" className="text-[10px] font-medium gap-1 py-0 h-5">
+            <Badge variant="secondary" className="text-xs font-medium gap-1 py-0 h-5">
               <Calendar className="w-3 h-3 text-muted-foreground/70" />
               <span>{formatDateMonthYear(client.contractEnd)}</span>
             </Badge>
@@ -243,7 +243,7 @@ function ClientKanbanCardImpl({
           {contractExpiryWarning && (
             <Badge
               variant={contractExpiryWarning.isUrgent ? "destructive" : "warning"}
-              className="text-[10px] font-semibold gap-1 py-0 h-5"
+              className="text-xs font-semibold gap-1 py-0 h-5"
             >
               <AlertTriangle className="w-2.5 h-2.5" />
               <span>{contractExpiryWarning.text}</span>
@@ -255,7 +255,7 @@ function ClientKanbanCardImpl({
       {/* Products & Portfolio count */}
       {products.length > 0 && (
         <div className="mt-2 flex items-center gap-1.5 flex-wrap">
-          <Badge variant="default" className="text-[10px] font-semibold gap-1 py-0 h-5">
+          <Badge variant="default" className="text-xs font-semibold gap-1 py-0 h-5">
             <Package className="w-3 h-3 text-primary/80" />
             <span>
               {products.length} {products.length === 1 ? "Product" : "Products"}
@@ -265,14 +265,14 @@ function ClientKanbanCardImpl({
             <Badge
               key={p.id}
               variant="outline"
-              className="text-[10px] text-muted-foreground/80 py-0 h-5 max-w-[100px] truncate"
+              className="text-xs text-muted-foreground/80 py-0 h-5 max-w-[100px] truncate"
               title={p.name}
             >
               {p.name}
             </Badge>
           ))}
           {products.length > 2 && (
-            <span className="text-[10px] text-muted-foreground/60 font-medium">
+            <span className="text-xs text-muted-foreground/60 font-medium">
               +{products.length - 2} more
             </span>
           )}
@@ -281,7 +281,7 @@ function ClientKanbanCardImpl({
 
       {/* Primary Contact Row */}
       {(client.contactName || client.contactEmail || client.contactPhone) && (
-        <div className="mt-2.5 pt-2 border-t border-border/40 flex items-center justify-between text-[11px] text-muted-foreground gap-2">
+        <div className="mt-2.5 pt-2 border-t border-border/40 flex items-center justify-between text-xs text-muted-foreground gap-2">
           <span className="truncate font-medium text-foreground/80">
             {client.contactName || "Contact"}
           </span>
@@ -318,21 +318,21 @@ function ClientKanbanCardImpl({
             href={`/clients/${client.id}/notes`}
             className="block group/note cursor-pointer rounded-lg bg-muted/40 hover:bg-primary-light/40 border border-border/50 hover:border-primary/30 p-2 transition-all space-y-1 text-left"
           >
-            <div className="flex items-center justify-between text-[10px] text-muted-foreground group-hover/note:text-primary">
+            <div className="flex items-center justify-between text-xs text-muted-foreground group-hover/note:text-primary">
               <span className="font-semibold flex items-center gap-1">
                 <StickyNote className="w-3 h-3 text-primary" />
                 Notes & Specs
               </span>
-              <span className="text-[9px] opacity-60 group-hover/note:opacity-100">Open Editor →</span>
+              <span className="text-xs opacity-60 group-hover/note:opacity-100">Open Editor →</span>
             </div>
-            <p className="text-[11px] text-foreground/90 leading-tight line-clamp-2 italic">
+            <p className="text-xs text-foreground/90 leading-tight line-clamp-2 italic">
               &ldquo;{client.notes}&rdquo;
             </p>
           </Link>
         ) : (
           <Link
             href={`/clients/${client.id}/notes`}
-            className="w-full flex items-center justify-center gap-1.5 py-1 text-[11px] font-medium text-muted-foreground hover:text-primary hover:bg-primary-light/30 rounded-lg border border-dashed border-border/70 transition-colors"
+            className="w-full flex items-center justify-center gap-1.5 py-1 text-xs font-medium text-muted-foreground hover:text-primary hover:bg-primary-light/30 rounded-lg border border-dashed border-border/70 transition-colors"
           >
             <StickyNote className="w-3 h-3 text-primary" />
             <span>+ Notes & Specs</span>

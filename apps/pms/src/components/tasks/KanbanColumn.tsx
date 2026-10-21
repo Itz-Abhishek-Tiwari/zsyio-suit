@@ -10,13 +10,13 @@ const STATUS_CONFIG: Record<
   string,
   { label: string; icon: string; dotClass: string }
 > = {
-  BACKLOG: { label: "Backlog", icon: "BACKLOG", dotClass: "text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700" },
-  TODO: { label: "To Do", icon: "TODO", dotClass: "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/15 border border-blue-200/80 dark:border-blue-500/30" },
-  IN_PROGRESS: { label: "In Progress", icon: "IN_PROGRESS", dotClass: "text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/15 border border-amber-200/80 dark:border-amber-500/30" },
-  IN_REVIEW: { label: "In Review", icon: "IN_REVIEW", dotClass: "text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-500/15 border border-orange-200/80 dark:border-orange-500/30" },
-  QA: { label: "QA", icon: "QA", dotClass: "text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-500/15 border border-purple-200/80 dark:border-purple-500/30" },
-  BLOCKED: { label: "Blocked", icon: "BLOCKED", dotClass: "text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-500/15 border border-red-200/80 dark:border-red-500/30" },
-  DONE: { label: "Done", icon: "DONE", dotClass: "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/15 border border-emerald-200/80 dark:border-emerald-500/30" },
+  BACKLOG: { label: "Backlog", icon: "BACKLOG", dotClass: "text-foreground bg-muted border border-border" },
+  TODO: { label: "To Do", icon: "TODO", dotClass: "text-notion-blue-fg bg-notion-blue border border-notion-blue-fg/80" },
+  IN_PROGRESS: { label: "In Progress", icon: "IN_PROGRESS", dotClass: "text-warning bg-warning-light border border-warning/80" },
+  IN_REVIEW: { label: "In Review", icon: "IN_REVIEW", dotClass: "text-notion-orange-fg bg-notion-orange border border-notion-orange-fg/80" },
+  QA: { label: "QA", icon: "QA", dotClass: "text-notion-purple-fg bg-notion-purple border border-notion-purple-fg/80" },
+  BLOCKED: { label: "Blocked", icon: "BLOCKED", dotClass: "text-destructive bg-destructive-light border border-destructive/80" },
+  DONE: { label: "Done", icon: "DONE", dotClass: "text-success bg-success-light border border-success/80" },
 };
 
 function KanbanColumnImpl({
@@ -134,9 +134,9 @@ function KanbanColumnImpl({
         bg-surface-subtle/40 dark:bg-card/30 backdrop-blur-sm transition-all duration-200 select-none
         ${
           isSelfDragging
-            ? "opacity-35 grayscale-[20%] border-dashed border-slate-300 dark:border-slate-700 bg-surface-subtle/30 scale-[0.98]"
+            ? "opacity-35 grayscale-[20%] border-dashed border-border bg-surface-subtle/30 scale-[0.98]"
             : isColumnDragOver
-            ? "border-primary ring-2 ring-primary/20 bg-primary-light/30 dark:bg-primary-light/10 shadow-md shadow-primary/5 scale-[1.015]"
+            ? "border-primary ring-2 ring-primary/20 bg-primary-light/30 dark:bg-primary-light/10 shadow-md  scale-[1.015]"
             : isTaskDragOver
             ? "border-primary/70 ring-2 ring-primary/20 bg-primary-light/20 dark:bg-primary-light/10 shadow-sm scale-[1.01]"
             : "border-border/60 hover:border-border/90 shadow-none"
@@ -153,14 +153,14 @@ function KanbanColumnImpl({
         <div className="flex items-center gap-1.5 min-w-0">
           <GripVertical className="w-3.5 h-3.5 text-muted-foreground/40 group-hover/header:text-primary transition-colors shrink-0" />
           <span
-            className={`w-5 h-5 rounded-sm flex items-center justify-center text-xs font-bold shrink-0 ${config.dotClass}`}
+            className={`w-5 h-5 rounded-sm flex items-center justify-center text-xs font-semibold shrink-0 ${config.dotClass}`}
           >
             <ColumnIcon iconKey={config.icon} className="w-3 h-3" />
           </span>
-          <h2 className="text-[11px] font-bold uppercase tracking-widest text-foreground-secondary truncate max-w-[100px]">
+          <h2 className="text-xs font-semibold   text-foreground-secondary truncate max-w-[100px]">
             {label}
           </h2>
-          <span className="text-[10px] font-bold font-mono px-1.5 py-0.5 rounded-sm bg-muted/80 border border-border/50 text-muted-foreground shrink-0">
+          <span className="text-xs font-semibold font-mono px-1.5 py-0.5 rounded-sm bg-muted/80 border border-border/50 text-muted-foreground shrink-0">
             {tasks.length}
           </span>
         </div>
@@ -241,15 +241,15 @@ function KanbanColumnImpl({
             `}
           >
             <Inbox className="w-4 h-4 text-muted-foreground/30" />
-            <p className="text-[11px] font-medium text-muted-foreground/60">No tasks</p>
-            <p className="text-[10px] text-muted-foreground/40">Drop tasks here</p>
+            <p className="text-xs font-medium text-muted-foreground/60">No tasks</p>
+            <p className="text-xs text-muted-foreground/40">Drop tasks here</p>
           </div>
         )}
       </div>
 
       <Link
         href={`/tasks/new?status=${status}`}
-        className="flex items-center justify-center gap-1.5 rounded-md border border-dashed border-border/60 py-1.5 text-[11px] font-semibold text-muted-foreground/70 hover:bg-surface-elevated hover:text-foreground hover:border-border transition-all duration-150 shrink-0"
+        className="flex items-center justify-center gap-1.5 rounded-md border border-dashed border-border/60 py-1.5 text-xs font-semibold text-muted-foreground/70 hover:bg-surface-elevated hover:text-foreground hover:border-border transition-all duration-150 shrink-0"
       >
         <Plus className="w-3 h-3" />
         <span>Add task</span>

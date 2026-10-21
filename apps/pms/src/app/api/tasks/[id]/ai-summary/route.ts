@@ -54,7 +54,7 @@ export async function POST(
       async (fullSummary) => {
         // Persist to database when the stream finishes
         await prisma.task.update({
-          where: { id },
+          where: { id: task.id },
           data: { aiSummary: fullSummary, aiSummaryUpdatedAt: new Date() },
         });
       }

@@ -26,9 +26,9 @@ export function AllClientsOverviewGrid({
 
   if (clients.length === 0) {
     return (
-      <div className="rounded-2xl border border-border/80 bg-card p-8 text-center flex flex-col items-center justify-center gap-2">
+      <div className="rounded-lg border border-border/80 bg-card p-8 text-center flex flex-col items-center justify-center gap-2">
         <Building2 className="w-8 h-8 text-muted-foreground" />
-        <p className="text-sm font-bold text-foreground">No Client Accounts Found</p>
+        <p className="text-sm font-semibold text-foreground">No Client Accounts Found</p>
         <p className="text-xs text-muted-foreground">Add clients to view account performance reports.</p>
       </div>
     );
@@ -38,11 +38,11 @@ export function AllClientsOverviewGrid({
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between border-b border-border/60 pb-3">
         <div className="flex items-center gap-2">
-          <span className="w-8 h-8 rounded-xl bg-primary/10 text-primary border border-primary/20 flex items-center justify-center">
+          <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary border border-primary/20 flex items-center justify-center">
             <Building2 className="w-4 h-4" />
           </span>
           <div>
-            <h2 className="text-base font-extrabold text-foreground tracking-tight">
+            <h2 className="text-base font-semibold text-foreground tracking-tight">
               Client Accounts Health Matrix
             </h2>
             <p className="text-xs text-muted-foreground">
@@ -50,7 +50,7 @@ export function AllClientsOverviewGrid({
             </p>
           </div>
         </div>
-        <span className="text-xs font-bold text-muted-foreground bg-surface-subtle px-3 py-1 rounded-full border border-border/60">
+        <span className="text-xs font-semibold text-muted-foreground bg-surface-subtle px-3 py-1 rounded-full border border-border/60">
           {clients.length} Client Accounts
         </span>
       </div>
@@ -72,12 +72,12 @@ export function AllClientsOverviewGrid({
               key={client.id}
               onClick={handleCardClick}
               onMouseEnter={() => prefetchClientReport(client.id)}
-              className="rounded-2xl border border-border/80 bg-card p-5 flex flex-col justify-between gap-4 shadow-xs hover:border-primary/40 hover:shadow-md transition-all cursor-pointer group relative overflow-hidden"
+              className="rounded-lg border border-border/80 bg-card p-5 flex flex-col justify-between gap-4 shadow-xs hover:border-primary/40 hover:shadow-md transition-all cursor-pointer group relative overflow-hidden"
             >
               <div className="flex flex-col gap-1">
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-2.5 min-w-0">
-                    <span className="w-8 h-8 rounded-xl bg-surface-subtle border border-border flex items-center justify-center font-bold text-xs text-foreground shrink-0 group-hover:border-primary/40 transition-colors overflow-hidden">
+                    <span className="w-8 h-8 rounded-lg bg-surface-subtle border border-border flex items-center justify-center font-semibold text-xs text-foreground shrink-0 group-hover:border-primary/40 transition-colors overflow-hidden">
                       {client.logoUrl ? (
                         /* eslint-disable-next-line @next/next/no-img-element */
                         <img
@@ -89,23 +89,23 @@ export function AllClientsOverviewGrid({
                         client.name.slice(0, 2).toUpperCase()
                       )}
                     </span>
-                    <h3 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors truncate">
+                    <h3 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors truncate">
                       {client.name}
                     </h3>
                   </div>
 
                   <span
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider shrink-0 ${
+                    className={`text-xs font-semibold px-2 py-0.5 rounded-full border   shrink-0 ${
                       client.status === "ACTIVE"
-                        ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20"
-                        : "bg-amber-500/10 text-amber-600 border-amber-500/20"
+                        ? "bg-success/10 text-success border-success/20"
+                        : "bg-warning/10 text-warning border-warning/20"
                     }`}
                   >
                     {client.status}
                   </span>
                 </div>
 
-                <div className="flex items-center gap-3 text-[11px] text-muted-foreground mt-1 flex-wrap">
+                <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1 flex-wrap">
                   {client.domain && (
                     <span className="flex items-center gap-1">
                       <Globe className="w-3.5 h-3.5 text-muted-foreground" />
@@ -124,45 +124,45 @@ export function AllClientsOverviewGrid({
               <div className="flex flex-col gap-1.5 pt-2 border-t border-border/50">
                 <div className="flex items-center justify-between text-xs font-semibold">
                   <span className="text-muted-foreground flex items-center gap-1">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-success" />
                     Completion
                   </span>
-                  <span className="text-foreground font-extrabold">
+                  <span className="text-foreground font-semibold">
                     {client.completionRate}%
                   </span>
                 </div>
                 <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
                   <div
-                    className="h-full bg-emerald-500 rounded-full transition-all duration-500"
+                    className="h-full bg-success rounded-full transition-all duration-150"
                     style={{ width: `${client.completionRate}%` }}
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-2 text-center text-xs">
-                <div className="bg-surface-subtle p-2 rounded-xl border border-border/60 flex flex-col">
-                  <span className="text-[10px] font-semibold text-muted-foreground">Products</span>
-                  <span className="font-extrabold text-foreground">{client.productsCount}</span>
+                <div className="bg-surface-subtle p-2 rounded-lg border border-border/60 flex flex-col">
+                  <span className="text-xs font-semibold text-muted-foreground">Products</span>
+                  <span className="font-semibold text-foreground">{client.productsCount}</span>
                 </div>
 
-                <div className="bg-surface-subtle p-2 rounded-xl border border-border/60 flex flex-col">
-                  <span className="text-[10px] font-semibold text-muted-foreground">Total Tasks</span>
-                  <span className="font-extrabold text-foreground">{client.totalTasks}</span>
+                <div className="bg-surface-subtle p-2 rounded-lg border border-border/60 flex flex-col">
+                  <span className="text-xs font-semibold text-muted-foreground">Total Tasks</span>
+                  <span className="font-semibold text-foreground">{client.totalTasks}</span>
                 </div>
 
                 <div
-                  className={`p-2 rounded-xl border flex flex-col ${
+                  className={`p-2 rounded-lg border flex flex-col ${
                     isOverdue
-                      ? "bg-red-500/10 border-red-500/20 text-red-600"
+                      ? "bg-destructive/10 border-destructive/20 text-destructive"
                       : "bg-surface-subtle border-border/60 text-foreground"
                   }`}
                 >
-                  <span className="text-[10px] font-semibold opacity-80">Overdue</span>
-                  <span className="font-extrabold">{client.overdueTasks}</span>
+                  <span className="text-xs font-semibold opacity-80">Overdue</span>
+                  <span className="font-semibold">{client.overdueTasks}</span>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-2 border-t border-border/40 text-xs font-bold text-primary">
+              <div className="flex items-center justify-between pt-2 border-t border-border/40 text-xs font-semibold text-primary">
                 <button
                   type="button"
                   onClick={(e) => {

@@ -166,7 +166,7 @@ export function NotificationsSettingsView() {
               variant="outline"
               size="sm"
               onClick={handleTestNotification}
-              className="text-xs font-bold rounded-xl cursor-pointer text-primary border-primary/30 hover:bg-primary/5"
+              className="text-xs font-semibold rounded-lg cursor-pointer text-primary border-primary/30 hover:bg-primary/5"
             >
               <Sparkles className="w-3.5 h-3.5 mr-1" />
               Test Browser Alert
@@ -177,7 +177,7 @@ export function NotificationsSettingsView() {
               size="sm"
               disabled={isSaving || isLoading}
               onClick={() => handleBulkSet(true)}
-              className="text-xs font-bold rounded-xl cursor-pointer"
+              className="text-xs font-semibold rounded-lg cursor-pointer"
             >
               Enable All
             </Button>
@@ -187,7 +187,7 @@ export function NotificationsSettingsView() {
               size="sm"
               disabled={isSaving || isLoading}
               onClick={() => handleBulkSet(false)}
-              className="text-xs font-bold text-muted-foreground hover:text-foreground rounded-xl cursor-pointer"
+              className="text-xs font-semibold text-muted-foreground hover:text-foreground rounded-lg cursor-pointer"
             >
               Mute All
             </Button>
@@ -218,22 +218,22 @@ export function NotificationsSettingsView() {
         />
       </div>
 
-      <div className="flex flex-col gap-3 rounded-2xl border border-border/80 bg-card p-5 sm:p-6 shadow-xs">
+      <div className="flex flex-col gap-3 rounded-lg border border-border/80 bg-card p-5 sm:p-6 shadow-xs">
         <div className="flex items-center justify-between border-b border-border/60 pb-3">
           <div className="flex items-center gap-2">
             <Globe className="w-4 h-4 text-primary" />
-            <h2 className="text-sm sm:text-base font-bold font-display text-foreground">
+            <h2 className="text-sm sm:text-base font-semibold font-display text-foreground">
               Delivery Channels & Desktop Notifications
             </h2>
           </div>
-          <Badge variant="outline" className="text-[10px] font-mono">
+          <Badge variant="outline" className="text-xs font-mono">
             System & UI
           </Badge>
         </div>
 
         <div className="flex flex-col gap-2.5 pt-1">
           <SettingsSwitchCard
-            icon={<Globe className="w-4 h-4 text-sky-600 dark:text-sky-400" />}
+            icon={<Globe className="w-4 h-4 text-notion-blue-fg" />}
             title="Browser Desktop Push Notifications"
             description={
               permission === "denied"
@@ -242,15 +242,15 @@ export function NotificationsSettingsView() {
             }
             badge={
               permission === "granted" ? (
-                <Badge variant="outline" className="text-[10px] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/25">
+                <Badge variant="outline" className="text-xs bg-success/10 text-success border-success/25">
                   <CheckCircle2 className="w-3 h-3 mr-1" /> Allowed
                 </Badge>
               ) : permission === "denied" ? (
-                <Badge variant="outline" className="text-[10px] bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/25">
+                <Badge variant="outline" className="text-xs bg-destructive/10 text-destructive border-destructive/25">
                   <AlertCircle className="w-3 h-3 mr-1" /> Blocked
                 </Badge>
               ) : (
-                <Badge variant="outline" className="text-[10px] text-muted-foreground">
+                <Badge variant="outline" className="text-xs text-muted-foreground">
                   Prompt on enable
                 </Badge>
               )
@@ -261,7 +261,7 @@ export function NotificationsSettingsView() {
           />
 
           <SettingsSwitchCard
-            icon={<Volume2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />}
+            icon={<Volume2 className="w-4 h-4 text-success" />}
             title="Audio Alert Chime"
             description="Play a subtle, pleasant audio sound when new tasks, comments, or @mentions arrive."
             checked={prefs?.browserSound ?? true}
@@ -280,22 +280,22 @@ export function NotificationsSettingsView() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-3 rounded-2xl border border-border/80 bg-card p-5 sm:p-6 shadow-xs">
+      <div className="flex flex-col gap-3 rounded-lg border border-border/80 bg-card p-5 sm:p-6 shadow-xs">
         <div className="flex items-center justify-between border-b border-border/60 pb-3">
           <div className="flex items-center gap-2">
             <CheckSquare className="w-4 h-4 text-primary" />
-            <h2 className="text-sm sm:text-base font-bold font-display text-foreground">
+            <h2 className="text-sm sm:text-base font-semibold font-display text-foreground">
               Tasks & Workflow Lifecycle
             </h2>
           </div>
-          <Badge variant="outline" className="text-[10px] font-mono">
+          <Badge variant="outline" className="text-xs font-mono">
             Core Events
           </Badge>
         </div>
 
         <div className="flex flex-col gap-2.5 pt-1">
           <SettingsSwitchCard
-            icon={<CheckSquare className="w-4 h-4 text-blue-600 dark:text-blue-400" />}
+            icon={<CheckSquare className="w-4 h-4 text-notion-blue-fg" />}
             title="Task & Ticket Assignments"
             description="Trigger alert whenever you are designated as the owner or assignee of a task."
             checked={prefs?.taskAssigned ?? true}
@@ -304,7 +304,7 @@ export function NotificationsSettingsView() {
           />
 
           <SettingsSwitchCard
-            icon={<RefreshCw className="w-4 h-4 text-amber-600 dark:text-amber-400" />}
+            icon={<RefreshCw className="w-4 h-4 text-warning" />}
             title="Task Status Movements"
             description="Receive updates when tickets you are assigned to or watching transition between Kanban columns (e.g., Todo → In Progress → Review → Done)."
             checked={prefs?.statusChanged ?? true}
@@ -313,7 +313,7 @@ export function NotificationsSettingsView() {
           />
 
           <SettingsSwitchCard
-            icon={<Clock className="w-4 h-4 text-rose-600 dark:text-rose-400" />}
+            icon={<Clock className="w-4 h-4 text-destructive" />}
             title="Due Date & Overdue Reminders"
             description="Get alerted when task target dates are approaching or when tasks become overdue."
             checked={prefs?.dueDateReminders ?? true}
@@ -323,22 +323,22 @@ export function NotificationsSettingsView() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-3 rounded-2xl border border-border/80 bg-card p-5 sm:p-6 shadow-xs">
+      <div className="flex flex-col gap-3 rounded-lg border border-border/80 bg-card p-5 sm:p-6 shadow-xs">
         <div className="flex items-center justify-between border-b border-border/60 pb-3">
           <div className="flex items-center gap-2">
-            <AtSign className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-            <h2 className="text-sm sm:text-base font-bold font-display text-foreground">
+            <AtSign className="w-4 h-4 text-notion-purple-fg" />
+            <h2 className="text-sm sm:text-base font-semibold font-display text-foreground">
               Collaboration & @Mentions
             </h2>
           </div>
-          <Badge variant="outline" className="text-[10px] font-mono">
+          <Badge variant="outline" className="text-xs font-mono">
             Social & Discussion
           </Badge>
         </div>
 
         <div className="flex flex-col gap-2.5 pt-1">
           <SettingsSwitchCard
-            icon={<AtSign className="w-4 h-4 text-purple-600 dark:text-purple-400" />}
+            icon={<AtSign className="w-4 h-4 text-notion-purple-fg" />}
             title="@Mentions in Discussions & Comments"
             description="High-priority in-app alert triggered directly whenever another user tags @your-name in task comments or dashboard notes."
             checked={prefs?.mentions ?? true}
@@ -347,7 +347,7 @@ export function NotificationsSettingsView() {
           />
 
           <SettingsSwitchCard
-            icon={<MessageSquare className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />}
+            icon={<MessageSquare className="w-4 h-4 text-success" />}
             title="Comment Threads & Replies"
             description="Notify you when someone posts a comment on your assigned tasks or directly replies to one of your comments."
             checked={prefs?.comments ?? true}
@@ -356,7 +356,7 @@ export function NotificationsSettingsView() {
           />
 
           <SettingsSwitchCard
-            icon={<StickyNote className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />}
+            icon={<StickyNote className="w-4 h-4 text-notion-purple-fg" />}
             title="Workspace Notes & Client Announcements"
             description="Receive alerts when announcements or notes targeted to you or your department are published."
             checked={prefs?.dashboardNotes ?? true}
@@ -387,17 +387,17 @@ function SettingsSwitchCard({
   onChange: () => void;
 }) {
   return (
-    <div className="flex items-start justify-between gap-4 p-4 rounded-xl border border-border/70 bg-surface-subtle/50 hover:bg-surface-subtle/80 transition-all">
+    <div className="flex items-start justify-between gap-4 p-4 rounded-lg border border-border/70 bg-surface-subtle/50 hover:bg-surface-subtle/80 transition-all">
       <div className="flex items-start gap-3">
-        <div className="p-2 rounded-xl bg-card border border-border/80 shrink-0 mt-0.5 shadow-2xs">
+        <div className="p-2 rounded-lg bg-card border border-border/80 shrink-0 mt-0.5 shadow-2xs">
           {icon}
         </div>
         <div className="flex flex-col gap-0.5">
           <div className="flex items-center gap-2">
-            <span className="text-xs sm:text-sm font-bold text-foreground">{title}</span>
+            <span className="text-xs sm:text-sm font-semibold text-foreground">{title}</span>
             {badge}
           </div>
-          <p className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed">
+          <p className="text-xs sm:text-xs text-muted-foreground leading-relaxed">
             {description}
           </p>
         </div>
@@ -410,14 +410,14 @@ function SettingsSwitchCard({
         disabled={disabled}
         onClick={onChange}
         className={cn(
-          "relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-primary mt-1 shadow-2xs",
+          "relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-primary mt-1 shadow-2xs",
           checked ? "bg-primary" : "bg-muted-foreground/30 dark:bg-white/20",
           disabled && "opacity-50 cursor-not-allowed"
         )}
       >
         <span
           className={cn(
-            "pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow-lg transform ring-0 transition duration-200 ease-in-out",
+            "pointer-events-none inline-block h-5 w-5 rounded-full bg-card shadow-md transform ring-0 transition duration-200 ease-in-out",
             checked ? "translate-x-5" : "translate-x-0"
           )}
         />

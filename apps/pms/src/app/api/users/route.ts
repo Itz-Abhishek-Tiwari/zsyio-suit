@@ -19,8 +19,10 @@ export async function GET(request: NextRequest) {
     const pageSize = searchParams.get("pageSize") ? Number(searchParams.get("pageSize")) : undefined;
     const role = searchParams.get("role") ?? undefined;
     const active = searchParams.has("active") ? searchParams.get("active") === "true" : undefined;
-    const sortBy = searchParams.get("sortBy") ?? undefined;
-    const sortDir = (searchParams.get("sortDir") as "asc" | "desc") ?? undefined;
+    const rawSortBy = searchParams.get("sortBy");
+    const sortBy = rawSortBy && ["createdAt", "name", "email", "role", "active"].includes(rawSortBy) ? rawSortBy : undefined;
+    const rawSortDir = searchParams.get("sortDir");
+    const sortDir = rawSortDir === "asc" || rawSortDir === "desc" ? rawSortDir : undefined;
 
     return userService.list({ page, pageSize, q, role, active, sortBy, sortDir });
   });

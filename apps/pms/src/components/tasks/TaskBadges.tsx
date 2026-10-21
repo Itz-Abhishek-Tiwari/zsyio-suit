@@ -203,7 +203,7 @@ export function TaskShortIdBadge({
   const shortId = formatTicketId(task ?? (typeof ticketNumber === "number" ? ticketNumber : taskId));
   return (
     <span
-      className={`font-mono text-[11px] font-medium tracking-wide text-notion-blue-fg bg-notion-blue px-1.5 py-0.5 rounded-[3px] border border-transparent whitespace-nowrap inline-flex items-center shrink-0 select-none ${className ?? ""}`}
+      className={`font-mono text-xs font-medium tracking-wide text-notion-blue-fg bg-notion-blue px-1.5 py-0.5 rounded-[3px] border border-transparent whitespace-nowrap inline-flex items-center shrink-0 select-none ${className ?? ""}`}
     >
       {shortId}
     </span>
@@ -229,9 +229,9 @@ export function TaskStatusBadge({
   const cfg = STATUS_CONFIG[status] ?? {
     label: status,
     icon: "clipboard",
-    bgClass: "bg-slate-100 dark:bg-slate-800/80",
-    textClass: "text-slate-700 dark:text-slate-300",
-    borderClass: "border-slate-200/90 dark:border-slate-700/80",
+    bgClass: "bg-muted",
+    textClass: "text-foreground",
+    borderClass: "border-border/90",
   };
 
   const badgeEl = (
@@ -262,8 +262,8 @@ export function TaskStatusBadge({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{badgeEl}</DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-44 text-xs shadow-xl">
-        <DropdownMenuLabel className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">
+      <DropdownMenuContent align="start" className="w-44 text-xs shadow-md">
+        <DropdownMenuLabel className="text-xs  text-muted-foreground font-semibold">
           Status
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -343,8 +343,8 @@ export function TaskPriorityBadge({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{badgeEl}</DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-40 text-xs shadow-xl">
-        <DropdownMenuLabel className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">
+      <DropdownMenuContent align="start" className="w-40 text-xs shadow-md">
+        <DropdownMenuLabel className="text-xs  text-muted-foreground font-semibold">
           Priority
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -402,10 +402,10 @@ export function TaskTypeBadge({
 }) {
   const cfg = TYPE_CONFIG[type] ?? {
     label: type,
-    icon: <Tag className="w-3 h-3 text-purple-600 dark:text-purple-400" />,
-    bgClass: "bg-purple-50 dark:bg-purple-500/15",
-    textClass: "text-purple-700 dark:text-purple-400",
-    borderClass: "border-purple-200/90 dark:border-purple-500/30",
+    icon: <Tag className="w-3 h-3 text-notion-purple-fg" />,
+    bgClass: "bg-notion-purple",
+    textClass: "text-notion-purple-fg",
+    borderClass: "border-notion-purple-fg/90",
   };
 
   const badgeEl = (
@@ -414,7 +414,7 @@ export function TaskTypeBadge({
       className={`${
         onTypeChange ? "cursor-pointer hover:opacity-80 transition-opacity" : ""
       } ${cfg.bgClass} ${cfg.textClass} ${cfg.borderClass} ${
-        compact ? "text-[10px] px-1.5 py-0 gap-1 font-medium" : ""
+        compact ? "text-xs px-1.5 py-0 gap-1 font-medium" : ""
       } ${className ?? ""}`}
     >
       {cfg.icon}
@@ -438,8 +438,8 @@ export function TaskTypeBadge({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{badgeEl}</DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-44 text-xs shadow-xl">
-        <DropdownMenuLabel className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">
+      <DropdownMenuContent align="start" className="w-44 text-xs shadow-md">
+        <DropdownMenuLabel className="text-xs  text-muted-foreground font-semibold">
           Task Type
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -540,7 +540,7 @@ export const TaskDueDateBadge = React.memo(function TaskDueDateBadge({
     <Badge
       variant="outline"
       className={`${badgeClass} ${
-        compact ? "text-[10px] px-1.5 py-0 gap-1 font-normal" : "font-normal"
+        compact ? "text-xs px-1.5 py-0 gap-1 font-normal" : "font-normal"
       } ${className ?? ""}`}
     >
       {isDone ? (
@@ -566,7 +566,7 @@ export function DeveloperBadge({ name, className }: { name: string; className?: 
 
   return (
     <Badge variant="outline" className={`bg-card text-foreground border-border/80 shadow-2xs font-normal ${className ?? ""}`}>
-      <span className="w-4 h-4 rounded-full bg-notion-purple text-notion-purple-fg text-[9px] font-medium flex items-center justify-center shrink-0">
+      <span className="w-4 h-4 rounded-full bg-notion-purple text-notion-purple-fg text-xs font-medium flex items-center justify-center shrink-0">
         {initials}
       </span>
       <span>{name}</span>
@@ -575,12 +575,12 @@ export function DeveloperBadge({ name, className }: { name: string; className?: 
 }
 
 const TEAM_COLOR_MAP: Record<string, { badgeVariant: "purple" | "info" | "warning" | "success" | "destructive" | "default"; dotClass: string }> = {
-  purple: { badgeVariant: "purple", dotClass: "bg-purple-500" },
-  blue: { badgeVariant: "info", dotClass: "bg-blue-500" },
-  amber: { badgeVariant: "warning", dotClass: "bg-amber-500" },
-  emerald: { badgeVariant: "success", dotClass: "bg-emerald-500" },
-  red: { badgeVariant: "destructive", dotClass: "bg-red-500" },
-  cyan: { badgeVariant: "info", dotClass: "bg-cyan-500" },
+  purple: { badgeVariant: "purple", dotClass: "bg-notion-purple-fg" },
+  blue: { badgeVariant: "info", dotClass: "bg-notion-blue-fg" },
+  amber: { badgeVariant: "warning", dotClass: "bg-warning" },
+  emerald: { badgeVariant: "success", dotClass: "bg-success" },
+  red: { badgeVariant: "destructive", dotClass: "bg-destructive" },
+  cyan: { badgeVariant: "info", dotClass: "bg-notion-blue-fg" },
 };
 
 /**

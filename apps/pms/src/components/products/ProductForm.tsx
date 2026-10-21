@@ -163,7 +163,7 @@ export function ProductForm({
         }
       />
 
-      <div className="rounded-2xl border border-border/80 bg-card p-6 sm:p-8 shadow-sm">
+      <div className="rounded-lg border border-border/80 bg-card p-6 sm:p-8 shadow-sm">
         <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="flex flex-col gap-6">
           <div className="flex flex-col gap-1.5">
             <Label className="text-xs font-semibold text-foreground">
@@ -183,10 +183,10 @@ export function ProductForm({
             <div className="sm:col-span-2 flex flex-col gap-1.5">
               <Label htmlFor="name" className="text-xs font-semibold text-foreground flex items-center justify-between">
                 <span>
-                  Product Name <span className="text-destructive font-bold">*</span>
+                  Product Name <span className="text-destructive font-semibold">*</span>
                 </span>
                 {errors.name && (
-                  <span className="text-[10px] font-bold text-destructive uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-destructive  ">
                     Mandatory
                   </span>
                 )}
@@ -202,7 +202,7 @@ export function ProductForm({
                 autoFocus
               />
               {errors.name && (
-                <p className="text-[11px] font-semibold text-destructive mt-0.5 flex items-center gap-1 animate-fade-in">
+                <p className="text-xs font-semibold text-destructive mt-0.5 flex items-center gap-1 animate-fade-in">
                   <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                   <span>{errors.name.message}</span>
                 </p>
@@ -238,7 +238,7 @@ export function ProductForm({
                 )}
               />
               {errors.deployedUrl && (
-                <p className="text-[11px] font-semibold text-destructive mt-0.5 flex items-center gap-1 animate-fade-in">
+                <p className="text-xs font-semibold text-destructive mt-0.5 flex items-center gap-1 animate-fade-in">
                   <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                   <span>{errors.deployedUrl.message}</span>
                 </p>
@@ -260,7 +260,7 @@ export function ProductForm({
                 )}
               />
               {errors.repoUrl && (
-                <p className="text-[11px] font-semibold text-destructive mt-0.5 flex items-center gap-1 animate-fade-in">
+                <p className="text-xs font-semibold text-destructive mt-0.5 flex items-center gap-1 animate-fade-in">
                   <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                   <span>{errors.repoUrl.message}</span>
                 </p>
@@ -271,7 +271,7 @@ export function ProductForm({
           <div className="flex flex-col gap-1.5">
             <Label className="text-xs font-semibold text-foreground flex items-center gap-1.5">
               <Layers className="w-3.5 h-3.5 text-muted-foreground" />
-              <span>Target Environment <span className="text-destructive font-bold">*</span></span>
+              <span>Target Environment <span className="text-destructive font-semibold">*</span></span>
             </Label>
             <Select
               value={watch("environment")}
@@ -283,19 +283,19 @@ export function ProductForm({
               <SelectContent>
                 <SelectItem value="PRODUCTION">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                    <span className="w-2 h-2 rounded-full bg-success" />
                     <span className="font-semibold text-xs">PRODUCTION</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="STAGING">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-amber-500" />
+                    <span className="w-2 h-2 rounded-full bg-warning" />
                     <span className="font-semibold text-xs">STAGING</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="DEVELOPMENT">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-blue-500" />
+                    <span className="w-2 h-2 rounded-full bg-notion-blue-fg" />
                     <span className="font-semibold text-xs">DEVELOPMENT</span>
                   </div>
                 </SelectItem>
@@ -310,7 +310,7 @@ export function ProductForm({
                 variant="outline"
                 onClick={() => setConfirmDeleteOpen(true)}
                 disabled={submitting || isDeleting}
-                className="text-xs font-semibold h-9 px-3 rounded-xl text-destructive hover:bg-destructive/10 border-destructive/20 hover:border-destructive/40 transition-colors gap-1.5"
+                className="text-xs font-semibold h-9 px-3 rounded-lg text-destructive hover:bg-destructive/10 border-destructive/20 hover:border-destructive/40 transition-colors gap-1.5"
               >
                 {isDeleting ? (
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -329,14 +329,14 @@ export function ProductForm({
                 variant="outline"
                 onClick={() => router.back()}
                 disabled={submitting || isDeleting}
-                className="text-xs font-medium h-9 px-4 rounded-xl"
+                className="text-xs font-medium h-9 px-4 rounded-lg"
               >
                 Cancel
               </Button>
               <Button
                 type="submit"
                 disabled={submitting || isDeleting}
-                className="font-semibold text-xs h-9 px-5 rounded-xl gap-1.5 min-w-[130px] shadow-xs"
+                className="font-semibold text-xs h-9 px-5 rounded-lg gap-1.5 min-w-[130px] shadow-xs"
               >
                 {submitting ? (
                   <>

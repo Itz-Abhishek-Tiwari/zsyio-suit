@@ -33,7 +33,7 @@ export function TaskDescriptionSection({
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between py-1">
-        <h2 className="text-xs font-extrabold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+        <h2 className="text-xs font-semibold   text-muted-foreground flex items-center gap-1.5">
           <FileText className="w-3.5 h-3.5 text-primary" /> Description Canvas
         </h2>
       </div>
@@ -47,7 +47,7 @@ export function TaskDescriptionSection({
           className="border border-border/80 bg-card"
         />
       ) : task.description ? (
-        <div className="rounded-xl border border-border/70 bg-card p-5">
+        <div className="rounded-lg border border-border/70 bg-card p-5">
           <FormattedText content={task.description} />
         </div>
       ) : (

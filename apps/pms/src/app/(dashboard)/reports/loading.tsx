@@ -9,26 +9,26 @@ export default function ReportsLoading() {
           <Skeleton className="h-4 w-80 rounded-md mt-1.5" />
         </div>
         <div className="flex items-center gap-2.5">
-          <Skeleton className="h-10 w-28 rounded-xl" />
-          <Skeleton className="h-10 w-32 rounded-xl" />
+          <Skeleton className="h-10 w-28 rounded-lg" />
+          <Skeleton className="h-10 w-32 rounded-lg" />
         </div>
       </div>
 
-      <div className="flex items-center gap-2 p-1 bg-surface-subtle/70 rounded-2xl border border-border/70 w-fit">
-        <Skeleton className="h-9 w-44 rounded-xl" />
-        <Skeleton className="h-9 w-44 rounded-xl" />
-        <Skeleton className="h-9 w-36 rounded-xl" />
+      <div className="flex items-center gap-2 p-1 bg-surface-subtle/70 rounded-lg border border-border/70 w-fit">
+        <Skeleton className="h-9 w-44 rounded-lg" />
+        <Skeleton className="h-9 w-44 rounded-lg" />
+        <Skeleton className="h-9 w-36 rounded-lg" />
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[1, 2, 3, 4].map((i) => (
           <div
             key={i}
-            className="rounded-2xl border border-border/80 bg-card p-4.5 flex flex-col gap-3 shadow-xs"
+            className="rounded-lg border border-border/80 bg-card p-4.5 flex flex-col gap-3 shadow-xs"
           >
             <div className="flex items-center justify-between">
               <Skeleton className="h-3.5 w-24 rounded-md" />
-              <Skeleton className="w-8 h-8 rounded-xl" />
+              <Skeleton className="w-8 h-8 rounded-lg" />
             </div>
             <Skeleton className="h-8 w-16 rounded-lg" />
             <Skeleton className="h-3 w-32 rounded-sm" />
@@ -38,7 +38,7 @@ export default function ReportsLoading() {
 
       <div className="flex items-center justify-between border-b border-border/60 pb-3">
         <div className="flex items-center gap-2">
-          <Skeleton className="w-8 h-8 rounded-xl" />
+          <Skeleton className="w-8 h-8 rounded-lg" />
           <div className="flex flex-col gap-1">
             <Skeleton className="h-4 w-48 rounded-md" />
             <Skeleton className="h-3 w-64 rounded-sm" />
@@ -51,11 +51,11 @@ export default function ReportsLoading() {
         {[1, 2, 3, 4, 5, 6].map((i) => (
           <div
             key={i}
-            className="rounded-2xl border border-border/80 bg-card p-5 flex flex-col justify-between gap-4 shadow-xs"
+            className="rounded-lg border border-border/80 bg-card p-5 flex flex-col justify-between gap-4 shadow-xs"
           >
             <div className="flex items-start justify-between gap-2">
               <div className="flex items-center gap-2.5">
-                <Skeleton className="w-8 h-8 rounded-xl" />
+                <Skeleton className="w-8 h-8 rounded-lg" />
                 <Skeleton className="h-4 w-32 rounded-md" />
               </div>
               <Skeleton className="h-5 w-16 rounded-full" />
@@ -70,9 +70,9 @@ export default function ReportsLoading() {
             </div>
 
             <div className="grid grid-cols-3 gap-2">
-              <Skeleton className="h-12 rounded-xl" />
-              <Skeleton className="h-12 rounded-xl" />
-              <Skeleton className="h-12 rounded-xl" />
+              <Skeleton className="h-12 rounded-lg" />
+              <Skeleton className="h-12 rounded-lg" />
+              <Skeleton className="h-12 rounded-lg" />
             </div>
 
             <div className="flex items-center justify-between pt-2 border-t border-border/40">

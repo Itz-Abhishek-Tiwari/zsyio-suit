@@ -91,10 +91,10 @@ const AddColumnCard = memo(function AddColumnCard({
       {isAddingColumn ? (
         <form
           onSubmit={handleAddColumn}
-          className="rounded-2xl border border-primary/40 bg-card p-4 shadow-sm flex flex-col gap-3.5 transition-all"
+          className="rounded-lg border border-primary/40 bg-card p-4 shadow-sm flex flex-col gap-3.5 transition-all"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-foreground">New Kanban Column</span>
+            <span className="text-xs font-semibold text-foreground">New Kanban Column</span>
             <button
               type="button"
               onClick={() => {
@@ -108,7 +108,7 @@ const AddColumnCard = memo(function AddColumnCard({
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+            <label className="text-xs font-semibold   text-muted-foreground">
               Column Title
             </label>
             <Input
@@ -122,7 +122,7 @@ const AddColumnCard = memo(function AddColumnCard({
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+            <label className="text-xs font-semibold   text-muted-foreground">
               Icon
             </label>
             <div className="flex items-center gap-1.5 flex-wrap">
@@ -136,7 +136,7 @@ const AddColumnCard = memo(function AddColumnCard({
                     onClick={() => setSelectedIcon(opt.id)}
                     className={`w-8 h-8 rounded-lg text-xs flex items-center justify-center border transition-all cursor-pointer ${
                       isSelected
-                        ? "bg-primary-light border-primary text-primary font-bold shadow-xs scale-105"
+                        ? "bg-primary-light border-primary text-primary font-semibold shadow-xs scale-105"
                         : "bg-surface-subtle border-border hover:bg-muted text-muted-foreground hover:text-foreground"
                     }`}
                   >
@@ -173,7 +173,7 @@ const AddColumnCard = memo(function AddColumnCard({
       ) : (
         <button
           onClick={() => setIsAddingColumn(true)}
-          className="flex w-full h-32 items-center justify-center gap-2 rounded-xl border border-dashed border-border/80 bg-surface-subtle/40 p-4 text-xs font-semibold text-muted-foreground hover:bg-surface-elevated hover:text-primary hover:border-primary/40 transition-all duration-200"
+          className="flex w-full h-32 items-center justify-center gap-2 rounded-lg border border-dashed border-border/80 bg-surface-subtle/40 p-4 text-xs font-semibold text-muted-foreground hover:bg-surface-elevated hover:text-primary hover:border-primary/40 transition-all duration-200"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <line x1="12" y1="5" x2="12" y2="19" />
@@ -438,16 +438,16 @@ export function KanbanBoard({ filters }: { filters: Record<string, string | numb
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5 w-full animate-fade-in">
         {[
-          { label: "Backlog", color: "bg-slate-500/10 border-slate-500/20" },
-          { label: "To Do", color: "bg-blue-500/10 border-blue-500/20" },
-          { label: "In Progress", color: "bg-amber-500/10 border-amber-500/20" },
-          { label: "In Review", color: "bg-purple-500/10 border-purple-500/20" },
-          { label: "Blocked", color: "bg-red-500/10 border-red-500/20" },
-          { label: "Done", color: "bg-emerald-500/10 border-emerald-500/20" },
+          { label: "Backlog", color: "bg-muted-foreground/10 border-border/20" },
+          { label: "To Do", color: "bg-notion-blue-fg/10 border-notion-blue-fg/20" },
+          { label: "In Progress", color: "bg-warning/10 border-warning/20" },
+          { label: "In Review", color: "bg-notion-purple-fg/10 border-notion-purple-fg/20" },
+          { label: "Blocked", color: "bg-destructive/10 border-destructive/20" },
+          { label: "Done", color: "bg-success/10 border-success/20" },
         ].map((col, idx) => (
           <div
             key={idx}
-            className="flex flex-col gap-3 rounded-2xl border border-border/80 bg-surface-subtle/40 p-3 min-h-[520px]"
+            className="flex flex-col gap-3 rounded-lg border border-border/80 bg-surface-subtle/40 p-3 min-h-[520px]"
           >
             <div className="flex items-center justify-between pb-2.5 border-b border-border/60">
               <div className="flex items-center gap-2">
@@ -461,7 +461,7 @@ export function KanbanBoard({ filters }: { filters: Record<string, string | numb
               {[1, 2, idx === 0 || idx === 2 ? 3 : 0].filter(Boolean).map((cardIdx) => (
                 <div
                   key={cardIdx}
-                  className="rounded-xl border border-border/70 bg-card p-3.5 flex flex-col gap-2.5 shadow-2xs"
+                  className="rounded-lg border border-border/70 bg-card p-3.5 flex flex-col gap-2.5 shadow-2xs"
                 >
                   <div className="flex items-center justify-between gap-1">
                     <Skeleton className="h-4 w-16 rounded-md" />
@@ -490,8 +490,8 @@ export function KanbanBoard({ filters }: { filters: Record<string, string | numb
 
   if (isError) {
     return (
-      <div className="flex flex-col items-center justify-center p-12 text-center rounded-xl border border-border bg-card">
-        <AlertTriangle className="w-6 h-6 text-amber-500 mb-2" />
+      <div className="flex flex-col items-center justify-center p-12 text-center rounded-lg border border-border bg-card">
+        <AlertTriangle className="w-6 h-6 text-warning mb-2" />
         <p className="font-semibold text-sm text-foreground">Failed to load tasks</p>
         <p className="text-xs text-muted-foreground mt-1">Please refresh the page or check your connection.</p>
       </div>
@@ -500,7 +500,7 @@ export function KanbanBoard({ filters }: { filters: Record<string, string | numb
 
   return (
     <div className="flex flex-col gap-3.5 w-full">
-      <div className="flex items-center justify-between text-[11px] text-muted-foreground px-1">
+      <div className="flex items-center justify-between text-xs text-muted-foreground px-1">
         <span className="flex items-center gap-1.5 text-muted-foreground/70">
           <GripVertical className="w-3.5 h-3.5 text-primary/60" />
           <span>Drag column headers or use arrows (◀ / ▶) to rearrange column order</span>
@@ -508,7 +508,7 @@ export function KanbanBoard({ filters }: { filters: Record<string, string | numb
         <button
           type="button"
           onClick={handleResetColumns}
-          className="inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground hover:underline transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground hover:underline transition-colors cursor-pointer"
           title="Restore default 6 column layout"
         >
           <RotateCcw className="w-3 h-3" />

@@ -84,7 +84,7 @@ export function GitBranchPopover({
           variant={variant}
           size={size === "xs" ? "sm" : size}
           className={`gap-1.5 font-medium rounded-lg text-xs transition-colors cursor-pointer ${
-            size === "xs" ? "h-7 px-2 text-[11px]" : "h-8"
+            size === "xs" ? "h-7 px-2 text-xs" : "h-8"
           } ${className}`}
           title="Suggest Git branch name & checkout command"
         >
@@ -95,23 +95,23 @@ export function GitBranchPopover({
       <PopoverContent
         align="end"
         sideOffset={6}
-        className="w-[340px] sm:w-[420px] p-4.5 rounded-2xl border-border/80 bg-card shadow-2xl flex flex-col gap-3.5 z-50 text-foreground"
+        className="w-[340px] sm:w-[420px] p-4.5 rounded-lg border-border/80 bg-card shadow-md flex flex-col gap-3.5 z-50 text-foreground"
       >
         <div className="flex items-center justify-between border-b border-border/60 pb-3">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0 border border-primary/20">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 border border-primary/20">
               <GitBranch className="w-4 h-4" />
             </div>
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5">
-                <span className="text-xs font-bold text-foreground">Git Branch Suggestion</span>
+                <span className="text-xs font-semibold text-foreground">Git Branch Suggestion</span>
                 {isAiGenerated && (
-                  <span className="inline-flex items-center gap-0.5 text-[9px] font-bold text-purple-600 dark:text-purple-400 bg-purple-500/10 border border-purple-500/20 px-1.5 py-0.2 rounded-full">
+                  <span className="inline-flex items-center gap-0.5 text-xs font-semibold text-notion-purple-fg bg-notion-purple-fg/10 border border-notion-purple-fg/20 px-1.5 py-0.2 rounded-full">
                     <Sparkles className="w-2.5 h-2.5" /> AI
                   </span>
                 )}
               </div>
-              <span className="text-[10px] font-mono font-bold text-muted-foreground">{suggestion.shortId}</span>
+              <span className="text-xs font-mono font-semibold text-muted-foreground">{suggestion.shortId}</span>
             </div>
           </div>
 
@@ -122,7 +122,7 @@ export function GitBranchPopover({
               size="sm"
               onClick={() => handleGenerateAi(true)}
               disabled={isGeneratingAi}
-              className="h-7 px-2.5 text-[11px] font-semibold gap-1 text-purple-600 dark:text-purple-400 bg-purple-500/10 hover:bg-purple-500/20 border-purple-500/30 rounded-lg cursor-pointer transition-colors"
+              className="h-7 px-2.5 text-xs font-semibold gap-1 text-notion-purple-fg bg-notion-purple-fg/10 hover:bg-notion-purple-fg/20 border-notion-purple-fg/30 rounded-lg cursor-pointer transition-colors"
               title="Regenerate a clean 2-4 word branch name with Gemini AI"
             >
               {isGeneratingAi ? (
@@ -135,7 +135,7 @@ export function GitBranchPopover({
 
             <Badge
               variant="outline"
-              className="font-mono text-[11px] font-bold text-primary bg-primary/10 border-primary/20 px-2 py-0.5"
+              className="font-mono text-xs font-semibold text-primary bg-primary/10 border-primary/20 px-2 py-0.5"
               title={`Branch prefix derived from ${task.type || "FEATURE"} ticket type`}
             >
               {suggestion.prefix}/
@@ -145,16 +145,16 @@ export function GitBranchPopover({
 
         <div className="flex flex-col gap-1.5">
           <div className="flex items-center justify-between text-xs">
-            <span className="font-semibold text-muted-foreground text-[11px]">Branch Name</span>
+            <span className="font-semibold text-muted-foreground text-xs">Branch Name</span>
             <button
               type="button"
               onClick={() => handleCopy(suggestion.branchName, "branch", "Branch name")}
-              className="text-primary hover:text-primary/80 flex items-center gap-1 text-[11px] font-semibold cursor-pointer transition-colors"
+              className="text-primary hover:text-primary/80 flex items-center gap-1 text-xs font-semibold cursor-pointer transition-colors"
             >
               {copiedField === "branch" ? (
                 <>
-                  <Check className="w-3.5 h-3.5 text-emerald-500" />
-                  <span className="text-emerald-500">Copied</span>
+                  <Check className="w-3.5 h-3.5 text-success" />
+                  <span className="text-success">Copied</span>
                 </>
               ) : (
                 <>
@@ -164,20 +164,20 @@ export function GitBranchPopover({
               )}
             </button>
           </div>
-          <div className="font-mono text-xs text-foreground bg-muted/40 px-3 py-2 rounded-xl border border-border/70 overflow-x-auto whitespace-nowrap scrollbar-none font-medium select-all">
+          <div className="font-mono text-xs text-foreground bg-muted/40 px-3 py-2 rounded-lg border border-border/70 overflow-x-auto whitespace-nowrap scrollbar-none font-medium select-all">
             {suggestion.branchName}
           </div>
         </div>
 
-        <div className="rounded-xl border border-zinc-800 bg-zinc-950 text-zinc-100 p-3.5 flex flex-col gap-2 shadow-inner">
-          <div className="flex items-center justify-between text-[11px]">
-            <span className="font-mono text-zinc-300 font-semibold flex items-center gap-1.5">
-              <Terminal className="w-3.5 h-3.5 text-emerald-400" /> Checkout Command
+        <div className="rounded-lg border border-border bg-foreground text-muted-foreground p-3.5 flex flex-col gap-2 shadow-inner">
+          <div className="flex items-center justify-between text-xs">
+            <span className="font-mono text-muted-foreground font-semibold flex items-center gap-1.5">
+              <Terminal className="w-3.5 h-3.5 text-success" /> Checkout Command
             </span>
             <button
               type="button"
               onClick={() => handleCopy(suggestion.checkoutCmd, "cmd", "Git command")}
-              className="text-emerald-400 hover:text-emerald-300 flex items-center gap-1 font-mono text-[11px] font-semibold cursor-pointer transition-colors"
+              className="text-success hover:text-success flex items-center gap-1 font-mono text-xs font-semibold cursor-pointer transition-colors"
             >
               {copiedField === "cmd" ? (
                 <>
@@ -193,14 +193,14 @@ export function GitBranchPopover({
             </button>
           </div>
 
-          <div className="font-mono text-xs text-emerald-400 flex items-center gap-1.5 overflow-x-auto whitespace-nowrap scrollbar-none select-all pt-0.5 pb-0.5">
-            <span className="text-zinc-500 select-none shrink-0">$</span>
-            <span className="text-emerald-400 font-semibold shrink-0">git checkout -b</span>
-            <span className="text-emerald-300">{suggestion.branchName}</span>
+          <div className="font-mono text-xs text-success flex items-center gap-1.5 overflow-x-auto whitespace-nowrap scrollbar-none select-all pt-0.5 pb-0.5">
+            <span className="text-muted-foreground select-none shrink-0">$</span>
+            <span className="text-success font-semibold shrink-0">git checkout -b</span>
+            <span className="text-success">{suggestion.branchName}</span>
           </div>
         </div>
 
-        <div className="pt-1 border-t border-border/50 flex items-center justify-between text-[11px] text-muted-foreground">
+        <div className="pt-1 border-t border-border/50 flex items-center justify-between text-xs text-muted-foreground">
           <span>Run in your local repository</span>
           <button
             type="button"
@@ -208,7 +208,7 @@ export function GitBranchPopover({
             className="text-muted-foreground hover:text-foreground font-medium transition-colors cursor-pointer flex items-center gap-1"
           >
             {copiedField === "push" ? (
-              <span className="text-emerald-500 font-semibold">Copied push cmd</span>
+              <span className="text-success font-semibold">Copied push cmd</span>
             ) : (
               <span>Copy push cmd</span>
             )}

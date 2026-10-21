@@ -88,15 +88,15 @@ export function QuickIntakeModal({ isOpen, onClose }: QuickIntakeModalProps) {
         }
       }}
     >
-      <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden border-border bg-card shadow-2xl rounded-2xl">
-        <div className="bg-gradient-to-r from-purple-500/15 via-purple-500/5 to-transparent p-5 border-b border-border/80">
+      <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden border-border bg-card shadow-md rounded-lg">
+        <div className="p-5 border-b border-border/80 bg-notion-purple-fg/15">
           <DialogHeader className="space-y-1">
-            <div className="flex items-center gap-2 text-xs font-semibold text-purple-600 dark:text-purple-400 uppercase tracking-wider">
+            <div className="flex items-center gap-2 text-xs font-semibold text-notion-purple-fg  ">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Pipeline In-Taking Stage</span>
             </div>
-            <DialogTitle className="text-base font-bold text-foreground flex items-center gap-2">
-              <UserPlus className="w-4 h-4 text-purple-500" />
+            <DialogTitle className="text-base font-semibold text-foreground flex items-center gap-2">
+              <UserPlus className="w-4 h-4 text-notion-purple-fg" />
               Add New Intake Lead
             </DialogTitle>
             <DialogDescription className="text-xs text-muted-foreground">
@@ -211,7 +211,7 @@ export function QuickIntakeModal({ isOpen, onClose }: QuickIntakeModalProps) {
               type="submit"
               size="sm"
               disabled={!name.trim() || isLoading}
-              className="h-8 text-xs font-semibold gap-1.5 bg-purple-600 hover:bg-purple-700 text-white shadow-xs"
+              className="h-8 text-xs font-semibold gap-1.5 bg-notion-purple-fg hover:bg-notion-purple-fg text-white shadow-xs"
             >
               {isLoading ? (
                 <>

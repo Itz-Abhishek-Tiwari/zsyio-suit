@@ -46,9 +46,9 @@ export function ClientDeepReport({ clientId, initialData, hideHeader = false }: 
   if (isLoading && !data) {
     return (
       <div className="flex flex-col gap-6 py-2 animate-fade-in">
-        <div className="rounded-2xl border border-border/80 bg-card p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
+        <div className="rounded-lg border border-border/80 bg-card p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
           <div className="flex items-center gap-3.5">
-            <Skeleton className="w-12 h-12 rounded-2xl shrink-0" />
+            <Skeleton className="w-12 h-12 rounded-lg shrink-0" />
             <div className="flex flex-col gap-1.5">
               <Skeleton className="h-5 w-48 rounded-md" />
               <Skeleton className="h-3.5 w-64 rounded-sm" />
@@ -56,7 +56,7 @@ export function ClientDeepReport({ clientId, initialData, hideHeader = false }: 
           </div>
           <div className="flex items-center gap-2">
             <Skeleton className="h-8 w-24 rounded-full" />
-            <Skeleton className="h-8 w-28 rounded-xl" />
+            <Skeleton className="h-8 w-28 rounded-lg" />
           </div>
         </div>
 
@@ -64,11 +64,11 @@ export function ClientDeepReport({ clientId, initialData, hideHeader = false }: 
           {[1, 2, 3, 4].map((i) => (
             <div
               key={i}
-              className="rounded-2xl border border-border/80 bg-card p-4.5 flex flex-col gap-3 shadow-xs"
+              className="rounded-lg border border-border/80 bg-card p-4.5 flex flex-col gap-3 shadow-xs"
             >
               <div className="flex items-center justify-between">
                 <Skeleton className="h-3.5 w-20 rounded-md" />
-                <Skeleton className="w-8 h-8 rounded-xl" />
+                <Skeleton className="w-8 h-8 rounded-lg" />
               </div>
               <Skeleton className="h-8 w-14 rounded-lg" />
               <Skeleton className="h-1.5 w-full rounded-full" />
@@ -77,15 +77,15 @@ export function ClientDeepReport({ clientId, initialData, hideHeader = false }: 
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 rounded-2xl border border-border/80 bg-card p-6 flex flex-col gap-4 shadow-xs">
+          <div className="lg:col-span-2 rounded-lg border border-border/80 bg-card p-6 flex flex-col gap-4 shadow-xs">
             <Skeleton className="h-5 w-44 rounded-md" />
-            <Skeleton className="h-52 w-full rounded-xl" />
+            <Skeleton className="h-52 w-full rounded-lg" />
           </div>
-          <div className="rounded-2xl border border-border/80 bg-card p-6 flex flex-col gap-4 shadow-xs">
+          <div className="rounded-lg border border-border/80 bg-card p-6 flex flex-col gap-4 shadow-xs">
             <Skeleton className="h-5 w-32 rounded-md" />
             <div className="flex flex-col gap-3">
               {[1, 2, 3].map((p) => (
-                <Skeleton key={p} className="h-16 w-full rounded-xl" />
+                <Skeleton key={p} className="h-16 w-full rounded-lg" />
               ))}
             </div>
           </div>
@@ -152,17 +152,17 @@ export function ClientDeepReport({ clientId, initialData, hideHeader = false }: 
   return (
     <div className="flex flex-col gap-6 animate-fade-in py-2">
       {!hideHeader && (
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-xl border border-border/80 bg-card/90 dark:bg-card/70 backdrop-blur-xl shadow-xs dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.07)]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-lg border border-border/80 bg-card/90 dark:bg-card/70 backdrop-blur-xl shadow-xs dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.07)]">
           <div className="flex items-center gap-3.5 min-w-0">
-            <div className="w-11 h-11 rounded-lg bg-primary/10 text-primary border border-primary/25 flex items-center justify-center font-bold text-sm shrink-0">
+            <div className="w-11 h-11 rounded-lg bg-primary/10 text-primary border border-primary/25 flex items-center justify-center font-semibold text-sm shrink-0">
               {client.name.slice(0, 2).toUpperCase()}
             </div>
             <div className="flex flex-col min-w-0">
               <div className="flex items-center gap-2.5">
-                <h3 className="font-extrabold text-foreground text-base truncate">
+                <h3 className="font-semibold text-foreground text-base truncate">
                   {client.name}
                 </h3>
-                <ClientStatusBadge status={client.status} className="shrink-0 text-[10px] font-bold" />
+                <ClientStatusBadge status={client.status} className="shrink-0 text-xs font-semibold" />
               </div>
 
               <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1 flex-wrap">
@@ -183,7 +183,7 @@ export function ClientDeepReport({ clientId, initialData, hideHeader = false }: 
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            <Button asChild variant="outline" size="sm" className="h-8 text-xs font-semibold gap-1.5 rounded-xl border-border">
+            <Button asChild variant="outline" size="sm" className="h-8 text-xs font-semibold gap-1.5 rounded-lg border-border">
               <Link href={`/clients/${client.id}`}>
                 <ExternalLink className="w-3.5 h-3.5 text-primary" />
                 <span>Client Settings</span>
@@ -240,12 +240,12 @@ export function ClientDeepReport({ clientId, initialData, hideHeader = false }: 
           <MetricBarChart
             title="Priority Spread"
             description="Urgency breakdown for this client."
-            icon={<ShieldAlert className="w-4 h-4 text-red-500" />}
+            icon={<ShieldAlert className="w-4 h-4 text-destructive" />}
             items={priorityItems}
           />
 
-          <div className="rounded-2xl border border-border/80 bg-card p-5 flex flex-col gap-3 shadow-xs">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+          <div className="rounded-lg border border-border/80 bg-card p-5 flex flex-col gap-3 shadow-xs">
+            <span className="text-xs font-semibold   text-muted-foreground">
               Task Category Breakdown
             </span>
             <div className="grid grid-cols-2 gap-x-4 gap-y-2">
@@ -262,13 +262,13 @@ export function ClientDeepReport({ clientId, initialData, hideHeader = false }: 
                       <span className="text-foreground font-semibold flex items-center gap-1.5">
                         {cfg.icon} {cfg.label}
                       </span>
-                      <span className="text-muted-foreground font-mono text-[11px]">
+                      <span className="text-muted-foreground font-mono text-xs">
                         {t.count} ({pct}%)
                       </span>
                     </div>
-                    <div className="w-full bg-muted h-1.5 rounded-full overflow-hidden">
+                    <div className="w-full bg-muted h-2 rounded-sm overflow-hidden">
                       <div
-                        className={`${cfg.barBg} h-full rounded-full transition-all`}
+                        className={`${cfg.barBg} h-full rounded-sm transition-all`}
                         style={{ width: `${pct}%` }}
                       />
                     </div>
@@ -283,10 +283,10 @@ export function ClientDeepReport({ clientId, initialData, hideHeader = false }: 
       {products.length > 0 && (
         <div className="flex flex-col gap-4 pt-2">
           <div className="flex items-center gap-2 border-b border-border/60 pb-2">
-            <span className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 flex items-center justify-center">
+            <span className="w-7 h-7 rounded-lg bg-success/10 text-success border border-success/20 flex items-center justify-center">
               <Package className="w-3.5 h-3.5" />
             </span>
-            <h4 className="text-sm font-bold text-foreground">
+            <h4 className="text-sm font-semibold text-foreground">
               Product Suites Delivery Matrix ({products.length})
             </h4>
           </div>
@@ -295,13 +295,13 @@ export function ClientDeepReport({ clientId, initialData, hideHeader = false }: 
             {products.map((p) => (
               <div
                 key={p.id}
-                className="rounded-2xl border border-border/80 bg-card p-4 flex flex-col gap-3 shadow-xs"
+                className="rounded-lg border border-border/80 bg-card p-4 flex flex-col gap-3 shadow-xs"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex flex-col">
-                    <p className="text-sm font-bold text-foreground">{p.name}</p>
+                    <p className="text-sm font-semibold text-foreground">{p.name}</p>
                     {p.version && (
-                      <span className="text-[10px] font-mono text-muted-foreground">
+                      <span className="text-xs font-mono text-muted-foreground">
                         v{p.version}
                       </span>
                     )}
@@ -314,11 +314,11 @@ export function ClientDeepReport({ clientId, initialData, hideHeader = false }: 
                     <span className="text-muted-foreground">
                       {p.doneTasks}/{p.totalTasks} tasks completed
                     </span>
-                    <span className="font-extrabold text-foreground">{p.completionRate}%</span>
+                    <span className="font-semibold text-foreground">{p.completionRate}%</span>
                   </div>
-                  <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
+                  <div className="w-full h-2 rounded-sm bg-muted overflow-hidden">
                     <div
-                      className="h-full bg-emerald-500 rounded-full transition-all duration-300"
+                      className="h-full bg-success rounded-sm transition-all duration-150"
                       style={{ width: `${p.completionRate}%` }}
                     />
                   </div>
@@ -326,11 +326,11 @@ export function ClientDeepReport({ clientId, initialData, hideHeader = false }: 
 
                 <div className="flex items-center justify-between pt-1 text-xs">
                   {p.blockedTasks > 0 ? (
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-500/10 text-red-600 border border-red-500/20">
+                    <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-destructive/10 text-destructive border border-destructive/20">
                       {p.blockedTasks} blocked
                     </span>
                   ) : (
-                    <span className="text-[10px] text-emerald-600 font-medium">
+                    <span className="text-xs text-success font-medium">
                       All tasks moving smoothly
                     </span>
                   )}

@@ -148,10 +148,10 @@ export default async function ClientProfilePage({
             <img
               src={client.logoUrl}
               alt={client.name}
-              className="w-full h-full object-contain p-1 rounded-xl"
+              className="w-full h-full object-contain p-1 rounded-lg"
             />
           ) : (
-            <span className="font-bold text-sm text-primary">{initials}</span>
+            <span className="font-semibold text-sm text-primary">{initials}</span>
           )
         }
         description={
@@ -199,19 +199,19 @@ export default async function ClientProfilePage({
           label="Delivery Progress"
           value={`${progressPercent}%`}
           subtext={`${completedTasks} of ${totalTasks} tasks done`}
-          icon={<CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />}
+          icon={<CheckCircle2 className="w-5 h-5 text-success" />}
         />
         <KpiCard
           label="Active Workload"
           value={activeTasks}
           subtext={urgentTasks > 0 ? `${urgentTasks} high priority` : "All on schedule"}
-          icon={<ListTodo className="w-5 h-5 text-amber-500" />}
+          icon={<ListTodo className="w-5 h-5 text-warning" />}
         />
         <KpiCard
           label="Account Status"
           value={client.status}
           subtext={client.contractStart ? `Since ${formatDate(client.contractStart)}` : contractDurationStr}
-          icon={<Clock className="w-5 h-5 text-sky-500" />}
+          icon={<Clock className="w-5 h-5 text-notion-blue-fg" />}
         />
       </div>
 
@@ -242,26 +242,26 @@ export default async function ClientProfilePage({
         </div>
 
         <div className="flex flex-col gap-5">
-          <div className="rounded-2xl border border-border/80 bg-card p-5 flex flex-col gap-4 shadow-xs">
+          <div className="rounded-lg border border-border/80 bg-card p-5 flex flex-col gap-4 shadow-xs">
             <div className="flex items-center gap-2.5 border-b border-border/60 pb-3">
-              <span className="w-8 h-8 rounded-xl bg-primary-light text-primary border border-primary/20 flex items-center justify-center shadow-2xs">
+              <span className="w-8 h-8 rounded-lg bg-primary-light text-primary border border-primary/20 flex items-center justify-center shadow-2xs">
                 <Building2 className="w-4 h-4" />
               </span>
               <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-foreground">
+                <h3 className="text-xs font-semibold   text-foreground">
                   Organization Details
                 </h3>
-                <span className="text-[11px] text-muted-foreground">Company & contact profile</span>
+                <span className="text-xs text-muted-foreground">Company & contact profile</span>
               </div>
             </div>
 
             <div className="flex flex-col gap-3.5 text-xs">
-              <div className="rounded-xl bg-surface-subtle/50 p-3 border border-border/50 flex flex-col gap-1">
-                <span className="text-[10px] uppercase font-bold text-muted-foreground">
+              <div className="rounded-lg bg-surface-subtle/50 p-3 border border-border/50 flex flex-col gap-1">
+                <span className="text-xs font-semibold text-muted-foreground">
                   Primary Contact
                 </span>
                 <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-full bg-primary/10 text-primary font-bold text-[10px] flex items-center justify-center shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-primary/10 text-primary font-semibold text-xs flex items-center justify-center shrink-0">
                     {client.contactName ? client.contactName.charAt(0).toUpperCase() : "-"}
                   </div>
                   <span className="font-semibold text-foreground text-sm">
@@ -272,12 +272,12 @@ export default async function ClientProfilePage({
 
               {client.contactEmail && (
                 <div>
-                  <span className="text-[10px] font-bold uppercase text-muted-foreground block mb-1">
+                  <span className="text-xs font-semibold  text-muted-foreground block mb-1">
                     Email Address
                   </span>
                   <a
                     href={`mailto:${client.contactEmail}`}
-                    className="text-foreground hover:text-primary transition-colors flex items-center gap-2 truncate font-medium bg-surface-subtle/30 px-3 py-2 rounded-xl border border-border/50"
+                    className="text-foreground hover:text-primary transition-colors flex items-center gap-2 truncate font-medium bg-surface-subtle/30 px-3 py-2 rounded-lg border border-border/50"
                   >
                     <Mail className="w-3.5 h-3.5 text-primary shrink-0" />
                     <span className="truncate">{client.contactEmail}</span>
@@ -287,12 +287,12 @@ export default async function ClientProfilePage({
 
               {client.contactPhone && (
                 <div>
-                  <span className="text-[10px] font-bold uppercase text-muted-foreground block mb-1">
+                  <span className="text-xs font-semibold  text-muted-foreground block mb-1">
                     Phone Number
                   </span>
                   <a
                     href={`tel:${client.contactPhone}`}
-                    className="text-foreground hover:text-primary transition-colors flex items-center gap-2 font-medium bg-surface-subtle/30 px-3 py-2 rounded-xl border border-border/50"
+                    className="text-foreground hover:text-primary transition-colors flex items-center gap-2 font-medium bg-surface-subtle/30 px-3 py-2 rounded-lg border border-border/50"
                   >
                     <Phone className="w-3.5 h-3.5 text-primary shrink-0" />
                     <span>{client.contactPhone}</span>
@@ -302,7 +302,7 @@ export default async function ClientProfilePage({
 
               {client.domain && (
                 <div>
-                  <span className="text-[10px] font-bold uppercase text-muted-foreground block mb-1">
+                  <span className="text-xs font-semibold  text-muted-foreground block mb-1">
                     Web Domain
                   </span>
                   <a
@@ -313,7 +313,7 @@ export default async function ClientProfilePage({
                     }
                     target="_blank"
                     rel="noreferrer"
-                    className="text-foreground hover:text-primary transition-colors flex items-center justify-between gap-2 truncate font-medium bg-surface-subtle/30 px-3 py-2 rounded-xl border border-border/50"
+                    className="text-foreground hover:text-primary transition-colors flex items-center justify-between gap-2 truncate font-medium bg-surface-subtle/30 px-3 py-2 rounded-lg border border-border/50"
                   >
                     <div className="flex items-center gap-2 truncate">
                       <Globe className="w-3.5 h-3.5 text-primary shrink-0" />
@@ -326,70 +326,70 @@ export default async function ClientProfilePage({
             </div>
           </div>
 
-          <div className="rounded-2xl border border-border/80 bg-card p-5 flex flex-col gap-4 shadow-xs">
+          <div className="rounded-lg border border-border/80 bg-card p-5 flex flex-col gap-4 shadow-xs">
             <div className="flex items-center gap-2.5 border-b border-border/60 pb-3">
-              <span className="w-8 h-8 rounded-xl bg-primary-light text-primary border border-primary/20 flex items-center justify-center shadow-2xs">
+              <span className="w-8 h-8 rounded-lg bg-primary-light text-primary border border-primary/20 flex items-center justify-center shadow-2xs">
                 <Calendar className="w-4 h-4" />
               </span>
               <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-foreground">
+                <h3 className="text-xs font-semibold   text-foreground">
                   Contract Timeline
                 </h3>
-                <span className="text-[11px] text-muted-foreground">SLA & billing engagement</span>
+                <span className="text-xs text-muted-foreground">SLA & billing engagement</span>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3 text-xs">
-              <div className="rounded-xl bg-surface-subtle p-3 border border-border/60 flex flex-col gap-0.5">
-                <span className="text-[10px] text-muted-foreground uppercase font-bold">Start Date</span>
+              <div className="rounded-lg bg-surface-subtle p-3 border border-border/60 flex flex-col gap-0.5">
+                <span className="text-xs text-muted-foreground  font-semibold">Start Date</span>
                 <span className="font-semibold text-foreground">
                   {formatDate(client.contractStart) || "Not set"}
                 </span>
               </div>
-              <div className="rounded-xl bg-surface-subtle p-3 border border-border/60 flex flex-col gap-0.5">
-                <span className="text-[10px] text-muted-foreground uppercase font-bold">End Date</span>
+              <div className="rounded-lg bg-surface-subtle p-3 border border-border/60 flex flex-col gap-0.5">
+                <span className="text-xs text-muted-foreground  font-semibold">End Date</span>
                 <span className="font-semibold text-foreground">
                   {formatDate(client.contractEnd) || "Continuous"}
                 </span>
               </div>
             </div>
 
-            <div className="rounded-xl bg-surface-subtle/40 border border-border/50 p-3 flex items-center justify-between text-xs">
+            <div className="rounded-lg bg-surface-subtle/40 border border-border/50 p-3 flex items-center justify-between text-xs">
               <span className="text-muted-foreground font-medium flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+                <ShieldCheck className="w-3.5 h-3.5 text-success" />
                 <span>Engagement Period</span>
               </span>
-              <span className="font-semibold text-foreground font-mono text-[11px]">
+              <span className="font-semibold text-foreground font-mono text-xs">
                 {contractDurationStr}
               </span>
             </div>
           </div>
 
           {totalTasks > 0 && (
-            <div className="rounded-2xl border border-border/80 bg-card p-5 flex flex-col gap-3.5 shadow-xs">
+            <div className="rounded-lg border border-border/80 bg-card p-5 flex flex-col gap-3.5 shadow-xs">
               <div className="flex items-center justify-between border-b border-border/60 pb-3">
                 <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+                  <span className="w-6 h-6 rounded-lg bg-success/10 text-success flex items-center justify-center">
                     <CheckCircle2 className="w-3.5 h-3.5" />
                   </span>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-foreground">
+                  <h3 className="text-xs font-semibold   text-foreground">
                     Delivery Health
                   </h3>
                 </div>
-                <span className="text-xs font-bold text-foreground">{progressPercent}%</span>
+                <span className="text-xs font-semibold text-foreground">{progressPercent}%</span>
               </div>
 
               <div className="w-full h-2.5 bg-surface-subtle rounded-full overflow-hidden flex gap-0.5">
                 {completedTasks > 0 && (
                   <div
-                    className="h-full bg-emerald-500 transition-all"
+                    className="h-full bg-success transition-all"
                     style={{ width: `${(completedTasks / totalTasks) * 100}%` }}
                     title={`${completedTasks} Done`}
                   />
                 )}
                 {allTasks.filter((t) => t.status === "IN_PROGRESS").length > 0 && (
                   <div
-                    className="h-full bg-sky-500 transition-all"
+                    className="h-full bg-notion-blue-fg transition-all"
                     style={{
                       width: `${(allTasks.filter((t) => t.status === "IN_PROGRESS").length / totalTasks) * 100}%`,
                     }}
@@ -398,45 +398,45 @@ export default async function ClientProfilePage({
                 )}
                 {blockedTasks > 0 && (
                   <div
-                    className="h-full bg-rose-500 transition-all"
+                    className="h-full bg-destructive transition-all"
                     style={{ width: `${(blockedTasks / totalTasks) * 100}%` }}
                     title={`${blockedTasks} Blocked`}
                   />
                 )}
               </div>
 
-              <div className="grid grid-cols-2 gap-2 pt-1 text-[11px]">
+              <div className="grid grid-cols-2 gap-2 pt-1 text-xs">
                 <div className="flex items-center gap-1.5 text-muted-foreground">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                  <span className="w-2 h-2 rounded-full bg-success" />
                   <span>Done: <strong className="text-foreground">{completedTasks}</strong></span>
                 </div>
                 <div className="flex items-center gap-1.5 text-muted-foreground">
-                  <span className="w-2 h-2 rounded-full bg-sky-500" />
+                  <span className="w-2 h-2 rounded-full bg-notion-blue-fg" />
                   <span>In Progress: <strong className="text-foreground">{allTasks.filter((t) => t.status === "IN_PROGRESS").length}</strong></span>
                 </div>
                 <div className="flex items-center gap-1.5 text-muted-foreground">
-                  <span className="w-2 h-2 rounded-full bg-rose-500" />
+                  <span className="w-2 h-2 rounded-full bg-destructive" />
                   <span>Blocked: <strong className="text-foreground">{blockedTasks}</strong></span>
                 </div>
                 <div className="flex items-center gap-1.5 text-muted-foreground">
-                  <span className="w-2 h-2 rounded-full bg-slate-400" />
+                  <span className="w-2 h-2 rounded-full bg-muted-foreground" />
                   <span>To Do: <strong className="text-foreground">{allTasks.filter((t) => t.status === "TODO" || t.status === "BACKLOG").length}</strong></span>
                 </div>
               </div>
             </div>
           )}
 
-          <div className="rounded-2xl border border-border/80 bg-card p-5 flex flex-col gap-3.5 shadow-xs">
+          <div className="rounded-lg border border-border/80 bg-card p-5 flex flex-col gap-3.5 shadow-xs">
             <div className="flex items-center justify-between border-b border-border/60 pb-3">
               <div className="flex items-center gap-2.5">
-                <span className="w-8 h-8 rounded-xl bg-primary-light text-primary border border-primary/20 flex items-center justify-center shadow-2xs">
+                <span className="w-8 h-8 rounded-lg bg-primary-light text-primary border border-primary/20 flex items-center justify-center shadow-2xs">
                   <StickyNote className="w-4 h-4" />
                 </span>
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-foreground">
+                  <h3 className="text-xs font-semibold   text-foreground">
                     Notes & Documentation
                   </h3>
-                  <span className="text-[11px] text-muted-foreground">Internal specs & SLA</span>
+                  <span className="text-xs text-muted-foreground">Internal specs & SLA</span>
                 </div>
               </div>
               <Link
@@ -449,11 +449,11 @@ export default async function ClientProfilePage({
             </div>
 
             {client.notes ? (
-              <div className="text-xs text-foreground/90 leading-relaxed bg-surface-subtle/40 p-3.5 rounded-xl border border-border/50 max-h-48 overflow-y-auto whitespace-pre-wrap font-sans">
+              <div className="text-xs text-foreground/90 leading-relaxed bg-surface-subtle/40 p-3.5 rounded-lg border border-border/50 max-h-48 overflow-y-auto whitespace-pre-wrap font-sans">
                 {client.notes}
               </div>
             ) : (
-              <div className="py-4 text-center text-xs text-muted-foreground bg-surface-subtle/30 rounded-xl border border-dashed border-border/60 flex flex-col items-center gap-2">
+              <div className="py-4 text-center text-xs text-muted-foreground bg-surface-subtle/30 rounded-lg border border-dashed border-border/60 flex flex-col items-center gap-2">
                 <span>No documentation written yet.</span>
                 <Button asChild size="sm" variant="outline" className="h-7 text-xs font-semibold gap-1">
                   <Link href={`/clients/${client.id}/notes`}>

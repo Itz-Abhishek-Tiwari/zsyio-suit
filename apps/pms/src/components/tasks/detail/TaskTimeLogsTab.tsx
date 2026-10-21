@@ -90,9 +90,9 @@ export function TaskTimeLogsTab({ task, canEdit }: TaskTimeLogsTabProps) {
         {/* Top 3 KPI Summary Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
           {/* Total Effort Card */}
-          <div className="rounded-xl border border-border/80 bg-gradient-to-br from-card to-card/90 p-4 flex flex-col justify-between shadow-2xs relative overflow-hidden">
+          <div className="rounded-lg border border-border/80 p-4 flex flex-col justify-between shadow-2xs relative overflow-hidden bg-card">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider font-display">
+              <span className="text-xs font-semibold text-muted-foreground   font-display">
                 Total Effort Logged
               </span>
               <div className="p-2 rounded-lg bg-primary/10 text-primary border border-primary/20">
@@ -101,7 +101,7 @@ export function TaskTimeLogsTab({ task, canEdit }: TaskTimeLogsTabProps) {
             </div>
 
             <div className="mt-2.5 flex items-baseline gap-2">
-              <span className="font-mono text-2xl font-extrabold text-foreground">
+              <span className="font-mono text-2xl font-semibold text-foreground">
                 {formatDuration(totalMinutes)}
               </span>
               <span className="font-mono text-xs text-muted-foreground">
@@ -109,7 +109,7 @@ export function TaskTimeLogsTab({ task, canEdit }: TaskTimeLogsTabProps) {
               </span>
             </div>
 
-            <div className="mt-2 text-[11px] text-muted-foreground">
+            <div className="mt-2 text-xs text-muted-foreground">
               {task.estimatedHours ? (
                 <span>
                   Budget: <strong className="text-foreground font-mono">{task.estimatedHours}h</strong> est.
@@ -121,18 +121,18 @@ export function TaskTimeLogsTab({ task, canEdit }: TaskTimeLogsTabProps) {
           </div>
 
           {/* Billable Ratio Card */}
-          <div className="rounded-xl border border-border/80 bg-gradient-to-br from-card to-card/90 p-4 flex flex-col justify-between shadow-2xs relative overflow-hidden">
+          <div className="rounded-lg border border-border/80 p-4 flex flex-col justify-between shadow-2xs relative overflow-hidden bg-card">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider font-display">
+              <span className="text-xs font-semibold text-muted-foreground   font-display">
                 Billable Time
               </span>
-              <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+              <div className="p-2 rounded-lg bg-success/10 text-success border border-success/20">
                 <DollarSign className="w-4 h-4" />
               </div>
             </div>
 
             <div className="mt-2.5 flex items-baseline gap-2">
-              <span className="font-mono text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">
+              <span className="font-mono text-2xl font-semibold text-success">
                 {formatDuration(billableMinutes)}
               </span>
               <span className="font-mono text-xs text-muted-foreground">
@@ -144,20 +144,20 @@ export function TaskTimeLogsTab({ task, canEdit }: TaskTimeLogsTabProps) {
             <div className="mt-2 flex items-center gap-1.5">
               <div className="h-1.5 flex-1 bg-muted rounded-full overflow-hidden flex">
                 <div
-                  className="bg-emerald-500 h-full rounded-full transition-all duration-300"
+                  className="bg-success h-full rounded-full transition-all duration-150"
                   style={{ width: `${billablePercent}%` }}
                 />
               </div>
-              <span className="text-[10px] font-mono text-muted-foreground">
+              <span className="text-xs font-mono text-muted-foreground">
                 {billablePercent}%
               </span>
             </div>
           </div>
 
           {/* Sessions & Quick Action Card */}
-          <div className="rounded-xl border border-border/80 bg-gradient-to-br from-card to-card/90 p-4 flex flex-col justify-between shadow-2xs relative overflow-hidden">
+          <div className="rounded-lg border border-border/80 p-4 flex flex-col justify-between shadow-2xs relative overflow-hidden bg-card">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider font-display">
+              <span className="text-xs font-semibold text-muted-foreground   font-display">
                 Work Sessions
               </span>
               <div className="p-2 rounded-lg bg-primary/10 text-primary border border-primary/20">
@@ -167,7 +167,7 @@ export function TaskTimeLogsTab({ task, canEdit }: TaskTimeLogsTabProps) {
 
             <div className="mt-2.5 flex items-baseline justify-between">
               <div className="flex items-baseline gap-1.5">
-                <span className="font-mono text-2xl font-extrabold text-foreground">
+                <span className="font-mono text-2xl font-semibold text-foreground">
                   {entries.length}
                 </span>
                 <span className="text-xs text-muted-foreground font-medium">sessions</span>
@@ -186,7 +186,7 @@ export function TaskTimeLogsTab({ task, canEdit }: TaskTimeLogsTabProps) {
               )}
             </div>
 
-            <div className="mt-2 text-[11px] text-muted-foreground">
+            <div className="mt-2 text-xs text-muted-foreground">
               {entries.length > 0 ? (
                 <span>Avg: ~{formatDuration(avgSessionMinutes)} per session</span>
               ) : (
@@ -200,16 +200,16 @@ export function TaskTimeLogsTab({ task, canEdit }: TaskTimeLogsTabProps) {
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between px-0.5">
             <div className="flex items-center gap-2">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground font-display">
+              <h4 className="text-xs font-semibold   text-muted-foreground font-display">
                 Session Ledger
               </h4>
-              <Badge variant="secondary" className="font-mono text-[10px] py-0 px-1.5">
+              <Badge variant="secondary" className="font-mono text-xs py-0 px-1.5">
                 {entries.length}
               </Badge>
             </div>
 
             {entries.length > 0 && (
-              <span className="text-[11px] text-muted-foreground font-medium">
+              <span className="text-xs text-muted-foreground font-medium">
                 Showing all time records
               </span>
             )}
@@ -221,12 +221,12 @@ export function TaskTimeLogsTab({ task, canEdit }: TaskTimeLogsTabProps) {
             </div>
           ) : entries.length === 0 ? (
             /* Professional Empty State */
-            <div className="rounded-xl border border-dashed border-border/80 p-10 text-center flex flex-col items-center justify-center gap-3.5 bg-card/40">
+            <div className="rounded-lg border border-dashed border-border/80 p-10 text-center flex flex-col items-center justify-center gap-3.5 bg-card/40">
               <div className="p-3.5 rounded-full bg-primary/10 border border-primary/20 text-primary shadow-xs">
                 <Clock className="w-6 h-6" />
               </div>
               <div className="flex flex-col gap-1 max-w-sm">
-                <h4 className="text-sm font-bold text-foreground font-display">
+                <h4 className="text-sm font-semibold text-foreground font-display">
                   No work sessions logged yet
                 </h4>
                 <p className="text-xs text-muted-foreground leading-relaxed">
@@ -237,7 +237,7 @@ export function TaskTimeLogsTab({ task, canEdit }: TaskTimeLogsTabProps) {
                 type="button"
                 size="sm"
                 onClick={() => setIsManualModalOpen(true)}
-                className="text-xs font-bold gap-1.5 mt-2 rounded-lg"
+                className="text-xs font-semibold gap-1.5 mt-2 rounded-lg"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Log First Session</span>
@@ -256,9 +256,9 @@ export function TaskTimeLogsTab({ task, canEdit }: TaskTimeLogsTabProps) {
                   <div
                     key={entry.id}
                     className={cn(
-                      "rounded-xl border bg-card p-4 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 transition-all duration-200 hover:border-border",
+                      "rounded-lg border bg-card p-4 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 transition-all duration-200 hover:border-border",
                       isRunning
-                        ? "border-emerald-500/40 bg-emerald-500/5 dark:bg-emerald-500/10 ring-1 ring-emerald-500/20"
+                        ? "border-success/40 bg-success/5 ring-1 ring-success/20"
                         : "border-border/70"
                     )}
                   >
@@ -268,19 +268,19 @@ export function TaskTimeLogsTab({ task, canEdit }: TaskTimeLogsTabProps) {
                         {entry.user && <UserAvatar user={entry.user} size="sm" />}
                         {isRunning && (
                           <span className="absolute -bottom-0.5 -right-0.5 flex h-2.5 w-2.5">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+                            <span className=" absolute inline-flex h-full w-full rounded-full bg-success opacity-75" />
+                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-success" />
                           </span>
                         )}
                       </div>
 
                       <div className="flex flex-col min-w-0 gap-1">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-xs font-bold text-foreground">
+                          <span className="text-xs font-semibold text-foreground">
                             {entry.user?.name || "Team Member"}
                           </span>
 
-                          <span className="text-[11px] text-muted-foreground flex items-center gap-1 font-mono">
+                          <span className="text-xs text-muted-foreground flex items-center gap-1 font-mono">
                             <Calendar className="w-3 h-3 text-muted-foreground/60" />
                             {formatDate(entry.startedAt)}
                           </span>
@@ -288,21 +288,21 @@ export function TaskTimeLogsTab({ task, canEdit }: TaskTimeLogsTabProps) {
                           {entry.isBillable ? (
                             <Badge
                               variant="secondary"
-                              className="text-[9px] py-0 px-1.5 font-mono font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                              className="text-xs py-0 px-1.5 font-mono font-medium bg-success/10 text-success border border-success/20"
                             >
                               Billable
                             </Badge>
                           ) : (
                             <Badge
                               variant="secondary"
-                              className="text-[9px] py-0 px-1.5 font-mono font-medium text-muted-foreground"
+                              className="text-xs py-0 px-1.5 font-mono font-medium text-muted-foreground"
                             >
                               Non-Billable
                             </Badge>
                           )}
 
                           {isRunning && (
-                            <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/15 px-2 py-0.5 rounded-full border border-emerald-500/30">
+                            <span className="inline-flex items-center gap-1 text-xs font-semibold text-success bg-success/15 px-2 py-0.5 rounded-full border border-success/30">
                               Active Stopwatch
                             </span>
                           )}
@@ -315,7 +315,7 @@ export function TaskTimeLogsTab({ task, canEdit }: TaskTimeLogsTabProps) {
                             </p>
                           </div>
                         ) : (
-                          <span className="text-[11px] text-muted-foreground/60 italic">
+                          <span className="text-xs text-muted-foreground/60 italic">
                             No work notes provided
                           </span>
                         )}
@@ -326,7 +326,7 @@ export function TaskTimeLogsTab({ task, canEdit }: TaskTimeLogsTabProps) {
                     <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-border/40">
                       <div className="flex flex-col items-start sm:items-end font-mono">
                         <div className="flex items-center gap-1.5">
-                          <span className="text-base font-extrabold text-foreground">
+                          <span className="text-base font-semibold text-foreground">
                             {isRunning ? "Tracking..." : formatDuration(entry.durationMin)}
                           </span>
                           {!isRunning && entry.durationMin && entry.durationMin > 0 && (
@@ -336,7 +336,7 @@ export function TaskTimeLogsTab({ task, canEdit }: TaskTimeLogsTabProps) {
                           )}
                         </div>
 
-                        <span className="text-[10px] text-muted-foreground">
+                        <span className="text-xs text-muted-foreground">
                           {formatTime(entry.startedAt)}
                           {entry.endedAt && ` → ${formatTime(entry.endedAt)}`}
                         </span>
@@ -346,7 +346,7 @@ export function TaskTimeLogsTab({ task, canEdit }: TaskTimeLogsTabProps) {
                         <button
                           type="button"
                           onClick={() => setEntryToDelete(entry)}
-                          className="text-muted-foreground/40 hover:text-rose-600 p-1.5 rounded-md hover:bg-rose-500/10 transition-colors cursor-pointer"
+                          className="text-muted-foreground/40 hover:text-destructive p-1.5 rounded-md hover:bg-destructive/10 transition-colors cursor-pointer"
                           title="Delete time log entry"
                         >
                           <Trash2 className="w-4 h-4" />

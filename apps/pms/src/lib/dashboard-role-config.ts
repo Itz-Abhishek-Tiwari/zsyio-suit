@@ -95,9 +95,9 @@ export function getRoleDashboardMeta(
         roleName: role === "SUPER_ADMIN" ? "Super Admin" : "Administrator",
         badgeLabel: "Workspace Administration",
         badgeIcon: ShieldCheck,
-        badgeBgClass: "bg-emerald-500/10",
-        badgeColorClass: "text-emerald-600 dark:text-emerald-400",
-        badgeBorderClass: "border-emerald-500/20",
+        badgeBgClass: "bg-success/10",
+        badgeColorClass: "text-success",
+        badgeBorderClass: "border-success/20",
         welcomeSubtitle:
           "Full operational oversight: team throughput, client accounts, operational metrics, and user management.",
         defaultTab: "myTasks",
@@ -110,9 +110,9 @@ export function getRoleDashboardMeta(
         roleName: "Project Manager",
         badgeLabel: "Project & Delivery Hub",
         badgeIcon: Briefcase,
-        badgeBgClass: "bg-blue-500/10",
-        badgeColorClass: "text-blue-600 dark:text-blue-400",
-        badgeBorderClass: "border-blue-500/20",
+        badgeBgClass: "bg-notion-blue-fg/10",
+        badgeColorClass: "text-notion-blue-fg",
+        badgeBorderClass: "border-notion-blue-fg/20",
         welcomeSubtitle:
           "Track delivery milestones, clear team blockers, monitor client portfolio health, and manage SLA timelines.",
         defaultTab: "myTasks",
@@ -125,9 +125,9 @@ export function getRoleDashboardMeta(
         roleName: "Software Engineer",
         badgeLabel: "Engineering Workspace",
         badgeIcon: Code2,
-        badgeBgClass: "bg-purple-500/10",
-        badgeColorClass: "text-purple-600 dark:text-purple-400",
-        badgeBorderClass: "border-purple-500/20",
+        badgeBgClass: "bg-notion-purple-fg/10",
+        badgeColorClass: "text-notion-purple-fg",
+        badgeBorderClass: "border-notion-purple-fg/20",
         welcomeSubtitle:
           "Your engineering workbench: focused on your assigned sprint tasks, active code reviews, and priority bugs.",
         defaultTab: "myTasks",
@@ -140,9 +140,9 @@ export function getRoleDashboardMeta(
         roleName: "Support Specialist",
         badgeLabel: "Support & Incident Desk",
         badgeIcon: Headphones,
-        badgeBgClass: "bg-amber-500/10",
-        badgeColorClass: "text-amber-600 dark:text-amber-400",
-        badgeBorderClass: "border-amber-500/20",
+        badgeBgClass: "bg-warning/10",
+        badgeColorClass: "text-warning",
+        badgeBorderClass: "border-warning/20",
         welcomeSubtitle:
           "Customer ticket triage, incident management, client request tracking, and SLA resolution.",
         defaultTab: "myTasks",
@@ -208,14 +208,14 @@ export function getRoleKPICards(
           subtitle: `of ${metrics.myTotalTasks} assigned`,
           sublabel: metrics.myOpenTasks === 0 ? "All tasks completed!" : `${metrics.myOpenTasks} tasks pending action`,
           icon: SquareCheckBig,
-          iconBgClass: "bg-purple-500/10",
-          iconTextClass: "text-purple-600 dark:text-purple-400",
-          iconBorderClass: "border-purple-500/20",
+          iconBgClass: "bg-notion-purple-fg/10",
+          iconTextClass: "text-notion-purple-fg",
+          iconBorderClass: "border-notion-purple-fg/20",
           progressPercentage:
             metrics.myTotalTasks > 0
               ? Math.min(100, Math.round((metrics.myOpenTasks / metrics.myTotalTasks) * 100))
               : 0,
-          progressBarColor: "bg-purple-500",
+          progressBarColor: "bg-notion-purple-fg",
           linkHref: "/tasks",
         },
         {
@@ -228,14 +228,14 @@ export function getRoleKPICards(
               ? `${metrics.myInReviewTasks} task${metrics.myInReviewTasks > 1 ? "s" : ""} awaiting review`
               : "No pending reviews",
           icon: GitPullRequest,
-          iconBgClass: "bg-blue-500/10",
-          iconTextClass: "text-blue-600 dark:text-blue-400",
-          iconBorderClass: "border-blue-500/20",
+          iconBgClass: "bg-notion-blue-fg/10",
+          iconTextClass: "text-notion-blue-fg",
+          iconBorderClass: "border-notion-blue-fg/20",
           progressPercentage:
             metrics.myTotalTasks > 0
               ? Math.min(100, Math.round((metrics.myInReviewTasks / metrics.myTotalTasks) * 100))
               : 0,
-          progressBarColor: "bg-blue-500",
+          progressBarColor: "bg-notion-blue-fg",
           linkHref: "/tasks",
         },
         {
@@ -250,9 +250,9 @@ export function getRoleKPICards(
               ? `${metrics.myUrgentTasks} critical/high priority item${metrics.myUrgentTasks > 1 ? "s" : ""}`
               : "No high priority tasks",
           icon: Flame,
-          iconBgClass: metrics.myUrgentTasks > 0 ? "bg-red-500/15" : "bg-muted",
-          iconTextClass: metrics.myUrgentTasks > 0 ? "text-red-600 dark:text-red-400" : "text-muted-foreground",
-          iconBorderClass: metrics.myUrgentTasks > 0 ? "border-red-500/30" : "border-border/60",
+          iconBgClass: metrics.myUrgentTasks > 0 ? "bg-destructive/15" : "bg-muted",
+          iconTextClass: metrics.myUrgentTasks > 0 ? "text-destructive" : "text-muted-foreground",
+          iconBorderClass: metrics.myUrgentTasks > 0 ? "border-destructive/30" : "border-border/60",
           linkHref: "/tasks",
         },
         {
@@ -262,11 +262,11 @@ export function getRoleKPICards(
           subtitle: `${metrics.myDoneTasks} completed`,
           sublabel: `Personal sprint throughput`,
           icon: TrendingUp,
-          iconBgClass: "bg-emerald-500/10",
-          iconTextClass: "text-emerald-600 dark:text-emerald-400",
-          iconBorderClass: "border-emerald-500/20",
+          iconBgClass: "bg-success/10",
+          iconTextClass: "text-success",
+          iconBorderClass: "border-success/20",
           progressPercentage: metrics.myCompletionRate,
-          progressBarColor: "bg-emerald-500",
+          progressBarColor: "bg-success",
           linkHref: "/tasks",
         },
       ];
@@ -280,14 +280,14 @@ export function getRoleKPICards(
           subtitle: `of ${metrics.totalTasks} total tasks`,
           sublabel: "Active deliverables across products",
           icon: Boxes,
-          iconBgClass: "bg-blue-500/10",
-          iconTextClass: "text-blue-600 dark:text-blue-400",
-          iconBorderClass: "border-blue-500/20",
+          iconBgClass: "bg-notion-blue-fg/10",
+          iconTextClass: "text-notion-blue-fg",
+          iconBorderClass: "border-notion-blue-fg/20",
           progressPercentage:
             metrics.totalTasks > 0
               ? Math.min(100, Math.round((metrics.openTasks / metrics.totalTasks) * 100))
               : 0,
-          progressBarColor: "bg-blue-500",
+          progressBarColor: "bg-notion-blue-fg",
           linkHref: "/tasks",
         },
         {
@@ -302,9 +302,9 @@ export function getRoleKPICards(
               ? `${metrics.blockedCount} task${metrics.blockedCount > 1 ? "s" : ""} stuck on blockers`
               : "Smooth delivery flow",
           icon: AlertCircle,
-          iconBgClass: metrics.blockedCount > 0 ? "bg-amber-500/15" : "bg-muted",
-          iconTextClass: metrics.blockedCount > 0 ? "text-amber-600 dark:text-amber-400" : "text-muted-foreground",
-          iconBorderClass: metrics.blockedCount > 0 ? "border-amber-500/30" : "border-border/60",
+          iconBgClass: metrics.blockedCount > 0 ? "bg-warning/15" : "bg-muted",
+          iconTextClass: metrics.blockedCount > 0 ? "text-warning" : "text-muted-foreground",
+          iconBorderClass: metrics.blockedCount > 0 ? "border-warning/30" : "border-border/60",
           linkHref: "/tasks",
         },
         {
@@ -319,9 +319,9 @@ export function getRoleKPICards(
               ? `${metrics.overdueTasks} task${metrics.overdueTasks > 1 ? "s" : ""} missed deadline`
               : "All deadlines on schedule",
           icon: Clock,
-          iconBgClass: metrics.overdueTasks > 0 ? "bg-red-500/15" : "bg-muted",
-          iconTextClass: metrics.overdueTasks > 0 ? "text-red-600 dark:text-red-400" : "text-muted-foreground",
-          iconBorderClass: metrics.overdueTasks > 0 ? "border-red-500/30" : "border-border/60",
+          iconBgClass: metrics.overdueTasks > 0 ? "bg-destructive/15" : "bg-muted",
+          iconTextClass: metrics.overdueTasks > 0 ? "text-destructive" : "text-muted-foreground",
+          iconBorderClass: metrics.overdueTasks > 0 ? "border-destructive/30" : "border-border/60",
           linkHref: "/tasks",
         },
         {
@@ -349,14 +349,14 @@ export function getRoleKPICards(
           subtitle: `of ${metrics.supportTotalTasks} total`,
           sublabel: "Active client support requests",
           icon: Headphones,
-          iconBgClass: "bg-amber-500/10",
-          iconTextClass: "text-amber-600 dark:text-amber-400",
-          iconBorderClass: "border-amber-500/20",
+          iconBgClass: "bg-warning/10",
+          iconTextClass: "text-warning",
+          iconBorderClass: "border-warning/20",
           progressPercentage:
             metrics.supportTotalTasks > 0
               ? Math.min(100, Math.round((metrics.supportOpenTasks / metrics.supportTotalTasks) * 100))
               : 0,
-          progressBarColor: "bg-amber-500",
+          progressBarColor: "bg-warning",
           linkHref: "/tasks",
         },
         {
@@ -371,9 +371,9 @@ export function getRoleKPICards(
               ? `${metrics.supportCriticalTasks} urgent issue${metrics.supportCriticalTasks > 1 ? "s" : ""}`
               : "No critical incidents",
           icon: Flame,
-          iconBgClass: metrics.supportCriticalTasks > 0 ? "bg-red-500/15" : "bg-muted",
-          iconTextClass: metrics.supportCriticalTasks > 0 ? "text-red-600 dark:text-red-400" : "text-muted-foreground",
-          iconBorderClass: metrics.supportCriticalTasks > 0 ? "border-red-500/30" : "border-border/60",
+          iconBgClass: metrics.supportCriticalTasks > 0 ? "bg-destructive/15" : "bg-muted",
+          iconTextClass: metrics.supportCriticalTasks > 0 ? "text-destructive" : "text-muted-foreground",
+          iconBorderClass: metrics.supportCriticalTasks > 0 ? "border-destructive/30" : "border-border/60",
           linkHref: "/tasks",
         },
         {
@@ -388,9 +388,9 @@ export function getRoleKPICards(
               ? `${metrics.overdueTasks} ticket${metrics.overdueTasks > 1 ? "s" : ""} overdue`
               : "All tickets within SLA target",
           icon: Clock,
-          iconBgClass: metrics.overdueTasks > 0 ? "bg-red-500/15" : "bg-muted",
-          iconTextClass: metrics.overdueTasks > 0 ? "text-red-600 dark:text-red-400" : "text-muted-foreground",
-          iconBorderClass: metrics.overdueTasks > 0 ? "border-red-500/30" : "border-border/60",
+          iconBgClass: metrics.overdueTasks > 0 ? "bg-destructive/15" : "bg-muted",
+          iconTextClass: metrics.overdueTasks > 0 ? "text-destructive" : "text-muted-foreground",
+          iconBorderClass: metrics.overdueTasks > 0 ? "border-destructive/30" : "border-border/60",
           linkHref: "/tasks",
         },
         {
@@ -400,11 +400,11 @@ export function getRoleKPICards(
           subtitle: `${metrics.supportDoneTasks} resolved`,
           sublabel: "Resolved ticket SLA rate",
           icon: CheckCircle2,
-          iconBgClass: "bg-emerald-500/10",
-          iconTextClass: "text-emerald-600 dark:text-emerald-400",
-          iconBorderClass: "border-emerald-500/20",
+          iconBgClass: "bg-success/10",
+          iconTextClass: "text-success",
+          iconBorderClass: "border-success/20",
           progressPercentage: metrics.supportResolutionRate,
-          progressBarColor: "bg-emerald-500",
+          progressBarColor: "bg-success",
           linkHref: "/tasks",
         },
       ];
@@ -420,14 +420,14 @@ export function getRoleKPICards(
           subtitle: `of ${metrics.totalTasks} total`,
           sublabel: `${metrics.openTasks} active across organization`,
           icon: SquareCheckBig,
-          iconBgClass: "bg-orange-500/10",
-          iconTextClass: "text-orange-600 dark:text-orange-400",
-          iconBorderClass: "border-orange-500/20",
+          iconBgClass: "bg-notion-orange-fg/10",
+          iconTextClass: "text-notion-orange-fg",
+          iconBorderClass: "border-notion-orange-fg/20",
           progressPercentage:
             metrics.totalTasks > 0
               ? Math.min(100, Math.round((metrics.openTasks / metrics.totalTasks) * 100))
               : 0,
-          progressBarColor: "bg-orange-500",
+          progressBarColor: "bg-notion-orange-fg",
           linkHref: "/tasks",
         },
         {
@@ -442,9 +442,9 @@ export function getRoleKPICards(
               ? `${metrics.overdueTasks} task${metrics.overdueTasks > 1 ? "s" : ""} past deadline`
               : "No overdue deliverables",
           icon: AlertCircle,
-          iconBgClass: metrics.overdueTasks > 0 ? "bg-red-500/15" : "bg-muted",
-          iconTextClass: metrics.overdueTasks > 0 ? "text-red-600 dark:text-red-400" : "text-muted-foreground",
-          iconBorderClass: metrics.overdueTasks > 0 ? "border-red-500/30" : "border-border/60",
+          iconBgClass: metrics.overdueTasks > 0 ? "bg-destructive/15" : "bg-muted",
+          iconTextClass: metrics.overdueTasks > 0 ? "text-destructive" : "text-muted-foreground",
+          iconBorderClass: metrics.overdueTasks > 0 ? "border-destructive/30" : "border-border/60",
           linkHref: "/tasks",
         },
         metrics.clientCount !== null
@@ -455,9 +455,9 @@ export function getRoleKPICards(
               subtitle: `${metrics.productCount} active product${metrics.productCount !== 1 ? "s" : ""}`,
               sublabel: "Client orgs & product suites",
               icon: Building2,
-              iconBgClass: "bg-emerald-500/10",
-              iconTextClass: "text-emerald-600 dark:text-emerald-400",
-              iconBorderClass: "border-emerald-500/20",
+              iconBgClass: "bg-success/10",
+              iconTextClass: "text-success",
+              iconBorderClass: "border-success/20",
               linkHref: "/clients",
             }
           : {
@@ -467,9 +467,9 @@ export function getRoleKPICards(
               subtitle: "Production suites",
               sublabel: "Integrated deployment environments",
               icon: Layers,
-              iconBgClass: "bg-purple-500/10",
-              iconTextClass: "text-purple-600 dark:text-purple-400",
-              iconBorderClass: "border-purple-500/20",
+              iconBgClass: "bg-notion-purple-fg/10",
+              iconTextClass: "text-notion-purple-fg",
+              iconBorderClass: "border-notion-purple-fg/20",
             },
         {
           id: "completion-rate",
@@ -603,24 +603,24 @@ export function getRoleQuickNav(
           description: "Active sprint workload",
           href: "/tasks",
           icon: SquareCheckBig,
-          iconColorClass: "text-purple-500",
-          borderColorClass: "hover:border-purple-500/40",
+          iconColorClass: "text-notion-purple-fg",
+          borderColorClass: "hover:border-notion-purple-fg/40",
         },
         {
           label: "Notes & Docs",
           description: "Workspace documentation",
           href: "/notes",
           icon: FileText,
-          iconColorClass: "text-emerald-500",
-          borderColorClass: "hover:border-emerald-500/40",
+          iconColorClass: "text-success",
+          borderColorClass: "hover:border-success/40",
         },
         {
           label: "Notifications",
           description: "Alert preferences",
           href: "/settings/notifications",
           icon: Sliders,
-          iconColorClass: "text-amber-500",
-          borderColorClass: "hover:border-amber-500/40",
+          iconColorClass: "text-warning",
+          borderColorClass: "hover:border-warning/40",
         },
       ];
 
@@ -631,8 +631,8 @@ export function getRoleQuickNav(
           description: "Incident triage workflow",
           href: "/tasks",
           icon: Columns3,
-          iconColorClass: "text-amber-500",
-          borderColorClass: "hover:border-amber-500/40",
+          iconColorClass: "text-warning",
+          borderColorClass: "hover:border-warning/40",
         },
         ...(can(role, "client:view", permissions)
           ? [
@@ -641,8 +641,8 @@ export function getRoleQuickNav(
                 description: "Client contact & accounts",
                 href: "/clients",
                 icon: Building2,
-                iconColorClass: "text-emerald-500",
-                borderColorClass: "hover:border-emerald-500/40",
+                iconColorClass: "text-success",
+                borderColorClass: "hover:border-success/40",
               },
             ]
           : [
@@ -651,8 +651,8 @@ export function getRoleQuickNav(
                 description: "Internal documentation",
                 href: "/notes",
                 icon: FileText,
-                iconColorClass: "text-emerald-500",
-                borderColorClass: "hover:border-emerald-500/40",
+                iconColorClass: "text-success",
+                borderColorClass: "hover:border-success/40",
               },
             ]),
         {
@@ -660,8 +660,8 @@ export function getRoleQuickNav(
           description: "Ticket SLA alerts",
           href: "/settings/notifications",
           icon: LifeBuoy,
-          iconColorClass: "text-blue-500",
-          borderColorClass: "hover:border-blue-500/40",
+          iconColorClass: "text-notion-blue-fg",
+          borderColorClass: "hover:border-notion-blue-fg/40",
         },
       ];
 
@@ -680,24 +680,24 @@ export function getRoleQuickNav(
           description: "Portfolio & accounts",
           href: "/clients",
           icon: Building2,
-          iconColorClass: "text-emerald-500",
-          borderColorClass: "hover:border-emerald-500/40",
+          iconColorClass: "text-success",
+          borderColorClass: "hover:border-success/40",
         },
         {
           label: "Teams",
           description: "Rosters & workloads",
           href: "/settings/teams",
           icon: UsersRound,
-          iconColorClass: "text-purple-500",
-          borderColorClass: "hover:border-purple-500/40",
+          iconColorClass: "text-notion-purple-fg",
+          borderColorClass: "hover:border-notion-purple-fg/40",
         },
         {
           label: "Analytics & Reports",
           description: "Team velocity & SLA",
           href: "/reports",
           icon: FileText,
-          iconColorClass: "text-amber-500",
-          borderColorClass: "hover:border-amber-500/40",
+          iconColorClass: "text-warning",
+          borderColorClass: "hover:border-warning/40",
         },
       ];
 
@@ -720,8 +720,8 @@ export function getRoleQuickNav(
                 description: "Client management",
                 href: "/clients",
                 icon: Building2,
-                iconColorClass: "text-emerald-500",
-                borderColorClass: "hover:border-emerald-500/40",
+                iconColorClass: "text-success",
+                borderColorClass: "hover:border-success/40",
               },
             ]
           : []),
@@ -732,8 +732,8 @@ export function getRoleQuickNav(
                 description: "Team SLA metrics",
                 href: "/reports",
                 icon: FileText,
-                iconColorClass: "text-amber-500",
-                borderColorClass: "hover:border-amber-500/40",
+                iconColorClass: "text-warning",
+                borderColorClass: "hover:border-warning/40",
               },
             ]
           : [
@@ -742,8 +742,8 @@ export function getRoleQuickNav(
                 description: "Alert preferences",
                 href: "/settings/notifications",
                 icon: Sliders,
-                iconColorClass: "text-amber-500",
-                borderColorClass: "hover:border-amber-500/40",
+                iconColorClass: "text-warning",
+                borderColorClass: "hover:border-warning/40",
               },
             ]),
       ];

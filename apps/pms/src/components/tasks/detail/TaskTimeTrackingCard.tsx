@@ -154,7 +154,7 @@ export function TaskTimeTrackingCard({
 
   return (
     <>
-      <div className="rounded-xl border border-border/80 bg-gradient-to-b from-card to-card/90 shadow-sm p-4 flex flex-col gap-3.5 relative overflow-hidden transition-all duration-200">
+      <div className="rounded-lg border border-border/80 shadow-sm p-4 flex flex-col gap-3.5 relative overflow-hidden transition-all duration-200 bg-card">
         {/* Top Header */}
         <div className="flex items-center justify-between pb-2 border-b border-border/60">
           <div className="flex items-center gap-2">
@@ -162,7 +162,7 @@ export function TaskTimeTrackingCard({
               <Clock className="w-3.5 h-3.5" />
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="text-xs font-bold uppercase tracking-wider text-foreground font-display">
+              <span className="text-xs font-semibold   text-foreground font-display">
                 Time Tracking
               </span>
             </div>
@@ -173,7 +173,7 @@ export function TaskTimeTrackingCard({
             {isOverBudget ? (
               <Badge
                 variant="destructive"
-                className="text-[9px] py-0 px-1.5 font-mono font-semibold flex items-center gap-1"
+                className="text-xs py-0 px-1.5 font-mono font-semibold flex items-center gap-1"
               >
                 <AlertTriangle className="w-2.5 h-2.5" />
                 <span>+{overrunHours}h Over</span>
@@ -181,14 +181,14 @@ export function TaskTimeTrackingCard({
             ) : isNearBudget ? (
               <Badge
                 variant="secondary"
-                className="text-[9px] py-0 px-1.5 font-mono font-semibold bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30"
+                className="text-xs py-0 px-1.5 font-mono font-semibold bg-warning/15 text-warning border-warning/30"
               >
                 <span>{Math.round(progressRatio)}% Burned</span>
               </Badge>
             ) : estimatedHours > 0 ? (
               <Badge
                 variant="secondary"
-                className="text-[9px] py-0 px-1.5 font-mono font-semibold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30"
+                className="text-xs py-0 px-1.5 font-mono font-semibold bg-success/15 text-success border-success/30"
               >
                 <span>On Track</span>
               </Badge>
@@ -198,7 +198,7 @@ export function TaskTimeTrackingCard({
               <button
                 type="button"
                 onClick={onViewTimeLogs}
-                className="text-[11px] font-medium text-muted-foreground hover:text-foreground flex items-center gap-1 cursor-pointer transition-colors px-1.5 py-0.5 rounded-md hover:bg-muted"
+                className="text-xs font-medium text-muted-foreground hover:text-foreground flex items-center gap-1 cursor-pointer transition-colors px-1.5 py-0.5 rounded-md hover:bg-muted"
                 title="View full session logs ledger"
               >
                 <History className="w-3 h-3 text-muted-foreground" />
@@ -212,17 +212,17 @@ export function TaskTimeTrackingCard({
         <div className="grid grid-cols-3 gap-2 bg-muted/40 border border-border/50 rounded-lg p-2.5 text-center">
           {/* Actual Logged */}
           <div className="flex flex-col items-center justify-center">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/80">
+            <span className="text-xs font-semibold   text-muted-foreground/80">
               Logged
             </span>
-            <span className="font-mono text-sm font-bold text-foreground mt-0.5">
+            <span className="font-mono text-sm font-semibold text-foreground mt-0.5">
               {actualHours}h
             </span>
           </div>
 
           {/* Estimate with quick inline edit */}
           <div className="flex flex-col items-center justify-center border-x border-border/50 px-1">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/80">
+            <span className="text-xs font-semibold   text-muted-foreground/80">
               Estimate
             </span>
             {isEditingEstimate ? (
@@ -237,13 +237,13 @@ export function TaskTimeTrackingCard({
                     if (e.key === "Enter") handleSaveEstimate();
                     if (e.key === "Escape") setIsEditingEstimate(false);
                   }}
-                  className="w-12 h-5 text-[11px] px-1 font-mono text-center"
+                  className="w-12 h-5 text-xs px-1 font-mono text-center"
                   autoFocus
                 />
                 <button
                   type="button"
                   onClick={handleSaveEstimate}
-                  className="p-0.5 text-emerald-600 hover:text-emerald-700 cursor-pointer"
+                  className="p-0.5 text-success hover:text-success cursor-pointer"
                   title="Save estimate"
                 >
                   <Check className="w-3 h-3" />
@@ -259,7 +259,7 @@ export function TaskTimeTrackingCard({
               </div>
             ) : (
               <div className="flex items-center gap-1 mt-0.5">
-                <span className="font-mono text-sm font-bold text-foreground">
+                <span className="font-mono text-sm font-semibold text-foreground">
                   {estimatedHours > 0 ? `${estimatedHours}h` : "-"}
                 </span>
                 {canEdit && onUpdateEstimatedHours && (
@@ -281,16 +281,16 @@ export function TaskTimeTrackingCard({
 
           {/* Remaining or Overrun */}
           <div className="flex flex-col items-center justify-center">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/80">
+            <span className="text-xs font-semibold   text-muted-foreground/80">
               {isOverBudget ? "Overrun" : "Remaining"}
             </span>
             <span
               className={cn(
-                "font-mono text-sm font-bold mt-0.5",
+                "font-mono text-sm font-semibold mt-0.5",
                 isOverBudget
-                  ? "text-rose-600 dark:text-rose-400"
+                  ? "text-destructive"
                   : estimatedHours > 0
-                  ? "text-emerald-600 dark:text-emerald-400"
+                  ? "text-success"
                   : "text-muted-foreground"
               )}
             >
@@ -309,18 +309,18 @@ export function TaskTimeTrackingCard({
             <div className="h-2 w-full bg-muted/80 rounded-full overflow-hidden p-0.5 border border-border/40">
               <div
                 className={cn(
-                  "h-full rounded-full transition-all duration-500",
+                  "h-full rounded-full transition-all duration-150",
                   isOverBudget
-                    ? "bg-rose-500 shadow-xs shadow-rose-500/50"
+                    ? "bg-destructive shadow-xs "
                     : isNearBudget
-                    ? "bg-amber-500 shadow-xs shadow-amber-500/50"
-                    : "bg-gradient-to-r from-primary to-emerald-500 shadow-xs shadow-primary/30"
+                    ? "bg-warning shadow-xs "
+                    : "shadow-xs  bg-primary"
                 )}
                 style={{ width: `${Math.min(100, Math.round(progressRatio))}%` }}
               />
             </div>
 
-            <div className="flex items-center justify-between text-[10px] font-mono text-muted-foreground">
+            <div className="flex items-center justify-between text-xs font-mono text-muted-foreground">
               <span>{Math.round(progressRatio)}% burned</span>
               <span>
                 {isOverBudget
@@ -335,26 +335,26 @@ export function TaskTimeTrackingCard({
         <div className="flex flex-col gap-2 pt-0.5">
           {isThisTaskActive ? (
             /* Active Live Stopwatch Display */
-            <div className="rounded-lg border border-emerald-500/40 bg-gradient-to-r from-emerald-500/10 via-emerald-500/5 to-transparent p-3 flex items-center justify-between shadow-xs">
+            <div className="rounded-lg border border-success/40 p-3 flex items-center justify-between shadow-xs bg-success/10">
               <div className="flex items-center gap-2.5">
                 {/* Live pulsing radar dot */}
                 <div className="relative flex h-3 w-3 shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500" />
+                  <span className=" absolute inline-flex h-full w-full rounded-full bg-success opacity-75" />
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-success" />
                 </div>
 
                 {/* Animated micro audio bars indicator */}
                 <div className="flex items-end gap-0.5 h-3.5">
-                  <span className="w-0.5 bg-emerald-500 animate-pulse rounded-full h-2" />
-                  <span className="w-0.5 bg-emerald-500 animate-pulse delay-75 rounded-full h-3.5" />
-                  <span className="w-0.5 bg-emerald-500 animate-pulse delay-150 rounded-full h-2.5" />
+                  <span className="w-0.5 bg-success animate-pulse rounded-full h-2" />
+                  <span className="w-0.5 bg-success animate-pulse delay-75 rounded-full h-3.5" />
+                  <span className="w-0.5 bg-success animate-pulse delay-150 rounded-full h-2.5" />
                 </div>
 
                 <div className="flex flex-col">
-                  <span className="font-mono text-base font-bold text-foreground tracking-wider leading-none">
+                  <span className="font-mono text-base font-semibold text-foreground  leading-none">
                     {formatStopwatch(elapsedSeconds)}
                   </span>
-                  <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">
+                  <span className="text-xs text-success font-medium">
                     Tracking live session...
                   </span>
                 </div>
@@ -366,7 +366,7 @@ export function TaskTimeTrackingCard({
                 variant="destructive"
                 onClick={handleStopTimer}
                 disabled={isStopping}
-                className="h-8 text-xs font-bold gap-1.5 px-3 shadow-xs active:scale-95 transition-transform"
+                className="h-8 text-xs font-semibold gap-1.5 px-3 shadow-xs  transition-transform"
               >
                 {isStopping ? (
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -415,8 +415,8 @@ export function TaskTimeTrackingCard({
 
               {/* Quick Log Presets Row (+15m, +30m, +1h) */}
               <div className="flex items-center justify-between pt-1 border-t border-border/40">
-                <span className="text-[10px] text-muted-foreground font-medium flex items-center gap-1">
-                  <Zap className="w-3 h-3 text-amber-500" />
+                <span className="text-xs text-muted-foreground font-medium flex items-center gap-1">
+                  <Zap className="w-3 h-3 text-warning" />
                   Quick Log:
                 </span>
 
@@ -431,7 +431,7 @@ export function TaskTimeTrackingCard({
                       type="button"
                       disabled={quickLogging !== null}
                       onClick={() => handleQuickLog(preset.mins)}
-                      className="px-2 py-0.5 rounded text-[10px] font-mono font-medium text-muted-foreground hover:text-foreground bg-muted hover:bg-muted/80 border border-border/50 transition-colors disabled:opacity-50 cursor-pointer active:scale-95"
+                      className="px-2 py-0.5 rounded text-xs font-mono font-medium text-muted-foreground hover:text-foreground bg-muted hover:bg-muted/80 border border-border/50 transition-colors disabled:opacity-50 cursor-pointer "
                     >
                       {quickLogging === preset.mins ? (
                         <Loader2 className="w-2.5 h-2.5 animate-spin inline" />
@@ -446,8 +446,8 @@ export function TaskTimeTrackingCard({
           )}
 
           {isOtherTaskActive && !isThisTaskActive && (
-            <div className="text-[10px] text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2.5 py-1.5 rounded-md border border-amber-500/20 flex items-start gap-1.5">
-              <AlertTriangle className="w-3 h-3 shrink-0 mt-0.5 text-amber-500" />
+            <div className="text-xs text-warning bg-warning/10 px-2.5 py-1.5 rounded-md border border-warning/20 flex items-start gap-1.5">
+              <AlertTriangle className="w-3 h-3 shrink-0 mt-0.5 text-warning" />
               <span>
                 Stopwatch active on another task. Starting here will automatically stop and save that session.
               </span>

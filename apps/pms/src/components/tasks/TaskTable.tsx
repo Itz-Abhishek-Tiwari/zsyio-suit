@@ -169,26 +169,26 @@ function TaskTableInner({ filters = {} }: { filters?: TaskTableFilters }) {
   };
 
   return (
-    <div className="rounded-2xl border border-border/80 bg-card shadow-xs overflow-hidden transition-all duration-200">
+    <div className="rounded-lg border border-border/80 bg-card shadow-xs overflow-hidden transition-all duration-200">
       <Table>
         <TableHeader className="bg-surface-subtle/60 border-b border-border/60">
           <TableRow className="hover:bg-transparent">
-            <TableHead className="w-[380px] font-bold text-xs uppercase tracking-wider text-muted-foreground py-3.5 pl-5">
+            <TableHead className="w-[380px] font-semibold text-xs   text-muted-foreground py-3.5 pl-5">
               Task Title & Details
             </TableHead>
-            <TableHead className="font-bold text-xs uppercase tracking-wider text-muted-foreground py-3.5">
+            <TableHead className="font-semibold text-xs   text-muted-foreground py-3.5">
               Status
             </TableHead>
-            <TableHead className="font-bold text-xs uppercase tracking-wider text-muted-foreground py-3.5">
+            <TableHead className="font-semibold text-xs   text-muted-foreground py-3.5">
               Priority
             </TableHead>
-            <TableHead className="font-bold text-xs uppercase tracking-wider text-muted-foreground py-3.5">
+            <TableHead className="font-semibold text-xs   text-muted-foreground py-3.5">
               Assignee
             </TableHead>
-            <TableHead className="font-bold text-xs uppercase tracking-wider text-muted-foreground py-3.5">
+            <TableHead className="font-semibold text-xs   text-muted-foreground py-3.5">
               Effort / Time
             </TableHead>
-            <TableHead className="font-bold text-xs uppercase tracking-wider text-muted-foreground py-3.5">
+            <TableHead className="font-semibold text-xs   text-muted-foreground py-3.5">
               Due Date
             </TableHead>
             <TableHead className="w-[60px] text-right py-3.5 pr-4" />
@@ -198,7 +198,7 @@ function TaskTableInner({ filters = {} }: { filters?: TaskTableFilters }) {
         <TableBody className="divide-y divide-border/40">
           {displayTasks.map((task) => {
             const shortId = formatTicketId(task);
-            const typeCfg = TYPE_CONFIG[task.type as keyof typeof TYPE_CONFIG] ?? { label: task.type, icon: <Tag className="w-3 h-3 text-purple-500" /> };
+            const typeCfg = TYPE_CONFIG[task.type as keyof typeof TYPE_CONFIG] ?? { label: task.type, icon: <Tag className="w-3 h-3 text-notion-purple-fg" /> };
             const { isAdmin, tableRowClass } = hierarchyMap.get(task.id) ?? getTaskVisualHierarchy(task);
 
             const userPerms = currentUser?.permissions;
@@ -254,13 +254,13 @@ function TaskTableInner({ filters = {} }: { filters?: TaskTableFilters }) {
                 <TableCell className="py-3.5 pl-5">
                   <div className="flex flex-col gap-1.5 max-w-[360px]">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-mono text-[10px] font-bold tracking-wider text-muted-foreground bg-muted px-1.5 py-0.5 rounded border border-border/40">
+                      <span className="font-mono text-xs font-semibold  text-muted-foreground bg-muted px-1.5 py-0.5 rounded border border-border/40">
                         {shortId}
                       </span>
 
                       {isAdmin && (
                         <span
-                          className="inline-flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30 uppercase tracking-wider shrink-0"
+                          className="inline-flex items-center gap-1 text-xs font-semibold px-1.5 py-0.5 rounded-md bg-notion-purple-fg/15 text-notion-purple-fg border border-notion-purple-fg/30   shrink-0"
                           title={`Created by Admin${task.createdBy?.name ? ` (${task.createdBy.name})` : ""}`}
                         >
                           <ShieldCheck className="w-2.5 h-2.5" />
@@ -268,19 +268,19 @@ function TaskTableInner({ filters = {} }: { filters?: TaskTableFilters }) {
                         </span>
                       )}
 
-                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-muted-foreground bg-surface-subtle px-2 py-0.5 rounded-md border border-border/40">
+                      <span className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground bg-surface-subtle px-2 py-0.5 rounded-md border border-border/40">
                         {typeCfg.icon}
                         <span>{typeCfg.label}</span>
                       </span>
 
                       {task.product && (
-                        <span className="text-[10px] font-semibold text-primary bg-primary-light px-2 py-0.5 rounded-md border border-primary/20 truncate max-w-[110px]">
+                        <span className="text-xs font-semibold text-primary bg-primary-light px-2 py-0.5 rounded-md border border-primary/20 truncate max-w-[110px]">
                           {task.product.name}
                         </span>
                       )}
                     </div>
 
-                    <div className="font-bold text-xs text-foreground group-hover:text-primary transition-colors line-clamp-1 leading-snug">
+                    <div className="font-semibold text-xs text-foreground group-hover:text-primary transition-colors line-clamp-1 leading-snug">
                       {task.title}
                     </div>
 
@@ -318,7 +318,7 @@ function TaskTableInner({ filters = {} }: { filters?: TaskTableFilters }) {
                         <span className="text-xs font-medium text-foreground truncate max-w-[120px]">
                           {assignedUsers[0]?.name}
                           {assignedUsers.length > 1 && (
-                            <span className="text-muted-foreground text-[11px] ml-1">
+                            <span className="text-muted-foreground text-xs ml-1">
                               +{assignedUsers.length - 1}
                             </span>
                           )}
@@ -333,14 +333,14 @@ function TaskTableInner({ filters = {} }: { filters?: TaskTableFilters }) {
 
                     {assignedReviewers.length > 0 && (
                       <div
-                        className="flex items-center gap-1.5 text-[11px] text-muted-foreground pt-0.5"
+                        className="flex items-center gap-1.5 text-xs text-muted-foreground pt-0.5"
                         title={`Reviewer${assignedReviewers.length > 1 ? "s" : ""}: ${assignedReviewers.map((r) => r.name).join(", ")}`}
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
-                        <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">Rev:</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-success shrink-0" />
+                        <span className="text-xs font-semibold text-success">Rev:</span>
                         <span className="truncate max-w-[100px]">{assignedReviewers[0].name}</span>
                         {assignedReviewers.length > 1 && (
-                          <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+                          <span className="text-xs font-semibold text-success">
                             +{assignedReviewers.length - 1}
                           </span>
                         )}
@@ -374,7 +374,7 @@ function TaskTableInner({ filters = {} }: { filters?: TaskTableFilters }) {
                     </DropdownMenuTrigger>
 
                     <DropdownMenuContent align="end" className="w-44">
-                      <DropdownMenuLabel className="text-[11px] text-muted-foreground">
+                      <DropdownMenuLabel className="text-xs text-muted-foreground">
                         Task Actions
                       </DropdownMenuLabel>
 
@@ -434,7 +434,7 @@ function TaskTableInner({ filters = {} }: { filters?: TaskTableFilters }) {
       <div className="border-t border-border/60 bg-surface-subtle/40 px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
         <div className="flex items-center gap-4 flex-wrap">
           <div className="flex items-center gap-2">
-            <span className="text-[11px] font-medium text-muted-foreground">Rows per page:</span>
+            <span className="text-xs font-medium text-muted-foreground">Rows per page:</span>
             <Select
               value={String(currentPageSize)}
               onValueChange={handlePageSizeChange}
@@ -442,7 +442,7 @@ function TaskTableInner({ filters = {} }: { filters?: TaskTableFilters }) {
               <SelectTrigger className="h-7 w-[68px] text-xs rounded-lg bg-card border-border/80 px-2 shadow-2xs cursor-pointer">
                 <SelectValue placeholder={String(currentPageSize)} />
               </SelectTrigger>
-              <SelectContent className="rounded-xl border-border/80 bg-surface-elevated shadow-xl min-w-[70px]">
+              <SelectContent className="rounded-lg border-border/80 bg-surface-elevated shadow-md min-w-[70px]">
                 <SelectItem value="10" className="text-xs cursor-pointer">10</SelectItem>
                 <SelectItem value="25" className="text-xs cursor-pointer">25</SelectItem>
                 <SelectItem value="50" className="text-xs cursor-pointer">50</SelectItem>
@@ -451,7 +451,7 @@ function TaskTableInner({ filters = {} }: { filters?: TaskTableFilters }) {
             </Select>
           </div>
 
-          <span className="text-[11px]">
+          <span className="text-xs">
             Showing <span className="font-semibold text-foreground">{startItem}–{endItem}</span> of{" "}
             <span className="font-semibold text-foreground">{totalItems}</span> tasks
           </span>
@@ -499,7 +499,7 @@ function TaskTableInner({ filters = {} }: { filters?: TaskTableFilters }) {
                   className={cn(
                     "min-w-[28px] h-7 px-2 text-xs font-semibold rounded-lg transition-all cursor-pointer flex items-center justify-center",
                     isActive
-                      ? "bg-primary text-primary-foreground shadow-2xs font-bold pointer-events-none"
+                      ? "bg-primary text-primary-foreground shadow-2xs font-semibold pointer-events-none"
                       : "text-muted-foreground hover:text-foreground hover:bg-surface-subtle"
                   )}
                 >

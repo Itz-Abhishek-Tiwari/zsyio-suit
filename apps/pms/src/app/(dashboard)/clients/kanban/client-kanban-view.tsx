@@ -85,31 +85,31 @@ export function ClientKanbanView({ role, permissions }: ClientKanbanViewProps) {
           label="Intake"
           value={stats.intake}
           subtext="Discovery & intake"
-          icon={<Clock className="w-4 h-4 text-purple-500" />}
+          icon={<Clock className="w-4 h-4 text-notion-purple-fg" />}
         />
         <KpiCard
           label="Onboarding"
           value={stats.onboarding}
           subtext="In setup phase"
-          icon={<Clock className="w-4 h-4 text-sky-500" />}
+          icon={<Clock className="w-4 h-4 text-notion-blue-fg" />}
         />
         <KpiCard
           label="Active Clients"
           value={stats.active}
           subtext={`${stats.activeRate}% of portfolio`}
-          icon={<CheckCircle2 className="w-4 h-4 text-emerald-500" />}
+          icon={<CheckCircle2 className="w-4 h-4 text-success" />}
         />
         <KpiCard
           label="Paused / Stalled"
           value={stats.paused}
           subtext="Requires follow-up"
-          icon={<PauseCircle className="w-4 h-4 text-amber-500" />}
+          icon={<PauseCircle className="w-4 h-4 text-warning" />}
         />
         <KpiCard
           label="Admin Notes"
           value={notesData?.length ?? 0}
           subtext="Short notes logged"
-          icon={<StickyNote className="w-4 h-4 text-purple-500" />}
+          icon={<StickyNote className="w-4 h-4 text-notion-purple-fg" />}
         />
       </div>
 

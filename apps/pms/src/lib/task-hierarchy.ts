@@ -120,32 +120,32 @@ export function getTaskVisualHierarchy(task: Task) {
     accentTag = "admin";
     if (isOverdue) {
       cardBgClass =
-        "border-rose-500/40 bg-gradient-to-b from-rose-500/[0.04] to-card hover:border-rose-500/60 hover:shadow-md";
-      tableRowClass = "bg-rose-500/[0.03] hover:bg-rose-500/[0.06]";
+        "border-destructive/40 hover:border-destructive/60 hover:shadow-md bg-destructive/[0.04]";
+      tableRowClass = "bg-destructive/[0.03] hover:bg-destructive/[0.06]";
     } else if (isDueToday || isDueSoon) {
       cardBgClass =
-        "border-amber-500/40 bg-gradient-to-b from-amber-500/[0.04] to-card hover:border-amber-500/60 hover:shadow-md";
-      tableRowClass = "bg-amber-500/[0.03] hover:bg-amber-500/[0.06]";
+        "border-warning/40 hover:border-warning/60 hover:shadow-md bg-warning/[0.04]";
+      tableRowClass = "bg-warning/[0.03] hover:bg-warning/[0.06]";
     } else {
       cardBgClass =
-        "border-violet-500/30 bg-gradient-to-b from-violet-500/[0.04] to-card hover:border-violet-500/50 hover:shadow-md";
-      tableRowClass = "bg-violet-500/[0.02] hover:bg-violet-500/[0.05]";
+        "border-notion-purple-fg/30 hover:border-notion-purple-fg/50 hover:shadow-md bg-notion-purple-fg/[0.04]";
+      tableRowClass = "bg-notion-purple-fg/[0.02] hover:bg-notion-purple-fg/[0.05]";
     }
   } else if (isOverdue) {
     accentTag = "overdue";
     cardBgClass =
-      "border-rose-500/40 bg-gradient-to-b from-rose-500/[0.04] to-card hover:border-rose-500/60 hover:shadow-md";
-    tableRowClass = "bg-rose-500/[0.03] hover:bg-rose-500/[0.06]";
+      "border-destructive/40 hover:border-destructive/60 hover:shadow-md bg-destructive/[0.04]";
+    tableRowClass = "bg-destructive/[0.03] hover:bg-destructive/[0.06]";
   } else if (isDueToday) {
     accentTag = "due_today";
     cardBgClass =
-      "border-amber-500/40 bg-gradient-to-b from-amber-500/[0.04] to-card hover:border-amber-500/60 hover:shadow-md";
-    tableRowClass = "bg-amber-500/[0.03] hover:bg-amber-500/[0.06]";
+      "border-warning/40 hover:border-warning/60 hover:shadow-md bg-warning/[0.04]";
+    tableRowClass = "bg-warning/[0.03] hover:bg-warning/[0.06]";
   } else if (isDueSoon) {
     accentTag = "due_soon";
     cardBgClass =
-      "border-amber-500/30 bg-gradient-to-b from-amber-500/[0.02] to-card hover:border-amber-500/50 hover:shadow-md";
-    tableRowClass = "bg-amber-500/[0.02] hover:bg-amber-500/[0.04]";
+      "border-warning/30 hover:border-warning/50 hover:shadow-md bg-warning/[0.02]";
+    tableRowClass = "bg-warning/[0.02] hover:bg-warning/[0.04]";
   }
 
   return {

@@ -38,21 +38,21 @@ export function WorkloadUserCard({ entry, onInspect }: WorkloadUserCardProps) {
     if (active >= 7)
       return {
         label: "Overloaded",
-        style: "bg-red-50 text-red-700 border-red-200/90 dark:bg-red-500/15 dark:text-red-400 dark:border-red-500/30",
+        style: "bg-destructive-light text-destructive border-destructive/90",
       };
     if (active >= 4)
       return {
         label: "Heavy Load",
-        style: "bg-amber-50 text-amber-800 border-amber-200/90 dark:bg-amber-500/15 dark:text-amber-400 dark:border-amber-500/30",
+        style: "bg-warning-light text-warning border-warning/90",
       };
     if (active >= 2)
       return {
         label: "Optimal",
-        style: "bg-emerald-50 text-emerald-700 border-emerald-200/90 dark:bg-emerald-500/15 dark:text-emerald-400 dark:border-emerald-500/30",
+        style: "bg-success-light text-success border-success/90",
       };
     return {
       label: "Available",
-      style: "bg-slate-100 text-slate-700 border-slate-200/90 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700/80",
+      style: "bg-muted text-foreground border-border/90",
     };
   };
 
@@ -68,25 +68,25 @@ export function WorkloadUserCard({ entry, onInspect }: WorkloadUserCardProps) {
     <Card
       onClick={() => onInspect?.(entry)}
       onMouseEnter={handleMouseEnter}
-      className="p-5 rounded-2xl shadow-xs flex flex-col justify-between gap-4 border border-border/80 bg-card hover:border-primary/40 hover:shadow-md transition-all group relative cursor-pointer overflow-hidden"
+      className="p-5 rounded-lg shadow-xs flex flex-col justify-between gap-4 border border-border/80 bg-card hover:border-primary/40 hover:shadow-md transition-all group relative cursor-pointer overflow-hidden"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">
-          <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 text-primary font-black text-sm flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-colors shadow-2xs">
+          <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 text-primary font-semibold text-sm flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-colors shadow-2xs">
             {initials}
           </div>
           <div className="min-w-0">
-            <h4 className="text-sm font-extrabold text-foreground group-hover:text-primary transition-colors truncate">
+            <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors truncate">
               {user.name}
             </h4>
             <div className="mt-0.5">
-              <UserRoleBadge role={user.role} className="text-[9px] px-1.5 py-0" />
+              <UserRoleBadge role={user.role} className="text-xs px-1.5 py-0" />
             </div>
           </div>
         </div>
 
         <span
-          className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border uppercase tracking-wider shrink-0 ${capacity.style}`}
+          className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border   shrink-0 ${capacity.style}`}
         >
           {capacity.label}
         </span>
@@ -94,38 +94,38 @@ export function WorkloadUserCard({ entry, onInspect }: WorkloadUserCardProps) {
 
       <div className="flex flex-col gap-1.5 pt-1">
         <div className="flex items-center justify-between text-xs font-semibold">
-          <span className="text-muted-foreground text-[11px] font-medium">Completion Rate</span>
-          <span className="text-foreground font-black">{completionRate}%</span>
+          <span className="text-muted-foreground text-xs font-medium">Completion Rate</span>
+          <span className="text-foreground font-semibold">{completionRate}%</span>
         </div>
         <Progress value={completionRate} className="h-2 rounded-full" />
       </div>
 
       <div className="grid grid-cols-3 gap-2 text-center text-xs pt-1 border-t border-border/50">
-        <div className="bg-surface-subtle p-2 rounded-xl border border-border/60 flex flex-col justify-center">
-          <span className="text-[10px] font-bold text-muted-foreground flex items-center justify-center gap-1">
+        <div className="bg-surface-subtle p-2 rounded-lg border border-border/60 flex flex-col justify-center">
+          <span className="text-xs font-semibold text-muted-foreground flex items-center justify-center gap-1">
             <Zap className="w-3 h-3 text-primary" /> Active
           </span>
-          <span className="font-black text-foreground text-sm">{activeTasks}</span>
+          <span className="font-semibold text-foreground text-sm">{activeTasks}</span>
         </div>
 
-        <div className="bg-surface-subtle p-2 rounded-xl border border-border/60 flex flex-col justify-center">
-          <span className="text-[10px] font-bold text-muted-foreground flex items-center justify-center gap-1">
-            <CheckCircle2 className="w-3 h-3 text-emerald-500" /> Done
+        <div className="bg-surface-subtle p-2 rounded-lg border border-border/60 flex flex-col justify-center">
+          <span className="text-xs font-semibold text-muted-foreground flex items-center justify-center gap-1">
+            <CheckCircle2 className="w-3 h-3 text-success" /> Done
           </span>
-          <span className="font-black text-emerald-600 text-sm">{doneTasks}</span>
+          <span className="font-semibold text-success text-sm">{doneTasks}</span>
         </div>
 
         <div
-          className={`p-2 rounded-xl border flex flex-col justify-center ${
+          className={`p-2 rounded-lg border flex flex-col justify-center ${
             overdueTasks > 0
               ? "bg-primary/10 border-primary/20 text-primary"
               : "bg-surface-subtle border-border/60 text-muted-foreground"
           }`}
         >
-          <span className="text-[10px] font-bold opacity-90 flex items-center justify-center gap-1">
+          <span className="text-xs font-semibold opacity-90 flex items-center justify-center gap-1">
             <Clock className="w-3 h-3 text-primary" /> Overdue
           </span>
-          <span className="font-black text-sm">{overdueTasks}</span>
+          <span className="font-semibold text-sm">{overdueTasks}</span>
         </div>
       </div>
 
@@ -134,7 +134,7 @@ export function WorkloadUserCard({ entry, onInspect }: WorkloadUserCardProps) {
           {byStatus.map((st) => (
             <span
               key={st.status}
-              className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-md bg-surface-subtle border border-border/50 text-muted-foreground"
+              className="text-xs font-mono font-semibold px-2 py-0.5 rounded-md bg-surface-subtle border border-border/50 text-muted-foreground"
             >
               {st.status.replace("_", " ")}: <strong className="text-foreground">{st.count}</strong>
             </span>
@@ -142,7 +142,7 @@ export function WorkloadUserCard({ entry, onInspect }: WorkloadUserCardProps) {
         </div>
       )}
 
-      <div className="flex items-center justify-between pt-2 border-t border-border/40 text-xs font-extrabold text-primary">
+      <div className="flex items-center justify-between pt-2 border-t border-border/40 text-xs font-semibold text-primary">
         <span className="flex items-center gap-1.5 group-hover:underline">
           Inspect Workload
         </span>

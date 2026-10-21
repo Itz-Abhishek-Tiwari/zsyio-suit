@@ -155,7 +155,7 @@ export function Header({
   };
 
   const allowedApps = useMemo<AppId[]>(() => {
-    return (["pms", "notes", "hrms", "admin", "sales"] as const).filter((appId) =>
+    return (["pms", "notes", "hrms", "admin", "sales", "recruit"] as const).filter((appId) =>
       canAccessApp(role, appId, permissions)
     );
   }, [role, permissions]);
@@ -179,7 +179,7 @@ export function Header({
           <>
             <DropdownMenuItem
               onClick={() => setProfileModalOpen(true)}
-              className="rounded-lg text-xs gap-2.5 p-2 font-medium cursor-pointer text-foreground hover:bg-surface-subtle"
+              className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer text-foreground hover:bg-surface-subtle"
             >
               <User className="w-4 h-4 text-primary" />
               <span>My Profile &amp; Settings</span>
@@ -190,16 +190,16 @@ export function Header({
                   const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:3003";
                   window.location.href = `${adminUrl}/users`;
                 }}
-                className="rounded-xl text-xs gap-2.5 p-2 font-medium cursor-pointer text-rose-600 dark:text-rose-400 focus:text-rose-600"
+                className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer text-destructive focus:text-destructive"
               >
-                <ShieldCheck className="w-4 h-4 text-rose-600 dark:text-rose-400" />
+                <ShieldCheck className="w-4 h-4 text-destructive" />
                 <span>Zsyio Console (Users &amp; Roles)</span>
               </DropdownMenuItem>
             )}
 
             <DropdownMenuItem
               onClick={() => router.push("/settings/notifications")}
-              className="rounded-xl text-xs gap-2.5 p-2 font-medium cursor-pointer"
+              className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer"
             >
               <Bell className="w-4 h-4 text-muted-foreground" />
               <span>Notification Preferences</span>
@@ -207,7 +207,7 @@ export function Header({
 
             <DropdownMenuItem
               onClick={() => setChangePasswordOpen(true)}
-              className="rounded-xl text-xs gap-2.5 p-2 font-medium cursor-pointer"
+              className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer"
             >
               <KeyRound className="w-4 h-4 text-muted-foreground" />
               <span>Change Password</span>
@@ -215,7 +215,7 @@ export function Header({
 
             <DropdownMenuItem
               onClick={() => router.push("/tasks")}
-              className="rounded-xl text-xs gap-2.5 p-2 font-medium cursor-pointer"
+              className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer"
             >
               <CheckSquare className="w-4 h-4 text-muted-foreground" />
               <span>My Task Queue</span>
@@ -244,19 +244,19 @@ export function Header({
         size="lg"
         bodyClassName="p-4 flex flex-col gap-3"
         footer={
-          <div className="flex items-center justify-between w-full text-[11px] text-muted-foreground font-mono">
+          <div className="flex items-center justify-between w-full text-xs text-muted-foreground font-mono">
             <span className="flex items-center gap-1.5">
-              <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-[10px]">↑↓</kbd>
+              <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-xs">↑↓</kbd>
               <span>Navigate</span>
             </span>
             <span className="flex items-center gap-1.5">
-              <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-[10px] flex items-center gap-0.5">
+              <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-xs flex items-center gap-0.5">
                 <CornerDownLeft className="w-2.5 h-2.5" /> Enter
               </kbd>
               <span>Select</span>
             </span>
             <span className="flex items-center gap-1.5">
-              <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-[10px]">ESC</kbd>
+              <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-xs">ESC</kbd>
               <span>Close</span>
             </span>
           </div>
@@ -269,7 +269,7 @@ export function Header({
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={handleSearchKeyDown}
             placeholder="Type ticket # (e.g. TSK-123), task title, or client..."
-            className="pl-10 pr-10 h-11 text-xs sm:text-sm rounded-xl bg-surface-subtle/80 border-border font-sans focus:bg-background"
+            className="pl-10 pr-10 h-11 text-xs sm:text-sm rounded-md bg-surface-subtle/80 border-border font-sans focus:bg-background"
             autoFocus
           />
           {isFetching ? (
@@ -294,7 +294,7 @@ export function Header({
               <>
                 {taskResults.length > 0 && (
                   <>
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground px-2 pt-1 pb-0.5">Tasks & Tickets</p>
+                    <p className="text-xs font-semibold   text-muted-foreground px-2 pt-1 pb-0.5">Tasks & Tickets</p>
                     {taskResults.map((task, idx) => {
                       const shortId = formatTicketId(task);
                       const isActive = highlightedIndex === idx;
@@ -307,7 +307,7 @@ export function Header({
                           onClick={() => handleResultActivate({ kind: "task", id: task.id, label: task.title, sub: "", status: task.status })}
                           onMouseEnter={() => setHighlightedIndex(idx)}
                           className={cn(
-                            "w-full flex items-center justify-between p-2.5 rounded-xl border text-left transition-all group cursor-pointer",
+                            "w-full flex items-center justify-between p-2.5 rounded-md border text-left transition-all group cursor-pointer",
                             isActive
                               ? "border-primary/40 bg-primary-light/70 shadow-2xs"
                               : "border-transparent hover:border-border hover:bg-surface-subtle/80"
@@ -315,18 +315,18 @@ export function Header({
                         >
                           <div className="flex flex-col min-w-0 pr-2">
                             <div className="flex items-center gap-1.5 flex-wrap">
-                              <span className="font-mono text-[10px] font-bold text-primary bg-primary-light px-1.5 py-0.5 rounded border border-primary/20 shrink-0">
+                              <span className="font-mono text-xs font-semibold text-primary bg-primary-light px-1.5 py-0.5 rounded border border-primary/20 shrink-0">
                                 {shortId}
                               </span>
-                              <span className={cn("text-xs font-bold truncate", isActive ? "text-primary" : "text-foreground group-hover:text-primary")}>
+                              <span className={cn("text-xs font-semibold truncate", isActive ? "text-primary" : "text-foreground group-hover:text-primary")}>
                                 {task.title}
                               </span>
                             </div>
-                            <span className="text-[10px] text-muted-foreground font-mono mt-0.5 truncate">
+                            <span className="text-xs text-muted-foreground font-mono mt-0.5 truncate">
                               {task.product?.name ?? "General"} • {task.priority} Priority
                             </span>
                           </div>
-                          <Badge variant="outline" className="text-[10px] shrink-0 font-mono">
+                          <Badge variant="outline" className="text-xs shrink-0 font-mono">
                             {task.status}
                           </Badge>
                         </button>
@@ -337,7 +337,7 @@ export function Header({
 
                 {clientResults.length > 0 && (
                   <>
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground px-2 pt-2 pb-0.5">Clients</p>
+                    <p className="text-xs font-semibold   text-muted-foreground px-2 pt-2 pb-0.5">Clients</p>
                     {clientResults.map((client, idx) => {
                       const globalIdx = taskResults.length + idx;
                       const isActive = highlightedIndex === globalIdx;
@@ -350,7 +350,7 @@ export function Header({
                           onClick={() => handleResultActivate({ kind: "client", id: client.id, label: client.name, sub: "", status: client.status })}
                           onMouseEnter={() => setHighlightedIndex(globalIdx)}
                           className={cn(
-                            "w-full flex items-center justify-between p-2.5 rounded-xl border text-left transition-all group cursor-pointer",
+                            "w-full flex items-center justify-between p-2.5 rounded-md border text-left transition-all group cursor-pointer",
                             isActive
                               ? "border-primary/40 bg-primary-light/70 shadow-2xs"
                               : "border-transparent hover:border-border hover:bg-surface-subtle/80"
@@ -359,15 +359,15 @@ export function Header({
                           <div className="flex items-center gap-2.5 min-w-0">
                             <Building2 className="w-4 h-4 text-muted-foreground shrink-0" />
                             <div className="flex flex-col min-w-0">
-                              <span className={cn("text-xs font-bold truncate", isActive ? "text-primary" : "text-foreground group-hover:text-primary")}>
+                              <span className={cn("text-xs font-semibold truncate", isActive ? "text-primary" : "text-foreground group-hover:text-primary")}>
                                 {client.name}
                               </span>
                               {client.domain && (
-                                <span className="text-[10px] text-muted-foreground font-mono mt-0.5 truncate">{client.domain}</span>
+                                <span className="text-xs text-muted-foreground font-mono mt-0.5 truncate">{client.domain}</span>
                               )}
                             </div>
                           </div>
-                          <Badge variant="outline" className={cn("text-[10px] shrink-0 font-mono", client.status === "ACTIVE" && "border-emerald-500/30 text-emerald-600 dark:text-emerald-400")}>
+                          <Badge variant="outline" className={cn("text-xs shrink-0 font-mono", client.status === "ACTIVE" && "border-success/30 text-success")}>
                             {client.status}
                           </Badge>
                         </button>
@@ -383,7 +383,7 @@ export function Header({
             ) : null
           ) : (
             <div className="py-4 px-2 flex flex-col gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+              <span className="text-xs font-semibold   text-muted-foreground">
                 Quick Shortcuts
               </span>
               <div className={cn("grid gap-2", can(role, "client:view", permissions) ? "grid-cols-1 sm:grid-cols-3" : "grid-cols-1 sm:grid-cols-2")}>
@@ -393,7 +393,7 @@ export function Header({
                     setSearchOpen(false);
                     router.push("/notes");
                   }}
-                  className="p-3 rounded-xl border border-border/80 bg-surface-subtle hover:border-primary/30 hover:bg-surface-elevated text-left flex items-center gap-2.5 text-xs font-semibold text-foreground transition-all cursor-pointer shadow-2xs"
+                  className="p-3 rounded-md border border-border/80 bg-surface-subtle hover:border-primary/30 hover:bg-surface-elevated text-left flex items-center gap-2.5 text-xs font-semibold text-foreground transition-all cursor-pointer shadow-2xs"
                 >
                   <BookOpen className="w-4 h-4 text-primary" />
                   <span>Notes & Docs</span>
@@ -405,7 +405,7 @@ export function Header({
                     setSearchOpen(false);
                     router.push("/tasks");
                   }}
-                  className="p-3 rounded-xl border border-border/80 bg-surface-subtle hover:border-primary/30 hover:bg-surface-elevated text-left flex items-center gap-2.5 text-xs font-semibold text-foreground transition-all cursor-pointer shadow-2xs"
+                  className="p-3 rounded-md border border-border/80 bg-surface-subtle hover:border-primary/30 hover:bg-surface-elevated text-left flex items-center gap-2.5 text-xs font-semibold text-foreground transition-all cursor-pointer shadow-2xs"
                 >
                   <CheckSquare className="w-4 h-4 text-primary" />
                   <span>All Tasks</span>
@@ -418,7 +418,7 @@ export function Header({
                       setSearchOpen(false);
                       router.push("/clients");
                     }}
-                    className="p-3 rounded-xl border border-border/80 bg-surface-subtle hover:border-primary/30 hover:bg-surface-elevated text-left flex items-center gap-2.5 text-xs font-semibold text-foreground transition-all cursor-pointer shadow-2xs"
+                    className="p-3 rounded-md border border-border/80 bg-surface-subtle hover:border-primary/30 hover:bg-surface-elevated text-left flex items-center gap-2.5 text-xs font-semibold text-foreground transition-all cursor-pointer shadow-2xs"
                   >
                     <Briefcase className="w-4 h-4 text-primary" />
                     <span>Clients</span>

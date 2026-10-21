@@ -162,7 +162,7 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
 
   return (
     <div className="flex min-h-screen w-full bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary transition-colors duration-200">
-      <div className="hidden lg:flex lg:w-[52%] xl:w-[54%] flex-col justify-between p-12 relative overflow-hidden bg-slate-50 dark:bg-surface-subtle border-r border-border/80 text-foreground transition-colors duration-200">
+      <div className="hidden lg:flex lg:w-[52%] xl:w-[54%] flex-col justify-between p-12 relative overflow-hidden bg-surface-subtle dark:bg-surface-subtle border-r border-border/80 text-foreground transition-colors duration-200">
         <div
           className="absolute inset-0 opacity-[0.025] dark:opacity-[0.06] pointer-events-none"
           style={{
@@ -173,7 +173,7 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
 
         <div className="w-full flex items-center justify-between z-10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/25 shrink-0 p-1.5 ring-1 ring-white/20">
+            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center shadow-md  shrink-0 p-1.5 ring-1 ring-white/20">
               <Image
                 src="/branding/zsyio-default/zsyio-mark-white.svg"
                 alt="Zsyio"
@@ -184,29 +184,29 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-extrabold text-base tracking-tight text-foreground font-display">
+              <span className="font-semibold text-base tracking-tight text-foreground font-display">
                 Zsyio Flow
               </span>
-              <span className="text-[10px] text-muted-foreground font-mono">
+              <span className="text-xs text-muted-foreground font-mono">
                 Enterprise Operations Portal
               </span>
             </div>
           </div>
 
           <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-surface-elevated/90 border border-border/80 text-xs font-semibold text-muted-foreground shadow-2xs backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[11px] font-mono">Invitation Gateway Active</span>
+            <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
+            <span className="text-xs font-mono">Invitation Gateway Active</span>
           </div>
         </div>
 
         <div className="relative z-10 flex flex-col items-start gap-7 max-w-xl my-auto py-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary-light border border-primary/20 text-primary text-xs font-bold shadow-2xs">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary-light border border-primary/20 text-primary text-xs font-semibold shadow-2xs">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Workspace Team Onboarding</span>
           </div>
 
           <div className="flex flex-col gap-3">
-            <h1 className="text-4xl xl:text-5xl font-extrabold tracking-tight text-foreground font-display leading-[1.12]">
+            <h1 className="text-4xl xl:text-5xl font-semibold tracking-tight text-foreground font-display leading-[1.12]">
               Welcome to the Zsyio Workspace.
             </h1>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-lg">
@@ -215,26 +215,26 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
           </div>
 
           <div className="grid grid-cols-2 gap-3.5 w-full">
-            <div className="rounded-2xl border border-border/80 bg-surface-elevated/75 dark:bg-card/50 backdrop-blur-md p-4 flex flex-col gap-1.5 shadow-xs">
-              <div className="flex items-center gap-2 text-foreground font-bold text-xs">
+            <div className="rounded-lg border border-border/80 bg-surface-elevated/75 dark:bg-card/50 backdrop-blur-md p-4 flex flex-col gap-1.5 shadow-xs">
+              <div className="flex items-center gap-2 text-foreground font-semibold text-xs">
                 <div className="w-7 h-7 rounded-lg bg-primary-light text-primary flex items-center justify-center shrink-0">
                   <UserCheck className="w-4 h-4" />
                 </div>
                 <span>Role Clearance</span>
               </div>
-              <p className="text-[11px] text-muted-foreground leading-snug">
+              <p className="text-xs text-muted-foreground leading-snug">
                 Assigned permissions for tickets, sprint boards, notes, and audits.
               </p>
             </div>
 
-            <div className="rounded-2xl border border-border/80 bg-surface-elevated/75 dark:bg-card/50 backdrop-blur-md p-4 flex flex-col gap-1.5 shadow-xs">
-              <div className="flex items-center gap-2 text-foreground font-bold text-xs">
-                <div className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+            <div className="rounded-lg border border-border/80 bg-surface-elevated/75 dark:bg-card/50 backdrop-blur-md p-4 flex flex-col gap-1.5 shadow-xs">
+              <div className="flex items-center gap-2 text-foreground font-semibold text-xs">
+                <div className="w-7 h-7 rounded-lg bg-success/10 text-success flex items-center justify-center shrink-0">
                   <ShieldCheck className="w-4 h-4" />
                 </div>
                 <span>Encrypted Security</span>
               </div>
-              <p className="text-[11px] text-muted-foreground leading-snug">
+              <p className="text-xs text-muted-foreground leading-snug">
                 Direct password setup with salted bcrypt hashing and TLS transport.
               </p>
             </div>
@@ -244,9 +244,9 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
         <div className="w-full flex items-center justify-between text-xs text-muted-foreground border-t border-border/60 pt-4 z-10">
           <div className="flex items-center gap-2 font-medium">
             <Lock className="w-3.5 h-3.5 text-primary" />
-            <span className="font-mono text-[11px]">256-bit TLS · Zero-Trust IAM</span>
+            <span className="font-mono text-xs">256-bit TLS · Zero-Trust IAM</span>
           </div>
-          <span className="font-mono text-[10px] text-muted-foreground">Zsyio v1.2</span>
+          <span className="font-mono text-xs text-muted-foreground">Zsyio v1.2</span>
         </div>
       </div>
 
@@ -257,7 +257,7 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
 
         <div className="w-full max-w-md flex flex-col gap-6">
           <div className="flex lg:hidden items-center gap-3 justify-center mb-2">
-            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-md shadow-primary/25 shrink-0 p-1.5">
+            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center shadow-md  shrink-0 p-1.5">
               <Image
                 src="/branding/zsyio-default/zsyio-mark-white.svg"
                 alt="Zsyio"
@@ -267,49 +267,49 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
               />
             </div>
             <div className="flex flex-col text-left">
-              <span className="font-extrabold text-lg text-foreground font-display leading-tight">
+              <span className="font-semibold text-lg text-foreground font-display leading-tight">
                 Zsyio Flow
               </span>
-              <span className="text-[10px] text-muted-foreground font-mono">
+              <span className="text-xs text-muted-foreground font-mono">
                 Invitation Setup
               </span>
             </div>
           </div>
 
           {loading && (
-            <div className="rounded-2xl border border-border/80 bg-card p-10 flex flex-col items-center justify-center gap-3 shadow-xs">
-              <div className="w-8 h-8 rounded-full border-2 border-primary border-t-transparent animate-spin" />
+            <div className="rounded-lg border border-border/80 bg-card p-10 flex flex-col items-center justify-center gap-3 shadow-xs">
+              <div className="w-8 h-8 rounded-full border border-primary border-t-transparent animate-spin" />
               <p className="text-xs text-muted-foreground font-medium">Validating invitation token...</p>
             </div>
           )}
 
           {!loading && errorMessage && (
-            <div className="rounded-2xl border border-destructive/30 bg-destructive/5 p-6 flex flex-col items-center text-center gap-4 shadow-xs animate-fade-in">
-              <div className="w-12 h-12 rounded-2xl bg-destructive/10 text-destructive flex items-center justify-center">
+            <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-6 flex flex-col items-center text-center gap-4 shadow-xs animate-fade-in">
+              <div className="w-12 h-12 rounded-lg bg-destructive/10 text-destructive flex items-center justify-center">
                 <AlertTriangle className="w-6 h-6" />
               </div>
               <div className="flex flex-col gap-1">
-                <h3 className="font-bold text-foreground text-base font-display">Invalid or Expired Invitation</h3>
+                <h3 className="font-semibold text-foreground text-base font-display">Invalid or Expired Invitation</h3>
                 <p className="text-xs text-muted-foreground max-w-xs">{errorMessage}</p>
               </div>
-              <Button asChild variant="outline" size="sm" className="rounded-xl mt-2 font-semibold cursor-pointer">
+              <Button asChild variant="outline" size="sm" className="rounded-lg mt-2 font-semibold cursor-pointer">
                 <Link href="/login">Return to Sign In</Link>
               </Button>
             </div>
           )}
 
           {!loading && (acceptedSuccess || inviteData?.invitationStatus === "ACCEPTED") && (
-            <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-6 flex flex-col items-center text-center gap-4 shadow-xs animate-fade-in">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+            <div className="rounded-lg border border-success/30 bg-success/5 p-6 flex flex-col items-center text-center gap-4 shadow-xs animate-fade-in">
+              <div className="w-12 h-12 rounded-lg bg-success/10 text-success flex items-center justify-center">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
               <div className="flex flex-col gap-1">
-                <h3 className="font-bold text-foreground text-base font-display">Account Activated!</h3>
+                <h3 className="font-semibold text-foreground text-base font-display">Account Activated!</h3>
                 <p className="text-xs text-muted-foreground max-w-xs">
                   Your invitation has been accepted and your password has been set. You can now sign in to your Zsyio workspace.
                 </p>
               </div>
-              <Button asChild size="sm" className="rounded-xl mt-2 gap-2 font-bold bg-primary text-primary-foreground cursor-pointer">
+              <Button asChild size="sm" className="rounded-lg mt-2 gap-2 font-semibold bg-primary text-primary-foreground cursor-pointer">
                 <Link href="/login">
                   Sign In to Workspace <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -318,17 +318,17 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
           )}
 
           {!loading && (rejectedSuccess || inviteData?.invitationStatus === "REJECTED") && (
-            <div className="rounded-2xl border border-border/80 bg-card p-6 flex flex-col items-center text-center gap-4 shadow-xs animate-fade-in">
-              <div className="w-12 h-12 rounded-2xl bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center">
+            <div className="rounded-lg border border-border/80 bg-card p-6 flex flex-col items-center text-center gap-4 shadow-xs animate-fade-in">
+              <div className="w-12 h-12 rounded-lg bg-destructive/10 text-destructive flex items-center justify-center">
                 <XCircle className="w-6 h-6" />
               </div>
               <div className="flex flex-col gap-1">
-                <h3 className="font-bold text-foreground text-base font-display">Invitation Declined</h3>
+                <h3 className="font-semibold text-foreground text-base font-display">Invitation Declined</h3>
                 <p className="text-xs text-muted-foreground max-w-xs">
                   You have declined this workspace invitation. If this was a mistake, please contact your workspace administrator for a new invite.
                 </p>
               </div>
-              <Button asChild variant="outline" size="sm" className="rounded-xl mt-2 font-semibold cursor-pointer">
+              <Button asChild variant="outline" size="sm" className="rounded-lg mt-2 font-semibold cursor-pointer">
                 <Link href="/login">Go to Login</Link>
               </Button>
             </div>
@@ -337,7 +337,7 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
           {!loading && !errorMessage && !acceptedSuccess && !rejectedSuccess && inviteData?.invitationStatus === "PENDING" && (
             <div className="flex flex-col gap-5 animate-fade-in">
               <div className="flex flex-col gap-1 text-center sm:text-left">
-                <h2 className="text-2xl font-extrabold text-foreground tracking-tight font-display">
+                <h2 className="text-2xl font-semibold text-foreground tracking-tight font-display">
                   Accept Your Invitation
                 </h2>
                 <p className="text-xs text-muted-foreground">
@@ -345,14 +345,14 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-border/80 bg-card p-4 flex flex-col gap-2.5 text-xs shadow-xs">
+              <div className="rounded-lg border border-border/80 bg-card p-4 flex flex-col gap-2.5 text-xs shadow-xs">
                 <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground text-[11px] font-medium">Invited Email:</span>
-                  <span className="font-mono font-bold text-foreground text-xs">{inviteData.email}</span>
+                  <span className="text-muted-foreground text-xs font-medium">Invited Email:</span>
+                  <span className="font-mono font-semibold text-foreground text-xs">{inviteData.email}</span>
                 </div>
                 <div className="flex items-center justify-between border-t border-border/60 pt-2.5">
-                  <span className="text-muted-foreground text-[11px] font-medium">Assigned Role:</span>
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-primary/10 text-primary font-bold text-xs border border-primary/20">
+                  <span className="text-muted-foreground text-xs font-medium">Assigned Role:</span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-primary/10 text-primary font-semibold text-xs border border-primary/20">
                     <UserCheck className="w-3.5 h-3.5" />
                     {roleLabel}
                   </span>
@@ -420,7 +420,7 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full h-10 rounded-xl font-bold bg-primary text-primary-foreground shadow-sm hover:opacity-95 cursor-pointer"
+                    className="w-full h-10 rounded-lg font-semibold bg-primary text-primary-foreground shadow-sm hover:opacity-95 cursor-pointer"
                   >
                     {isSubmitting ? "Activating Account..." : "Accept & Join Workspace"}
                   </Button>
@@ -440,7 +440,7 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
             </div>
           )}
 
-          <div className="flex items-center justify-center gap-1.5 text-center text-[11px] text-muted-foreground/80 mt-1">
+          <div className="flex items-center justify-center gap-1.5 text-center text-xs text-muted-foreground/80 mt-1">
             <ShieldCheck className="w-3.5 h-3.5 text-primary" />
             <span>Protected by Zsyio Role-Based Access Control</span>
           </div>

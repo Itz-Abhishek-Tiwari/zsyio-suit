@@ -31,13 +31,13 @@ const STATUS_OPTIONS = ["ALL", "ONBOARDING", "ACTIVE", "PAUSED", "CHURNED"] as c
 export function ClientTypeBadge({ type }: { type?: string }) {
   if (type === "SALES") {
     return (
-      <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+      <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-notion-purple-fg/10 text-notion-purple-fg border border-notion-purple-fg/20">
         Sales
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+    <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-notion-blue-fg/10 text-notion-blue-fg border border-notion-blue-fg/20">
       Dev
     </span>
   );
@@ -56,12 +56,12 @@ function ClientCard({ client }: { client: Client }) {
   return (
     <Link
       href={`/clients/${client.id}`}
-      className="group relative flex flex-col rounded-2xl border border-border/80 bg-card hover:border-primary/40 hover:shadow-md hover:shadow-primary/5 transition-all duration-200 overflow-hidden"
+      className="group relative flex flex-col rounded-lg border border-border/80 bg-card hover:border-primary/40 hover:shadow-md  transition-all duration-200 overflow-hidden"
     >
       <div className="p-5 flex flex-col gap-4 flex-1">
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-11 h-11 rounded-xl bg-primary-light text-primary border border-primary/20 flex items-center justify-center shrink-0 font-bold text-sm group-hover:border-primary/50 group-hover:scale-105 transition-all overflow-hidden shadow-2xs">
+            <div className="w-11 h-11 rounded-lg bg-primary-light text-primary border border-primary/20 flex items-center justify-center shrink-0 font-semibold text-sm group-hover:border-primary/50  transition-all overflow-hidden shadow-2xs">
               {client.logoUrl ? (
                 /* eslint-disable-next-line @next/next/no-img-element */
                 <img
@@ -122,11 +122,11 @@ function ClientCard({ client }: { client: Client }) {
           <div className="flex items-center justify-between gap-1.5 mb-2">
             <div className="flex items-center gap-1.5">
               <Package className="w-3.5 h-3.5 text-primary" />
-              <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
+              <span className="text-xs font-semibold text-muted-foreground  ">
                 Products
               </span>
             </div>
-            <span className="text-[11px] font-medium text-muted-foreground">
+            <span className="text-xs font-medium text-muted-foreground">
               {products.length} registered
             </span>
           </div>
@@ -142,18 +142,18 @@ function ClientCard({ client }: { client: Client }) {
                     <span className="w-1.5 h-1.5 rounded-full bg-primary/60 shrink-0" />
                     <span className="text-foreground/90 truncate font-medium">{p.name}</span>
                     {p.version && (
-                      <span className="text-[10px] text-muted-foreground/70">v{p.version}</span>
+                      <span className="text-xs text-muted-foreground/70">v{p.version}</span>
                     )}
                   </div>
                   {p.environment && (
-                    <span className="px-1.5 py-0.2 text-[10px] font-medium rounded-md bg-surface-subtle text-muted-foreground border border-border/60 uppercase tracking-wider shrink-0">
+                    <span className="px-1.5 py-0.2 text-xs font-medium rounded-md bg-surface-subtle text-muted-foreground border border-border/60   shrink-0">
                       {p.environment}
                     </span>
                   )}
                 </div>
               ))}
               {products.length > 2 && (
-                <span className="text-[11px] text-muted-foreground/70 font-medium pt-0.5">
+                <span className="text-xs text-muted-foreground/70 font-medium pt-0.5">
                   +{products.length - 2} more product{products.length - 2 > 1 ? "s" : ""}
                 </span>
               )}
@@ -181,7 +181,7 @@ function ClientTableRow({ client }: { client: Client }) {
     <tr className="group border-b border-border/60 hover:bg-surface-subtle/70 transition-colors">
       <td className="py-3.5 px-4">
         <Link href={`/clients/${client.id}`} className="flex items-center gap-3 min-w-0">
-          <div className="w-9 h-9 rounded-lg bg-primary-light text-primary border border-primary/20 flex items-center justify-center shrink-0 font-bold text-xs group-hover:scale-105 transition-all overflow-hidden shadow-2xs">
+          <div className="w-9 h-9 rounded-lg bg-primary-light text-primary border border-primary/20 flex items-center justify-center shrink-0 font-semibold text-xs  transition-all overflow-hidden shadow-2xs">
             {client.logoUrl ? (
               /* eslint-disable-next-line @next/next/no-img-element */
               <img
@@ -259,11 +259,11 @@ function ClientTableRow({ client }: { client: Client }) {
 
 function ClientCardSkeleton() {
   return (
-    <div className="rounded-2xl border border-border/80 bg-card overflow-hidden shadow-xs flex flex-col justify-between">
+    <div className="rounded-lg border border-border/80 bg-card overflow-hidden shadow-xs flex flex-col justify-between">
       <div className="p-5 flex flex-col gap-4">
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
-            <Skeleton className="w-11 h-11 rounded-xl shrink-0" />
+            <Skeleton className="w-11 h-11 rounded-lg shrink-0" />
             <div className="flex flex-col gap-1.5 min-w-0">
               <Skeleton className="h-4 w-32 rounded-md" />
               <Skeleton className="h-3 w-24 rounded-sm" />
@@ -337,21 +337,21 @@ export function ClientTable() {
           {Array.from({ length: 4 }).map((_, i) => (
             <div
               key={i}
-              className="flex items-center justify-between p-4 rounded-2xl border border-border/80 bg-card shadow-xs"
+              className="flex items-center justify-between p-4 rounded-lg border border-border/80 bg-card shadow-xs"
             >
               <div className="flex flex-col gap-1.5">
                 <Skeleton className="h-3 w-20 rounded-md" />
                 <Skeleton className="h-6 w-12 rounded-md" />
               </div>
-              <Skeleton className="w-9 h-9 rounded-xl" />
+              <Skeleton className="w-9 h-9 rounded-lg" />
             </div>
           ))}
         </div>
 
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-2xl border border-border/80 bg-card shadow-xs">
-          <Skeleton className="h-9 w-full sm:w-80 rounded-xl" />
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-lg border border-border/80 bg-card shadow-xs">
+          <Skeleton className="h-9 w-full sm:w-80 rounded-lg" />
           <div className="flex items-center gap-2">
-            <Skeleton className="h-9 w-32 rounded-xl" />
+            <Skeleton className="h-9 w-32 rounded-lg" />
           </div>
         </div>
 
@@ -406,7 +406,7 @@ export function ClientTable() {
       </div>
 
 
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 p-2 rounded-2xl border border-border/80 bg-card shadow-xs">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 p-2 rounded-lg border border-border/80 bg-card shadow-xs">
         <div className="flex-1 min-w-[240px]">
           <SearchInput
             placeholder="Search by client name, domain, contact..."
@@ -496,11 +496,11 @@ export function ClientTable() {
           ))}
         </div>
       ) : (
-        <div className="rounded-2xl border border-border/80 bg-card overflow-hidden shadow-xs">
+        <div className="rounded-lg border border-border/80 bg-card overflow-hidden shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-border/80 bg-surface-subtle/50 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
+                <tr className="border-b border-border/80 bg-surface-subtle/50 text-xs font-semibold text-muted-foreground  ">
                   <th className="py-3 px-4 font-semibold">Client</th>
                   <th className="py-3 px-4 font-semibold">Status</th>
                   <th className="py-3 px-4 font-semibold">Type</th>

@@ -82,11 +82,11 @@ export function ChangeReasonModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && !isLoading && onClose()}>
-      <DialogContent className="max-w-md w-[95vw] p-0 overflow-hidden border-border/80 bg-background shadow-2xl rounded-2xl flex flex-col">
-        <div className="shrink-0 border-b border-border/70 bg-gradient-to-r from-muted/40 via-card to-muted/40 p-5 pb-4">
+      <DialogContent className="max-w-md w-[95vw] p-0 overflow-hidden border-border/80 bg-background shadow-md rounded-lg flex flex-col">
+        <div className="shrink-0 border-b border-border/70 p-5 pb-4 bg-muted/40">
           <DialogHeader>
-            <DialogTitle className="text-base sm:text-lg font-bold text-foreground flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0 border border-primary/20">
+            <DialogTitle className="text-base sm:text-lg font-semibold text-foreground flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 border border-primary/20">
                 {isDateType ? <Calendar className="w-4 h-4" /> : <FileEdit className="w-4 h-4" />}
               </div>
               <span>{modalTitle}</span>
@@ -97,9 +97,9 @@ export function ChangeReasonModal({
           </DialogHeader>
 
           {(oldValue || newValue) && (
-            <div className="mt-3.5 p-2.5 rounded-xl bg-card border border-border/70 flex items-center justify-between text-xs gap-2">
+            <div className="mt-3.5 p-2.5 rounded-lg bg-card border border-border/70 flex items-center justify-between text-xs gap-2">
               <div className="flex flex-col min-w-0">
-                <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">
+                <span className="text-xs font-semibold text-muted-foreground ">
                   Previous Date
                 </span>
                 <span className="font-semibold text-foreground truncate">
@@ -108,10 +108,10 @@ export function ChangeReasonModal({
               </div>
               <ArrowRight className="w-4 h-4 text-muted-foreground/60 shrink-0" />
               <div className="flex flex-col min-w-0 text-right">
-                <span className="text-[10px] uppercase font-bold text-primary tracking-wider">
+                <span className="text-xs font-semibold text-primary ">
                   New Date
                 </span>
-                <span className="font-bold text-primary truncate">
+                <span className="font-semibold text-primary truncate">
                   {newValue || "No due date"}
                 </span>
               </div>
@@ -122,11 +122,11 @@ export function ChangeReasonModal({
         <form onSubmit={handleSubmit} className="p-5 flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="changeReasonInput" className="text-xs font-bold text-foreground flex items-center gap-1">
+              <Label htmlFor="changeReasonInput" className="text-xs font-semibold text-foreground flex items-center gap-1">
                 <span>Reason for change</span>
                 <span className="text-destructive">*</span>
               </Label>
-              <span className="text-[10px] text-muted-foreground">Required</span>
+              <span className="text-xs text-muted-foreground">Required</span>
             </div>
 
             <Textarea
@@ -142,12 +142,12 @@ export function ChangeReasonModal({
                   : "Explain the rationale for updating this ticket..."
               }
               rows={3}
-              className="resize-none text-xs rounded-xl focus-visible:ring-primary"
+              className="resize-none text-xs rounded-lg focus-visible:ring-primary"
               autoFocus
             />
 
             {isInvalid && (
-              <p className="text-[11px] font-medium text-destructive flex items-center gap-1 animate-fade-in">
+              <p className="text-xs font-medium text-destructive flex items-center gap-1 animate-fade-in">
                 <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                 Please provide a reason before saving.
               </p>
@@ -155,7 +155,7 @@ export function ChangeReasonModal({
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+            <span className="text-xs font-semibold   text-muted-foreground">
               Quick Suggestions:
             </span>
             <div className="flex flex-wrap gap-1.5">
@@ -169,7 +169,7 @@ export function ChangeReasonModal({
                       setReason(preset);
                       setTouched(true);
                     }}
-                    className={`text-[11px] px-2.5 py-1 rounded-lg border transition-all cursor-pointer text-left flex items-center gap-1 ${
+                    className={`text-xs px-2.5 py-1 rounded-lg border transition-all cursor-pointer text-left flex items-center gap-1 ${
                       isSelected
                         ? "bg-primary text-primary-foreground border-primary font-semibold shadow-xs"
                         : "bg-card hover:bg-muted/70 text-muted-foreground hover:text-foreground border-border/80"
@@ -198,7 +198,7 @@ export function ChangeReasonModal({
               type="submit"
               size="sm"
               disabled={isLoading || !reason.trim()}
-              className="h-8 text-xs font-bold gap-1.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground shadow-xs"
+              className="h-8 text-xs font-semibold gap-1.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground shadow-xs"
             >
               {isLoading ? (
                 <>

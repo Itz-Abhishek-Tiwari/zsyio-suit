@@ -105,13 +105,13 @@ export function TaskTagInput({
                 className="inline-flex items-center gap-1 px-2 py-1 text-xs text-muted-foreground hover:text-foreground rounded-md hover:bg-muted/80 transition-colors cursor-pointer"
               >
                 <Plus className="w-3 h-3" />
-                <span className="text-[11px] font-medium">{value.length === 0 ? placeholder : "Add"}</span>
+                <span className="text-xs font-medium">{value.length === 0 ? placeholder : "Add"}</span>
               </button>
             </PopoverTrigger>
           )}
         </div>
 
-        <PopoverContent align="start" className="w-64 p-2 shadow-xl">
+        <PopoverContent align="start" className="w-64 p-2 shadow-md">
           <div className="flex flex-col gap-2">
             <div className="relative">
               <Search className="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-muted-foreground" />
@@ -129,7 +129,7 @@ export function TaskTagInput({
             {/* List of existing tags */}
             <div className="max-h-48 overflow-y-auto space-y-1 pt-1">
               {isLoading ? (
-                <div className="text-[11px] text-muted-foreground py-2 text-center">Loading tags...</div>
+                <div className="text-xs text-muted-foreground py-2 text-center">Loading tags...</div>
               ) : filteredTags.length > 0 ? (
                 filteredTags.map((tag) => {
                   const isSelected = value.includes(tag.name);
@@ -147,7 +147,7 @@ export function TaskTagInput({
                         <span
                           className={cn(
                             "w-2 h-2 rounded-full shrink-0",
-                            TAG_COLORS[tag.color || "blue"]?.dot || "bg-blue-500"
+                            TAG_COLORS[tag.color || "blue"]?.dot || "bg-notion-blue-fg"
                           )}
                         />
                         <span className="truncate">{tag.name}</span>
@@ -157,7 +157,7 @@ export function TaskTagInput({
                   );
                 })
               ) : (
-                <div className="text-[11px] text-muted-foreground py-1 text-center">
+                <div className="text-xs text-muted-foreground py-1 text-center">
                   No matching tags found
                 </div>
               )}
@@ -168,7 +168,7 @@ export function TaskTagInput({
               <div className="pt-2 border-t border-border/60 flex flex-col gap-2">
                 <div className="flex items-center gap-1.5">
                   <Palette className="w-3 h-3 text-muted-foreground shrink-0" />
-                  <span className="text-[10px] text-muted-foreground">Color:</span>
+                  <span className="text-xs text-muted-foreground">Color:</span>
                   <div className="flex items-center gap-1">
                     {COLOR_KEYS.map((c) => (
                       <button

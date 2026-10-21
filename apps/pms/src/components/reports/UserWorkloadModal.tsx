@@ -58,10 +58,10 @@ export function UserWorkloadModal({
 
   // Capacity Band Helper
   const capacity = useMemo(() => {
-    if (activeTasks >= 7) return { label: "Overloaded", color: "bg-red-50 text-red-700 border-red-200/90 dark:bg-red-500/15 dark:text-red-400 dark:border-red-500/30" };
-    if (activeTasks >= 4) return { label: "Heavy Load", color: "bg-amber-50 text-amber-800 border-amber-200/90 dark:bg-amber-500/15 dark:text-amber-400 dark:border-amber-500/30" };
-    if (activeTasks >= 2) return { label: "Optimal Load", color: "bg-emerald-50 text-emerald-700 border-emerald-200/90 dark:bg-emerald-500/15 dark:text-emerald-400 dark:border-emerald-500/30" };
-    return { label: "Available Bandwidth", color: "bg-slate-100 text-slate-700 border-slate-200/90 dark:bg-slate-800/80 dark:text-slate-300 dark:border-slate-700/80" };
+    if (activeTasks >= 7) return { label: "Overloaded", color: "bg-destructive-light text-destructive border-destructive/90" };
+    if (activeTasks >= 4) return { label: "Heavy Load", color: "bg-warning-light text-warning border-warning/90" };
+    if (activeTasks >= 2) return { label: "Optimal Load", color: "bg-success-light text-success border-success/90" };
+    return { label: "Available Bandwidth", color: "bg-muted text-foreground border-border/90" };
   }, [activeTasks]);
 
   const initials = useMemo(() => {
@@ -96,18 +96,18 @@ export function UserWorkloadModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-4xl w-[96vw] sm:w-[92vw] max-h-[90vh] overflow-y-auto rounded-3xl p-0 bg-card border-border/80 shadow-2xl flex flex-col">
+      <DialogContent className="max-w-4xl w-[96vw] sm:w-[92vw] max-h-[90vh] overflow-y-auto rounded-lg p-0 bg-card border-border/80 shadow-md flex flex-col">
         <div className="sticky top-0 z-30 bg-card border-b border-border/80 px-6 sm:px-8 py-5 flex items-start justify-between gap-4 shrink-0">
           <div className="flex items-center gap-4 min-w-0">
-            <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 text-primary font-black text-lg flex items-center justify-center shrink-0 shadow-2xs">
+            <div className="w-12 h-12 rounded-lg bg-primary/10 border border-primary/20 text-primary font-semibold text-lg flex items-center justify-center shrink-0 shadow-2xs">
               {initials}
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2.5 flex-wrap">
-                <DialogTitle className="text-xl font-extrabold text-foreground truncate tracking-tight">
+                <DialogTitle className="text-xl font-semibold text-foreground truncate tracking-tight">
                   {user.name}
                 </DialogTitle>
-                <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border uppercase tracking-wider ${capacity.color}`}>
+                <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border   ${capacity.color}`}>
                   {capacity.label}
                 </span>
               </div>
@@ -156,7 +156,7 @@ export function UserWorkloadModal({
 
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between gap-3 flex-wrap border-b border-border/60 pb-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              <h4 className="text-xs font-semibold   text-muted-foreground">
                 Assigned Work Items ({filteredTasks.length})
               </h4>
 
@@ -177,11 +177,11 @@ export function UserWorkloadModal({
             {isLoading ? (
               <div className="flex flex-col gap-2.5">
                 {[1, 2, 3].map((i) => (
-                  <Skeleton key={i} className="h-16 w-full rounded-2xl" />
+                  <Skeleton key={i} className="h-16 w-full rounded-lg" />
                 ))}
               </div>
             ) : filteredTasks.length === 0 ? (
-              <div className="text-center py-10 border border-dashed border-border rounded-2xl text-muted-foreground text-xs">
+              <div className="text-center py-10 border border-dashed border-border rounded-lg text-muted-foreground text-xs">
                 No tasks found matching the selected filter.
               </div>
             ) : (
@@ -196,12 +196,12 @@ export function UserWorkloadModal({
                     <Link
                       key={task.id}
                       href={`/tasks?taskId=${task.id}`}
-                      className="p-3.5 rounded-2xl border border-border/70 bg-card hover:border-primary/40 hover:shadow-xs transition-all flex flex-col gap-2 shadow-2xs group cursor-pointer"
+                      className="p-3.5 rounded-lg border border-border/70 bg-card hover:border-primary/40 hover:shadow-xs transition-all flex flex-col gap-2 shadow-2xs group cursor-pointer"
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex items-center gap-2 min-w-0">
                           <TaskPriorityBadge priority={task.priority} />
-                          <h5 className="text-xs font-bold text-foreground group-hover:text-primary transition-colors truncate">
+                          <h5 className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors truncate">
                             {task.title}
                           </h5>
                         </div>
@@ -212,7 +212,7 @@ export function UserWorkloadModal({
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between text-[11px] text-muted-foreground pt-1 border-t border-border/40 font-medium">
+                      <div className="flex items-center justify-between text-xs text-muted-foreground pt-1 border-t border-border/40 font-medium">
                         <span className="flex items-center gap-1.5 truncate max-w-[50%]">
                           <Briefcase className="w-3 h-3 text-muted-foreground shrink-0" />
                           <span className="truncate">
@@ -223,7 +223,7 @@ export function UserWorkloadModal({
                         {task.dueDate && (
                           <span
                             className={`flex items-center gap-1 shrink-0 ${
-                              isTaskOverdue ? "text-primary font-bold" : ""
+                              isTaskOverdue ? "text-primary font-semibold" : ""
                             }`}
                           >
                             <Calendar className="w-3 h-3" />

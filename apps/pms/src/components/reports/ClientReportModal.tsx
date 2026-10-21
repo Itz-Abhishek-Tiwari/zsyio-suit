@@ -47,21 +47,21 @@ export function ClientReportModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-6xl w-[96vw] sm:w-[92vw] max-h-[90vh] overflow-y-auto rounded-3xl p-0 bg-card border-border/80 shadow-2xl flex flex-col">
+      <DialogContent className="max-w-6xl w-[96vw] sm:w-[92vw] max-h-[90vh] overflow-y-auto rounded-lg p-0 bg-card border-border/80 shadow-md flex flex-col">
         <div className="sticky top-0 z-30 bg-card border-b border-border/80 px-6 sm:px-8 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shrink-0">
           <div className="flex items-center gap-3.5 min-w-0">
-            <div className="w-11 h-11 rounded-2xl bg-primary/10 text-primary border border-primary/20 flex items-center justify-center font-extrabold text-sm shrink-0">
+            <div className="w-11 h-11 rounded-lg bg-primary/10 text-primary border border-primary/20 flex items-center justify-center font-semibold text-sm shrink-0">
               {initials}
             </div>
             <div className="flex flex-col min-w-0">
               <div className="flex items-center gap-2.5 flex-wrap">
-                <DialogTitle className="text-lg font-extrabold text-foreground tracking-tight">
+                <DialogTitle className="text-lg font-semibold text-foreground tracking-tight">
                   {name}
                 </DialogTitle>
                 {client?.status && (
                   <ClientStatusBadge
                     status={client.status}
-                    className="shrink-0 text-[10px] font-bold"
+                    className="shrink-0 text-xs font-semibold"
                   />
                 )}
               </div>
@@ -88,7 +88,7 @@ export function ClientReportModal({
               asChild
               variant="default"
               size="sm"
-              className="h-8 text-xs font-semibold gap-1.5 rounded-xl shadow-xs"
+              className="h-8 text-xs font-semibold gap-1.5 rounded-lg shadow-xs"
             >
               <Link href={`/clients/${clientId}`}>
                 <ExternalLink className="w-3.5 h-3.5" /> View Client Account

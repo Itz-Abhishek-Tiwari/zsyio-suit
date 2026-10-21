@@ -294,13 +294,13 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
     return score;
   }, [newPassword]);
 
-  const strengthColor = ["bg-muted", "bg-red-500", "bg-amber-500", "bg-sky-500", "bg-emerald-500"][passwordStrength];
+  const strengthColor = ["bg-muted", "bg-destructive", "bg-warning", "bg-notion-blue-fg", "bg-success"][passwordStrength];
   const strengthLabel = ["Empty", "Weak", "Fair", "Good", "Strong"][passwordStrength];
 
   return (
     <div className="flex flex-col gap-5 w-full">
       <div className="flex flex-col gap-1.5 text-center sm:text-left">
-        <h2 className="text-2xl font-extrabold text-foreground tracking-tight font-display">
+        <h2 className="text-2xl font-semibold text-foreground tracking-tight font-display">
           {step === "REQUEST" && "Forgot Password"}
           {step === "VERIFY" && "Verify Email & Reset"}
           {step === "SUCCESS" && "Password Reset Complete"}
@@ -313,14 +313,14 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
       </div>
 
       {error && (
-        <div className="rounded-xl px-4 py-3 text-xs font-medium text-destructive border border-destructive/30 bg-destructive-light flex items-start gap-2.5 shadow-2xs transition-opacity duration-200 ease-out">
+        <div className="rounded-lg px-4 py-3 text-xs font-medium text-destructive border border-destructive/30 bg-destructive-light flex items-start gap-2.5 shadow-2xs transition-opacity duration-200 ease-out">
           <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
           <span className="leading-relaxed">{error}</span>
         </div>
       )}
 
       {successMessage && step === "VERIFY" && !error && (
-        <div className="rounded-xl px-4 py-3 text-xs font-medium text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 bg-emerald-500/10 flex items-start gap-2.5 shadow-2xs">
+        <div className="rounded-lg px-4 py-3 text-xs font-medium text-success border border-success/20 bg-success/10 flex items-start gap-2.5 shadow-2xs">
           <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
           <span className="leading-relaxed">{successMessage}</span>
         </div>
@@ -330,16 +330,16 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
         <form onSubmit={handleRequestOtp} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
             <div className="flex items-center justify-between">
-              <Label htmlFor="corporateEmail" className="text-xs font-bold text-foreground">
+              <Label htmlFor="corporateEmail" className="text-xs font-semibold text-foreground">
                 Corporate Email Address
               </Label>
-              <span className="text-[10px] font-mono text-muted-foreground flex items-center gap-1">
+              <span className="text-xs font-mono text-muted-foreground flex items-center gap-1">
                 <Building2 className="w-3 h-3 text-primary" />
                 <span>Authorized domains</span>
               </span>
             </div>
 
-            <div className="flex items-center rounded-xl border border-border/80 bg-surface-elevated/90 overflow-hidden shadow-2xs transition-colors duration-200 ease-out focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary">
+            <div className="flex items-center rounded-lg border border-border/80 bg-surface-elevated/90 overflow-hidden shadow-2xs transition-colors duration-200 ease-out focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary">
               <div className="pl-3.5 text-muted-foreground flex items-center pointer-events-none">
                 <Mail className="w-4 h-4" />
               </div>
@@ -370,7 +370,7 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
               <Select value={selectedDomain} onValueChange={setSelectedDomain}>
                 <SelectTrigger
                   aria-label="Select email domain"
-                  className="w-[140px] sm:w-[155px] border-0 shadow-none rounded-none bg-surface-subtle/80 hover:bg-surface-subtle text-xs font-mono font-bold text-foreground focus:ring-0 h-11 px-3 cursor-pointer shrink-0 transition-colors duration-200"
+                  className="w-[140px] sm:w-[155px] border-0 shadow-none rounded-none bg-surface-subtle/80 hover:bg-surface-subtle text-xs font-mono font-semibold text-foreground focus:ring-0 h-11 px-3 cursor-pointer shrink-0 transition-colors duration-200"
                 >
                   <SelectValue placeholder={`@${selectedDomain}`} />
                 </SelectTrigger>
@@ -378,7 +378,7 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
                   {allowedDomains.map((d) => (
                     <SelectItem key={d} value={d} className="text-xs font-mono font-semibold cursor-pointer">
                       <span className="flex items-center gap-1.5">
-                        <span className="text-primary font-bold">@</span>
+                        <span className="text-primary font-semibold">@</span>
                         <span>{d}</span>
                       </span>
                     </SelectItem>
@@ -387,9 +387,9 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
               </Select>
             </div>
 
-            <div className="flex items-center justify-between px-1 text-[11px] text-muted-foreground font-mono">
+            <div className="flex items-center justify-between px-1 text-xs text-muted-foreground font-mono">
               <span>Code will be sent to:</span>
-              <span className="font-bold text-foreground truncate max-w-[240px]">
+              <span className="font-semibold text-foreground truncate max-w-[240px]">
                 {cleanUsername ? `${cleanUsername}@${selectedDomain}` : `username@${selectedDomain}`}
               </span>
             </div>
@@ -399,7 +399,7 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
             type="submit"
             disabled={loading}
             size="lg"
-            className="w-full mt-2 font-bold text-xs h-11 rounded-xl shadow-md shadow-primary/20 gap-2 cursor-pointer transition-colors duration-200"
+            className="w-full mt-2 font-semibold text-xs h-11 rounded-lg shadow-md  gap-2 cursor-pointer transition-colors duration-200"
           >
             {loading ? (
               <>
@@ -428,7 +428,7 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
 
       {step === "VERIFY" && (
         <form onSubmit={handleVerifyAndReset} className="flex flex-col gap-4">
-          <div className="flex items-center justify-between p-3 rounded-xl bg-surface-subtle border border-border/80 text-xs">
+          <div className="flex items-center justify-between p-3 rounded-lg bg-surface-subtle border border-border/80 text-xs">
             <div className="flex items-center gap-2 truncate">
               <Mail className="w-4 h-4 text-primary shrink-0" />
               <span className="font-mono font-semibold text-foreground truncate">{fullEmail}</span>
@@ -440,7 +440,7 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
                 setError(null);
                 setSuccessMessage(null);
               }}
-              className="text-xs font-bold text-primary hover:underline shrink-0 cursor-pointer ml-2"
+              className="text-xs font-semibold text-primary hover:underline shrink-0 cursor-pointer ml-2"
             >
               Change
             </button>
@@ -448,10 +448,10 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
 
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
-              <Label className="text-xs font-bold text-foreground">6-Digit Verification Code</Label>
-              <span className="text-[11px] font-mono font-semibold text-muted-foreground flex items-center gap-1">
+              <Label className="text-xs font-semibold text-foreground">6-Digit Verification Code</Label>
+              <span className="text-xs font-mono font-semibold text-muted-foreground flex items-center gap-1">
                 <span>Expires in:</span>
-                <span className={timeLeft < 120 ? "text-destructive font-bold" : "text-primary font-bold"}>
+                <span className={timeLeft < 120 ? "text-destructive font-semibold" : "text-primary font-semibold"}>
                   {formatTimer(timeLeft)}
                 </span>
               </span>
@@ -472,18 +472,18 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
                   onChange={(e) => handleOtpChange(idx, e.target.value)}
                   onKeyDown={(e) => handleOtpKeyDown(idx, e)}
                   disabled={loading}
-                  className="h-12 text-center text-lg font-mono font-extrabold rounded-xl border-border bg-surface-elevated/90 shadow-2xs focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:border-primary p-0"
+                  className="h-12 text-center text-lg font-mono font-semibold rounded-lg border-border bg-surface-elevated/90 shadow-2xs focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:border-primary p-0"
                 />
               ))}
             </div>
 
-            <div className="flex items-center justify-between px-1 text-[11px]">
+            <div className="flex items-center justify-between px-1 text-xs">
               <span className="text-muted-foreground">Didn&apos;t receive the code?</span>
               <button
                 type="button"
                 onClick={handleResendOtp}
                 disabled={resending || timeLeft > 540}
-                className="font-bold text-primary hover:underline cursor-pointer disabled:opacity-50 inline-flex items-center gap-1"
+                className="font-semibold text-primary hover:underline cursor-pointer disabled:opacity-50 inline-flex items-center gap-1"
               >
                 {resending ? <Loader2 className="w-3 h-3 animate-spin" /> : <RotateCw className="w-3 h-3" />}
                 <span>Resend Code</span>
@@ -493,10 +493,10 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
 
           <div className="flex flex-col gap-1.5 mt-1">
             <div className="flex items-center justify-between">
-              <Label htmlFor="newPassword" className="text-xs font-bold text-foreground">
+              <Label htmlFor="newPassword" className="text-xs font-semibold text-foreground">
                 New Password
               </Label>
-              <span className="text-[10px] text-muted-foreground">Min. 8 characters</span>
+              <span className="text-xs text-muted-foreground">Min. 8 characters</span>
             </div>
             <div className="relative flex items-center">
               <Lock className="absolute left-3.5 w-4 h-4 text-muted-foreground pointer-events-none" />
@@ -508,7 +508,7 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
                 autoComplete="new-password"
                 placeholder="••••••••••••"
                 required
-                className="pl-10 pr-10 text-xs h-11 rounded-xl bg-surface-elevated/90 border-border font-medium placeholder:text-muted-foreground/60 shadow-2xs focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:border-primary transition-colors duration-200"
+                className="pl-10 pr-10 text-xs h-11 rounded-lg bg-surface-elevated/90 border-border font-medium placeholder:text-muted-foreground/60 shadow-2xs focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:border-primary transition-colors duration-200"
               />
               <button
                 type="button"
@@ -522,9 +522,9 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
 
             {newPassword && (
               <div className="flex flex-col gap-1 mt-1">
-                <div className="flex items-center justify-between text-[10px] font-mono text-muted-foreground">
+                <div className="flex items-center justify-between text-xs font-mono text-muted-foreground">
                   <span>Strength:</span>
-                  <span className="font-bold text-foreground">{strengthLabel}</span>
+                  <span className="font-semibold text-foreground">{strengthLabel}</span>
                 </div>
                 <div className="grid grid-cols-4 gap-1 h-1.5 w-full bg-surface-subtle rounded-full overflow-hidden">
                   <div className={passwordStrength >= 1 ? strengthColor : "bg-transparent"} />
@@ -537,7 +537,7 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="confirmPassword" className="text-xs font-bold text-foreground">
+            <Label htmlFor="confirmPassword" className="text-xs font-semibold text-foreground">
               Confirm New Password
             </Label>
             <div className="relative flex items-center">
@@ -550,7 +550,7 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
                 autoComplete="new-password"
                 placeholder="••••••••••••"
                 required
-                className="pl-10 pr-10 text-xs h-11 rounded-xl bg-surface-elevated/90 border-border font-medium placeholder:text-muted-foreground/60 shadow-2xs focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:border-primary transition-colors duration-200"
+                className="pl-10 pr-10 text-xs h-11 rounded-lg bg-surface-elevated/90 border-border font-medium placeholder:text-muted-foreground/60 shadow-2xs focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:border-primary transition-colors duration-200"
               />
             </div>
           </div>
@@ -559,7 +559,7 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
             type="submit"
             disabled={loading}
             size="lg"
-            className="w-full mt-2 font-bold text-xs h-11 rounded-xl shadow-md shadow-primary/20 gap-2 cursor-pointer transition-colors duration-200"
+            className="w-full mt-2 font-semibold text-xs h-11 rounded-lg shadow-md  gap-2 cursor-pointer transition-colors duration-200"
           >
             {loading ? (
               <>
@@ -592,12 +592,12 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
 
       {step === "SUCCESS" && (
         <div className="flex flex-col items-center gap-5 text-center py-4">
-          <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/10">
+          <div className="w-16 h-16 rounded-lg bg-success/10 border border-success/20 text-success flex items-center justify-center shadow-md ">
             <CheckCircle2 className="w-8 h-8" />
           </div>
 
           <div className="flex flex-col gap-2 max-w-sm">
-            <h3 className="text-xl font-extrabold text-foreground tracking-tight font-display">
+            <h3 className="text-xl font-semibold text-foreground tracking-tight font-display">
               Password Reset Complete!
             </h3>
             <p className="text-xs text-muted-foreground leading-relaxed">
@@ -605,7 +605,7 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
             </p>
           </div>
 
-          <div className="w-full p-3 rounded-xl bg-surface-subtle border border-border/80 text-xs font-mono text-muted-foreground flex items-center justify-center gap-2">
+          <div className="w-full p-3 rounded-lg bg-surface-subtle border border-border/80 text-xs font-mono text-muted-foreground flex items-center justify-center gap-2">
             <Loader2 className="w-3.5 h-3.5 animate-spin text-primary" />
             <span>Redirecting to Sign In in {redirectCountdown}s...</span>
           </div>
@@ -613,7 +613,7 @@ export function ForgotPasswordForm({ serverAllowedDomains, initialEmail }: Forgo
           <Button
             onClick={() => router.push("/login")}
             size="lg"
-            className="w-full font-bold text-xs h-11 rounded-xl shadow-md shadow-primary/20 gap-2 cursor-pointer transition-colors duration-200"
+            className="w-full font-semibold text-xs h-11 rounded-lg shadow-md  gap-2 cursor-pointer transition-colors duration-200"
           >
             <span>Sign In to Workspace Now</span>
             <ArrowRight className="w-4 h-4" />

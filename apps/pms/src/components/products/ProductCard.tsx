@@ -52,7 +52,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const progressPercent = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
 
   return (
-    <div className="group relative w-full rounded-2xl border border-border/80 bg-card hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 overflow-hidden flex flex-col md:flex-row items-stretch">
+    <div className="group relative w-full rounded-lg border border-border/80 bg-card hover:border-primary/40 hover:shadow-md  transition-all duration-150 overflow-hidden flex flex-col md:flex-row items-stretch">
       <div className="w-full md:w-56 lg:w-64 min-h-[160px] md:min-h-full relative bg-surface-subtle shrink-0 overflow-hidden border-b md:border-b-0 md:border-r border-border/60 flex items-center justify-center">
         {product.imageUrl ? (
           <>
@@ -60,16 +60,16 @@ export function ProductCard({ product }: ProductCardProps) {
             <img
               src={product.imageUrl}
               alt={product.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+              className="w-full h-full object-cover  transition-transform duration-150 ease-out"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
           </>
         ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center gap-2 p-6 bg-radial from-primary/5 via-surface-subtle to-surface-subtle">
-            <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-xs group-hover:scale-110 transition-transform duration-300">
+          <div className="w-full h-full flex flex-col items-center justify-center gap-2 p-6 bg-primary/5">
+            <div className="w-12 h-12 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-xs  transition-transform duration-150">
               <Box className="w-6 h-6" />
             </div>
-            <span className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider">
+            <span className="text-xs font-medium text-muted-foreground  ">
               Product Suite
             </span>
           </div>
@@ -83,7 +83,7 @@ export function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {formattedVersion && product.imageUrl && (
-          <span className="absolute top-3 right-3 z-10 font-mono text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-background/85 backdrop-blur-md border border-white/10 text-foreground shadow-xs">
+          <span className="absolute top-3 right-3 z-10 font-mono text-xs font-semibold px-2.5 py-0.5 rounded-full bg-background/85 backdrop-blur-md border border-white/10 text-foreground shadow-xs">
             {formattedVersion}
           </span>
         )}
@@ -95,7 +95,7 @@ export function ProductCard({ product }: ProductCardProps) {
             <div className="flex items-center gap-2.5 flex-wrap">
               <Link
                 href={`/products/${product.id}`}
-                className="text-lg font-bold font-display tracking-tight text-foreground hover:text-primary transition-colors flex items-center gap-1.5 group/link"
+                className="text-lg font-semibold font-display tracking-tight text-foreground hover:text-primary transition-colors flex items-center gap-1.5 group/link"
               >
                 <span className="truncate">{product.name}</span>
                 <ArrowUpRight className="w-4 h-4 opacity-0 -translate-y-0.5 translate-x-0.5 group-hover/link:opacity-100 transition-all text-primary shrink-0" />
@@ -109,12 +109,12 @@ export function ProductCard({ product }: ProductCardProps) {
             </div>
 
             {criticalTasks > 0 ? (
-              <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-rose-500 mt-0.5">
+              <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-destructive mt-0.5">
                 <ShieldAlert className="w-3.5 h-3.5 shrink-0 animate-pulse" />
                 <span>{criticalTasks} critical blocker requiring attention</span>
               </div>
             ) : highTasks > 0 ? (
-              <div className="inline-flex items-center gap-1.5 text-xs font-medium text-amber-500 mt-0.5">
+              <div className="inline-flex items-center gap-1.5 text-xs font-medium text-warning mt-0.5">
                 <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
                 <span>{highTasks} high priority task active</span>
               </div>
@@ -125,7 +125,7 @@ export function ProductCard({ product }: ProductCardProps) {
             asChild
             size="sm"
             variant="outline"
-            className="hidden sm:inline-flex text-xs font-semibold h-8 px-3.5 gap-1.5 rounded-xl border-border/80 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors shrink-0 shadow-2xs"
+            className="hidden sm:inline-flex text-xs font-semibold h-8 px-3.5 gap-1.5 rounded-lg border-border/80 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors shrink-0 shadow-2xs"
           >
             <Link href={`/products/${product.id}`}>
               <span>Open Product Board</span>
@@ -134,7 +134,7 @@ export function ProductCard({ product }: ProductCardProps) {
           </Button>
         </div>
 
-        <div className="rounded-xl bg-surface-subtle/60 border border-border/60 p-3.5 flex flex-col gap-2.5">
+        <div className="rounded-lg bg-surface-subtle/60 border border-border/60 p-3.5 flex flex-col gap-2.5">
           <div className="flex items-center justify-between text-xs">
             <div className="flex items-center gap-2">
               <span className="w-6 h-6 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
@@ -156,7 +156,7 @@ export function ProductCard({ product }: ProductCardProps) {
             <>
               <div className="w-full h-2 bg-border/60 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-emerald-500 rounded-full transition-all duration-500 ease-out"
+                  className="h-full bg-success rounded-full transition-all duration-150 ease-out"
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
@@ -164,7 +164,7 @@ export function ProductCard({ product }: ProductCardProps) {
               <div className="flex flex-wrap items-center gap-1.5 pt-0.5 text-xs">
                 {inProgressTasks > 0 && (
                   <Badge variant="warning" className="text-xs px-2.5 py-0.5 gap-1.5 font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-warning animate-pulse" />
                     <span>{inProgressTasks} In Progress</span>
                   </Badge>
                 )}

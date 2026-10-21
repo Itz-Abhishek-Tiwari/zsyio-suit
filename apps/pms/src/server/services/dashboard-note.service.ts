@@ -19,6 +19,10 @@ export const dashboardNoteService = {
     return dashboardNoteRepository.listForUser(user.id, user.role, filters);
   },
 
+  async isVisibleTo(user: AuthUserSession, id: string) {
+    return dashboardNoteRepository.isVisibleTo(id, user.id, user.role);
+  },
+
   async findById(id: string) {
     return dashboardNoteRepository.findById(id);
   },

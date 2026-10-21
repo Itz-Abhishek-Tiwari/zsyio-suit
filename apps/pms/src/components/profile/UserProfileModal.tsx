@@ -21,7 +21,7 @@ export function UserProfileSidePanel({ open, onOpenChange }: UserProfileSidePane
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         side="right"
-        className="w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl flex flex-col p-0 bg-background border-l border-border/80 shadow-2xl overflow-hidden h-full"
+        className="w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl flex flex-col p-0 bg-background border-l border-border/80 shadow-md overflow-hidden h-full"
       >
         <SheetHeader className="p-4 sm:p-5 border-b border-border/70 bg-card/90 backdrop-blur-xs shrink-0 pr-12">
           <div className="flex items-center gap-2.5">
@@ -29,10 +29,10 @@ export function UserProfileSidePanel({ open, onOpenChange }: UserProfileSidePane
               <User className="w-4 h-4" />
             </div>
             <div>
-              <SheetTitle className="text-base font-bold text-foreground font-display">
+              <SheetTitle className="text-base font-semibold text-foreground font-display">
                 My Profile &amp; Account Settings
               </SheetTitle>
-              <SheetDescription className="text-[11px] text-muted-foreground">
+              <SheetDescription className="text-xs text-muted-foreground">
                 Manage your identity, job details, timezone, and security credentials.
               </SheetDescription>
             </div>

@@ -123,9 +123,9 @@ export function DashboardTaskTabs({
     <div className="rounded-lg border border-border/80 bg-card p-5 sm:p-6 flex flex-col gap-5 shadow-xs transition-all">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border/60 pb-4">
         <div>
-          <h2 className="text-base font-bold text-foreground flex items-center gap-2">
+          <h2 className="text-base font-semibold text-foreground flex items-center gap-2">
             <span>Actionable Tasks</span>
-            <span className="text-[11px] font-mono font-semibold text-muted-foreground bg-surface-subtle px-2 py-0.5 rounded-md border border-border/60">
+            <span className="text-xs font-mono font-semibold text-muted-foreground bg-surface-subtle px-2 py-0.5 rounded-md border border-border/60">
               {currentList.length} items
             </span>
           </h2>
@@ -201,12 +201,12 @@ export function DashboardTaskTabs({
 
       {filteredTasks.length === 0 ? (
         <div className="py-12 text-center flex flex-col items-center justify-center gap-2.5 rounded-md bg-surface-subtle/30 border border-dashed border-border/70">
-          <CheckCircle2 className="w-9 h-9 text-emerald-500/80" />
+          <CheckCircle2 className="w-9 h-9 text-success/80" />
           <div className="flex flex-col gap-0.5">
-            <p className="text-xs font-bold text-foreground">
+            <p className="text-xs font-semibold text-foreground">
               {searchQuery ? "No matching tasks found" : "All clear in this view!"}
             </p>
-            <p className="text-[11px] text-muted-foreground max-w-sm">
+            <p className="text-xs text-muted-foreground max-w-sm">
               {searchQuery
                 ? `No tasks matched "${searchQuery}". Try clearing the search.`
                 : activeTab === "urgent"
@@ -247,22 +247,22 @@ export function DashboardTaskTabs({
                 <div className="flex flex-col gap-1.5 min-w-0 flex-1">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span
-                      className={`text-[10px] font-bold px-2 py-0.5 rounded border flex items-center gap-1 ${priorityInfo.bgClass} ${priorityInfo.textClass} ${priorityInfo.borderClass}`}
+                      className={`text-xs font-semibold px-2 py-0.5 rounded border flex items-center gap-1 ${priorityInfo.bgClass} ${priorityInfo.textClass} ${priorityInfo.borderClass}`}
                     >
                       {priorityInfo.icon}
                       <span>{priorityInfo.label}</span>
                     </span>
 
-                    <span className="font-mono text-[10px] font-bold text-muted-foreground bg-surface-subtle px-1.5 py-0.5 rounded border border-border/60">
+                    <span className="font-mono text-xs font-semibold text-muted-foreground bg-surface-subtle px-1.5 py-0.5 rounded border border-border/60">
                       {formatTicketId(task)}
                     </span>
 
-                    <span className="text-xs font-bold text-foreground group-hover:text-primary transition-colors truncate">
+                    <span className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors truncate">
                       {task.title}
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-2 text-[11px] text-muted-foreground flex-wrap">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground flex-wrap">
                     <span className="font-semibold text-foreground/80">{clientName}</span>
                     <span>•</span>
                     <span className="truncate max-w-[140px]">{productName}</span>
@@ -289,7 +289,7 @@ export function DashboardTaskTabs({
                           <span className="flex items-center gap-1 text-foreground/90">
                             <User className="w-3 h-3 text-muted-foreground" />
                             <span className="font-medium truncate max-w-[120px]">{allAssignees[0].name}</span>
-                            <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-primary/10 text-primary border border-primary/20">
+                            <span className="text-xs font-semibold px-1.5 py-0.2 rounded bg-primary/10 text-primary border border-primary/20">
                               +{allAssignees.length - 1}
                             </span>
                           </span>
@@ -306,14 +306,14 @@ export function DashboardTaskTabs({
                         <>
                           <span>•</span>
                           <span
-                            className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400"
+                            className="flex items-center gap-1 text-success"
                             title={`Reviewer${allReviewers.length > 1 ? "s" : ""}: ${allReviewers.map((r) => r.name).join(", ")}`}
                           >
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
-                            <span className="font-semibold text-[10px]">Rev:</span>
+                            <span className="w-1.5 h-1.5 rounded-full bg-success shrink-0" />
+                            <span className="font-semibold text-xs">Rev:</span>
                             <span className="font-medium truncate max-w-[100px]">{allReviewers[0].name}</span>
                             {allReviewers.length > 1 && (
-                              <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
+                              <span className="text-xs font-semibold px-1.5 py-0.2 rounded bg-success/10 text-success border border-success/20">
                                 +{allReviewers.length - 1}
                               </span>
                             )}
@@ -324,7 +324,7 @@ export function DashboardTaskTabs({
                   </div>
 
                   {task.status === "BLOCKED" && task.blockedReason && (
-                    <div className="text-[11px] text-amber-700 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-md flex items-center gap-1.5 mt-0.5">
+                    <div className="text-xs text-warning bg-warning/10 border border-warning/20 px-2.5 py-1 rounded-md flex items-center gap-1.5 mt-0.5">
                       <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
                       <span className="truncate">
                         <strong>Reason:</strong> {task.blockedReason}
@@ -336,9 +336,9 @@ export function DashboardTaskTabs({
                 <div className="flex items-center gap-2 shrink-0 self-start sm:self-center">
                   {dueDateFormatted && (
                     <span
-                      className={`text-[10px] font-semibold flex items-center gap-1 px-2.5 py-1 rounded-md border ${
+                      className={`text-xs font-semibold flex items-center gap-1 px-2.5 py-1 rounded-md border ${
                         isOverdue
-                          ? "bg-red-500/10 text-red-600 border-red-500/20 font-bold"
+                          ? "bg-destructive/10 text-destructive border-destructive/20 font-semibold"
                           : "bg-surface-subtle text-muted-foreground border-border/60"
                       }`}
                     >
@@ -347,7 +347,7 @@ export function DashboardTaskTabs({
                     </span>
                   )}
 
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-surface-subtle border border-border/60 text-foreground">
+                  <span className="text-xs font-semibold   px-2.5 py-1 rounded-md bg-surface-subtle border border-border/60 text-foreground">
                     {task.status.replace(/_/g, " ")}
                   </span>
 

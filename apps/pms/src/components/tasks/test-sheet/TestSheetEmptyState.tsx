@@ -21,12 +21,12 @@ export function TestSheetEmptyState({
 }: TestSheetEmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center py-8 px-4 rounded-lg border border-dashed border-border/80 bg-surface-subtle/50 text-center gap-3">
-      <div className="w-10 h-10 rounded-md bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shadow-2xs">
+      <div className="w-10 h-10 rounded-md bg-success/10 border border-success/25 flex items-center justify-center text-success shadow-2xs">
         <FileCheck2 className="w-5 h-5" />
       </div>
 
       <div className="flex flex-col items-center gap-1 max-w-md">
-        <h4 className="text-sm font-bold text-foreground tracking-tight">
+        <h4 className="text-sm font-semibold text-foreground tracking-tight">
           No QA test scenarios created yet
         </h4>
         <p className="text-xs text-muted-foreground leading-relaxed">

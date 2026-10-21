@@ -40,26 +40,26 @@ import {
 } from "lucide-react";
 
 const TEAM_COLOR_DOT: Record<string, string> = {
-  purple:  "bg-purple-500",
-  blue:    "bg-blue-500",
-  amber:   "bg-amber-500",
-  emerald: "bg-emerald-500",
-  red:     "bg-red-500",
-  cyan:    "bg-cyan-500",
+  purple:  "bg-notion-purple-fg",
+  blue:    "bg-notion-blue-fg",
+  amber:   "bg-warning",
+  emerald: "bg-success",
+  red:     "bg-destructive",
+  cyan:    "bg-notion-blue-fg",
   default: "bg-muted-foreground",
 };
 
 const ROLE_DOT_COLOR: Record<string, string> = {
-  purple:  "bg-purple-500",
-  blue:    "bg-blue-500",
-  emerald: "bg-emerald-500",
-  amber:   "bg-amber-500",
-  pink:    "bg-pink-500",
-  rose:    "bg-rose-500",
-  indigo:  "bg-indigo-500",
-  teal:    "bg-teal-500",
-  cyan:    "bg-cyan-500",
-  orange:  "bg-orange-500",
+  purple:  "bg-notion-purple-fg",
+  blue:    "bg-notion-blue-fg",
+  emerald: "bg-success",
+  amber:   "bg-warning",
+  pink:    "bg-notion-pink-fg",
+  rose:    "bg-destructive",
+  indigo:  "bg-notion-purple-fg",
+  teal:    "bg-notion-blue-fg",
+  cyan:    "bg-notion-blue-fg",
+  orange:  "bg-notion-orange-fg",
   gray:    "bg-muted-foreground",
 };
 
@@ -187,7 +187,7 @@ export function TaskFiltersBar() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-3 bg-card p-3 sm:p-3.5 rounded-2xl border border-border shadow-xs transition-all">
+    <div className="flex flex-col gap-3 bg-card p-3 sm:p-3.5 rounded-lg border border-border shadow-xs transition-all">
       {/* Top row: Search input + active filter count + View Switcher */}
       <div className="flex items-center gap-3">
         <div className="relative flex-1 min-w-[200px]">
@@ -195,7 +195,7 @@ export function TaskFiltersBar() {
           <Input
             ref={searchInputRef}
             placeholder="Search tasks, ticket # (e.g. TSK-123)…"
-            className="pl-9 pr-14 h-9 text-xs rounded-xl bg-input border-input-border focus:border-ring shadow-2xs"
+            className="pl-9 pr-14 h-9 text-xs rounded-lg bg-input border-input-border focus:border-ring shadow-2xs"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
           />
@@ -211,14 +211,14 @@ export function TaskFiltersBar() {
               <X className="w-3.5 h-3.5" />
             </button>
           ) : (
-            <kbd className="absolute right-2.5 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono text-muted-foreground bg-muted/60 rounded border border-border/60 pointer-events-none">
+            <kbd className="absolute right-2.5 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-xs font-mono text-muted-foreground bg-muted/60 rounded border border-border/60 pointer-events-none">
               ⌘K
             </kbd>
           )}
         </div>
 
         {hasActiveFilters && (
-          <span className="shrink-0 hidden md:inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 animate-fade-in">
+          <span className="shrink-0 hidden md:inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 animate-fade-in">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             {activeCount} active filter{activeCount > 1 ? "s" : ""}
           </span>
@@ -260,7 +260,7 @@ export function TaskFiltersBar() {
           }
         >
           <SelectTrigger
-            className={`h-8.5 w-auto min-w-fit max-w-[180px] px-3 text-xs rounded-xl gap-2 transition-all shadow-2xs cursor-pointer ${
+            className={`h-8.5 w-auto min-w-fit max-w-[180px] px-3 text-xs rounded-lg gap-2 transition-all shadow-2xs cursor-pointer ${
               filters.clientId
                 ? "border-primary/50 bg-primary/10 text-primary font-semibold hover:bg-primary/15 hover:border-primary/70 shadow-xs"
                 : "border-input-border bg-input text-foreground hover:border-border-strong hover:bg-surface-elevated"
@@ -269,7 +269,7 @@ export function TaskFiltersBar() {
             <Building2 className={`w-3.5 h-3.5 shrink-0 ${filters.clientId ? "text-primary" : "text-muted-foreground"}`} />
             <SelectValue placeholder="All Clients" />
           </SelectTrigger>
-          <SelectContent className="rounded-xl border-border/80 bg-surface-elevated shadow-xl">
+          <SelectContent className="rounded-lg border-border/80 bg-surface-elevated shadow-md">
             <SelectItem value="ALL">All Clients</SelectItem>
             {clients.map((client) => (
               <SelectItem key={client.id} value={client.id}>
@@ -277,9 +277,9 @@ export function TaskFiltersBar() {
                   <span
                     className={`w-2 h-2 rounded-full shrink-0 ${
                       client.status === "ACTIVE"
-                        ? "bg-emerald-500"
+                        ? "bg-success"
                         : client.status === "ONBOARDING"
-                        ? "bg-amber-400"
+                        ? "bg-warning"
                         : "bg-muted-foreground"
                     }`}
                   />
@@ -299,7 +299,7 @@ export function TaskFiltersBar() {
             }
           >
             <SelectTrigger
-              className={`h-8.5 w-auto min-w-fit max-w-[180px] px-3 text-xs rounded-xl gap-2 transition-all shadow-2xs cursor-pointer animate-in fade-in-50 zoom-in-95 duration-150 ${
+              className={`h-8.5 w-auto min-w-fit max-w-[180px] px-3 text-xs rounded-lg gap-2 transition-all shadow-2xs cursor-pointer animate-in fade-in-50 zoom-in-95 duration-150 ${
                 filters.productId
                   ? "border-primary/50 bg-primary/10 text-primary font-semibold hover:bg-primary/15 hover:border-primary/70 shadow-xs"
                   : "border-input-border bg-input text-foreground hover:border-border-strong hover:bg-surface-elevated"
@@ -308,12 +308,12 @@ export function TaskFiltersBar() {
               <Package className={`w-3.5 h-3.5 shrink-0 ${filters.productId ? "text-primary" : "text-muted-foreground"}`} />
               <SelectValue placeholder={isFetchingProducts ? "Loading..." : "All Products"} />
             </SelectTrigger>
-            <SelectContent className="rounded-xl border-border/80 bg-surface-elevated shadow-xl">
+            <SelectContent className="rounded-lg border-border/80 bg-surface-elevated shadow-md">
               <SelectItem value="ALL">All Products</SelectItem>
               {products.map((prod) => (
                 <SelectItem key={prod.id} value={prod.id}>
                   <div className="flex items-center gap-2">
-                    <Package className="w-3 h-3 text-orange-500 shrink-0" />
+                    <Package className="w-3 h-3 text-notion-orange-fg shrink-0" />
                     <span className="truncate">{prod.name}</span>
                   </div>
                 </SelectItem>
@@ -330,7 +330,7 @@ export function TaskFiltersBar() {
           }
         >
           <SelectTrigger
-            className={`h-8.5 w-auto min-w-fit max-w-[180px] px-3 text-xs rounded-xl gap-2 transition-all shadow-2xs cursor-pointer ${
+            className={`h-8.5 w-auto min-w-fit max-w-[180px] px-3 text-xs rounded-lg gap-2 transition-all shadow-2xs cursor-pointer ${
               filters.assignedTeamId
                 ? "border-primary/50 bg-primary/10 text-primary font-semibold hover:bg-primary/15 hover:border-primary/70 shadow-xs"
                 : "border-input-border bg-input text-foreground hover:border-border-strong hover:bg-surface-elevated"
@@ -339,7 +339,7 @@ export function TaskFiltersBar() {
             <Users2 className={`w-3.5 h-3.5 shrink-0 ${filters.assignedTeamId ? "text-primary" : "text-muted-foreground"}`} />
             <SelectValue placeholder="All Teams" />
           </SelectTrigger>
-          <SelectContent className="rounded-xl border-border/80 bg-surface-elevated shadow-xl">
+          <SelectContent className="rounded-lg border-border/80 bg-surface-elevated shadow-md">
             <SelectItem value="ALL">All Teams</SelectItem>
             {teams.map((team) => (
               <SelectItem key={team.id} value={team.id}>
@@ -364,7 +364,7 @@ export function TaskFiltersBar() {
           }
         >
           <SelectTrigger
-            className={`h-8.5 w-auto min-w-fit max-w-[180px] px-3 text-xs rounded-xl gap-2 transition-all shadow-2xs cursor-pointer ${
+            className={`h-8.5 w-auto min-w-fit max-w-[180px] px-3 text-xs rounded-lg gap-2 transition-all shadow-2xs cursor-pointer ${
               filters.role
                 ? "border-primary/50 bg-primary/10 text-primary font-semibold hover:bg-primary/15 hover:border-primary/70 shadow-xs"
                 : "border-input-border bg-input text-foreground hover:border-border-strong hover:bg-surface-elevated"
@@ -373,14 +373,14 @@ export function TaskFiltersBar() {
             <Shield className={`w-3.5 h-3.5 shrink-0 ${filters.role ? "text-primary" : "text-muted-foreground"}`} />
             <SelectValue placeholder="All Roles" />
           </SelectTrigger>
-          <SelectContent className="rounded-xl border-border/80 bg-surface-elevated shadow-xl">
+          <SelectContent className="rounded-lg border-border/80 bg-surface-elevated shadow-md">
             <SelectItem value="ALL">All Roles</SelectItem>
             {availableRolesList.map((r) => (
               <SelectItem key={r.name} value={r.name}>
                 <div className="flex items-center gap-2">
                   <span
                     className={`w-2 h-2 rounded-full shrink-0 ${
-                      ROLE_DOT_COLOR[r.color ?? "purple"] ?? "bg-purple-500"
+                      ROLE_DOT_COLOR[r.color ?? "purple"] ?? "bg-notion-purple-fg"
                     }`}
                   />
                   <span>{r.label}</span>
@@ -405,7 +405,7 @@ export function TaskFiltersBar() {
           }
         >
           <SelectTrigger
-            className={`h-8.5 w-auto min-w-fit max-w-[180px] px-3 text-xs rounded-xl gap-2 transition-all shadow-2xs cursor-pointer ${
+            className={`h-8.5 w-auto min-w-fit max-w-[180px] px-3 text-xs rounded-lg gap-2 transition-all shadow-2xs cursor-pointer ${
               filters.priority
                 ? "border-primary/50 bg-primary/10 text-primary font-semibold hover:bg-primary/15 hover:border-primary/70 shadow-xs"
                 : "border-input-border bg-input text-foreground hover:border-border-strong hover:bg-surface-elevated"
@@ -414,26 +414,26 @@ export function TaskFiltersBar() {
             <Flame className={`w-3.5 h-3.5 shrink-0 ${filters.priority ? "text-primary" : "text-muted-foreground"}`} />
             <SelectValue placeholder="All Priorities" />
           </SelectTrigger>
-          <SelectContent className="rounded-xl border-border/80 bg-surface-elevated shadow-xl">
+          <SelectContent className="rounded-lg border-border/80 bg-surface-elevated shadow-md">
             <SelectItem value="ALL">All Priorities</SelectItem>
             <SelectItem value="CRITICAL">
               <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-red-500 shadow-2xs" /> Urgent
+                <span className="w-2 h-2 rounded-full bg-destructive shadow-2xs" /> Urgent
               </span>
             </SelectItem>
             <SelectItem value="HIGH">
               <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-orange-500 shadow-2xs" /> High
+                <span className="w-2 h-2 rounded-full bg-notion-orange-fg shadow-2xs" /> High
               </span>
             </SelectItem>
             <SelectItem value="MEDIUM">
               <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-yellow-500 shadow-2xs" /> Medium
+                <span className="w-2 h-2 rounded-full bg-warning shadow-2xs" /> Medium
               </span>
             </SelectItem>
             <SelectItem value="LOW">
               <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-blue-400 shadow-2xs" /> Low
+                <span className="w-2 h-2 rounded-full bg-notion-blue-fg shadow-2xs" /> Low
               </span>
             </SelectItem>
           </SelectContent>
@@ -447,7 +447,7 @@ export function TaskFiltersBar() {
           }
         >
           <SelectTrigger
-            className={`h-8.5 w-auto min-w-fit max-w-[180px] px-3 text-xs rounded-xl gap-2 transition-all shadow-2xs cursor-pointer ${
+            className={`h-8.5 w-auto min-w-fit max-w-[180px] px-3 text-xs rounded-lg gap-2 transition-all shadow-2xs cursor-pointer ${
               filters.type
                 ? "border-primary/50 bg-primary/10 text-primary font-semibold hover:bg-primary/15 hover:border-primary/70 shadow-xs"
                 : "border-input-border bg-input text-foreground hover:border-border-strong hover:bg-surface-elevated"
@@ -456,7 +456,7 @@ export function TaskFiltersBar() {
             <Tag className={`w-3.5 h-3.5 shrink-0 ${filters.type ? "text-primary" : "text-muted-foreground"}`} />
             <SelectValue placeholder="All Types" />
           </SelectTrigger>
-          <SelectContent className="rounded-xl border-border/80 bg-surface-elevated shadow-xl">
+          <SelectContent className="rounded-lg border-border/80 bg-surface-elevated shadow-md">
             <SelectItem value="ALL">All Types</SelectItem>
             {STANDARD_TYPES.map((tp) => (
               <SelectItem key={tp.value} value={tp.value}>
@@ -468,7 +468,7 @@ export function TaskFiltersBar() {
               .map((ct) => (
                 <SelectItem key={ct.id} value={ct.name}>
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-purple-500 shrink-0" />
+                    <span className="w-2 h-2 rounded-full bg-notion-purple-fg shrink-0" />
                     <span>{ct.name}</span>
                   </div>
                 </SelectItem>
@@ -485,7 +485,7 @@ export function TaskFiltersBar() {
             }
           >
             <SelectTrigger
-              className={`h-8.5 w-auto min-w-fit max-w-[180px] px-3 text-xs rounded-xl gap-2 transition-all shadow-2xs cursor-pointer ${
+              className={`h-8.5 w-auto min-w-fit max-w-[180px] px-3 text-xs rounded-lg gap-2 transition-all shadow-2xs cursor-pointer ${
                 filters.tag
                   ? "border-primary/50 bg-primary/10 text-primary font-semibold hover:bg-primary/15 hover:border-primary/70 shadow-xs"
                   : "border-input-border bg-input text-foreground hover:border-border-strong hover:bg-surface-elevated"
@@ -494,14 +494,14 @@ export function TaskFiltersBar() {
               <Tag className={`w-3.5 h-3.5 shrink-0 ${filters.tag ? "text-primary" : "text-muted-foreground"}`} />
               <SelectValue placeholder="All Tags" />
             </SelectTrigger>
-            <SelectContent className="rounded-xl border-border/80 bg-surface-elevated shadow-xl">
+            <SelectContent className="rounded-lg border-border/80 bg-surface-elevated shadow-md">
               <SelectItem value="ALL">All Tags</SelectItem>
               {taskTags.map((t) => (
                 <SelectItem key={t.id} value={t.name}>
                   <div className="flex items-center gap-2">
                     <span
                       className={`w-2 h-2 rounded-full shrink-0 ${
-                        TAG_COLORS[t.color || "blue"]?.dot || "bg-blue-500"
+                        TAG_COLORS[t.color || "blue"]?.dot || "bg-notion-blue-fg"
                       }`}
                     />
                     <span>{t.name}</span>
@@ -518,7 +518,7 @@ export function TaskFiltersBar() {
             variant="ghost"
             size="sm"
             onClick={() => dispatch(resetFilters())}
-            className="h-8.5 px-3 text-xs font-semibold text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-xl gap-1.5 transition-all cursor-pointer"
+            className="h-8.5 px-3 text-xs font-semibold text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg gap-1.5 transition-all cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Reset</span>

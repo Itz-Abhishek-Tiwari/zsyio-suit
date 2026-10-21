@@ -177,12 +177,12 @@ export function ProductProfileTabs({
   }, [tasks]);
 
   const stages: StageMetric[] = [
-    { label: "Backlog", count: backlogCount, color: "bg-slate-400", hexColor: "var(--color-status-backlog)", text: "text-slate-500 dark:text-slate-400" },
-    { label: "To Do", count: todoCount, color: "bg-blue-500", hexColor: "var(--color-status-todo)", text: "text-blue-600 dark:text-blue-400" },
-    { label: "In Progress", count: inProgressCount, color: "bg-amber-500", hexColor: "var(--color-status-in-progress)", text: "text-amber-600 dark:text-amber-400" },
-    { label: "In Review", count: inReviewCount, color: "bg-purple-500", hexColor: "var(--color-status-in-review)", text: "text-purple-600 dark:text-purple-400" },
-    { label: "Blocked", count: blockedCount, color: "bg-red-500", hexColor: "var(--color-status-blocked)", text: "text-red-600 dark:text-red-400" },
-    { label: "Completed", count: doneCount, color: "bg-emerald-500", hexColor: "var(--color-status-done)", text: "text-emerald-600 dark:text-emerald-400" },
+    { label: "Backlog", count: backlogCount, color: "bg-muted-foreground", hexColor: "var(--color-status-backlog)", text: "text-muted-foreground" },
+    { label: "To Do", count: todoCount, color: "bg-notion-blue-fg", hexColor: "var(--color-status-todo)", text: "text-notion-blue-fg" },
+    { label: "In Progress", count: inProgressCount, color: "bg-warning", hexColor: "var(--color-status-in-progress)", text: "text-warning" },
+    { label: "In Review", count: inReviewCount, color: "bg-notion-purple-fg", hexColor: "var(--color-status-in-review)", text: "text-notion-purple-fg" },
+    { label: "Blocked", count: blockedCount, color: "bg-destructive", hexColor: "var(--color-status-blocked)", text: "text-destructive" },
+    { label: "Completed", count: doneCount, color: "bg-success", hexColor: "var(--color-status-done)", text: "text-success" },
   ];
 
   return (

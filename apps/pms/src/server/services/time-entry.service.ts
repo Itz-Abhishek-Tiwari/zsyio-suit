@@ -1,7 +1,18 @@
 import { can, ForbiddenError, NotFoundError } from "@zsyio/auth/permissions";
+import { taskRepository } from "@/server/repositories/task.repository";
+import { isOwner } from "@/lib/task-access";
 import { timeEntryRepository } from "@/server/repositories/time-entry.repository";
 import type { CreateTimeEntryInput, UpdateTimeEntryInput, StopTimeEntryInput } from "@zsyio/validators";
 import type { Session } from "next-auth";
+
+async function assertTaskAccess(user: Session["user"], taskId: string) {
+  const task = await taskRepository.findOwnershipInfo(taskId);
+  if (!task) throw new NotFoundError("Task not found.");
+  if (!can(user.role, "task:view:all", user.permissions) && !isOwner(user.id, task)) {
+    throw new ForbiddenError("You can only access time entries on tasks you're assigned to.");
+  }
+  return task;
+}
 
 export const timeEntryService = {
   async getActive(user: Session["user"]) {
@@ -12,15 +23,18 @@ export const timeEntryService = {
     if (!can(user.role, "task:view:all", user.permissions) && !can(user.role, "task:view:own", user.permissions)) {
       throw new ForbiddenError("You do not have permission to view task time entries.");
     }
-    return timeEntryRepository.getByTaskId(taskId);
+    const task = await assertTaskAccess(user, taskId);
+    return timeEntryRepository.getByTaskId(task.id);
   },
 
   async create(user: Session["user"], input: CreateTimeEntryInput) {
     if (!can(user.role, "task:view:all", user.permissions) && !can(user.role, "task:view:own", user.permissions)) {
       throw new ForbiddenError("You do not have permission to log time on this task.");
     }
+    const task = await assertTaskAccess(user, input.taskId);
     return timeEntryRepository.create({
       ...input,
+      taskId: task.id,
       userId: user.id,
     });
   },

@@ -15,13 +15,13 @@ export default async function ProfileSettingsPage() {
     <div className="flex flex-col gap-5 pb-12">
       {/* Page heading */}
       <div className="border-b border-border/60 pb-4">
-        <p className="text-xs font-bold uppercase tracking-wider text-primary mb-1">Account Settings</p>
-        <h1 className="text-xl font-bold font-display text-foreground tracking-tight">Profile &amp; Preferences</h1>
+        <p className="text-xs font-semibold   text-primary mb-1">Account Settings</p>
+        <h1 className="text-xl font-semibold font-display text-foreground tracking-tight">Profile &amp; Preferences</h1>
         <p className="text-xs text-muted-foreground mt-0.5">Manage your workspace identity, timezone, appearance, and security credentials.</p>
       </div>
 
       {/* Two-column settings layout */}
-      <div className="rounded-xl border border-border/70 bg-card shadow-xs overflow-hidden h-[720px] flex flex-col">
+      <div className="rounded-lg border border-border/70 bg-card shadow-xs overflow-hidden h-[720px] flex flex-col">
         <UserProfileView />
       </div>
     </div>

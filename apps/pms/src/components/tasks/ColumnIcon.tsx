@@ -19,16 +19,16 @@ import {
 } from "lucide-react";
 
 export const ICON_OPTIONS: { id: string; label: string; icon: React.ReactNode }[] = [
-  { id: "flask", label: "Testing", icon: <FlaskConical className="w-4 h-4 text-emerald-500" /> },
-  { id: "rocket", label: "Deploy", icon: <Rocket className="w-4 h-4 text-purple-500" /> },
-  { id: "palette", label: "Design", icon: <Palette className="w-4 h-4 text-pink-500" /> },
-  { id: "package", label: "Product", icon: <Package className="w-4 h-4 text-blue-500" /> },
-  { id: "lightbulb", label: "Idea", icon: <Lightbulb className="w-4 h-4 text-amber-500" /> },
-  { id: "clipboard", label: "Tasks", icon: <ClipboardList className="w-4 h-4 text-indigo-500" /> },
-  { id: "flame", label: "Urgent", icon: <Flame className="w-4 h-4 text-rose-500" /> },
-  { id: "search", label: "Review", icon: <Search className="w-4 h-4 text-cyan-500" /> },
-  { id: "pin", label: "Pinned", icon: <Pin className="w-4 h-4 text-red-500" /> },
-  { id: "settings", label: "Infra", icon: <Settings className="w-4 h-4 text-gray-500" /> },
+  { id: "flask", label: "Testing", icon: <FlaskConical className="w-4 h-4 text-success" /> },
+  { id: "rocket", label: "Deploy", icon: <Rocket className="w-4 h-4 text-notion-purple-fg" /> },
+  { id: "palette", label: "Design", icon: <Palette className="w-4 h-4 text-notion-pink-fg" /> },
+  { id: "package", label: "Product", icon: <Package className="w-4 h-4 text-notion-blue-fg" /> },
+  { id: "lightbulb", label: "Idea", icon: <Lightbulb className="w-4 h-4 text-warning" /> },
+  { id: "clipboard", label: "Tasks", icon: <ClipboardList className="w-4 h-4 text-notion-purple-fg" /> },
+  { id: "flame", label: "Urgent", icon: <Flame className="w-4 h-4 text-destructive" /> },
+  { id: "search", label: "Review", icon: <Search className="w-4 h-4 text-notion-blue-fg" /> },
+  { id: "pin", label: "Pinned", icon: <Pin className="w-4 h-4 text-destructive" /> },
+  { id: "settings", label: "Infra", icon: <Settings className="w-4 h-4 text-muted-foreground" /> },
 ];
 
 export function ColumnIcon({ iconKey, className = "w-4 h-4" }: { iconKey?: string; className?: string }) {

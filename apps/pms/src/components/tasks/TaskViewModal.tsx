@@ -173,7 +173,7 @@ export function TaskViewModal({ task, taskId, isOpen, onClose }: TaskViewModalPr
       <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
         <SheetContent
           side="right"
-          className="w-full sm:max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl p-0 gap-0 border-l border-border/80 bg-card shadow-2xl flex flex-col h-full overflow-hidden"
+          className="w-full sm:max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl p-0 gap-0 border-l border-border/80 bg-card shadow-md flex flex-col h-full overflow-hidden"
         >
           <div className="p-6 border-b border-border/80 flex flex-col gap-4 animate-pulse">
             <div className="flex items-center gap-2">
@@ -188,8 +188,8 @@ export function TaskViewModal({ task, taskId, isOpen, onClose }: TaskViewModalPr
             </div>
           </div>
           <div className="p-6 flex-1 flex flex-col gap-6 animate-pulse">
-            <div className="h-32 bg-muted/40 rounded-2xl" />
-            <div className="h-48 bg-muted/40 rounded-2xl" />
+            <div className="h-32 bg-muted/40 rounded-lg" />
+            <div className="h-48 bg-muted/40 rounded-lg" />
           </div>
         </SheetContent>
       </Sheet>
@@ -311,7 +311,7 @@ export function TaskViewModal({ task, taskId, isOpen, onClose }: TaskViewModalPr
             e.preventDefault();
           }
         }}
-        className="w-full sm:max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl p-0 gap-0 border-l border-border/80 bg-card shadow-2xl flex flex-col h-full overflow-hidden"
+        className="w-full sm:max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl p-0 gap-0 border-l border-border/80 bg-card shadow-md flex flex-col h-full overflow-hidden"
       >
         <div className="animate-modal-stagger-1">
           <TaskModalHeader
@@ -337,18 +337,18 @@ export function TaskViewModal({ task, taskId, isOpen, onClose }: TaskViewModalPr
           className="flex-1 overflow-y-auto p-5 sm:p-7 flex flex-col gap-6 bg-muted/15"
         >
           {activeTask.status === "BLOCKED" && (
-            <div className="rounded-md border border-red-500/25 bg-red-500/5 dark:bg-red-500/10 p-3.5 sm:p-4 flex items-start gap-3 shadow-2xs animate-fade-in">
-              <div className="w-8 h-8 rounded-sm bg-red-500/15 text-red-600 dark:text-red-400 flex items-center justify-center shrink-0 mt-0.5">
+            <div className="rounded-md border border-destructive/25 bg-destructive/5 p-3.5 sm:p-4 flex items-start gap-3 shadow-2xs animate-fade-in">
+              <div className="w-8 h-8 rounded-sm bg-destructive/15 text-destructive flex items-center justify-center shrink-0 mt-0.5">
                 <AlertCircle className="w-4 h-4 animate-pulse" />
               </div>
               <div className="flex flex-col gap-1 text-xs flex-1">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-red-700 dark:text-red-300 text-sm">
+                  <span className="font-semibold text-destructive text-sm">
                     Ticket is Blocked
                   </span>
-                  <span className="text-[10px] text-red-600/70 font-mono">Attention required</span>
+                  <span className="text-xs text-destructive/70 font-mono">Attention required</span>
                 </div>
-                <p className="text-red-600 dark:text-red-400 leading-relaxed text-xs">
+                <p className="text-destructive leading-relaxed text-xs">
                   {activeTask.blockedReason || "No blocker details specified."}
                 </p>
               </div>
@@ -356,15 +356,15 @@ export function TaskViewModal({ task, taskId, isOpen, onClose }: TaskViewModalPr
           )}
 
           {activeTask.status === "DONE" && (
-            <div className="rounded-md border border-emerald-500/25 bg-emerald-500/5 dark:bg-emerald-500/10 p-3.5 sm:p-4 flex items-center gap-3 shadow-2xs animate-fade-in">
-              <div className="w-7 h-7 rounded-sm bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+            <div className="rounded-md border border-success/25 bg-success/5 p-3.5 sm:p-4 flex items-center gap-3 shadow-2xs animate-fade-in">
+              <div className="w-7 h-7 rounded-sm bg-success/15 text-success flex items-center justify-center shrink-0">
                 <CheckCircle2 className="w-4 h-4" />
               </div>
               <div className="flex flex-col gap-0.5 text-xs">
-                <span className="font-bold text-emerald-700 dark:text-emerald-300 text-sm">
+                <span className="font-semibold text-success text-sm">
                   Ticket Completed
                 </span>
-                <span className="text-emerald-600 dark:text-emerald-400 text-[11px]">
+                <span className="text-success text-xs">
                   All requirements have been met and reviewed.
                 </span>
               </div>
@@ -384,7 +384,7 @@ export function TaskViewModal({ task, taskId, isOpen, onClose }: TaskViewModalPr
 
               <div className="flex flex-col gap-2.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+                  <span className="text-xs font-semibold   text-muted-foreground flex items-center gap-2">
                     <span className="w-5 h-5 rounded-sm bg-primary/10 text-primary flex items-center justify-center shrink-0">
                       <FileText className="w-3 h-3" />
                     </span>
@@ -396,9 +396,9 @@ export function TaskViewModal({ task, taskId, isOpen, onClose }: TaskViewModalPr
                       variant="ghost"
                       size="sm"
                       onClick={handleCopyDescription}
-                      className="h-6 text-[11px] text-muted-foreground hover:text-foreground gap-1 px-2"
+                      className="h-6 text-xs text-muted-foreground hover:text-foreground gap-1 px-2"
                     >
-                      {hasCopiedDesc ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
+                      {hasCopiedDesc ? <Check className="w-3 h-3 text-success" /> : <Copy className="w-3 h-3" />}
                       <span>{hasCopiedDesc ? "Copied" : "Copy text"}</span>
                     </Button>
                   )}
@@ -439,7 +439,7 @@ export function TaskViewModal({ task, taskId, isOpen, onClose }: TaskViewModalPr
                       {
                         id: "test-sheet",
                         label: "QA Test Sheet",
-                        icon: <FileCheck2 className="w-3.5 h-3.5 text-emerald-500" />,
+                        icon: <FileCheck2 className="w-3.5 h-3.5 text-success" />,
                         count:
                           testCases.length > 0
                             ? `${testCases.filter((tc: { status: string }) => tc.status === "PASSED").length}/${testCases.length}`
@@ -449,21 +449,21 @@ export function TaskViewModal({ task, taskId, isOpen, onClose }: TaskViewModalPr
                       {
                         id: "time-logs",
                         label: "Time Logs",
-                        icon: <Clock className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />,
+                        icon: <Clock className="w-3.5 h-3.5 text-notion-blue-fg" />,
                         count: activeTask.actualHours ? `${activeTask.actualHours}h` : undefined,
                         badgeVariant: "default",
                       },
                       {
                         id: "activity",
                         label: "Activity History",
-                        icon: <History className="w-3.5 h-3.5 text-amber-500" />,
+                        icon: <History className="w-3.5 h-3.5 text-warning" />,
                         count: isLoadingActivity || !isFetchedForCurrentTask ? undefined : activityLogs.length,
                         badgeVariant: "amber",
                       },
                       {
                         id: "notes",
                         label: "Linked Notes",
-                        icon: <StickyNote className="w-3.5 h-3.5 text-blue-500" />,
+                        icon: <StickyNote className="w-3.5 h-3.5 text-notion-blue-fg" />,
                         count: isLoadingNotes ? (referencedNoteIds.length || undefined) : (totalNotesCount || undefined),
                         badgeVariant: "default",
                       },
@@ -551,7 +551,7 @@ export function TaskViewModal({ task, taskId, isOpen, onClose }: TaskViewModalPr
               onClick={handleCopyLink}
               className="text-xs font-semibold gap-1.5 text-muted-foreground hover:text-foreground"
             >
-              {hasCopiedLink ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Share2 className="w-3.5 h-3.5" />}
+              {hasCopiedLink ? <Check className="w-3.5 h-3.5 text-success" /> : <Share2 className="w-3.5 h-3.5" />}
               <span className="hidden sm:inline">{hasCopiedLink ? "Link copied!" : "Share link"}</span>
             </Button>
 
@@ -598,7 +598,7 @@ export function TaskViewModal({ task, taskId, isOpen, onClose }: TaskViewModalPr
                 asChild
                 size="default"
                 onClick={onClose}
-                className="text-xs font-bold gap-2 rounded-md shadow-xs px-5"
+                className="text-xs font-semibold gap-2 rounded-md shadow-xs px-5"
               >
                 <Link href={`/tasks/${activeTask.id}`}>
                   <Pencil className="w-4 h-4" />

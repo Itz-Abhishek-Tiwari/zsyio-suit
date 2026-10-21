@@ -218,9 +218,9 @@ export function TaskAttachmentsGallery({
   }
 
   return (
-    <div className={`rounded-2xl border border-border/80 bg-card p-5 sm:p-6 shadow-xs flex flex-col gap-4 ${className ?? ""}`}>
+    <div className={`rounded-lg border border-border/80 bg-card p-5 sm:p-6 shadow-xs flex flex-col gap-4 ${className ?? ""}`}>
       <div className="flex items-center justify-between pb-2 border-b border-border/60">
-        <span className="text-xs font-extrabold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+        <span className="text-xs font-semibold   text-muted-foreground flex items-center gap-2">
           <span className="w-6 h-6 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
             <Paperclip className="w-3.5 h-3.5" />
           </span>
@@ -270,41 +270,41 @@ export function TaskAttachmentsGallery({
       </div>
 
       {attsList.length === 0 && canEdit && taskId && (
-        <div className="py-6 flex flex-col items-center justify-center text-center gap-2 border-2 border-dashed border-border/70 rounded-xl bg-surface-subtle/30">
-          <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-1">
+        <div className="py-6 flex flex-col items-center justify-center text-center gap-2 border border-dashed border-border/70 rounded-lg bg-surface-subtle/30">
+          <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-1">
             <ClipboardPaste className="w-4.5 h-4.5" />
           </div>
           <span className="text-xs font-semibold text-foreground">No files attached yet</span>
-          <span className="text-[11px] text-muted-foreground max-w-sm">
-            Copy any screenshot to your clipboard and press <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-muted border border-border/80 rounded font-semibold text-foreground">⌘V</kbd> / <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-muted border border-border/80 rounded font-semibold text-foreground">Ctrl+V</kbd> to attach directly to this ticket.
+          <span className="text-xs text-muted-foreground max-w-sm">
+            Copy any screenshot to your clipboard and press <kbd className="px-1.5 py-0.5 text-xs font-mono bg-muted border border-border/80 rounded font-semibold text-foreground">⌘V</kbd> / <kbd className="px-1.5 py-0.5 text-xs font-mono bg-muted border border-border/80 rounded font-semibold text-foreground">Ctrl+V</kbd> to attach directly to this ticket.
           </span>
         </div>
       )}
 
       {imageAttachments.length > 0 && (
         <div className="flex flex-col gap-2.5">
-          <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+          <span className="text-xs font-semibold text-muted-foreground  ">
             Screenshots & Diagrams ({imageAttachments.length})
           </span>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
             {imageAttachments.map((att) => (
               <div
                 key={att.id}
-                className="group relative flex flex-col rounded-2xl border border-border/80 bg-surface-subtle/50 overflow-hidden hover:border-primary/50 transition-all duration-200 shadow-2xs hover:shadow-md"
+                className="group relative flex flex-col rounded-lg border border-border/80 bg-surface-subtle/50 overflow-hidden hover:border-primary/50 transition-all duration-200 shadow-2xs hover:shadow-md"
               >
                 <div
                   onClick={() => openLightboxForAttachment(att.id)}
-                  className="relative aspect-video w-full overflow-hidden bg-slate-950/80 cursor-pointer flex items-center justify-center group/img"
+                  className="relative aspect-video w-full overflow-hidden bg-foreground/80 cursor-pointer flex items-center justify-center group/img"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={att.fileUrl}
                     alt={att.fileName}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover/img:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-150 group-hover/img:scale-105"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                    <span className="bg-background/90 text-foreground px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg flex items-center gap-1.5 backdrop-blur-xs">
+                  <div className="absolute inset-0 bg-foreground/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                    <span className="bg-background/90 text-foreground px-3 py-1.5 rounded-lg text-xs font-semibold shadow-md flex items-center gap-1.5 backdrop-blur-xs">
                       <Eye className="w-3.5 h-3.5 text-primary" />
                       <span>Preview</span>
                     </span>
@@ -316,10 +316,10 @@ export function TaskAttachmentsGallery({
                     onClick={() => openLightboxForAttachment(att.id)}
                     className="flex flex-col min-w-0 flex-1 cursor-pointer"
                   >
-                    <span className="text-xs font-bold text-foreground truncate group-hover:text-primary transition-colors" title={att.fileName}>
+                    <span className="text-xs font-semibold text-foreground truncate group-hover:text-primary transition-colors" title={att.fileName}>
                       {att.fileName}
                     </span>
-                    <span className="text-[10px] text-muted-foreground font-mono">
+                    <span className="text-xs text-muted-foreground font-mono">
                       {formatFileSize(att.fileSize)} • {new Date(att.uploadedAt).toLocaleDateString()}
                     </span>
                   </div>
@@ -351,7 +351,7 @@ export function TaskAttachmentsGallery({
       {fileAttachments.length > 0 && (
         <div className="flex flex-col gap-2.5 pt-1">
           {imageAttachments.length > 0 && (
-            <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+            <span className="text-xs font-semibold text-muted-foreground  ">
               Documents & Logs ({fileAttachments.length})
             </span>
           )}
@@ -363,18 +363,18 @@ export function TaskAttachmentsGallery({
               return (
                 <div
                   key={att.id}
-                  className="flex items-center gap-3 p-3 rounded-xl border border-border/80 bg-surface-subtle/50 hover:bg-surface-subtle hover:border-primary/40 transition-all duration-150 group shadow-2xs"
+                  className="flex items-center gap-3 p-3 rounded-lg border border-border/80 bg-surface-subtle/50 hover:bg-surface-subtle hover:border-primary/40 transition-all duration-150 group shadow-2xs"
                 >
                   <button
                     type="button"
                     onClick={() => openLightboxForAttachment(att.id)}
-                    className="w-10 h-10 rounded-lg overflow-hidden bg-muted border border-border/60 flex items-center justify-center shrink-0 cursor-pointer hover:scale-105 transition-transform"
+                    className="w-10 h-10 rounded-lg overflow-hidden bg-muted border border-border/60 flex items-center justify-center shrink-0 cursor-pointer  transition-transform"
                     title="Preview file"
                   >
                     {isLog ? (
-                      <FileCode className="w-5 h-5 text-amber-500" />
+                      <FileCode className="w-5 h-5 text-warning" />
                     ) : isPdf ? (
-                      <FileText className="w-5 h-5 text-rose-500" />
+                      <FileText className="w-5 h-5 text-destructive" />
                     ) : (
                       <File className="w-5 h-5 text-primary" />
                     )}
@@ -385,10 +385,10 @@ export function TaskAttachmentsGallery({
                     onClick={() => openLightboxForAttachment(att.id)}
                     className="flex flex-col min-w-0 flex-1 text-left cursor-pointer"
                   >
-                    <span className="text-xs font-bold text-foreground truncate group-hover:text-primary transition-colors">
+                    <span className="text-xs font-semibold text-foreground truncate group-hover:text-primary transition-colors">
                       {att.fileName}
                     </span>
-                    <span className="text-[10px] text-muted-foreground font-mono">
+                    <span className="text-xs text-muted-foreground font-mono">
                       {formatFileSize(att.fileSize)} • {new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" }).format(new Date(att.uploadedAt))}
                     </span>
                   </button>

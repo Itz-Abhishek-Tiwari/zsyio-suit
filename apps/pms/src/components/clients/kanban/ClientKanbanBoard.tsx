@@ -304,7 +304,7 @@ export function ClientKanbanBoard({
 
   if (isError) {
     return (
-      <div className="flex flex-col items-center justify-center p-12 text-center rounded-2xl border border-destructive/20 bg-destructive/5 my-6">
+      <div className="flex flex-col items-center justify-center p-12 text-center rounded-lg border border-destructive/20 bg-destructive/5 my-6">
         <AlertTriangle className="w-8 h-8 text-destructive mb-3" />
         <h3 className="text-base font-semibold text-foreground">Failed to load clients</h3>
         <p className="text-xs text-muted-foreground mt-1 max-w-sm">
@@ -321,7 +321,7 @@ export function ClientKanbanBoard({
   return (
     <div className="space-y-4">
       {/* Search & Filter Toolbar matching TaskFiltersBar */}
-      <div className="flex flex-col gap-2.5 bg-card p-3 rounded-xl border border-border shadow-xs">
+      <div className="flex flex-col gap-2.5 bg-card p-3 rounded-lg border border-border shadow-xs">
         {/* Top Row: Search Input + Active Filter Count Badge + SegmentedTabs */}
         <div className="flex items-center gap-2.5">
           <div className="relative flex-1 min-w-[200px]">
@@ -344,7 +344,7 @@ export function ClientKanbanBoard({
           </div>
 
           {hasActiveFilters && (
-            <span className="shrink-0 inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
+            <span className="shrink-0 inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
               {activeFilterCount} filter{activeFilterCount > 1 ? "s" : ""} active
             </span>
           )}
@@ -440,7 +440,7 @@ export function ClientKanbanBoard({
               variant="outline"
               size="sm"
               onClick={() => setIsQuickIntakeOpen(true)}
-              className="h-8 px-3 text-xs font-semibold gap-1.5 border-purple-500/40 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950/40 shadow-2xs"
+              className="h-8 px-3 text-xs font-semibold gap-1.5 border-notion-purple-fg/40 text-notion-purple-fg hover:bg-notion-purple shadow-2xs"
             >
               <UserPlus className="w-3.5 h-3.5" />
               <span>+ Intake Lead</span>
@@ -468,16 +468,16 @@ export function ClientKanbanBoard({
           {DEFAULT_CLIENT_COLUMNS.map((col) => (
             <div
               key={col.status}
-              className="flex w-[280px] sm:w-[300px] shrink-0 flex-col gap-3 rounded-2xl border border-border/60 bg-surface-subtle/40 p-3.5"
+              className="flex w-[280px] sm:w-[300px] shrink-0 flex-col gap-3 rounded-lg border border-border/60 bg-surface-subtle/40 p-3.5"
             >
               <div className="flex items-center gap-2 px-1 py-1">
                 <Skeleton className="w-6 h-6 rounded-md" />
                 <Skeleton className="h-4 w-24" />
                 <Skeleton className="h-4 w-6 rounded-full ml-auto" />
               </div>
-              <Skeleton className="h-32 rounded-xl" />
-              <Skeleton className="h-28 rounded-xl" />
-              <Skeleton className="h-24 rounded-xl" />
+              <Skeleton className="h-32 rounded-lg" />
+              <Skeleton className="h-28 rounded-lg" />
+              <Skeleton className="h-24 rounded-lg" />
             </div>
           ))}
         </div>

@@ -6,7 +6,7 @@ import { Header } from "@/components/layout/Header";
 import { visibleNavItems, type NavItem } from "@/components/shared/nav-config";
 import type { Role } from "@zsyio/auth/permissions";
 import { cn } from "@/lib/utils";
-import { PageTransition, SuiteSideRail, SuiteSidebar, TooltipProvider } from "@zsyio/ui";
+import { PageTransition, SuiteSidebar, TooltipProvider } from "@zsyio/ui";
 import { ChangePasswordModal } from "@zsyio/ui";
 import { BrowserNotificationManager } from "@/components/notifications/BrowserNotificationManager";
 import { GlobalActiveTimerWidget } from "@/components/tasks/GlobalActiveTimerWidget";
@@ -109,7 +109,7 @@ export function DashboardShell({
         {/* Unified Workmate SuiteSidebar from @zsyio/ui */}
         <aside
           className={cn(
-            "fixed lg:static inset-y-0 left-0 z-50 h-full shrink-0 flex flex-col transition-[width,transform] duration-300 cubic-bezier(0.2,0,0,1)",
+            "fixed lg:static inset-y-0 left-0 z-50 h-full shrink-0 flex flex-col transition-[width,transform] duration-150 cubic-bezier(0.2,0,0,1)",
             mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
           )}
         >
@@ -145,9 +145,6 @@ export function DashboardShell({
           <PageTransition key={pathname}>{children}</PageTransition>
         </main>
       </div>
-
-      {/* Gmail-style Right-Hand Suite Side Rail */}
-      <SuiteSideRail currentApp="pms" />
 
       <BrowserNotificationManager />
       <GlobalActiveTimerWidget />

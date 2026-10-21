@@ -5,9 +5,9 @@ import { LandingView } from "./landing-view";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Zsyio Suite - The Unified Operating System for Modern Teams",
+  title: "Zsyio — Work, connected.",
   description:
-    "Experience Flow, Canvas, People, Console, and Pulse in one interconnected ecosystem. Single sign-on, real-time collaboration, and enterprise governance.",
+    "Projects, knowledge, people, and relationships. Discover five focused apps in one connected workspace with Zsyio.",
 };
 
 function sanitizeUrl(url: string | undefined, fallback: string): string {

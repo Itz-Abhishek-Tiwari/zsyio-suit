@@ -78,8 +78,8 @@ export function TaskDetailHeader({
             <>
               {hasUnsavedChanges ? (
                 <div className="flex items-center gap-2 animate-fade-in">
-                  <span className="text-xs font-semibold text-amber-600 dark:text-amber-400 flex items-center gap-1.5 mr-1 hidden sm:flex">
-                    <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" /> Unsaved changes
+                  <span className="text-xs font-semibold text-warning flex items-center gap-1.5 mr-1 hidden sm:flex">
+                    <span className="w-2 h-2 rounded-full bg-warning animate-pulse" /> Unsaved changes
                   </span>
 
                   <Button
@@ -95,14 +95,14 @@ export function TaskDetailHeader({
                     size="sm"
                     onClick={handleSaveAll}
                     disabled={isSaving}
-                    className="h-8 text-xs font-bold gap-1.5 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg shadow-xs px-3.5"
+                    className="h-8 text-xs font-semibold gap-1.5 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg shadow-xs px-3.5"
                   >
                     {isSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
                     <span>Save Ticket</span>
                   </Button>
                 </div>
               ) : (
-                <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                <span className="text-xs font-semibold text-success flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-success/10 border border-success/20">
                   <Check className="w-3.5 h-3.5" /> Saved
                 </span>
               )}
@@ -134,7 +134,7 @@ export function TaskDetailHeader({
           }}
           disabled={!canEdit}
           placeholder="Untitled Task..."
-          className="w-full text-3xl sm:text-4xl font-extrabold font-display tracking-tight text-foreground bg-transparent border-b border-transparent hover:border-border/60 focus:border-primary/50 focus:outline-none transition-colors py-1.5 placeholder:text-muted-foreground/30"
+          className="w-full text-3xl sm:text-4xl font-semibold font-display tracking-tight text-foreground bg-transparent border-b border-transparent hover:border-border/60 focus:border-primary/50 focus:outline-none transition-colors py-1.5 placeholder:text-muted-foreground/30"
         />
       </div>
     </div>

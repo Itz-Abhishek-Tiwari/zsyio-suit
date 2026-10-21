@@ -13,7 +13,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const role = session.user.role;
   const permissions = session.user.permissions;
 
-  const allowedApps: AppId[] = (["pms", "notes", "hrms", "admin", "sales"] as const).filter((appId) =>
+  const allowedApps: AppId[] = (["pms", "notes", "hrms", "admin", "sales", "recruit"] as const).filter((appId) =>
     canAccessApp(role, appId, permissions)
   );
 

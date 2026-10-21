@@ -671,16 +671,16 @@ export default async function DashboardPage() {
                 card.linkHref ? "cursor-pointer hover:border-primary/40 hover:shadow-md" : ""
               } ${
                 card.highlightAlert
-                  ? "border-red-500/40 bg-red-500/5 hover:border-red-500/60"
+                  ? "border-destructive/40 bg-destructive/5 hover:border-destructive/60"
                   : "border-border/80 shadow-xs"
               }`}
             >
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono font-semibold text-muted-foreground uppercase tracking-wider">
+                <span className="text-xs font-mono font-semibold text-muted-foreground  ">
                   {card.title}
                 </span>
                 <span
-                  className={`w-7.5 h-7.5 rounded-md flex items-center justify-center shrink-0 border transition-transform group-hover:scale-105 ${card.iconBgClass} ${card.iconTextClass} ${card.iconBorderClass}`}
+                  className={`w-7.5 h-7.5 rounded-md flex items-center justify-center shrink-0 border transition-transform  ${card.iconBgClass} ${card.iconTextClass} ${card.iconBorderClass}`}
                 >
                   <CardIcon className="w-3.5 h-3.5" />
                 </span>
@@ -688,18 +688,18 @@ export default async function DashboardPage() {
 
               <div className="flex items-baseline justify-between">
                 <div
-                  className={`text-2xl sm:text-3xl font-extrabold tracking-tight font-mono tabular-nums ${
-                    card.highlightAlert ? "text-red-600 dark:text-red-400" : "text-foreground"
+                  className={`text-2xl sm:text-3xl font-semibold tracking-tight font-mono tabular-nums ${
+                    card.highlightAlert ? "text-destructive" : "text-foreground"
                   }`}
                 >
                   {card.value}
                 </div>
                 {card.statusBadge ? (
                   <span
-                    className={`text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-md border ${
+                    className={`text-xs font-mono font-semibold   px-2 py-0.5 rounded-md border ${
                       card.highlightAlert
-                        ? "text-red-600 dark:text-red-400 bg-red-500/10 border-red-500/20"
-                        : "text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
+                        ? "text-destructive bg-destructive/10 border-destructive/20"
+                        : "text-success bg-success/10 border-success/20"
                     }`}
                   >
                     {card.statusBadge}
@@ -714,14 +714,14 @@ export default async function DashboardPage() {
               {card.progressPercentage !== undefined && card.progressBarColor ? (
                 <div className="w-full h-1 rounded-sm bg-surface-subtle overflow-hidden">
                   <div
-                    className={`h-full ${card.progressBarColor} rounded-sm transition-all duration-500`}
+                    className={`h-full ${card.progressBarColor} rounded-sm transition-all duration-150`}
                     style={{ width: `${card.progressPercentage}%` }}
                   />
                 </div>
               ) : null}
 
               {card.sublabel ? (
-                <p className="text-[11px] text-muted-foreground leading-tight">
+                <p className="text-xs text-muted-foreground leading-tight">
                   {card.sublabel}
                 </p>
               ) : null}
@@ -771,12 +771,12 @@ export default async function DashboardPage() {
 
           <div className="rounded-lg border border-border/80 bg-card p-5 sm:p-6 flex flex-col gap-4 shadow-xs">
             <div className="flex items-center gap-2.5 border-b border-border/60 pb-3.5">
-              <span className="w-8 h-8 rounded-md bg-purple-500/10 text-purple-600 border border-purple-500/20 flex items-center justify-center">
+              <span className="w-8 h-8 rounded-md bg-notion-purple-fg/10 text-notion-purple-fg border border-notion-purple-fg/20 flex items-center justify-center">
                 <BadgeIcon className="w-4 h-4" />
               </span>
               <div>
-                <h2 className="text-sm font-bold text-foreground">Quick Navigation</h2>
-                <p className="text-[11px] text-muted-foreground">
+                <h2 className="text-sm font-semibold text-foreground">Quick Navigation</h2>
+                <p className="text-xs text-muted-foreground">
                   Role-specific workspace shortcuts.
                 </p>
               </div>
@@ -794,12 +794,12 @@ export default async function DashboardPage() {
                     }`}
                   >
                     <NavIcon
-                      className={`w-4 h-4 ${nav.iconColorClass} group-hover:scale-110 transition-transform`}
+                      className={`w-4 h-4 ${nav.iconColorClass} transition-transform`}
                     />
-                    <span className="text-xs font-bold text-foreground truncate">
+                    <span className="text-xs font-semibold text-foreground truncate">
                       {nav.label}
                     </span>
-                    <span className="text-[10px] text-muted-foreground line-clamp-1">
+                    <span className="text-xs text-muted-foreground line-clamp-1">
                       {nav.description}
                     </span>
                   </Link>

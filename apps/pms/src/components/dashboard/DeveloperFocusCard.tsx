@@ -30,12 +30,12 @@ export function DeveloperFocusCard({
     <div className="rounded-lg border border-border/80 bg-card p-5 sm:p-6 flex flex-col gap-4 shadow-xs">
       <div className="flex items-center justify-between border-b border-border/60 pb-3.5">
         <div className="flex items-center gap-2.5">
-          <span className="w-8 h-8 rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 flex items-center justify-center">
+          <span className="w-8 h-8 rounded-md bg-notion-purple-fg/10 text-notion-purple-fg border border-notion-purple-fg/20 flex items-center justify-center">
             <Code2 className="w-4 h-4" />
           </span>
           <div>
-            <h2 className="text-sm font-bold text-foreground">Sprint Focus & QA</h2>
-            <p className="text-[11px] text-muted-foreground">Personal velocity & code readiness</p>
+            <h2 className="text-sm font-semibold text-foreground">Sprint Focus & QA</h2>
+            <p className="text-xs text-muted-foreground">Personal velocity & code readiness</p>
           </div>
         </div>
 
@@ -55,40 +55,40 @@ export function DeveloperFocusCard({
       <div className="grid grid-cols-2 gap-2.5">
         <Link
           href="/tasks"
-          className="p-3 rounded-md border border-border/70 bg-surface-subtle/50 hover:bg-surface-subtle hover:border-blue-500/40 flex flex-col gap-1 transition-all group"
+          className="p-3 rounded-md border border-border/70 bg-surface-subtle/50 hover:bg-surface-subtle hover:border-notion-blue-fg/40 flex flex-col gap-1 transition-all group"
         >
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-semibold text-muted-foreground">In Review</span>
-            <GitPullRequest className="w-3.5 h-3.5 text-blue-500 group-hover:scale-110 transition-transform" />
+            <span className="text-xs font-semibold text-muted-foreground">In Review</span>
+            <GitPullRequest className="w-3.5 h-3.5 text-notion-blue-fg  transition-transform" />
           </div>
-          <span className="text-lg font-extrabold text-foreground">{myInReviewTasks}</span>
-          <span className="text-[10px] text-muted-foreground">Awaiting PR or test verification</span>
+          <span className="text-lg font-semibold text-foreground">{myInReviewTasks}</span>
+          <span className="text-xs text-muted-foreground">Awaiting PR or test verification</span>
         </Link>
 
         <Link
           href="/tasks"
           className={`p-3 rounded-md border flex flex-col gap-1 transition-all group ${
             myUrgentTasks > 0
-              ? "border-red-500/30 bg-red-500/5 hover:border-red-500/50"
+              ? "border-destructive/30 bg-destructive/5 hover:border-destructive/50"
               : "border-border/70 bg-surface-subtle/50 hover:bg-surface-subtle"
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-semibold text-muted-foreground">High Priority</span>
+            <span className="text-xs font-semibold text-muted-foreground">High Priority</span>
             <AlertTriangle
-              className={`w-3.5 h-3.5 group-hover:scale-110 transition-transform ${
-                myUrgentTasks > 0 ? "text-red-500" : "text-muted-foreground"
+              className={`w-3.5 h-3.5  transition-transform ${
+                myUrgentTasks > 0 ? "text-destructive" : "text-muted-foreground"
               }`}
             />
           </div>
           <span
-            className={`text-lg font-extrabold ${
-              myUrgentTasks > 0 ? "text-red-600 dark:text-red-400" : "text-foreground"
+            className={`text-lg font-semibold ${
+              myUrgentTasks > 0 ? "text-destructive" : "text-foreground"
             }`}
           >
             {myUrgentTasks}
           </span>
-          <span className="text-[10px] text-muted-foreground">
+          <span className="text-xs text-muted-foreground">
             {myUrgentTasks > 0 ? "Immediate focus needed" : "Zero high priority items"}
           </span>
         </Link>
@@ -97,18 +97,18 @@ export function DeveloperFocusCard({
       <div className="p-3 rounded-md bg-surface-subtle/40 border border-border/60 flex flex-col gap-2">
         <div className="flex items-center justify-between text-xs">
           <span className="font-semibold text-foreground flex items-center gap-1.5">
-            <Zap className="w-3.5 h-3.5 text-amber-500" />
+            <Zap className="w-3.5 h-3.5 text-warning" />
             <span>Sprint Completion</span>
           </span>
-          <span className="font-bold text-foreground font-mono">{myCompletionRate}%</span>
+          <span className="font-semibold text-foreground font-mono">{myCompletionRate}%</span>
         </div>
         <div className="w-full h-1.5 rounded-sm bg-muted overflow-hidden">
           <div
-            className="h-full bg-emerald-500 rounded-sm transition-all duration-500"
+            className="h-full bg-success rounded-sm transition-all duration-150"
             style={{ width: `${myCompletionRate}%` }}
           />
         </div>
-        <div className="flex items-center justify-between text-[10px] text-muted-foreground">
+        <div className="flex items-center justify-between text-xs text-muted-foreground">
           <span>{myDoneTasks} tasks resolved</span>
           <span>{myOpenTasks} remaining</span>
         </div>

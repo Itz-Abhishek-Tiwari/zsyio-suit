@@ -167,8 +167,8 @@ export function TaskSidebarMetadata({
       />
 
       {task.dueDateReason && (
-        <div className="rounded-2xl border border-border/80 bg-card p-4 flex flex-col gap-1.5 shadow-xs">
-          <span className="text-[10px] font-extrabold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5 border-b border-border/60 pb-1.5">
+        <div className="rounded-lg border border-border/80 bg-card p-4 flex flex-col gap-1.5 shadow-xs">
+          <span className="text-xs font-semibold   text-muted-foreground flex items-center gap-1.5 border-b border-border/60 pb-1.5">
             <Calendar className="w-3.5 h-3.5 text-primary" /> Last Reschedule Reason
           </span>
           <p className="text-muted-foreground italic text-xs leading-relaxed pt-0.5">
@@ -180,17 +180,17 @@ export function TaskSidebarMetadata({
       <GitWorkflowSidebarCard task={task} />
 
       {(currentClient || task.product) && (
-        <div className="rounded-2xl border border-border/80 bg-card p-4 flex flex-col gap-2 shadow-xs">
-          <span className="text-[10px] font-extrabold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5 border-b border-border/60 pb-2">
+        <div className="rounded-lg border border-border/80 bg-card p-4 flex flex-col gap-2 shadow-xs">
+          <span className="text-xs font-semibold   text-muted-foreground flex items-center gap-1.5 border-b border-border/60 pb-2">
             <Building2 className="w-3.5 h-3.5 text-primary" /> Client & Product
           </span>
           <div className="flex flex-col gap-1 text-xs pt-1">
             {currentClient && (
-              <span className="font-bold text-foreground">{currentClient.name}</span>
+              <span className="font-semibold text-foreground">{currentClient.name}</span>
             )}
             {task.product && (
-              <div className="flex items-center gap-1.5 text-muted-foreground text-[11px] font-medium flex-wrap">
-                <Package className="w-3.5 h-3.5 text-orange-500 shrink-0" />
+              <div className="flex items-center gap-1.5 text-muted-foreground text-xs font-medium flex-wrap">
+                <Package className="w-3.5 h-3.5 text-notion-orange-fg shrink-0" />
                 <span>{task.product.name}</span>
                 <ProductEnvironmentBadge environment={task.product.environment} />
               </div>

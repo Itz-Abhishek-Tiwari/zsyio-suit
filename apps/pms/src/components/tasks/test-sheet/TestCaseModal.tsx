@@ -62,17 +62,17 @@ export function TestCaseModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-lg rounded-xl p-5 sm:p-6 border-border/80 shadow-xl">
+      <DialogContent className="sm:max-w-lg rounded-lg p-5 sm:p-6 border-border/80 shadow-md">
         <DialogHeader className="pb-3 border-b border-border/60">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-2xs">
               {initialData?.id ? <FileEdit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
             </div>
             <div>
-              <DialogTitle className="text-sm sm:text-base font-bold text-foreground font-display">
+              <DialogTitle className="text-sm sm:text-base font-semibold text-foreground font-display">
                 {initialData?.id ? "Edit Test Scenario" : "Add New Test Scenario"}
               </DialogTitle>
-              <p className="text-[11px] text-muted-foreground">
+              <p className="text-xs text-muted-foreground">
                 Define the steps and expected behavior to verify this ticket.
               </p>
             </div>
@@ -122,7 +122,7 @@ export function TestCaseModal({
 
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-              <Target className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+              <Target className="w-3.5 h-3.5 text-success" />
               Expected Result
             </label>
             <Textarea

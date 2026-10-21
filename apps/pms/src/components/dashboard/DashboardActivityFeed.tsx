@@ -31,44 +31,44 @@ function getActionDetails(action: LogAction, newValue?: string | null) {
     case "CREATED":
       return {
         text: "created task",
-        icon: <Plus className="w-3 h-3 text-emerald-500" />,
-        badgeClass: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
+        icon: <Plus className="w-3 h-3 text-success" />,
+        badgeClass: "bg-success/10 text-success border-success/20",
       };
     case "STATUS_CHANGED":
       return {
         text: `changed status to ${newValue?.replace("_", " ") ?? ""}`,
-        icon: <CheckCircle2 className="w-3 h-3 text-blue-500" />,
-        badgeClass: "bg-blue-500/10 text-blue-600 border-blue-500/20",
+        icon: <CheckCircle2 className="w-3 h-3 text-notion-blue-fg" />,
+        badgeClass: "bg-notion-blue-fg/10 text-notion-blue-fg border-notion-blue-fg/20",
       };
     case "REASSIGNED":
       return {
         text: "reassigned task",
-        icon: <RefreshCw className="w-3 h-3 text-purple-500" />,
-        badgeClass: "bg-purple-500/10 text-purple-600 border-purple-500/20",
+        icon: <RefreshCw className="w-3 h-3 text-notion-purple-fg" />,
+        badgeClass: "bg-notion-purple-fg/10 text-notion-purple-fg border-notion-purple-fg/20",
       };
     case "COMMENTED":
       return {
         text: "commented on task",
-        icon: <MessageSquare className="w-3 h-3 text-amber-500" />,
-        badgeClass: "bg-amber-500/10 text-amber-600 border-amber-500/20",
+        icon: <MessageSquare className="w-3 h-3 text-warning" />,
+        badgeClass: "bg-warning/10 text-warning border-warning/20",
       };
     case "ATTACHMENT_ADDED":
       return {
         text: "uploaded an attachment",
-        icon: <Paperclip className="w-3 h-3 text-indigo-500" />,
-        badgeClass: "bg-indigo-500/10 text-indigo-600 border-indigo-500/20",
+        icon: <Paperclip className="w-3 h-3 text-notion-purple-fg" />,
+        badgeClass: "bg-notion-purple-fg/10 text-notion-purple-fg border-notion-purple-fg/20",
       };
     case "ATTACHMENT_REMOVED":
       return {
         text: "removed an attachment",
-        icon: <Trash2 className="w-3 h-3 text-rose-500" />,
-        badgeClass: "bg-rose-500/10 text-rose-600 border-rose-500/20",
+        icon: <Trash2 className="w-3 h-3 text-destructive" />,
+        badgeClass: "bg-destructive/10 text-destructive border-destructive/20",
       };
     case "DELETED":
       return {
         text: "deleted task",
-        icon: <Trash2 className="w-3 h-3 text-red-500" />,
-        badgeClass: "bg-red-500/10 text-red-600 border-red-500/20",
+        icon: <Trash2 className="w-3 h-3 text-destructive" />,
+        badgeClass: "bg-destructive/10 text-destructive border-destructive/20",
       };
     default:
       return {
@@ -102,12 +102,12 @@ export function DashboardActivityFeed({ activities }: DashboardActivityFeedProps
   return (
     <div className="rounded-lg border border-border/80 bg-card p-5 sm:p-6 flex flex-col gap-4 shadow-xs">
       <div className="flex items-center gap-2.5 border-b border-border/60 pb-3.5">
-        <span className="w-8 h-8 rounded-md bg-blue-500/10 text-blue-500 border border-blue-500/20 flex items-center justify-center">
+        <span className="w-8 h-8 rounded-md bg-notion-blue-fg/10 text-notion-blue-fg border border-notion-blue-fg/20 flex items-center justify-center">
           <Activity className="w-4 h-4" />
         </span>
         <div>
-          <h2 className="text-sm font-bold text-foreground">Recent Activity</h2>
-          <p className="text-[11px] text-muted-foreground">Real-time audit log across tasks.</p>
+          <h2 className="text-sm font-semibold text-foreground">Recent Activity</h2>
+          <p className="text-xs text-muted-foreground">Real-time audit log across tasks.</p>
         </div>
       </div>
 
@@ -127,7 +127,7 @@ export function DashboardActivityFeed({ activities }: DashboardActivityFeedProps
               href={`/tasks?taskId=${act.task.id}`}
               className="flex gap-2.5 items-start text-xs p-2 -mx-2 rounded-md hover:bg-surface-subtle/70 transition-all group"
             >
-              <div className="w-7 h-7 rounded-md bg-surface-subtle border border-border/60 font-bold text-[10px] flex items-center justify-center text-foreground shrink-0 mt-0.5 group-hover:border-primary/40 transition-colors">
+              <div className="w-7 h-7 rounded-md bg-surface-subtle border border-border/60 font-semibold text-xs flex items-center justify-center text-foreground shrink-0 mt-0.5 group-hover:border-primary/40 transition-colors">
                 {initials}
               </div>
 
@@ -136,10 +136,10 @@ export function DashboardActivityFeed({ activities }: DashboardActivityFeedProps
                   <strong className="font-semibold">{act.actor.name}</strong>{" "}
                   <span className="text-muted-foreground">{actionInfo.text}</span>
                 </p>
-                <span className="text-[11px] font-medium text-foreground/80 group-hover:text-primary transition-colors truncate mt-0.5">
+                <span className="text-xs font-medium text-foreground/80 group-hover:text-primary transition-colors truncate mt-0.5">
                   {act.task.title}
                 </span>
-                <span className="text-[10px] text-muted-foreground mt-0.5" suppressHydrationWarning>
+                <span className="text-xs text-muted-foreground mt-0.5" suppressHydrationWarning>
                   {formatRelativeTime(act.createdAt)}
                 </span>
               </div>
