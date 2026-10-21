@@ -131,7 +131,7 @@ export function DomainManagementModal({ open, onOpenChange }: DomainManagementMo
         <Button
           type="button"
           onClick={() => onOpenChange(false)}
-          className="rounded-xl text-xs font-semibold px-4 cursor-pointer"
+          className="rounded-lg text-xs font-semibold px-4 cursor-pointer"
         >
           Done
         </Button>
@@ -139,13 +139,13 @@ export function DomainManagementModal({ open, onOpenChange }: DomainManagementMo
     >
       <div className="flex flex-col gap-5 py-1">
         {/* Security Policy Notice */}
-        <div className="p-3.5 rounded-xl bg-surface-subtle border border-border/80 flex items-start gap-3">
+        <div className="p-3.5 rounded-lg bg-surface-subtle border border-border/80 flex items-start gap-3">
           <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 border border-primary/20">
             <Lock className="w-4 h-4" />
           </div>
           <div className="flex flex-col gap-0.5">
-            <h4 className="text-xs font-bold text-foreground">Zero-Trust Domain Enforcement</h4>
-            <p className="text-[11px] text-muted-foreground leading-relaxed">
+            <h4 className="text-xs font-semibold text-foreground">Zero-Trust Domain Enforcement</h4>
+            <p className="text-xs text-muted-foreground leading-relaxed">
               Only users with emails from active authorized domains can sign in or receive invitations. Changes take effect across all suites immediately.
             </p>
           </div>
@@ -154,15 +154,15 @@ export function DomainManagementModal({ open, onOpenChange }: DomainManagementMo
         {/* Existing Domains Roster */}
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between text-xs font-semibold text-muted-foreground px-1">
-            <span className="uppercase tracking-wider text-[10px] font-bold">
+            <span className="  text-xs font-semibold">
               Configured Domains ({domains.length})
             </span>
-            <span className="text-[10px]">
+            <span className="text-xs">
               {domains.filter((d) => d.isActive).length} Active
             </span>
           </div>
 
-          <div className="divide-y divide-border/50 rounded-xl border border-border/80 bg-card overflow-hidden shadow-2xs">
+          <div className="divide-y divide-border/50 rounded-lg border border-border/80 bg-card overflow-hidden shadow-2xs">
             {isLoading ? (
               <div className="p-6 text-center text-xs text-muted-foreground">Loading domains...</div>
             ) : domains.length === 0 ? (
@@ -181,9 +181,9 @@ export function DomainManagementModal({ open, onOpenChange }: DomainManagementMo
                   <div className="flex items-center gap-3 min-w-0">
                     <div
                       className={cn(
-                        "w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border",
+                        "w-9 h-9 rounded-lg flex items-center justify-center shrink-0 border",
                         d.isPrimary
-                          ? "bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30"
+                          ? "bg-warning/15 text-warning border-warning/30"
                           : d.isActive
                           ? "bg-primary-light text-primary border-primary/20"
                           : "bg-muted text-muted-foreground border-border/80"
@@ -194,27 +194,27 @@ export function DomainManagementModal({ open, onOpenChange }: DomainManagementMo
 
                     <div className="flex flex-col min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-mono font-bold text-xs sm:text-sm text-foreground">
+                        <span className="font-mono font-semibold text-xs sm:text-sm text-foreground">
                           @{d.domain}
                         </span>
                         {d.isPrimary && (
-                          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/40 uppercase">
+                          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-mono font-semibold bg-warning/20 text-warning border border-warning/40 ">
                             <Crown className="w-2.5 h-2.5" />
                             Primary
                           </span>
                         )}
                         <span
                           className={cn(
-                            "px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase border",
+                            "px-1.5 py-0.5 rounded text-xs font-mono font-semibold  border",
                             d.isActive
-                              ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                              ? "bg-success/10 text-success border-success/20"
                               : "bg-muted text-muted-foreground border-border/80"
                           )}
                         >
                           {d.isActive ? "Active" : "Inactive"}
                         </span>
                       </div>
-                      <span className="text-[10px] text-muted-foreground mt-0.5">
+                      <span className="text-xs text-muted-foreground mt-0.5">
                         Added {new Date(d.createdAt).toLocaleDateString()}
                       </span>
                     </div>
@@ -227,10 +227,10 @@ export function DomainManagementModal({ open, onOpenChange }: DomainManagementMo
                         size="sm"
                         disabled={isSettingPrimary}
                         onClick={() => handleSetPrimary(d.id, d.domain)}
-                        className="h-7 px-2 text-[10px] font-semibold text-muted-foreground hover:text-amber-600 hover:bg-amber-500/10 rounded-lg cursor-pointer"
+                        className="h-7 px-2 text-xs font-semibold text-muted-foreground hover:text-warning hover:bg-warning/10 rounded-lg cursor-pointer"
                         title="Designate as primary domain for new invites"
                       >
-                        <Crown className="w-3 h-3 mr-1 text-amber-500" />
+                        <Crown className="w-3 h-3 mr-1 text-warning" />
                         Make Primary
                       </Button>
                     )}
@@ -241,10 +241,10 @@ export function DomainManagementModal({ open, onOpenChange }: DomainManagementMo
                       disabled={isUpdating}
                       onClick={() => handleToggleActive(d.id, d.isActive, d.domain)}
                       className={cn(
-                        "h-7 px-2 text-[10px] font-semibold rounded-lg cursor-pointer",
+                        "h-7 px-2 text-xs font-semibold rounded-lg cursor-pointer",
                         d.isActive
                           ? "text-muted-foreground hover:text-foreground hover:bg-muted"
-                          : "text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10"
+                          : "text-success hover:bg-success/10"
                       )}
                     >
                       {d.isActive ? "Pause" : "Enable"}
@@ -268,15 +268,15 @@ export function DomainManagementModal({ open, onOpenChange }: DomainManagementMo
         </div>
 
         {/* Add New Domain Form */}
-        <form onSubmit={handleAddDomain} className="p-4 rounded-xl border border-border/80 bg-surface-subtle/50 flex flex-col gap-3">
+        <form onSubmit={handleAddDomain} className="p-4 rounded-lg border border-border/80 bg-surface-subtle/50 flex flex-col gap-3">
           <div className="flex items-center gap-2">
             <Plus className="w-4 h-4 text-primary" />
-            <h4 className="text-xs font-bold text-foreground">Add New Corporate Domain</h4>
+            <h4 className="text-xs font-semibold text-foreground">Add New Corporate Domain</h4>
           </div>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
             <div className="relative flex-1">
-              <span className="absolute left-3 top-2.5 text-xs text-muted-foreground font-mono font-bold">@</span>
+              <span className="absolute left-3 top-2.5 text-xs text-muted-foreground font-mono font-semibold">@</span>
               <Input
                 value={newDomain}
                 onChange={(e) => {
@@ -284,7 +284,7 @@ export function DomainManagementModal({ open, onOpenChange }: DomainManagementMo
                   setError(null);
                 }}
                 placeholder="acme-corp.com"
-                className="h-9 pl-7 text-xs font-mono rounded-xl bg-card border-border/80"
+                className="h-9 pl-7 text-xs font-mono rounded-lg bg-card border-border/80"
               />
             </div>
 
@@ -303,7 +303,7 @@ export function DomainManagementModal({ open, onOpenChange }: DomainManagementMo
                 type="submit"
                 size="sm"
                 disabled={isCreating}
-                className="h-9 px-3.5 text-xs font-bold bg-primary hover:bg-primary-hover text-primary-foreground rounded-xl shadow-xs cursor-pointer gap-1.5"
+                className="h-9 px-3.5 text-xs font-semibold bg-primary hover:bg-primary-hover text-primary-foreground rounded-lg shadow-xs cursor-pointer gap-1.5"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>{isCreating ? "Adding..." : "Add Domain"}</span>

@@ -1,10 +1,10 @@
-import { requireUser, withApiHandler } from "@zsyio/auth/api-helpers";
+import { requireAdminAccess, withApiHandler } from "@zsyio/auth/api-helpers";
 import { prisma } from "@zsyio/database";
 import { getAllowedEmailDomains, setDynamicAllowedDomains } from "@zsyio/auth/domain-restriction";
 
 export async function GET() {
   return withApiHandler(async () => {
-    await requireUser();
+    await requireAdminAccess();
 
     const [totalUsers, activeUsers, pendingInvitations, deactivatedUsers, totalTeams, totalRoles, dbDomains] =
       await Promise.all([

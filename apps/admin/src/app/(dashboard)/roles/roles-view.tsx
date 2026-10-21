@@ -316,7 +316,7 @@ export function RolesView() {
               variant="outline"
               size="sm"
               onClick={() => setIsResetConfirmOpen(true)}
-              className="gap-1.5 rounded-xl text-xs font-semibold cursor-pointer"
+              className="gap-1.5 rounded-lg text-xs font-semibold cursor-pointer"
             >
               <RotateCcw className="w-3.5 h-3.5 text-muted-foreground" />
               <span>Reset Defaults</span>
@@ -324,7 +324,7 @@ export function RolesView() {
             <Button
               onClick={handleOpenCreateModal}
               size="sm"
-              className="gap-1.5 rounded-xl font-bold bg-primary hover:bg-primary-hover text-primary-foreground shadow-xs cursor-pointer"
+              className="gap-1.5 rounded-lg font-semibold bg-primary hover:bg-primary-hover text-primary-foreground shadow-xs cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Create Custom Role</span>
@@ -368,10 +368,10 @@ export function RolesView() {
             <ShieldCheck className="w-4 h-4" />
           </div>
           <div className="flex flex-col">
-            <span className="font-bold text-foreground text-xs">
+            <span className="font-semibold text-foreground text-xs">
               Simple Access Management
             </span>
-            <span className="text-muted-foreground text-[11px] leading-relaxed">
+            <span className="text-muted-foreground text-xs leading-relaxed">
               Use <strong>App Access</strong> to select which apps team members can open (PMS, Notes, HRMS, Admin). Click any module&apos;s summary button (e.g. <em>Full</em> or <em>No Access</em>) to toggle all permissions in that module in one click.
             </span>
           </div>

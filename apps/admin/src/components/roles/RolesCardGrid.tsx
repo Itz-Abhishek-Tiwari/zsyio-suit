@@ -26,10 +26,10 @@ export interface RolesCardGridProps {
 }
 
 const APPS_CONFIG: { id: AppId; name: string; icon: React.ComponentType<{ className?: string }>; color: string }[] = [
-  { id: "pms", name: "PMS", icon: FolderKanban, color: "text-rose-600 dark:text-rose-400 bg-rose-500/10 border-rose-200 dark:border-rose-900/40" },
-  { id: "notes", name: "Notes", icon: BookOpen, color: "text-purple-600 dark:text-purple-400 bg-purple-500/10 border-purple-200 dark:border-purple-900/40" },
-  { id: "hrms", name: "HRMS", icon: Users2, color: "text-blue-600 dark:text-blue-400 bg-blue-500/10 border-blue-200 dark:border-blue-900/40" },
-  { id: "admin", name: "Admin", icon: ShieldCheck, color: "text-amber-600 dark:text-amber-400 bg-amber-500/10 border-amber-200 dark:border-amber-900/40" },
+  { id: "pms", name: "PMS", icon: FolderKanban, color: "text-destructive bg-destructive/10 border-destructive/30" },
+  { id: "notes", name: "Notes", icon: BookOpen, color: "text-notion-purple-fg bg-notion-purple-fg/10 border-notion-purple-fg/30" },
+  { id: "hrms", name: "HRMS", icon: Users2, color: "text-notion-blue-fg bg-notion-blue-fg/10 border-notion-blue-fg/30" },
+  { id: "admin", name: "Admin", icon: ShieldCheck, color: "text-warning bg-warning/10 border-warning/30" },
 ];
 
 export function RolesCardGrid({
@@ -74,7 +74,7 @@ export function RolesCardGrid({
                 <div className="flex items-center gap-3 min-w-0">
                   <div
                     className={cn(
-                      "w-11 h-11 rounded-md flex items-center justify-center border shrink-0 shadow-2xs font-bold text-sm",
+                      "w-11 h-11 rounded-md flex items-center justify-center border shrink-0 shadow-2xs font-semibold text-sm",
                       colorStyle.badgeClass
                     )}
                   >
@@ -82,15 +82,15 @@ export function RolesCardGrid({
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="font-bold text-sm text-foreground group-hover:text-primary transition-colors truncate">
+                      <h3 className="font-semibold text-sm text-foreground group-hover:text-primary transition-colors truncate">
                         {role.label}
                       </h3>
                       {role.isSystem ? (
-                        <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-muted text-muted-foreground border border-border">
+                        <span className="text-xs font-semibold  px-1.5 py-0.5 rounded bg-muted text-muted-foreground border border-border">
                           System
                         </span>
                       ) : (
-                        <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-primary-light text-primary border border-primary/20">
+                        <span className="text-xs font-semibold  px-1.5 py-0.5 rounded bg-primary-light text-primary border border-primary/20">
                           Custom
                         </span>
                       )}
@@ -132,7 +132,7 @@ export function RolesCardGrid({
 
               {/* Application Suite Clearance */}
               <div className="rounded-md bg-surface-subtle/80 p-3 border border-border/70 flex flex-col gap-2">
-                <span className="text-[11px] font-semibold text-foreground uppercase tracking-wider">
+                <span className="text-xs font-semibold text-foreground  ">
                   Authorized Applications
                 </span>
                 <div className="grid grid-cols-2 gap-1.5">
@@ -152,7 +152,7 @@ export function RolesCardGrid({
                       >
                         <div className="flex items-center gap-1.5 min-w-0">
                           <AppIcon className="w-3.5 h-3.5 shrink-0" />
-                          <span className="truncate text-[11px] font-semibold">{app.name}</span>
+                          <span className="truncate text-xs font-semibold">{app.name}</span>
                         </div>
                         {hasAccess ? (
                           <Check className="w-3 h-3 shrink-0 stroke-[2.5]" />
@@ -169,7 +169,7 @@ export function RolesCardGrid({
               <div className="rounded-md bg-muted/30 p-3 border border-border/70 flex flex-col gap-2">
                 <div className="flex items-center justify-between text-xs">
                   <span className="font-semibold text-foreground">Access Scope</span>
-                  <span className="font-bold text-primary tabular-nums">
+                  <span className="font-semibold text-primary tabular-nums">
                     {perms.length} / {ALL_ACTIONS.length} capabilities ({percent}%)
                   </span>
                 </div>
@@ -178,12 +178,12 @@ export function RolesCardGrid({
                 <div className="w-full h-1.5 rounded-sm bg-muted overflow-hidden border border-border/50">
                   <div
                     className={cn(
-                      "h-full rounded-full transition-all duration-500",
+                      "h-full rounded-full transition-all duration-150",
                       percent > 70
-                        ? "bg-emerald-500"
+                        ? "bg-success"
                         : percent > 35
                         ? "bg-primary"
-                        : "bg-amber-500"
+                        : "bg-warning"
                     )}
                     style={{ width: `${Math.max(percent, 4)}%` }}
                   />
@@ -192,7 +192,7 @@ export function RolesCardGrid({
                 {/* Module badges */}
                 <div className="flex flex-wrap gap-1 mt-1">
                   {moduleSummaries.length === 0 ? (
-                    <span className="text-[11px] text-muted-foreground italic">
+                    <span className="text-xs text-muted-foreground italic">
                       No module permissions granted yet
                     </span>
                   ) : (
@@ -201,9 +201,9 @@ export function RolesCardGrid({
                         <span
                           key={mod.id}
                           className={cn(
-                            "text-[10px] px-2 py-0.5 rounded-md border font-medium",
+                            "text-xs px-2 py-0.5 rounded-md border font-medium",
                             mod.isFull
-                              ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30"
+                              ? "bg-success/10 text-success border-success/30"
                               : "bg-surface-elevated text-foreground/80 border-border/80"
                           )}
                         >
@@ -211,7 +211,7 @@ export function RolesCardGrid({
                         </span>
                       ))}
                       {moduleSummaries.length > 4 && (
-                        <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-muted text-muted-foreground font-medium">
+                        <span className="text-xs px-1.5 py-0.5 rounded-md bg-muted text-muted-foreground font-medium">
                           +{moduleSummaries.length - 4} more modules
                         </span>
                       )}

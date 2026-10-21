@@ -107,7 +107,7 @@ export default function AdminDashboardPage() {
                 <span>Roles Matrix</span>
               </Link>
             </Button>
-            <Button asChild size="sm" className="rounded-md text-xs font-bold gap-1.5 bg-primary hover:bg-primary-hover text-primary-foreground shadow-xs">
+            <Button asChild size="sm" className="rounded-md text-xs font-semibold gap-1.5 bg-primary hover:bg-primary-hover text-primary-foreground shadow-xs">
               <Link href="/users">
                 <UserPlus className="w-3.5 h-3.5" />
                 <span>Manage Users</span>
@@ -165,7 +165,7 @@ export default function AdminDashboardPage() {
               <div className="w-8 h-8 rounded-md bg-primary-light text-primary flex items-center justify-center border border-primary/20">
                 <Lock className="w-4 h-4" />
               </div>
-              <h2 className="font-extrabold text-base text-foreground font-display">
+              <h2 className="font-semibold text-base text-foreground font-display">
                 Corporate Domain Restriction Policy
               </h2>
             </div>
@@ -173,8 +173,8 @@ export default function AdminDashboardPage() {
               Account invitations and logins are restricted to whitelisted corporate email domains. Zero-trust token caching ensures instantaneous permission propagation and revocation.
             </p>
             <div className="flex flex-wrap items-center gap-2 mt-1">
-              <span className="text-[11px] font-semibold text-foreground-secondary">Authorized Domains:</span>
-              {(stats?.allowedDomains ?? ["zsyio.com", "mediloon.de"]).map((domain) => (
+              <span className="text-xs font-semibold text-foreground-secondary">Authorized Domains:</span>
+              {(stats?.allowedDomains ?? ["zsyio.com", "zsyio.de"]).map((domain) => (
                 <span
                   key={domain}
                   className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-mono font-semibold bg-primary-light text-primary border border-primary/20"
@@ -211,18 +211,18 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Quick Navigation Cards */}
         <div className="flex flex-col gap-3.5">
-          <h3 className="font-bold text-sm text-foreground">Management Suites</h3>
+          <h3 className="font-semibold text-sm text-foreground">Management Suites</h3>
 
           <Link
             href="/users"
             className="rounded-lg border border-border/80 bg-card p-4 shadow-xs hover:border-primary/40 hover:shadow-md transition-all group flex items-start gap-3.5"
           >
-            <div className="w-10 h-10 rounded-md bg-primary-light text-primary flex items-center justify-center shrink-0 border border-primary/20 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-md bg-primary-light text-primary flex items-center justify-center shrink-0 border border-primary/20  transition-transform">
               <Users className="w-5 h-5" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-sm text-foreground group-hover:text-primary transition-colors">
+                <span className="font-semibold text-sm text-foreground group-hover:text-primary transition-colors">
                   User Directory
                 </span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
@@ -237,12 +237,12 @@ export default function AdminDashboardPage() {
             href="/roles"
             className="rounded-lg border border-border/80 bg-card p-4 shadow-xs hover:border-primary/40 hover:shadow-md transition-all group flex items-start gap-3.5"
           >
-            <div className="w-10 h-10 rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0 border border-purple-500/20 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-md bg-notion-purple-fg/10 text-notion-purple-fg flex items-center justify-center shrink-0 border border-notion-purple-fg/20  transition-transform">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-sm text-foreground group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                <span className="font-semibold text-sm text-foreground group-hover:text-notion-purple-fg transition-colors">
                   Roles &amp; Permissions Matrix
                 </span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
@@ -257,12 +257,12 @@ export default function AdminDashboardPage() {
             href="/teams"
             className="rounded-lg border border-border/80 bg-card p-4 shadow-xs hover:border-primary/40 hover:shadow-md transition-all group flex items-start gap-3.5"
           >
-            <div className="w-10 h-10 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 border border-blue-500/20 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-md bg-notion-blue-fg/10 text-notion-blue-fg flex items-center justify-center shrink-0 border border-notion-blue-fg/20  transition-transform">
               <Users2 className="w-5 h-5" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-sm text-foreground group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                <span className="font-semibold text-sm text-foreground group-hover:text-notion-blue-fg transition-colors">
                   Teams &amp; Departments
                 </span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
@@ -277,7 +277,7 @@ export default function AdminDashboardPage() {
         {/* Recent User Directory Table */}
         <div className="lg:col-span-2 flex flex-col gap-3.5">
           <div className="flex items-center justify-between">
-            <h3 className="font-bold text-sm text-foreground">Recent User Roster</h3>
+            <h3 className="font-semibold text-sm text-foreground">Recent User Roster</h3>
             <Link
               href="/users"
               className="text-xs font-semibold text-primary hover:underline flex items-center gap-1"
@@ -296,10 +296,10 @@ export default function AdminDashboardPage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-muted/30">
-                    <TableHead className="py-2.5 px-4 text-[11px] font-bold uppercase tracking-wider">User</TableHead>
-                    <TableHead className="py-2.5 px-4 text-[11px] font-bold uppercase tracking-wider">Role</TableHead>
-                    <TableHead className="py-2.5 px-4 text-[11px] font-bold uppercase tracking-wider">Status</TableHead>
-                    <TableHead className="py-2.5 px-4 text-[11px] font-bold uppercase tracking-wider">Joined</TableHead>
+                    <TableHead className="py-2.5 px-4 text-xs font-semibold  ">User</TableHead>
+                    <TableHead className="py-2.5 px-4 text-xs font-semibold  ">Role</TableHead>
+                    <TableHead className="py-2.5 px-4 text-xs font-semibold  ">Status</TableHead>
+                    <TableHead className="py-2.5 px-4 text-xs font-semibold  ">Joined</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -312,7 +312,7 @@ export default function AdminDashboardPage() {
                             <Link href={`/users/${u.id}`} className="font-semibold text-foreground hover:text-primary transition-colors truncate">
                               {u.name}
                             </Link>
-                            <span className="text-[11px] text-muted-foreground font-mono truncate">{u.email}</span>
+                            <span className="text-xs text-muted-foreground font-mono truncate">{u.email}</span>
                           </div>
                         </div>
                       </TableCell>
@@ -322,7 +322,7 @@ export default function AdminDashboardPage() {
                       <TableCell className="py-3 px-4">
                         <UserStatusBadge active={u.active} invitationStatus={u.invitationStatus} />
                       </TableCell>
-                      <TableCell className="py-3 px-4 text-muted-foreground font-mono text-[11px]">
+                      <TableCell className="py-3 px-4 text-muted-foreground font-mono text-xs">
                         {formatDate(u.createdAt)}
                       </TableCell>
                     </TableRow>

@@ -51,27 +51,27 @@ const APP_ACTION_META: Record<
 > = {
   "app:access:pms": {
     icon: FolderKanban,
-    color: "text-rose-500 bg-rose-500/10 border-rose-200 dark:border-rose-900/40",
+    color: "text-destructive bg-destructive/10 border-destructive/30",
     badge: "Zsyio Flow",
   },
   "app:access:notes": {
     icon: BookOpen,
-    color: "text-purple-500 bg-purple-500/10 border-purple-200 dark:border-purple-900/40",
+    color: "text-notion-purple-fg bg-notion-purple-fg/10 border-notion-purple-fg/30",
     badge: "Zsyio Canvas",
   },
   "app:access:hrms": {
     icon: Users2,
-    color: "text-blue-500 bg-blue-500/10 border-blue-200 dark:border-blue-900/40",
+    color: "text-notion-blue-fg bg-notion-blue-fg/10 border-notion-blue-fg/30",
     badge: "Zsyio People",
   },
   "app:access:admin": {
     icon: ShieldCheck,
-    color: "text-rose-500 bg-rose-500/10 border-rose-200 dark:border-rose-900/40",
+    color: "text-destructive bg-destructive/10 border-destructive/30",
     badge: "Zsyio Console",
   },
   "app:access:sales": {
     icon: TrendingUp,
-    color: "text-violet-500 bg-violet-500/10 border-violet-200 dark:border-violet-900/40",
+    color: "text-notion-purple-fg bg-notion-purple-fg/10 border-notion-purple-fg/30",
     badge: "Zsyio Pulse",
   },
 };
@@ -158,13 +158,13 @@ export function RolesMatrixView({
           </button>
 
           {/* Friendly Legend for Non-Technical Users */}
-          <div className="hidden lg:flex items-center gap-3 text-[11px] text-muted-foreground border-l border-border/80 pl-3">
+          <div className="hidden lg:flex items-center gap-3 text-xs text-muted-foreground border-l border-border/80 pl-3">
             <span className="inline-flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+              <span className="w-2 h-2 rounded-full bg-success" />
               <span>Full Access</span>
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-amber-500" />
+              <span className="w-2 h-2 rounded-full bg-warning" />
               <span>Partial Access</span>
             </span>
             <span className="inline-flex items-center gap-1.5">
@@ -201,7 +201,7 @@ export function RolesMatrixView({
             ))}
           </colgroup>
           <thead>
-            <tr className="border-b border-border/80 bg-muted/40 backdrop-blur-xs text-[11px] font-bold text-muted-foreground uppercase tracking-wider sticky top-0 z-10 shadow-2xs">
+            <tr className="border-b border-border/80 bg-muted/40 backdrop-blur-xs text-xs font-semibold text-muted-foreground   sticky top-0 z-10 shadow-2xs">
               <th className="py-4 px-4 sm:px-6 border-r border-border/40">
                 <div className="flex items-center gap-2">
                   <Sliders className="w-4 h-4 text-primary" />
@@ -212,7 +212,7 @@ export function RolesMatrixView({
                 <th key={role.id} className="py-4 px-3 text-center border-r border-border/40 last:border-r-0">
                   <div className="flex flex-col items-center gap-1.5">
                     <UserRoleBadge customRole={role} showIcon />
-                    <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground font-normal">
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-normal">
                       <span className="font-semibold text-foreground/80">{role._count?.users || 0}</span>
                       <span>user(s)</span>
                       {!role.isSystem && (
@@ -275,20 +275,20 @@ export function RolesMatrixView({
 
                         <div className="flex flex-col min-w-0">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <span className="font-bold text-xs text-foreground uppercase tracking-wider group-hover/cat:text-primary transition-colors">
+                            <span className="font-semibold text-xs text-foreground   group-hover/cat:text-primary transition-colors">
                               {group.title}
                             </span>
                             {isAppGroup ? (
-                              <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary/20 text-primary font-bold uppercase tracking-wider">
+                              <span className="text-xs px-2 py-0.5 rounded-full bg-primary/20 text-primary font-semibold  ">
                                 App Access Gateway
                               </span>
                             ) : (
-                              <span className="text-[10px] px-1.5 py-0.2 rounded-md bg-muted text-muted-foreground font-mono font-medium">
+                              <span className="text-xs px-1.5 py-0.2 rounded-md bg-muted text-muted-foreground font-mono font-medium">
                                 {group.actions.length} {group.actions.length === 1 ? "action" : "actions"}
                               </span>
                             )}
                           </div>
-                          <span className="text-[11px] text-muted-foreground line-clamp-1">
+                          <span className="text-xs text-muted-foreground line-clamp-1">
                             {group.description}
                           </span>
                         </div>
@@ -313,11 +313,11 @@ export function RolesMatrixView({
                             disabled={isLockedAdmin || isGroupSaving}
                             onClick={() => onToggleCategory(role, groupActionIds, group.id)}
                             className={cn(
-                              "inline-flex items-center justify-center gap-1.5 text-[10px] px-2.5 py-1 rounded-lg transition-all cursor-pointer border shadow-2xs font-semibold",
+                              "inline-flex items-center justify-center gap-1.5 text-xs px-2.5 py-1 rounded-lg transition-all cursor-pointer border shadow-2xs font-semibold",
                               allSelected
-                                ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30 hover:bg-emerald-500/25"
+                                ? "bg-success/15 text-success border-success/30 hover:bg-success/25"
                                 : activeInGroup > 0
-                                ? "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30 hover:bg-amber-500/25"
+                                ? "bg-warning/15 text-warning border-warning/30 hover:bg-warning/25"
                                 : "bg-muted/40 text-muted-foreground/60 border-border/60 hover:text-foreground hover:border-border hover:bg-surface-elevated",
                               isGroupSaving && "opacity-75 cursor-wait animate-pulse",
                               isLockedAdmin && "cursor-not-allowed opacity-60"
@@ -368,12 +368,12 @@ export function RolesMatrixView({
                                 {actionDef.label}
                               </span>
                               {showTechnicalIds && (
-                                <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-muted/80 border border-border/70 text-muted-foreground">
+                                <span className="text-xs font-mono px-1.5 py-0.2 rounded bg-muted/80 border border-border/70 text-muted-foreground">
                                   {actionDef.id}
                                 </span>
                               )}
                             </div>
-                            <div className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">
+                            <div className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
                               {actionDef.description}
                             </div>
                           </td>
@@ -402,10 +402,10 @@ export function RolesMatrixView({
                                   className={cn(
                                     "w-7 h-7 rounded-lg inline-flex items-center justify-center transition-all duration-150 cursor-pointer border shadow-2xs font-semibold text-xs",
                                     hasPerm
-                                      ? "bg-primary text-primary-foreground border-primary shadow-xs hover:opacity-90 hover:scale-105 active:scale-95"
-                                      : "bg-muted/40 border-border/70 text-muted-foreground/30 hover:border-primary/50 hover:bg-primary/10 hover:text-primary hover:scale-105 active:scale-95",
+                                      ? "bg-primary text-primary-foreground border-primary shadow-xs hover:opacity-90  "
+                                      : "bg-muted/40 border-border/70 text-muted-foreground/30 hover:border-primary/50 hover:bg-primary/10 hover:text-primary  ",
                                     isCellSaving && "opacity-75 cursor-wait",
-                                    isLockedAdmin && "bg-muted/80 text-muted-foreground border-border/80 cursor-not-allowed opacity-75 hover:scale-100"
+                                    isLockedAdmin && "bg-muted/80 text-muted-foreground border-border/80 cursor-not-allowed opacity-75 "
                                   )}
                                   title={
                                     isLockedAdmin

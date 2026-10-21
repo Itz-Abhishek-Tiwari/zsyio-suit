@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { requireUser, withApiHandler } from "@zsyio/auth/api-helpers";
+import { requireAdminAccess, withApiHandler } from "@zsyio/auth/api-helpers";
 import { teamService } from "@/server/services/team.service";
 import { updateTeamSchema } from "@zsyio/validators";
 
@@ -8,7 +8,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   return withApiHandler(async () => {
-    await requireUser();
+    await requireAdminAccess();
     const { id } = await params;
     return teamService.getById(id);
   });
@@ -19,7 +19,7 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   return withApiHandler(async () => {
-    const user = await requireUser();
+    const user = await requireAdminAccess();
     const { id } = await params;
     const body = await request.json();
     const validated = updateTeamSchema.parse(body);
@@ -32,7 +32,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   return withApiHandler(async () => {
-    const user = await requireUser();
+    const user = await requireAdminAccess();
     const { id } = await params;
     return teamService.delete(user, id);
   });

@@ -47,13 +47,13 @@ export default async function LoginPage() {
         },
         {
           icon: <ShieldCheck className="w-4 h-4" />,
-          iconClassName: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+          iconClassName: "bg-success/10 text-success",
           title: "Team Rosters",
           description: "Organize departments, assign team leads, and manage member capacities with team rosters.",
         },
         {
           icon: <ShieldAlert className="w-4 h-4" />,
-          iconClassName: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+          iconClassName: "bg-warning/10 text-warning",
           title: "Domain Security",
           description: "Strict email domain restriction policy and audit logs for all security actions.",
         },
@@ -61,10 +61,10 @@ export default async function LoginPage() {
       footerLeft={
         <div className="flex items-center gap-2 font-medium">
           <Lock className="w-3.5 h-3.5 text-primary" />
-          <span className="font-mono text-[11px]">Zero-Trust IAM · Salted bcrypt · Audit Logging</span>
+          <span className="font-mono text-xs">Zero-Trust IAM · Salted bcrypt · Audit Logging</span>
         </div>
       }
-      footerRight={<span className="font-mono text-[10px] text-muted-foreground">Zsyio v1.2</span>}
+      footerRight={<span className="font-mono text-xs text-muted-foreground">Zsyio v1.2</span>}
       formHeading="Admin Console Sign In"
       formSubtitle="Sign in with administrative clearance to manage users, teams, and security policies."
       securityNote={

@@ -8,18 +8,18 @@ import { Shield, ShieldCheck, Check } from "lucide-react";
 import type { RoleFormValues } from "./role-form-schema";
 
 export const COLOR_OPTIONS = [
-  { id: "purple", label: "Purple", dot: "bg-purple-500" },
-  { id: "blue", label: "Blue", dot: "bg-blue-500" },
-  { id: "emerald", label: "Emerald", dot: "bg-emerald-500" },
-  { id: "amber", label: "Amber", dot: "bg-amber-500" },
-  { id: "pink", label: "Pink", dot: "bg-pink-500" },
-  { id: "rose", label: "Rose", dot: "bg-rose-500" },
-  { id: "teal", label: "Teal", dot: "bg-teal-500" },
-  { id: "indigo", label: "Indigo", dot: "bg-indigo-500" },
-  { id: "cyan", label: "Cyan", dot: "bg-cyan-500" },
-  { id: "orange", label: "Orange", dot: "bg-orange-500" },
-  { id: "violet", label: "Violet", dot: "bg-violet-500" },
-  { id: "gray", label: "Gray", dot: "bg-gray-500" },
+  { id: "purple", label: "Purple", dot: "bg-notion-purple-fg" },
+  { id: "blue", label: "Blue", dot: "bg-notion-blue-fg" },
+  { id: "emerald", label: "Emerald", dot: "bg-success" },
+  { id: "amber", label: "Amber", dot: "bg-warning" },
+  { id: "pink", label: "Pink", dot: "bg-notion-pink-fg" },
+  { id: "rose", label: "Rose", dot: "bg-destructive" },
+  { id: "teal", label: "Teal", dot: "bg-notion-blue-fg" },
+  { id: "indigo", label: "Indigo", dot: "bg-notion-purple-fg" },
+  { id: "cyan", label: "Cyan", dot: "bg-notion-blue-fg" },
+  { id: "orange", label: "Orange", dot: "bg-notion-orange-fg" },
+  { id: "violet", label: "Violet", dot: "bg-notion-purple-fg" },
+  { id: "gray", label: "Gray", dot: "bg-muted-foreground" },
 ];
 
 export const ICON_OPTIONS = [
@@ -87,7 +87,7 @@ export function RoleFormModal({
             type="button"
             variant="outline"
             onClick={() => onOpenChange(false)}
-            className="h-9 text-xs rounded-xl font-semibold cursor-pointer"
+            className="h-9 text-xs rounded-lg font-semibold cursor-pointer"
           >
             Cancel
           </Button>
@@ -95,7 +95,7 @@ export function RoleFormModal({
             type="submit"
             form="role-form"
             disabled={isSaving}
-            className="h-9 text-xs rounded-xl font-bold bg-primary hover:bg-primary-hover text-primary-foreground shadow-xs cursor-pointer"
+            className="h-9 text-xs rounded-lg font-semibold bg-primary hover:bg-primary-hover text-primary-foreground shadow-xs cursor-pointer"
           >
             {isSaving ? "Saving..." : editingRole ? "Save Changes" : "Create Role"}
           </Button>
@@ -116,15 +116,15 @@ export function RoleFormModal({
                 })}
                 placeholder="e.g. QA_ENGINEER"
                 className={cn(
-                  "h-9 text-xs font-mono rounded-xl",
+                  "h-9 text-xs font-mono rounded-lg",
                   errors.name && "border-destructive focus-visible:ring-destructive"
                 )}
               />
-              <span className="text-[10px] text-muted-foreground">
-                Internal system key (uppercase &amp; underscores)
+              <span className="text-xs text-muted-foreground">
+                Internal system key ( &amp; underscores)
               </span>
               {errors.name && (
-                <span className="text-[11px] font-semibold text-destructive">{errors.name.message}</span>
+                <span className="text-xs font-semibold text-destructive">{errors.name.message}</span>
               )}
             </div>
           )}
@@ -138,12 +138,12 @@ export function RoleFormModal({
               {...register("label")}
               placeholder="e.g. QA Engineer"
               className={cn(
-                "h-9 text-xs rounded-xl",
+                "h-9 text-xs rounded-lg",
                 errors.label && "border-destructive focus-visible:ring-destructive"
               )}
             />
             {errors.label && (
-              <span className="text-[11px] font-semibold text-destructive">{errors.label.message}</span>
+              <span className="text-xs font-semibold text-destructive">{errors.label.message}</span>
             )}
           </div>
         </div>
@@ -156,11 +156,11 @@ export function RoleFormModal({
             id="role-desc"
             {...register("description")}
             placeholder="Brief summary of duties and platform privileges..."
-            className="text-xs min-h-[64px] rounded-xl resize-none"
+            className="text-xs min-h-[64px] rounded-lg resize-none"
           />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-muted/40 p-4 rounded-xl border border-border/80">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-muted/40 p-4 rounded-lg border border-border/80">
           <div className="flex flex-col gap-2">
             <Label className="text-xs font-semibold">Badge Color Theme</Label>
             <div className="flex flex-wrap gap-2">
@@ -208,7 +208,7 @@ export function RoleFormModal({
           </div>
         </div>
 
-        <div className="flex items-center gap-2.5 p-3 rounded-xl bg-muted/50 border border-border/80 text-xs text-muted-foreground">
+        <div className="flex items-center gap-2.5 p-3 rounded-lg bg-muted/50 border border-border/80 text-xs text-muted-foreground">
           <ShieldCheck className="w-4 h-4 text-primary shrink-0" />
           <span>Permissions can be configured and toggled directly in the Permission Matrix.</span>
         </div>

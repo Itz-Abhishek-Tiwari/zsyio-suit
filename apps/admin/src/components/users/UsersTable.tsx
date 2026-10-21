@@ -109,12 +109,12 @@ export function UsersTable({
       <Table>
         <TableHeader>
           <TableRow className="bg-muted/30">
-            <TableHead className="py-3 px-5 min-w-[220px] text-[11px] font-bold uppercase tracking-wider">User</TableHead>
-            <TableHead className="py-3 px-5 min-w-[200px] text-[11px] font-bold uppercase tracking-wider">Email &amp; Teams</TableHead>
-            <TableHead className="py-3 px-5 min-w-[150px] text-[11px] font-bold uppercase tracking-wider">Clearance Role</TableHead>
-            <TableHead className="py-3 px-5 min-w-[130px] text-[11px] font-bold uppercase tracking-wider">Status</TableHead>
-            <TableHead className="py-3 px-5 min-w-[120px] text-[11px] font-bold uppercase tracking-wider">Joined</TableHead>
-            <TableHead className="py-3 px-5 min-w-[80px] text-right text-[11px] font-bold uppercase tracking-wider">Actions</TableHead>
+            <TableHead className="py-3 px-5 min-w-[220px] text-xs font-semibold  ">User</TableHead>
+            <TableHead className="py-3 px-5 min-w-[200px] text-xs font-semibold  ">Email &amp; Teams</TableHead>
+            <TableHead className="py-3 px-5 min-w-[150px] text-xs font-semibold  ">Clearance Role</TableHead>
+            <TableHead className="py-3 px-5 min-w-[130px] text-xs font-semibold  ">Status</TableHead>
+            <TableHead className="py-3 px-5 min-w-[120px] text-xs font-semibold  ">Joined</TableHead>
+            <TableHead className="py-3 px-5 min-w-[80px] text-right text-xs font-semibold  ">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -133,26 +133,26 @@ export function UsersTable({
                       <div className="flex items-center gap-1.5">
                         <Link
                           href={`/users/${u.id}`}
-                          className="font-bold text-foreground hover:text-primary transition-colors truncate"
+                          className="font-semibold text-foreground hover:text-primary transition-colors truncate"
                         >
                           {u.name}
                         </Link>
                         {isUserSuperAdmin && (
                           <span
                             title="Permanent Super Administrator"
-                            className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-extrabold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 shrink-0"
+                            className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-xs font-semibold bg-warning/10 text-warning border border-warning/20 shrink-0"
                           >
                             <Crown className="w-2.5 h-2.5" />
                             ROOT
                           </span>
                         )}
                         {isCurrentUser && (
-                          <span className="text-[10px] text-muted-foreground font-mono bg-muted px-1.5 py-0.5 rounded shrink-0">
+                          <span className="text-xs text-muted-foreground font-mono bg-muted px-1.5 py-0.5 rounded shrink-0">
                             You
                           </span>
                         )}
                       </div>
-                      <span className="text-[11px] text-muted-foreground font-mono truncate">
+                      <span className="text-xs text-muted-foreground font-mono truncate">
                         ID: {u.id.substring(0, 8)}...
                       </span>
                     </div>
@@ -167,7 +167,7 @@ export function UsersTable({
                         {u.teamMembers.map((tm) => (
                           <span
                             key={tm.teamId}
-                            className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-muted text-foreground-secondary border border-border/60"
+                            className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-muted text-foreground-secondary border border-border/60"
                           >
                             <Users2 className="w-2.5 h-2.5 text-muted-foreground" />
                             {tm.team.name}
@@ -175,14 +175,14 @@ export function UsersTable({
                         ))}
                       </div>
                     ) : (
-                      <span className="text-[10px] text-muted-foreground">No teams assigned</span>
+                      <span className="text-xs text-muted-foreground">No teams assigned</span>
                     )}
                   </div>
                 </TableCell>
 
                 <TableCell className="py-3.5 px-5">
                   {isUserSuperAdmin ? (
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-warning/10 text-warning border border-warning/20">
                       <Lock className="w-3.5 h-3.5" />
                       <span>Super Admin</span>
                     </div>
@@ -219,7 +219,7 @@ export function UsersTable({
                   />
                 </TableCell>
 
-                <TableCell className="py-3.5 px-5 text-muted-foreground font-mono text-[11px]">
+                <TableCell className="py-3.5 px-5 text-muted-foreground font-mono text-xs">
                   {formatDate(u.createdAt)}
                 </TableCell>
 
@@ -259,12 +259,12 @@ export function UsersTable({
                           >
                             {u.active ? (
                               <>
-                                <UserX className="h-3.5 w-3.5 text-amber-500" />
+                                <UserX className="h-3.5 w-3.5 text-warning" />
                                 <span>Deactivate User</span>
                               </>
                             ) : (
                               <>
-                                <Check className="h-3.5 w-3.5 text-emerald-500" />
+                                <Check className="h-3.5 w-3.5 text-success" />
                                 <span>Reactivate User</span>
                               </>
                             )}

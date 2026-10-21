@@ -76,7 +76,7 @@ export function UserInviteModal({
             size="sm"
             onClick={() => onOpenChange(false)}
             disabled={isCreating}
-            className="rounded-xl text-xs font-semibold cursor-pointer"
+            className="rounded-lg text-xs font-semibold cursor-pointer"
           >
             Cancel
           </Button>
@@ -85,7 +85,7 @@ export function UserInviteModal({
             form="invite-user-form"
             size="sm"
             disabled={isCreating}
-            className="rounded-xl text-xs font-semibold gap-1.5 shadow-xs cursor-pointer"
+            className="rounded-lg text-xs font-semibold gap-1.5 shadow-xs cursor-pointer"
           >
             <Send className="w-3.5 h-3.5" />
             <span>{isCreating ? "Sending Invitation..." : "Send Invitation"}</span>
@@ -104,7 +104,7 @@ export function UserInviteModal({
             onChange={(e) => setName(e.target.value)}
             placeholder="e.g. Sarah Connor"
             className={cn(
-              "h-9 text-xs rounded-xl",
+              "h-9 text-xs rounded-lg",
               attemptedSubmit && !name.trim() && "border-destructive focus-visible:ring-destructive"
             )}
           />
@@ -122,7 +122,7 @@ export function UserInviteModal({
           allowedDomains={allowedDomains}
         />
 
-        <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground bg-surface-subtle/80 p-2 rounded-lg border border-border/60">
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground bg-surface-subtle/80 p-2 rounded-lg border border-border/60">
           <AlertCircle className="w-3.5 h-3.5 text-primary shrink-0" />
           <span>
             Workspace security policy restricts invites strictly to: <strong>{getAllowedDomainsNotice()}</strong>
@@ -134,7 +134,7 @@ export function UserInviteModal({
             Role &amp; Capability Level <span className="text-destructive">*</span>
           </Label>
           <Select value={role} onValueChange={setRole}>
-            <SelectTrigger id="invite-role" className="h-9 text-xs rounded-xl border border-border/80">
+            <SelectTrigger id="invite-role" className="h-9 text-xs rounded-lg border border-border/80">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -154,7 +154,7 @@ export function UserInviteModal({
           </Select>
         </div>
 
-        <div className="p-3 bg-surface-subtle rounded-xl border border-border/80 text-xs text-muted-foreground flex items-center gap-2">
+        <div className="p-3 bg-surface-subtle rounded-lg border border-border/80 text-xs text-muted-foreground flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 text-primary shrink-0" />
           <span>The invited user will receive an activation link to set up their password.</span>
         </div>

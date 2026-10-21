@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { usePathname } from "next/navigation";
 import { Header } from "@/components/layout/Header";
-import { SuiteSidebar, SuiteSideRail, TooltipProvider } from "@zsyio/ui";
+import { SuiteSidebar, TooltipProvider } from "@zsyio/ui";
 import { cn } from "@zsyio/ui";
 import type { Role } from "@zsyio/auth/permissions";
 import { visibleAdminNavItems } from "@/components/shared/nav-config";
@@ -72,7 +72,7 @@ export function DashboardShell({
         {/* Unified Workmate Collapsible Sidebar from @zsyio/ui */}
         <aside
           className={cn(
-            "fixed lg:static inset-y-0 left-0 z-50 h-full shrink-0 flex flex-col transition-[width,transform] duration-300 cubic-bezier(0.2,0,0,1)",
+            "fixed lg:static inset-y-0 left-0 z-50 h-full shrink-0 flex flex-col transition-[width,transform] duration-150 cubic-bezier(0.2,0,0,1)",
             mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
           )}
         >
@@ -117,9 +117,6 @@ export function DashboardShell({
           </main>
 
         </div>
-
-        {/* Companion Suite Switcher Rail on the right edge */}
-        <SuiteSideRail currentApp="admin" />
       </div>
     </TooltipProvider>
   );

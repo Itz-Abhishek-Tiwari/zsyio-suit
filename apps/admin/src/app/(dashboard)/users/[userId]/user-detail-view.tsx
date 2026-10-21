@@ -153,13 +153,13 @@ export function UserDetailView({
       />
 
       {/* Account Details Card */}
-      <div className="rounded-2xl border border-border/80 bg-card p-6 shadow-xs flex flex-col gap-6">
+      <div className="rounded-lg border border-border/80 bg-card p-6 shadow-xs flex flex-col gap-6">
         <div className="flex items-center gap-4">
           <UserAvatar name={user.name} className="w-16 h-16 text-lg ring-2 ring-border" />
           <div className="flex flex-col">
-            <h2 className="text-lg font-extrabold text-foreground">{user.name}</h2>
+            <h2 className="text-lg font-semibold text-foreground">{user.name}</h2>
             <span className="text-xs text-muted-foreground font-mono">{user.email}</span>
-            <span className="text-[11px] text-muted-foreground mt-1 flex items-center gap-1.5">
+            <span className="text-xs text-muted-foreground mt-1 flex items-center gap-1.5">
               <Calendar className="w-3.5 h-3.5" />
               <span>Created: {formatDate(user.createdAt)}</span>
             </span>
@@ -167,13 +167,13 @@ export function UserDetailView({
         </div>
 
         <div className="border-t border-border/60 pt-6 flex flex-col gap-4">
-          <h3 className="font-bold text-sm text-foreground">Access &amp; Role Clearance</h3>
+          <h3 className="font-semibold text-sm text-foreground">Access &amp; Role Clearance</h3>
 
           {isSuper ? (
-            <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-4 flex items-start gap-3">
-              <Crown className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+            <div className="rounded-lg border border-warning/20 bg-warning/10 p-4 flex items-start gap-3">
+              <Crown className="w-5 h-5 text-warning shrink-0 mt-0.5" />
               <div className="flex flex-col gap-1">
-                <span className="font-bold text-xs text-foreground">Permanent Super Administrator</span>
+                <span className="font-semibold text-xs text-foreground">Permanent Super Administrator</span>
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   This root administrative account cannot be modified, demoted, or deactivated.
                 </p>
@@ -184,7 +184,7 @@ export function UserDetailView({
               <div className="flex flex-col gap-1.5">
                 <Label className="text-xs font-semibold">Assigned Role</Label>
                 <Select value={role} onValueChange={saveRole} disabled={isUpdating}>
-                  <SelectTrigger className="h-10 text-xs rounded-xl">
+                  <SelectTrigger className="h-10 text-xs rounded-lg">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -212,7 +212,7 @@ export function UserDetailView({
                     size="sm"
                     onClick={toggleActive}
                     disabled={isUpdating || isCurrentUser}
-                    className="h-10 text-xs rounded-xl font-semibold"
+                    className="h-10 text-xs rounded-lg font-semibold"
                   >
                     {user.active ? "Deactivate Account" : "Activate Account"}
                   </Button>
@@ -220,7 +220,7 @@ export function UserDetailView({
                     variant="outline"
                     size="sm"
                     onClick={() => setPasswordModalOpen(true)}
-                    className="h-10 text-xs rounded-xl font-semibold gap-1.5"
+                    className="h-10 text-xs rounded-lg font-semibold gap-1.5"
                   >
                     <KeyRound className="w-3.5 h-3.5" />
                     <span>Reset Password</span>
@@ -234,7 +234,7 @@ export function UserDetailView({
         {/* Teams Membership Section */}
         <div className="border-t border-border/60 pt-6 flex flex-col gap-3">
           <div className="flex items-center justify-between">
-            <h3 className="font-bold text-sm text-foreground">Assigned Teams</h3>
+            <h3 className="font-semibold text-sm text-foreground">Assigned Teams</h3>
             <Button asChild variant="link" size="sm" className="text-xs font-semibold text-primary p-0 h-auto">
               <Link href="/teams">Manage Teams &rarr;</Link>
             </Button>
@@ -245,15 +245,15 @@ export function UserDetailView({
               {user.teamMembers.map((tm) => (
                 <div
                   key={tm.teamId}
-                  className="rounded-xl border border-border/80 bg-muted/30 p-3.5 flex items-center justify-between"
+                  className="rounded-lg border border-border/80 bg-muted/30 p-3.5 flex items-center justify-between"
                 >
                   <div className="flex items-center gap-2.5">
-                    <div className="w-7 h-7 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xs">
+                    <div className="w-7 h-7 rounded-lg bg-notion-blue-fg/10 text-notion-blue-fg flex items-center justify-center font-semibold text-xs">
                       <Users2 className="w-3.5 h-3.5" />
                     </div>
                     <div className="flex flex-col">
-                      <span className="font-bold text-xs text-foreground">{tm.team.name}</span>
-                      <span className="text-[10px] text-muted-foreground capitalize">{tm.role.toLowerCase()}</span>
+                      <span className="font-semibold text-xs text-foreground">{tm.team.name}</span>
+                      <span className="text-xs text-muted-foreground capitalize">{tm.role.toLowerCase()}</span>
                     </div>
                   </div>
                 </div>
@@ -267,7 +267,7 @@ export function UserDetailView({
         {/* Danger Zone */}
         {!isSuper && !isCurrentUser && (
           <div className="border-t border-destructive/20 pt-6 flex flex-col gap-3">
-            <h3 className="font-bold text-sm text-destructive">Danger Zone</h3>
+            <h3 className="font-semibold text-sm text-destructive">Danger Zone</h3>
             <p className="text-xs text-muted-foreground">
               Permanently remove this account and reassign associated tasks and logs to an active admin.
             </p>
@@ -277,7 +277,7 @@ export function UserDetailView({
                 size="sm"
                 onClick={() => setDeleteDialogOpen(true)}
                 disabled={isDeleting}
-                className="gap-2 rounded-xl text-xs font-bold"
+                className="gap-2 rounded-lg text-xs font-semibold"
               >
                 <Trash2 className="w-4 h-4" />
                 <span>Delete Account Permanently</span>
@@ -304,7 +304,7 @@ export function UserDetailView({
               size="sm"
               onClick={() => setPasswordModalOpen(false)}
               disabled={isResettingPassword}
-              className="rounded-xl text-xs font-semibold"
+              className="rounded-lg text-xs font-semibold"
             >
               Cancel
             </Button>
@@ -313,7 +313,7 @@ export function UserDetailView({
               form="reset-password-form"
               size="sm"
               disabled={isResettingPassword}
-              className="rounded-xl text-xs font-semibold bg-primary hover:bg-primary-hover text-primary-foreground"
+              className="rounded-lg text-xs font-semibold bg-primary hover:bg-primary-hover text-primary-foreground"
             >
               {isResettingPassword ? "Updating Password..." : "Set New Password"}
             </Button>
@@ -331,7 +331,7 @@ export function UserDetailView({
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder="••••••••"
-              className="h-10 text-xs font-mono rounded-xl tracking-wider"
+              className="h-10 text-xs font-mono rounded-lg "
               required
             />
           </div>

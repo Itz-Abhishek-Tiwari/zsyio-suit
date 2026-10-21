@@ -265,7 +265,7 @@ export function UsersView({ serverAllowedDomains }: { serverAllowedDomains?: str
               variant="outline"
               size="sm"
               onClick={() => setIsDomainModalOpen(true)}
-              className="gap-1.5 rounded-xl text-xs font-semibold border-border/80 bg-surface-subtle/80 hover:bg-surface-subtle shadow-xs cursor-pointer"
+              className="gap-1.5 rounded-lg text-xs font-semibold border-border/80 bg-surface-subtle/80 hover:bg-surface-subtle shadow-xs cursor-pointer"
             >
               <Globe className="w-3.5 h-3.5 text-primary" />
               <span>Corporate Domains</span>
@@ -273,7 +273,7 @@ export function UsersView({ serverAllowedDomains }: { serverAllowedDomains?: str
             <Button
               onClick={() => setOpen(true)}
               size="sm"
-              className="gap-2 rounded-xl font-bold bg-primary hover:bg-primary-hover text-primary-foreground shadow-xs cursor-pointer"
+              className="gap-2 rounded-lg font-semibold bg-primary hover:bg-primary-hover text-primary-foreground shadow-xs cursor-pointer"
             >
               <UserPlus className="w-4 h-4" />
               <span>Invite New User</span>
@@ -283,9 +283,9 @@ export function UsersView({ serverAllowedDomains }: { serverAllowedDomains?: str
       />
 
       {/* Corporate Domains Banner */}
-      <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-xl bg-card border border-border/80 shadow-2xs">
+      <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-lg bg-card border border-border/80 shadow-2xs">
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-foreground">
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
             <Building2 className="w-4 h-4 text-primary" />
             <span>Authorized Corporate Domains:</span>
           </div>
@@ -293,15 +293,15 @@ export function UsersView({ serverAllowedDomains }: { serverAllowedDomains?: str
             <span
               key={dom}
               className={cn(
-                "inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-mono font-bold border",
+                "inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-mono font-semibold border",
                 i === 0
-                  ? "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30"
+                  ? "bg-warning/10 text-warning border-warning/30"
                   : "bg-surface-subtle text-foreground border-border/70"
               )}
             >
               @{dom}
               {i === 0 && (
-                <span className="text-[9px] font-sans font-extrabold uppercase text-amber-600 dark:text-amber-400 flex items-center gap-0.5 ml-0.5">
+                <span className="text-xs font-sans font-semibold  text-warning flex items-center gap-0.5 ml-0.5">
                   <Crown className="w-2.5 h-2.5" />
                   Primary
                 </span>
@@ -343,7 +343,7 @@ export function UsersView({ serverAllowedDomains }: { serverAllowedDomains?: str
 
           <div className="w-[160px] shrink-0">
             <Select value={selectedRoleFilter} onValueChange={setSelectedRoleFilter}>
-              <SelectTrigger className="h-9 text-xs rounded-xl border border-border/80">
+              <SelectTrigger className="h-9 text-xs rounded-lg border border-border/80">
                 <SelectValue placeholder="All Roles" />
               </SelectTrigger>
               <SelectContent>
@@ -364,7 +364,7 @@ export function UsersView({ serverAllowedDomains }: { serverAllowedDomains?: str
                       <div className="flex items-center gap-2">
                         <span className={`w-2 h-2 rounded-full ${colorStyle.dot}`} />
                         <span>{r.label}</span>
-                        <span className="text-muted-foreground font-mono text-[10px] ml-auto">({count})</span>
+                        <span className="text-muted-foreground font-mono text-xs ml-auto">({count})</span>
                       </div>
                     </SelectItem>
                   );

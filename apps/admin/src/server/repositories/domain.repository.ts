@@ -12,7 +12,7 @@ export const domainRepository = {
       await prisma.allowedDomain.createMany({
         data: [
           { domain: "zsyio.com", isPrimary: true, isActive: true },
-          { domain: "mediloon.de", isPrimary: false, isActive: true },
+          { domain: "zsyio.de", isPrimary: false, isActive: true },
         ],
         skipDuplicates: true,
       });

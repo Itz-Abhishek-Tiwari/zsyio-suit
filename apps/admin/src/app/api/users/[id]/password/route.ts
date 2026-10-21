@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { requireUser, withApiHandler } from "@zsyio/auth/api-helpers";
+import { requireAdminAccess, withApiHandler } from "@zsyio/auth/api-helpers";
 import { userService } from "@/server/services/user.service";
 import { z } from "zod";
 
@@ -12,7 +12,7 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   return withApiHandler(async () => {
-    const user = await requireUser();
+    const user = await requireAdminAccess();
     const { id } = await params;
     const body = await request.json();
     const { password } = resetPasswordSchema.parse(body);
