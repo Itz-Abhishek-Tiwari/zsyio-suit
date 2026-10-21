@@ -1,5 +1,5 @@
 # ==============================================================================
-# Mediloon Monorepo .gitignore
+# Zsyio Monorepo .gitignore
 # ==============================================================================
 
 # Dependencies
@@ -15,6 +15,7 @@ node_modules/
 # Next.js & Build Outputs
 .next/
 **/.next/
+**/.next-*/
 out/
 **/out/
 build/
@@ -92,3 +93,6 @@ lerna-debug.log*
 *.sql.gz
 backup*/
 scratch/
+
+# Versioned database migrations
+!packages/database/prisma/migrations/20261011000000_add_recruit/migration.sql

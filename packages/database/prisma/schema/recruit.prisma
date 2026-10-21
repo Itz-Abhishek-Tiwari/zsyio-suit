@@ -1,0 +1,51 @@
+model RecruitJob {
+  id           String   @id @default(cuid())
+  title        String
+  department   String
+  location     String
+  employment   String   @default("FULL_TIME")
+  description  String
+  status       String   @default("OPEN")
+  createdBy    String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  applications RecruitApplication[]
+  @@index([status, createdAt])
+}
+
+model RecruitApplication {
+  id        String   @id @default(cuid())
+  jobId     String
+  job       RecruitJob @relation(fields: [jobId], references: [id], onDelete: Restrict)
+  name      String
+  email     String
+  stage     String   @default("APPLIED")
+  source    String   @default("Direct")
+  phone           String?
+  linkedinUrl     String?
+  currentCompany  String?
+  expectedSalary  String?
+  noticePeriod    String?
+  resumeUrl       String?
+  rejectionReason String?
+  createdBy String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  events    RecruitEvent[]
+  @@unique([jobId, email])
+  @@index([stage, createdAt])
+}
+
+model RecruitEvent {
+  id            String @id @default(cuid())
+  applicationId String
+  application   RecruitApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  kind          String
+  title         String
+  body          String
+  scheduledAt   DateTime?
+  authorId      String
+  authorName    String
+  createdAt     DateTime @default(now())
+  @@index([applicationId, createdAt])
+}

@@ -11,7 +11,7 @@ dotenv.config({ path: path.resolve(process.cwd(), "../../.env") });
 export default defineConfig({
   schema: path.join("prisma", "schema"),
   migrations: {
+    path: path.join("prisma", "migrations"),
     seed: "tsx prisma/seed.ts",
   },
 });
-
