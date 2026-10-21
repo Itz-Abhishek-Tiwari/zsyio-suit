@@ -8,6 +8,57 @@ Zsyio is a unified, multi-application workspace for project execution, collabora
 * **Zsyio People (`apps/hrms`)**: Attendance punch station, work sessions, breaks, and timesheets.
 * **Zsyio Console (`apps/admin`)**: User directory, roles & permissions matrix, teams, and security policies.
 * **Zsyio Pulse (`apps/sales`)**: Sales pipeline, CRM leads, 7-stage Kanban board, and client deal flow.
+* **Zsyio Recruit (`apps/recruit`)**: Job openings, candidate pipeline, interviews, and hiring feedback.
+
+---
+
+## 📸 Screenshots
+
+All apps share one sign-in and one design system. Screenshots are taken with the seeded demo data.
+
+### Sign in
+
+![Shared sign-in page](docs/screenshots/login.png)
+
+### Zsyio Flow — project management
+
+| Dashboard | Task board |
+| --- | --- |
+| ![Flow dashboard](docs/screenshots/pms-dashboard.png) | ![Flow task board](docs/screenshots/pms-tasks.png) |
+| **Client pipeline** | **Reports** |
+| ![Flow client pipeline](docs/screenshots/pms-clients-kanban.png) | ![Flow reports](docs/screenshots/pms-reports.png) |
+
+### Zsyio Canvas — notes and docs
+
+![Canvas knowledge hub](docs/screenshots/notes.png)
+
+### Zsyio People — HR and attendance
+
+| Dashboard | Team directory |
+| --- | --- |
+| ![People dashboard](docs/screenshots/hrms-dashboard.png) | ![People team directory](docs/screenshots/hrms-directory.png) |
+| **Team attendance** | |
+| ![People team attendance](docs/screenshots/hrms-team-attendance.png) | |
+
+### Zsyio Console — admin
+
+| Dashboard | Users |
+| --- | --- |
+| ![Console dashboard](docs/screenshots/admin-dashboard.png) | ![Console users](docs/screenshots/admin-users.png) |
+| **Roles and permissions** | |
+| ![Console roles matrix](docs/screenshots/admin-roles.png) | |
+
+### Zsyio Pulse — sales CRM
+
+| Dashboard | Deal pipeline |
+| --- | --- |
+| ![Pulse dashboard](docs/screenshots/sales-dashboard.png) | ![Pulse deal pipeline](docs/screenshots/sales-kanban.png) |
+
+### Zsyio Recruit — hiring
+
+| Jobs | Candidate pipeline |
+| --- | --- |
+| ![Recruit jobs](docs/screenshots/recruit-dashboard.png) | ![Recruit candidate pipeline](docs/screenshots/recruit-candidates.png) |
 
 ---
 
