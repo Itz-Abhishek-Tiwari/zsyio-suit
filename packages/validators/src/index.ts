@@ -12,3 +12,4 @@ export * from "./test-case.schema";
 export * from "./user.schema";
 export * from "./timesheet.schema";
 export * from "./domain.schema";
+export * from "./recruit.schema";

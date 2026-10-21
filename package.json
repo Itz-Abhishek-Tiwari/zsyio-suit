@@ -38,9 +38,12 @@
     "db:migrate": "turbo run db:migrate",
     "db:push": "pnpm --filter @zsyio/database db:push",
     "db:seed": "turbo run db:seed",
+    "db:seed:recruit": "tsx --env-file=.env.local scripts/seed-recruit.ts",
     "db:reset-passwords": "npx dotenv-cli -e .env.local -- tsx scripts/reset-passwords.ts",
     "db:studio": "turbo run db:studio",
-    "clean": "node scripts/clean.mjs"
+    "clean": "node scripts/clean.mjs",
+    "dev:recruit": "turbo run dev --filter=@zsyio/recruit",
+    "start:recruit": "turbo run start --filter=@zsyio/recruit"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.6",

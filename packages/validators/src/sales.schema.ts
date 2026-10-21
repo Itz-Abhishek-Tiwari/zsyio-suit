@@ -173,7 +173,7 @@ export const salesLeadFiltersSchema = z.object({
   pageSize: z.coerce.number().int().min(1).max(200).optional().default(25),
   sortBy: z.string().optional(),
   sortDir: z.enum(["asc", "desc"]).optional().default("desc"),
-  includeDeleted: z.coerce.boolean().optional().default(false),
+  includeDeleted: z.preprocess((v) => v === true || v === "true", z.boolean()).optional().default(false),
 });
 
 // ─── Types ────────────────────────────────────────────────────────────────────
