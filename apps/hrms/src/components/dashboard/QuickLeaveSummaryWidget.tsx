@@ -41,19 +41,19 @@ export function QuickLeaveSummaryWidget({
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center justify-center shadow-2xs">
+            <div className="w-8 h-8 rounded-md bg-warning/10 text-warning border border-warning/20 flex items-center justify-center shadow-2xs">
               <CalendarOff className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-foreground">Time Off Balances</h3>
-              <p className="text-[11px] text-muted-foreground">Annual leave balance status</p>
+              <h3 className="text-sm font-semibold text-foreground">Time Off Balances</h3>
+              <p className="text-xs text-muted-foreground">Annual leave balance status</p>
             </div>
           </div>
 
           <Button
             size="sm"
             onClick={() => setApplyModalOpen(true)}
-            className="h-8 px-2.5 rounded-md text-xs font-bold gap-1 bg-amber-600 hover:bg-amber-700 text-white shadow-xs"
+            className="h-8 px-2.5 rounded-md text-xs font-semibold gap-1 bg-warning hover:bg-warning text-white shadow-xs"
           >
             <PlusCircle className="w-3.5 h-3.5" />
             <span>Apply Leave</span>
@@ -74,19 +74,19 @@ export function QuickLeaveSummaryWidget({
                 className="p-3 rounded-md bg-surface-subtle/60 border border-border/70 flex flex-col justify-between space-y-2"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground truncate">
+                  <span className="text-xs font-semibold   text-muted-foreground truncate">
                     {b.type}
                   </span>
-                  <span className="text-[10px] font-mono text-muted-foreground">
+                  <span className="text-xs font-mono text-muted-foreground">
                     {b.used} used
                   </span>
                 </div>
                 <div>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-xl font-extrabold font-mono text-foreground">
+                    <span className="text-xl font-semibold font-mono text-foreground">
                       {b.available}
                     </span>
-                    <span className="text-[10px] text-muted-foreground">/ {b.total}d</span>
+                    <span className="text-xs text-muted-foreground">/ {b.total}d</span>
                   </div>
                   <div className="h-1.5 w-full rounded-sm bg-surface-subtle border border-border/60 overflow-hidden mt-1.5">
                     <div

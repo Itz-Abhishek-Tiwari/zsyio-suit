@@ -28,17 +28,17 @@ export function UpcomingHolidayWidget({
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-md bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 flex items-center justify-center shadow-2xs">
+            <div className="w-8 h-8 rounded-md bg-notion-blue-fg/10 text-notion-blue-fg border border-notion-blue-fg/20 flex items-center justify-center shadow-2xs">
               <CalendarHeart className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-foreground">Upcoming Company Holiday</h3>
-              <p className="text-[11px] text-muted-foreground">Official office holiday</p>
+              <h3 className="text-sm font-semibold text-foreground">Upcoming Company Holiday</h3>
+              <p className="text-xs text-muted-foreground">Official office holiday</p>
             </div>
           </div>
 
           {upcoming && (
-            <span className="px-2 py-0.5 rounded-md font-mono text-[10px] font-bold bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/25">
+            <span className="px-2 py-0.5 rounded-md font-mono text-xs font-semibold bg-notion-blue-fg/10 text-notion-blue-fg border border-notion-blue-fg/25">
               {upcoming.daysRemaining === 0
                 ? "Today!"
                 : upcoming.daysRemaining === 1
@@ -51,10 +51,10 @@ export function UpcomingHolidayWidget({
         {isLoading ? (
           <Skeleton className="h-20 rounded-md" />
         ) : upcoming ? (
-          <div className="p-3.5 rounded-md bg-gradient-to-r from-sky-500/10 via-surface-subtle to-surface-elevated border border-sky-500/20 space-y-1">
+          <div className="p-3.5 rounded-md border border-notion-blue-fg/20 space-y-1 bg-notion-blue-fg/10">
             <div className="flex items-center justify-between">
-              <span className="font-extrabold text-sm text-foreground">{upcoming.name}</span>
-              <span className="text-[11px] font-mono font-semibold text-primary">
+              <span className="font-semibold text-sm text-foreground">{upcoming.name}</span>
+              <span className="text-xs font-mono font-semibold text-primary">
                 {upcoming.dayOfWeek}
               </span>
             </div>
@@ -62,7 +62,7 @@ export function UpcomingHolidayWidget({
               {formatDate(upcoming.date)}
             </p>
             {upcoming.description && (
-              <p className="text-[11px] text-muted-foreground italic pt-0.5">
+              <p className="text-xs text-muted-foreground italic pt-0.5">
                 &ldquo;{upcoming.description}&rdquo;
               </p>
             )}

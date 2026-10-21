@@ -91,14 +91,14 @@ export function LiveClockWidget() {
   return (
     <div className="flex items-center gap-2">
       {state === "WORKING" ? (
-        <div className="flex items-center gap-2 px-2.5 py-1 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 text-xs font-semibold">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+        <div className="flex items-center gap-2 px-2.5 py-1 rounded-lg bg-success/10 border border-success/25 text-success text-xs font-semibold">
+          <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
           <span className="font-mono text-xs">{formatStopwatch(elapsedSec)}</span>
           <div className="flex items-center gap-1 ml-1">
             <button
               type="button"
               onClick={() => setStartOooOpen(true)}
-              className="px-2 py-0.5 rounded-lg text-[11px] bg-amber-500/15 text-amber-700 dark:text-amber-400 hover:bg-amber-500/25 transition-colors"
+              className="px-2 py-0.5 rounded-lg text-xs bg-warning/15 text-warning hover:bg-warning/25 transition-colors"
               title="Start Break"
             >
               Break
@@ -107,7 +107,7 @@ export function LiveClockWidget() {
               type="button"
               onClick={handleClockOut}
               disabled={isClockingOut}
-              className="px-2 py-0.5 rounded-lg text-[11px] bg-rose-500/15 text-rose-700 dark:text-rose-400 hover:bg-rose-500/25 transition-colors"
+              className="px-2 py-0.5 rounded-lg text-xs bg-destructive/15 text-destructive hover:bg-destructive/25 transition-colors"
               title="Clock Out"
             >
               {isClockingOut ? <Loader2 className="w-3 h-3 animate-spin" /> : "Out"}
@@ -115,14 +115,14 @@ export function LiveClockWidget() {
           </div>
         </div>
       ) : state === "OOO" ? (
-        <div className="flex items-center gap-2 px-2.5 py-1 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-600 dark:text-amber-400 text-xs font-semibold">
-          <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+        <div className="flex items-center gap-2 px-2.5 py-1 rounded-lg bg-warning/10 border border-warning/25 text-warning text-xs font-semibold">
+          <span className="w-2 h-2 rounded-full bg-warning animate-pulse" />
           <span>Break: {formatStopwatch(elapsedSec)}</span>
           <button
             type="button"
             onClick={handleEndOoo}
             disabled={isEndingOoo}
-            className="px-2 py-0.5 rounded-lg text-[11px] bg-amber-500 text-white hover:bg-amber-600 transition-colors ml-1"
+            className="px-2 py-0.5 rounded-lg text-xs bg-warning text-white hover:bg-warning transition-colors ml-1"
           >
             {isEndingOoo ? <Loader2 className="w-3 h-3 animate-spin" /> : "End"}
           </button>
@@ -132,7 +132,7 @@ export function LiveClockWidget() {
           size="sm"
           onClick={handleClockIn}
           disabled={isClockingIn}
-          className="h-8 px-3 rounded-xl text-xs font-bold gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs"
+          className="h-8 px-3 rounded-lg text-xs font-semibold gap-1.5 bg-success hover:bg-success text-white shadow-xs"
         >
           {isClockingIn ? <Loader2 className="w-3 h-3 animate-spin" /> : <Play className="w-3 h-3 fill-white" />}
           <span>Clock In</span>

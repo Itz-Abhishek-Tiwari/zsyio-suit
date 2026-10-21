@@ -175,7 +175,7 @@ export function DayTimelineView({ userId, initialDate }: DayTimelineViewProps) {
               className={cn(
                 "h-8 px-3 rounded-md text-xs font-semibold transition-all",
                 isToday
-                  ? "bg-primary/10 text-primary font-bold cursor-default opacity-100"
+                  ? "bg-primary/10 text-primary font-semibold cursor-default opacity-100"
                   : "text-muted-foreground hover:text-foreground hover:bg-card"
               )}
             >
@@ -229,9 +229,9 @@ export function DayTimelineView({ userId, initialDate }: DayTimelineViewProps) {
                 setEditingOooSession(null);
                 setManualOooOpen(true);
               }}
-              className="h-9 px-3.5 rounded-xl text-xs font-semibold gap-1.5 border-border/80 text-foreground hover:bg-surface-subtle transition-all shadow-2xs"
+              className="h-9 px-3.5 rounded-lg text-xs font-semibold gap-1.5 border-border/80 text-foreground hover:bg-surface-subtle transition-all shadow-2xs"
             >
-              <Coffee className="w-4 h-4 text-amber-500" />
+              <Coffee className="w-4 h-4 text-warning" />
               <span>Add Manual Break</span>
             </Button>
 
@@ -251,17 +251,17 @@ export function DayTimelineView({ userId, initialDate }: DayTimelineViewProps) {
 
       {/* Pending Regularization Banner */}
       {pendingRegularizationForDate && (
-        <div className="p-3.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-700 dark:text-amber-300 flex items-center justify-between gap-3 shadow-xs">
+        <div className="p-3.5 rounded-lg bg-warning/10 border border-warning/20 text-xs text-warning flex items-center justify-between gap-3 shadow-xs">
           <div className="flex items-center gap-2.5">
-            <Clock className="w-4 h-4 shrink-0 animate-pulse text-amber-500" />
+            <Clock className="w-4 h-4 shrink-0 animate-pulse text-warning" />
             <div>
-              <p className="font-bold">Attendance Regularization Pending Approval</p>
-              <p className="text-[11px] opacity-90">
+              <p className="font-semibold">Attendance Regularization Pending Approval</p>
+              <p className="text-xs opacity-90">
                 A request to regularize this day&apos;s shift ({pendingRegularizationForDate.type.replace(/_/g, " ")}) is awaiting manager/admin decision.
               </p>
             </div>
           </div>
-          <span className="px-2.5 py-1 rounded-md bg-amber-500/20 text-[10px] font-bold uppercase tracking-wider shrink-0">
+          <span className="px-2.5 py-1 rounded-md bg-warning/20 text-xs font-semibold   shrink-0">
             Pending Review
           </span>
         </div>
@@ -269,15 +269,15 @@ export function DayTimelineView({ userId, initialDate }: DayTimelineViewProps) {
 
       {/* Rejected Regularization Banner */}
       {!pendingRegularizationForDate && rejectedRegularizationForDate && (
-        <div className="p-3.5 rounded-lg bg-rose-500/10 border border-rose-500/20 text-xs text-rose-700 dark:text-rose-300 flex items-center justify-between gap-3 shadow-xs">
+        <div className="p-3.5 rounded-lg bg-destructive/10 border border-destructive/20 text-xs text-destructive flex items-center justify-between gap-3 shadow-xs">
           <div className="flex items-center gap-2.5">
-            <AlertCircle className="w-4 h-4 shrink-0 text-rose-500" />
+            <AlertCircle className="w-4 h-4 shrink-0 text-destructive" />
             <div>
-              <p className="font-bold text-rose-800 dark:text-rose-200">
+              <p className="font-semibold text-destructive">
                 Attendance Regularization Rejected
                 {rejectedRegularizationForDate.reviewer?.name ? ` by ${rejectedRegularizationForDate.reviewer.name}` : ""}
               </p>
-              <p className="text-[11px] opacity-90 mt-0.5">
+              <p className="text-xs opacity-90 mt-0.5">
                 {rejectedRegularizationForDate.reviewerComment ? (
                   <>Reason: <span className="font-semibold italic">&ldquo;{rejectedRegularizationForDate.reviewerComment}&rdquo;</span></>
                 ) : (
@@ -286,7 +286,7 @@ export function DayTimelineView({ userId, initialDate }: DayTimelineViewProps) {
               </p>
             </div>
           </div>
-          <span className="px-2.5 py-1 rounded-md bg-rose-500/20 text-[10px] font-bold uppercase tracking-wider shrink-0 text-rose-700 dark:text-rose-300">
+          <span className="px-2.5 py-1 rounded-md bg-destructive/20 text-xs font-semibold   shrink-0 text-destructive">
             Rejected
           </span>
         </div>
@@ -310,7 +310,7 @@ export function DayTimelineView({ userId, initialDate }: DayTimelineViewProps) {
                     variant="outline"
                     size="sm"
                     onClick={() => setRegularizeOpen(true)}
-                    className="rounded-xl text-xs font-semibold gap-1.5 border-primary/30 text-primary"
+                    className="rounded-lg text-xs font-semibold gap-1.5 border-primary/30 text-primary"
                   >
                     <ShieldCheck className="w-3.5 h-3.5" />
                     <span>Regularize Attendance</span>
@@ -322,9 +322,9 @@ export function DayTimelineView({ userId, initialDate }: DayTimelineViewProps) {
                       setEditingOooSession(null);
                       setManualOooOpen(true);
                     }}
-                    className="rounded-xl text-xs font-semibold gap-1.5"
+                    className="rounded-lg text-xs font-semibold gap-1.5"
                   >
-                    <Coffee className="w-3.5 h-3.5 text-amber-500" />
+                    <Coffee className="w-3.5 h-3.5 text-warning" />
                     <span>Log Break</span>
                   </Button>
                 </div>
@@ -348,8 +348,8 @@ export function DayTimelineView({ userId, initialDate }: DayTimelineViewProps) {
                       <Clock className="w-4 h-4" />
                     </div>
                     <div>
-                      <h3 className="text-sm font-bold text-foreground">Chronological Activity</h3>
-                      <p className="text-[11px] text-muted-foreground">
+                      <h3 className="text-sm font-semibold text-foreground">Chronological Activity</h3>
+                      <p className="text-xs text-muted-foreground">
                         Continuous sequence of logged working intervals and breaks
                       </p>
                     </div>
@@ -375,19 +375,19 @@ export function DayTimelineView({ userId, initialDate }: DayTimelineViewProps) {
                   return (
                     <div
                       key={item.id}
-                      className={`relative rounded-xl border transition-all p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 group ${
+                      className={`relative rounded-lg border transition-all p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 group ${
                         isWork
-                          ? "bg-surface-subtle/40 border-border/70 hover:border-emerald-500/40 hover:bg-card"
-                          : "bg-amber-500/5 border-amber-500/20 hover:border-amber-500/40 hover:bg-amber-500/10"
+                          ? "bg-surface-subtle/40 border-border/70 hover:border-success/40 hover:bg-card"
+                          : "bg-warning/5 border-warning/20 hover:border-warning/40 hover:bg-warning/10"
                       }`}
                     >
                       {/* Left: Icon, Details, and Interval */}
                       <div className="flex items-center gap-3 min-w-0">
                         <div
-                          className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border shadow-2xs transition-transform group-hover:scale-105 ${
+                          className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 border shadow-2xs transition-transform  ${
                             isWork
-                              ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
-                              : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
+                              ? "bg-success/10 text-success border-success/20"
+                              : "bg-warning/10 text-warning border-warning/20"
                           }`}
                         >
                           {isWork ? <Briefcase className="w-4 h-4" /> : <Coffee className="w-4 h-4" />}
@@ -395,7 +395,7 @@ export function DayTimelineView({ userId, initialDate }: DayTimelineViewProps) {
 
                         <div className="space-y-0.5 min-w-0">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <span className="font-bold text-xs text-foreground">
+                            <span className="font-semibold text-xs text-foreground">
                               {isWork ? "Working Session" : "Break"}
                             </span>
 
@@ -421,7 +421,7 @@ export function DayTimelineView({ userId, initialDate }: DayTimelineViewProps) {
                           </div>
 
                           {item.reason && (
-                            <p className="text-[11px] text-muted-foreground italic truncate max-w-md pt-0.5">
+                            <p className="text-xs text-muted-foreground italic truncate max-w-md pt-0.5">
                               &ldquo;{item.reason}&rdquo;
                             </p>
                           )}
@@ -431,10 +431,10 @@ export function DayTimelineView({ userId, initialDate }: DayTimelineViewProps) {
                       {/* Right: Duration Chip & Actions */}
                       <div className="flex items-center sm:flex-col sm:items-end justify-between gap-1.5 shrink-0 pt-1 sm:pt-0 border-t sm:border-t-0 border-border/40">
                         <span
-                          className={`px-2.5 py-0.5 rounded-lg text-xs font-mono font-bold border shadow-2xs ${
+                          className={`px-2.5 py-0.5 rounded-lg text-xs font-mono font-semibold border shadow-2xs ${
                             isWork
-                              ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/25"
-                              : "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/25"
+                              ? "bg-success/10 text-success border-success/25"
+                              : "bg-warning/10 text-warning border-warning/25"
                           }`}
                         >
                           {formatDuration(item.durationMinutes)}
@@ -455,7 +455,7 @@ export function DayTimelineView({ userId, initialDate }: DayTimelineViewProps) {
                               <button
                                 type="button"
                                 onClick={() => setDeletingOooId(item.id)}
-                                className="h-6 w-6 rounded-md flex items-center justify-center text-muted-foreground hover:text-rose-600 bg-card hover:bg-rose-500/10 border border-border/80 hover:border-rose-500/30 shadow-2xs transition-colors"
+                                className="h-6 w-6 rounded-md flex items-center justify-center text-muted-foreground hover:text-destructive bg-card hover:bg-destructive/10 border border-border/80 hover:border-destructive/30 shadow-2xs transition-colors"
                                 title="Delete manual break"
                                 aria-label="Delete manual break"
                               >
@@ -468,7 +468,7 @@ export function DayTimelineView({ userId, initialDate }: DayTimelineViewProps) {
                             <button
                               type="button"
                               onClick={() => handleOpenAudit(item.id)}
-                              className="h-6 px-2 rounded-md flex items-center gap-1 text-[10px] font-bold text-primary bg-primary/10 hover:bg-primary/20 border border-primary/25 shadow-2xs transition-colors cursor-pointer"
+                              className="h-6 px-2 rounded-md flex items-center gap-1 text-xs font-semibold text-primary bg-primary/10 hover:bg-primary/20 border border-primary/25 shadow-2xs transition-colors cursor-pointer"
                               title="View audit history"
                             >
                               <History className="w-3 h-3" />
@@ -490,77 +490,77 @@ export function DayTimelineView({ userId, initialDate }: DayTimelineViewProps) {
               <div className="flex items-center justify-between pb-3 border-b border-border/60">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-primary" />
-                  <h3 className="text-sm font-bold text-foreground">Day Summary</h3>
+                  <h3 className="text-sm font-semibold text-foreground">Day Summary</h3>
                 </div>
                 <TimesheetStatusBadge status={timesheet.summary.status} size="xs" />
               </div>
 
               {/* Net Working Hours Big Highlight Hero Card */}
               <div className="p-4 rounded-md bg-primary/10 border border-primary/20 space-y-1 text-center shadow-2xs">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-primary font-mono">
+                <span className="text-xs font-semibold   text-primary font-mono">
                   Net Working Hours
                 </span>
-                <p className="text-3xl font-extrabold text-foreground font-display tracking-tight">
+                <p className="text-3xl font-semibold text-foreground font-display tracking-tight">
                   {formatDuration(timesheet.summary.netWorkingMinutes)}
                 </p>
-                <p className="text-[10px] text-muted-foreground font-mono">
+                <p className="text-xs text-muted-foreground font-mono">
                   Formula: Session ({formatDuration(timesheet.summary.totalSessionMinutes)}) − Breaks ({formatDuration(timesheet.summary.totalOooMinutes)})
                 </p>
               </div>
 
               {/* Detailed Breakdown Rows */}
               <div className="space-y-2 text-xs pt-1">
-                <div className="p-2.5 rounded-xl bg-surface-subtle/60 border border-border/60 flex items-center justify-between">
+                <div className="p-2.5 rounded-lg bg-surface-subtle/60 border border-border/60 flex items-center justify-between">
                   <div className="flex items-center gap-2 text-muted-foreground">
-                    <Clock className="w-3.5 h-3.5 text-emerald-500" />
+                    <Clock className="w-3.5 h-3.5 text-success" />
                     <span>
                       First Clock In{" "}
-                      <span className="text-[10px] font-mono opacity-75">
+                      <span className="text-xs font-mono opacity-75">
                         ({timeZoneConfig.code})
                       </span>
                     </span>
                   </div>
-                  <span className="font-mono font-bold text-foreground" suppressHydrationWarning>
+                  <span className="font-mono font-semibold text-foreground" suppressHydrationWarning>
                     {formatTime(timesheet.summary.firstClockIn)}
                   </span>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-surface-subtle/60 border border-border/60 flex items-center justify-between">
+                <div className="p-2.5 rounded-lg bg-surface-subtle/60 border border-border/60 flex items-center justify-between">
                   <div className="flex items-center gap-2 text-muted-foreground">
-                    <Clock className="w-3.5 h-3.5 text-rose-500" />
+                    <Clock className="w-3.5 h-3.5 text-destructive" />
                     <span>
                       Last Clock Out{" "}
-                      <span className="text-[10px] font-mono opacity-75">
+                      <span className="text-xs font-mono opacity-75">
                         ({timeZoneConfig.code})
                       </span>
                     </span>
                   </div>
-                  <span className="font-mono font-bold text-foreground" suppressHydrationWarning>
+                  <span className="font-mono font-semibold text-foreground" suppressHydrationWarning>
                     {formatTime(timesheet.summary.lastClockOut)}
                   </span>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-surface-subtle/60 border border-border/60 flex items-center justify-between">
+                <div className="p-2.5 rounded-lg bg-surface-subtle/60 border border-border/60 flex items-center justify-between">
                   <div className="flex items-center gap-2 text-muted-foreground">
-                    <Timer className="w-3.5 h-3.5 text-sky-500" />
+                    <Timer className="w-3.5 h-3.5 text-notion-blue-fg" />
                     <span>Total Session Span</span>
                   </div>
-                  <span className="font-mono font-bold text-foreground">
+                  <span className="font-mono font-semibold text-foreground">
                     {formatDuration(timesheet.summary.totalSessionMinutes)}
                   </span>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-surface-subtle/60 border border-border/60 flex items-center justify-between">
+                <div className="p-2.5 rounded-lg bg-surface-subtle/60 border border-border/60 flex items-center justify-between">
                   <div className="flex items-center gap-2 text-muted-foreground">
-                    <Coffee className="w-3.5 h-3.5 text-amber-500" />
+                    <Coffee className="w-3.5 h-3.5 text-warning" />
                     <span>Total Breaks</span>
                   </div>
-                  <span className="font-mono font-bold text-amber-600 dark:text-amber-400">
+                  <span className="font-mono font-semibold text-warning">
                     − {formatDuration(timesheet.summary.totalOooMinutes)}
                   </span>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-surface-subtle/60 border border-border/60 flex items-center justify-between">
+                <div className="p-2.5 rounded-lg bg-surface-subtle/60 border border-border/60 flex items-center justify-between">
                   <span className="text-muted-foreground">Manual Adjustments</span>
                   <span className="font-semibold text-foreground">
                     {timesheet.summary.manualEntriesCount}

@@ -41,30 +41,30 @@ export default async function LoginPage() {
         },
         {
           icon: <ShieldCheck className="w-4 h-4" />,
-          iconClassName: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+          iconClassName: "bg-success/10 text-success",
           title: "Admin Audit Log",
           description: "Super Admin corrections with immutable audit logging and export to CSV/Excel.",
         },
         {
           icon: <FileSpreadsheet className="w-4 h-4" />,
-          iconClassName: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
+          iconClassName: "bg-notion-purple-fg/10 text-notion-purple-fg",
           title: "Timesheets",
           description: "Weekly and monthly timesheet views with approval workflows.",
         },
         {
           icon: <Users2 className="w-4 h-4" />,
-          iconClassName: "bg-sky-500/10 text-sky-600 dark:text-sky-400",
+          iconClassName: "bg-notion-blue-fg/10 text-notion-blue-fg",
           title: "Team Overview",
           description: "Organisation-wide attendance board with live status indicators.",
         },
       ]}
       footerLeft={
-        <span className="font-mono text-[11px]">
+        <span className="font-mono text-xs">
           © {new Date().getFullYear()} Zsyio Operations
         </span>
       }
       footerRight={
-        <span className="flex items-center gap-1.5 font-mono text-[11px] text-muted-foreground">
+        <span className="flex items-center gap-1.5 font-mono text-xs text-muted-foreground">
           <Sparkles className="w-3 h-3 text-primary" />
           Zsyio
         </span>

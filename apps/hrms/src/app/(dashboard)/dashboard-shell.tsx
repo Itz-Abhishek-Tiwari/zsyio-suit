@@ -12,7 +12,6 @@ import {
   TooltipTrigger,
   TooltipContent,
   PageTransition,
-  SuiteSideRail,
 } from "@zsyio/ui";
 import { Header } from "@/components/layout/Header";
 import {
@@ -132,7 +131,7 @@ export function DashboardShell({
               onClick={handleQuickClockIn}
               disabled={isClockingIn}
               aria-label="Clock In"
-              className="h-10 w-10 mx-auto rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center shadow-md shadow-emerald-600/20 transition-all duration-300 cubic-bezier(0.2,0,0,1) cursor-pointer outline-none overflow-hidden"
+              className="h-10 w-10 mx-auto rounded-lg bg-success hover:bg-success text-white font-semibold text-xs flex items-center justify-center shadow-md  transition-all duration-150 cubic-bezier(0.2,0,0,1) cursor-pointer outline-none overflow-hidden"
             >
               <Play className="w-4 h-4 fill-white" />
             </button>
@@ -145,10 +144,10 @@ export function DashboardShell({
         <button
           onClick={handleQuickClockIn}
           disabled={isClockingIn}
-          className="h-10 w-full py-2.5 px-3.5 gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center shadow-md shadow-emerald-600/20 transition-all duration-300 cubic-bezier(0.2,0,0,1) cursor-pointer outline-none overflow-hidden whitespace-nowrap"
+          className="h-10 w-full py-2.5 px-3.5 gap-2 rounded-lg bg-success hover:bg-success text-white font-semibold text-xs flex items-center justify-center shadow-md  transition-all duration-150 cubic-bezier(0.2,0,0,1) cursor-pointer outline-none overflow-hidden whitespace-nowrap"
         >
           <Play className="w-3.5 h-3.5 fill-white" />
-          <span className="truncate max-w-[120px] opacity-100 transition-all duration-300">
+          <span className="truncate max-w-[120px] opacity-100 transition-all duration-150">
             Clock In
           </span>
         </button>
@@ -158,7 +157,7 @@ export function DashboardShell({
         <Tooltip delayDuration={80}>
           <TooltipTrigger asChild>
             <Link href="/" className="w-full flex justify-center">
-              <div className="h-10 w-10 rounded-xl bg-primary hover:bg-primary-hover text-primary-foreground font-bold text-xs flex items-center justify-center shadow-md shadow-primary/20 transition-all duration-300 cubic-bezier(0.2,0,0,1) cursor-pointer outline-none overflow-hidden">
+              <div className="h-10 w-10 rounded-lg bg-primary hover:bg-primary-hover text-primary-foreground font-semibold text-xs flex items-center justify-center shadow-md  transition-all duration-150 cubic-bezier(0.2,0,0,1) cursor-pointer outline-none overflow-hidden">
                 <Timer className="w-4 h-4" />
               </div>
             </Link>
@@ -169,9 +168,9 @@ export function DashboardShell({
         </Tooltip>
       ) : (
         <Link href="/" className="w-full flex justify-center">
-          <div className="h-10 w-full py-2.5 px-3.5 gap-2 rounded-xl bg-primary hover:bg-primary-hover text-primary-foreground font-bold text-xs flex items-center justify-center shadow-md shadow-primary/20 transition-all duration-300 cubic-bezier(0.2,0,0,1) cursor-pointer outline-none overflow-hidden whitespace-nowrap">
-            <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse shrink-0" />
-            <span className="truncate max-w-[120px] opacity-100 transition-all duration-300">
+          <div className="h-10 w-full py-2.5 px-3.5 gap-2 rounded-lg bg-primary hover:bg-primary-hover text-primary-foreground font-semibold text-xs flex items-center justify-center shadow-md  transition-all duration-150 cubic-bezier(0.2,0,0,1) cursor-pointer outline-none overflow-hidden whitespace-nowrap">
+            <span className="w-2 h-2 rounded-full bg-success animate-pulse shrink-0" />
+            <span className="truncate max-w-[120px] opacity-100 transition-all duration-150">
               Working
             </span>
           </div>
@@ -182,7 +181,7 @@ export function DashboardShell({
         <Tooltip delayDuration={80}>
           <TooltipTrigger asChild>
             <Link href="/" className="w-full flex justify-center">
-              <div className="h-10 w-10 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs flex items-center justify-center shadow-md shadow-amber-600/20 transition-all duration-300 cubic-bezier(0.2,0,0,1) cursor-pointer outline-none overflow-hidden">
+              <div className="h-10 w-10 rounded-lg bg-warning hover:bg-warning text-white font-semibold text-xs flex items-center justify-center shadow-md  transition-all duration-150 cubic-bezier(0.2,0,0,1) cursor-pointer outline-none overflow-hidden">
                 <Coffee className="w-4 h-4" />
               </div>
             </Link>
@@ -193,9 +192,9 @@ export function DashboardShell({
         </Tooltip>
       ) : (
         <Link href="/" className="w-full flex justify-center">
-          <div className="h-10 w-full py-2.5 px-3.5 gap-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs flex items-center justify-center shadow-md shadow-amber-600/20 transition-all duration-300 cubic-bezier(0.2,0,0,1) cursor-pointer outline-none overflow-hidden whitespace-nowrap">
+          <div className="h-10 w-full py-2.5 px-3.5 gap-2 rounded-lg bg-warning hover:bg-warning text-white font-semibold text-xs flex items-center justify-center shadow-md  transition-all duration-150 cubic-bezier(0.2,0,0,1) cursor-pointer outline-none overflow-hidden whitespace-nowrap">
             <Coffee className="w-3.5 h-3.5" />
-            <span className="truncate max-w-[120px] opacity-100 transition-all duration-300">
+            <span className="truncate max-w-[120px] opacity-100 transition-all duration-150">
               On Break
             </span>
           </div>
@@ -218,7 +217,7 @@ export function DashboardShell({
         {/* Sidebar */}
         <aside
           className={cn(
-            "fixed lg:static inset-y-0 left-0 z-50 h-full shrink-0 flex flex-col transition-[width,transform] duration-300 cubic-bezier(0.2,0,0,1)",
+            "fixed lg:static inset-y-0 left-0 z-50 h-full shrink-0 flex flex-col transition-[width,transform] duration-150 cubic-bezier(0.2,0,0,1)",
             mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
           )}
         >
@@ -251,9 +250,6 @@ export function DashboardShell({
             <PageTransition key={pathname}>{children}</PageTransition>
           </main>
         </div>
-
-        {/* Gmail-style Right-Hand Suite Side Rail */}
-        <SuiteSideRail currentApp="hrms" />
       </div>
     </TooltipProvider>
   );

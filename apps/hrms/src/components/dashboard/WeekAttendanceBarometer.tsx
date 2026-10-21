@@ -89,7 +89,7 @@ export function WeekAttendanceBarometer({
 
   if (isLoading) {
     return (
-      <div className="p-5 rounded-lg bg-card border border-border/80 shadow-xs space-y-4">
+      <div className="p-5 rounded-md bg-card border border-border shadow-none space-y-4">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-md bg-primary-light text-primary border border-primary/20 flex items-center justify-center shadow-2xs">
             <Calendar className="w-4 h-4" />
@@ -109,16 +109,16 @@ export function WeekAttendanceBarometer({
   }
 
   return (
-    <div className="p-5 rounded-lg bg-card border border-border/80 shadow-xs space-y-4">
+    <div className="p-5 rounded-md bg-card border border-border shadow-none space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-md bg-primary-light text-primary border border-primary/20 flex items-center justify-center shadow-2xs">
             <Calendar className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-foreground">Week Attendance Barometer</h3>
-            <p className="text-[11px] text-muted-foreground">
-              Monday – Sunday shift rhythm & accumulated weekly hours
+            <h3 className="text-sm font-semibold text-foreground">This week’s attendance</h3>
+            <p className="text-xs text-muted-foreground">
+              Daily hours, with your weekly total in view.
             </p>
           </div>
         </div>
@@ -126,53 +126,34 @@ export function WeekAttendanceBarometer({
         <div className="flex items-center gap-3 text-xs">
           <div className="flex items-center gap-1.5 font-mono">
             <Clock className="w-3.5 h-3.5 text-primary" />
-            <span className="font-bold text-foreground">{formatDuration(totalWeekMinutes)}</span>
+            <span className="font-semibold text-foreground">{formatDuration(totalWeekMinutes)}</span>
             <span className="text-muted-foreground">/ 40h Target</span>
           </div>
 
-          <span className="text-xs font-mono font-bold text-primary px-2 py-0.5 rounded-md bg-primary-light border border-primary/20">
+          <span className="text-xs font-mono font-semibold text-primary px-2 py-0.5 rounded-md bg-primary-light border border-primary/20">
             {progressPercent}%
           </span>
         </div>
       </div>
 
-      {/* Week Day Pills */}
-      <div className="grid grid-cols-7 gap-2">
-        {weekDays.map((d) => {
-          let bgClass = "bg-surface-subtle/50 border-border/70 text-muted-foreground";
-          let statusText = d.isWeekend ? "Weekend" : d.isFuture ? "Upcoming" : "Off";
-
-          if (d.isToday) {
-            bgClass =
-              "bg-primary/10 border-primary text-primary font-bold shadow-xs ring-1 ring-primary/30";
-            statusText = d.workedMinutes > 0 ? formatDuration(d.workedMinutes) : "Today";
-          } else if (d.workedMinutes >= 480) {
-            bgClass =
-              "bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400";
-            statusText = formatDuration(d.workedMinutes);
-          } else if (d.workedMinutes > 0) {
-            bgClass = "bg-amber-500/10 border-amber-500/30 text-amber-600 dark:text-amber-400";
-            statusText = formatDuration(d.workedMinutes);
-          } else if (d.isWeekend) {
-            bgClass = "bg-surface-subtle/30 border-dashed border-border/50 text-muted-foreground/60";
-            statusText = "Off";
-          }
-
-          return (
-            <div
-              key={d.date}
-              className={`p-2.5 rounded-md border flex flex-col items-center justify-between text-center transition-all ${bgClass}`}
-            >
-              <span className="text-[10px] font-bold uppercase tracking-wider opacity-80">
-                {d.name}
-              </span>
-              <span className="text-sm font-extrabold my-0.5">{d.dayNumber}</span>
-              <span className="text-[9px] font-mono font-semibold truncate max-w-full">
-                {statusText}
-              </span>
-            </div>
-          );
-        })}
+      <div className="relative pt-3" role="img" aria-label={`Weekly attendance: ${formatDuration(totalWeekMinutes)} worked against a 40 hour target`}>
+        <div className="flex justify-between text-[10px] text-muted-foreground mb-3"><span>Hours worked / day</span><span>8h daily target</span></div>
+        <div className="relative grid grid-cols-7 gap-2 border-b border-border pb-0">
+          <div className="absolute inset-x-0 border-t border-dashed border-border pointer-events-none" style={{bottom: `${480 / Math.max(600, ...weekDays.map(d => d.workedMinutes)) * 96}px`}} />
+          {weekDays.map(day => {
+            const color = day.workedMinutes >= 480 ? "var(--success)" : day.isToday ? "var(--primary)" : "var(--warning)";
+            const maxMinutes = Math.max(600, ...weekDays.map(d => d.workedMinutes));
+            return <div key={day.date} tabIndex={0} className="min-w-0 text-center relative group" title={`${day.name}, ${day.date}: ${formatDuration(day.workedMinutes)} · ${day.status}`}>
+              <span className="block text-[10px] tabular-nums text-muted-foreground mb-2">{day.workedMinutes ? `${(day.workedMinutes / 60).toFixed(1)}h` : day.isFuture ? "—" : "0h"}</span>
+              <div className="h-24 flex items-end justify-center bg-surface-subtle/40">
+                <div className="w-full max-w-8 rounded-t-sm transition-opacity group-hover:opacity-75" style={{height: `${Math.max(0, day.workedMinutes) / maxMinutes * 100}%`, backgroundColor:color}} />
+              </div>
+            </div>;
+          })}
+        </div>
+        <div className="grid grid-cols-7 gap-2 pt-3">
+          {weekDays.map(day => <div key={day.date} className={`text-center text-[10px] ${day.isToday ? "text-primary font-semibold" : "text-muted-foreground"}`}><span className="block">{day.name}</span><span className="block mt-1 tabular-nums opacity-70">{day.dayNumber}</span></div>)}
+        </div>
       </div>
     </div>
   );

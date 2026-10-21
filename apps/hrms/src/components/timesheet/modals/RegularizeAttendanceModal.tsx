@@ -116,7 +116,7 @@ export function RegularizeAttendanceModal({
             size="sm"
             onClick={() => onOpenChange(false)}
             disabled={isLoading}
-            className="rounded-xl text-xs"
+            className="rounded-lg text-xs"
           >
             Cancel
           </Button>
@@ -125,7 +125,7 @@ export function RegularizeAttendanceModal({
             form="regularize-attendance-form"
             size="sm"
             disabled={isLoading}
-            className="rounded-xl text-xs font-bold gap-1.5 bg-primary hover:bg-primary-hover text-primary-foreground shadow-xs"
+            className="rounded-lg text-xs font-semibold gap-1.5 bg-primary hover:bg-primary-hover text-primary-foreground shadow-xs"
           >
             {isLoading ? (
               <>
@@ -144,16 +144,16 @@ export function RegularizeAttendanceModal({
     >
       <form id="regularize-attendance-form" onSubmit={handleSubmit} className="space-y-4">
         {error && (
-          <div className="p-3 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-xs flex items-center gap-2">
+          <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-xs flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
         {/* Informative Notice */}
-        <div className="p-3 rounded-xl bg-primary-light/60 border border-primary/20 text-xs text-foreground flex items-start gap-2.5">
+        <div className="p-3 rounded-lg bg-primary-light/60 border border-primary/20 text-xs text-foreground flex items-start gap-2.5">
           <ShieldCheck className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-          <p className="text-[11px] leading-relaxed text-muted-foreground">
+          <p className="text-xs leading-relaxed text-muted-foreground">
             Regularization requests are sent to your manager or administrator for review.
             Once approved, your official timesheet and working duration will be updated automatically.
           </p>
@@ -183,14 +183,14 @@ export function RegularizeAttendanceModal({
                   key={t.id}
                   type="button"
                   onClick={() => setType(t.id)}
-                  className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                  className={`p-2.5 rounded-lg border text-left transition-all cursor-pointer ${
                     isSelected
-                      ? "border-primary bg-primary-light text-primary font-bold shadow-2xs"
+                      ? "border-primary bg-primary-light text-primary font-semibold shadow-2xs"
                       : "border-border/70 bg-surface-subtle/50 hover:bg-surface-subtle text-foreground"
                   }`}
                 >
-                  <p className="text-xs font-bold">{t.label}</p>
-                  <p className="text-[10px] text-muted-foreground line-clamp-1 mt-0.5">
+                  <p className="text-xs font-semibold">{t.label}</p>
+                  <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">
                     {t.desc}
                   </p>
                 </button>
@@ -212,7 +212,7 @@ export function RegularizeAttendanceModal({
                 type="time"
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
-                className="pl-9 text-xs h-9 rounded-xl font-mono"
+                className="pl-9 text-xs h-9 rounded-lg font-mono"
                 required
               />
             </div>
@@ -229,7 +229,7 @@ export function RegularizeAttendanceModal({
                 type="time"
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
-                className="pl-9 text-xs h-9 rounded-xl font-mono"
+                className="pl-9 text-xs h-9 rounded-lg font-mono"
                 required
               />
             </div>
@@ -247,7 +247,7 @@ export function RegularizeAttendanceModal({
             placeholder="Please explain why this attendance record requires regularization (e.g. forgot to punch out before offsite meeting, device battery died)..."
             value={reason}
             onChange={(e) => setReason(e.target.value)}
-            className="text-xs rounded-xl"
+            className="text-xs rounded-lg"
             required
             minLength={3}
           />

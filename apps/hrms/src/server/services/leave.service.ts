@@ -319,6 +319,13 @@ export class LeaveService {
       throw new BadRequestError("End date cannot be prior to start date");
     }
 
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+      throw new BadRequestError("Invalid leave start or end date.");
+    }
+    if (end.getTime() - start.getTime() > 366 * 24 * 60 * 60 * 1000) {
+      throw new BadRequestError("Leave range cannot exceed one year.");
+    }
+
     const hrSettings = await hrSettingsService.getSettings();
     const weekendDays = new Set(
       hrSettings.weekendDays
@@ -489,14 +496,22 @@ export class LeaveService {
       throw new BadRequestError("A reason is required when rejecting a leave request.");
     }
 
-    const updated = await prisma.leaveRequest.update({
-      where: { id: leaveId },
+    // Atomic claim: only one concurrent reviewer can move the request out of PENDING
+    const claimed = await prisma.leaveRequest.updateMany({
+      where: { id: leaveId, status: "PENDING" },
       data: {
         status: input.status,
         reviewerId: user.id,
         reviewerComment: input.reviewerComment?.trim() || null,
         reviewedAt: new Date(),
       },
+    });
+    if (claimed.count === 0) {
+      throw new BadRequestError("This leave request has already been reviewed.");
+    }
+
+    const updated = await prisma.leaveRequest.findUniqueOrThrow({
+      where: { id: leaveId },
       include: {
         user: { select: { id: true, name: true, email: true, role: true } },
         reviewer: { select: { id: true, name: true, email: true, role: true } },
@@ -541,10 +556,13 @@ export class LeaveService {
       throw new BadRequestError(`Leave request is already ${leave.status.toLowerCase()}`);
     }
 
-    await prisma.leaveRequest.update({
-      where: { id: leaveId },
+    const cancelled = await prisma.leaveRequest.updateMany({
+      where: { id: leaveId, status: { in: ["PENDING", "APPROVED"] } },
       data: { status: "CANCELLED" },
     });
+    if (cancelled.count === 0) {
+      throw new BadRequestError("Leave request can no longer be cancelled.");
+    }
   }
 }
 

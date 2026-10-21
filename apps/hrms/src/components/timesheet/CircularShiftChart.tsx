@@ -186,7 +186,7 @@ export function CircularShiftChart({ timesheet, selectedDate }: CircularShiftCha
   const ringGrossOffset = ringGrossCircumference * (1 - ringGrossProgress);
 
   return (
-    <div className="p-5 sm:p-6 rounded-lg bg-card border border-border/80 shadow-xs space-y-6">
+    <div className="p-5 sm:p-6 rounded-md bg-card border border-border shadow-none space-y-6">
       {/* Header with Mode Switcher & Filter Pills */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border/60">
         <div className="flex items-center gap-2.5">
@@ -194,16 +194,16 @@ export function CircularShiftChart({ timesheet, selectedDate }: CircularShiftCha
             <Clock className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
+            <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
               <span>Shift Visual Timeline</span>
               {isToday && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-semibold bg-success/10 text-success border border-success/20">
+                  <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
                   Live Today
                 </span>
               )}
             </h3>
-            <p className="text-[11px] text-muted-foreground">
+            <p className="text-xs text-muted-foreground">
               {chartMode === "CLOCK"
                 ? "24-Hour radial clock dial displaying logged working intervals and breaks"
                 : "Shift progress ring gauges tracking work duration against target"}
@@ -232,34 +232,9 @@ export function CircularShiftChart({ timesheet, selectedDate }: CircularShiftCha
           <div className="relative w-[280px] h-[280px] sm:w-[310px] sm:h-[310px] flex items-center justify-center select-none">
             <svg
               viewBox="0 0 320 320"
-              className="w-full h-full transform transition-transform duration-300"
+              role="img" aria-label={`Shift summary for ${selectedDate}: ${formatDuration(netMinutes)} worked, ${Math.round(targetPct)} percent of target`}
+              className="w-full h-full transform transition-transform duration-150"
             >
-              <defs>
-                {/* Emerald Gradient for Work Arc */}
-                <linearGradient id="workGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#10b981" />
-                  <stop offset="100%" stopColor="#059669" />
-                </linearGradient>
-
-                {/* Amber Gradient for Break Arc */}
-                <linearGradient id="oooGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#fbbf24" />
-                  <stop offset="100%" stopColor="#d97706" />
-                </linearGradient>
-
-                {/* Sky Gradient for Session Span */}
-                <linearGradient id="sessionGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#38bdf8" />
-                  <stop offset="100%" stopColor="#0284c7" />
-                </linearGradient>
-
-                {/* Soft shadow filter */}
-                <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="3" result="blur" />
-                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                </filter>
-              </defs>
-
               {chartMode === "CLOCK" ? (
                 <>
                   {/* Outer Clock Dial Base Track */}
@@ -270,7 +245,7 @@ export function CircularShiftChart({ timesheet, selectedDate }: CircularShiftCha
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="14"
-                    className="text-surface-subtle/70 dark:text-slate-800/80 transition-colors"
+                    className="text-surface-subtle/70 transition-colors"
                   />
 
                   {/* Inner Guide Circle */}
@@ -325,7 +300,7 @@ export function CircularShiftChart({ timesheet, selectedDate }: CircularShiftCha
                         y={y}
                         textAnchor="middle"
                         dominantBaseline="central"
-                        className="text-[9px] font-mono font-medium fill-muted-foreground/80 select-none"
+                        className="text-xs font-mono font-medium fill-muted-foreground/80 select-none"
                       >
                         {mark.label}
                       </text>
@@ -345,12 +320,12 @@ export function CircularShiftChart({ timesheet, selectedDate }: CircularShiftCha
                           key={s.id}
                           d={pathData}
                           fill="none"
-                          stroke="url(#workGradient)"
-                          strokeWidth={isHovered ? 17 : 14}
-                          strokeLinecap="round"
+                          stroke="var(--success)"
+                          strokeWidth={isHovered ? 16 : 14}
+                          strokeLinecap="butt"
                           className={`cursor-pointer transition-all duration-200 ${
                             isDimmed ? "opacity-30" : "opacity-100"
-                          } ${isHovered ? "filter drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]" : ""}`}
+                          } `}
                           onMouseEnter={() => setHoveredId(s.id)}
                           onMouseLeave={() => setHoveredId(null)}
                         />
@@ -370,12 +345,12 @@ export function CircularShiftChart({ timesheet, selectedDate }: CircularShiftCha
                           key={s.id}
                           d={pathData}
                           fill="none"
-                          stroke="url(#oooGradient)"
-                          strokeWidth={isHovered ? 18 : 14}
-                          strokeLinecap="round"
+                          stroke="var(--warning)"
+                          strokeWidth={isHovered ? 16 : 14}
+                          strokeLinecap="butt"
                           className={`cursor-pointer transition-all duration-200 ${
                             isDimmed ? "opacity-30" : "opacity-100"
-                          } ${isHovered ? "filter drop-shadow-[0_0_8px_rgba(245,158,11,0.6)]" : ""}`}
+                          } `}
                           onMouseEnter={() => setHoveredId(s.id)}
                           onMouseLeave={() => setHoveredId(null)}
                         />
@@ -422,7 +397,7 @@ export function CircularShiftChart({ timesheet, selectedDate }: CircularShiftCha
                               fill="#f43f5e"
                               stroke="#ffffff"
                               strokeWidth="1.5"
-                              className="filter drop-shadow-[0_0_4px_rgba(244,63,94,0.9)] animate-pulse"
+                              className="text-destructive"
                             />
                           </>
                         );
@@ -441,20 +416,20 @@ export function CircularShiftChart({ timesheet, selectedDate }: CircularShiftCha
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="13"
-                    className="text-surface-subtle/70 dark:text-slate-800/80"
+                    className="text-surface-subtle/70"
                   />
                   <circle
                     cx="160"
                     cy="160"
                     r="116"
                     fill="none"
-                    stroke="url(#workGradient)"
+                    stroke="var(--success)"
                     strokeWidth="13"
-                    strokeLinecap="round"
+                    strokeLinecap="butt"
                     strokeDasharray={ringWorkCircumference}
                     strokeDashoffset={ringWorkOffset}
                     transform="rotate(-90 160 160)"
-                    className="transition-all duration-700 ease-out filter drop-shadow-[0_0_6px_rgba(16,185,129,0.4)]"
+                    className="transition-all duration-150 ease-out"
                   />
 
                   {/* Middle Ring: Break Duration (OOO) */}
@@ -465,20 +440,20 @@ export function CircularShiftChart({ timesheet, selectedDate }: CircularShiftCha
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="11"
-                    className="text-surface-subtle/70 dark:text-slate-800/80"
+                    className="text-surface-subtle/70"
                   />
                   <circle
                     cx="160"
                     cy="160"
                     r="98"
                     fill="none"
-                    stroke="url(#oooGradient)"
+                    stroke="var(--warning)"
                     strokeWidth="11"
-                    strokeLinecap="round"
+                    strokeLinecap="butt"
                     strokeDasharray={ringBreakCircumference}
                     strokeDashoffset={ringBreakOffset}
                     transform="rotate(-90 160 160)"
-                    className="transition-all duration-700 ease-out filter drop-shadow-[0_0_6px_rgba(245,158,11,0.3)]"
+                    className="transition-all duration-150 ease-out"
                   />
 
                   {/* Inner Ring: Total Session Span */}
@@ -489,20 +464,20 @@ export function CircularShiftChart({ timesheet, selectedDate }: CircularShiftCha
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="9"
-                    className="text-surface-subtle/70 dark:text-slate-800/80"
+                    className="text-surface-subtle/70"
                   />
                   <circle
                     cx="160"
                     cy="160"
                     r="80"
                     fill="none"
-                    stroke="url(#sessionGradient)"
+                    stroke="var(--primary)"
                     strokeWidth="9"
-                    strokeLinecap="round"
+                    strokeLinecap="butt"
                     strokeDasharray={ringGrossCircumference}
                     strokeDashoffset={ringGrossOffset}
                     transform="rotate(-90 160 160)"
-                    className="transition-all duration-700 ease-out"
+                    className="transition-all duration-150 ease-out"
                   />
                 </>
               )}
@@ -512,8 +487,8 @@ export function CircularShiftChart({ timesheet, selectedDate }: CircularShiftCha
                 cx="160"
                 cy="160"
                 r="70"
-                className="fill-card/95 dark:fill-card/90 stroke-border/70"
-                strokeWidth="1.5"
+                className="fill-card stroke-border"
+                strokeWidth="0"
               />
             </svg>
 
@@ -522,18 +497,18 @@ export function CircularShiftChart({ timesheet, selectedDate }: CircularShiftCha
               {activeHoveredItem ? (
                 <div className="space-y-1 animate-in fade-in zoom-in-95 duration-150">
                   <span
-                    className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                    className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold   ${
                       activeHoveredItem.type === "WORK"
-                        ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
-                        : "bg-amber-500/15 text-amber-600 dark:text-amber-400"
+                        ? "bg-success/15 text-success"
+                        : "bg-warning/15 text-warning"
                     }`}
                   >
                     {activeHoveredItem.type === "WORK" ? "Work Session" : "Break"}
                   </span>
-                  <div className="text-xl sm:text-2xl font-black font-mono tracking-tight text-foreground">
+                  <div className="text-xl sm:text-2xl font-semibold font-mono tracking-tight text-foreground">
                     {formatDuration(activeHoveredItem.durationMinutes)}
                   </div>
-                  <p className="text-[10px] font-mono text-muted-foreground flex items-center justify-center gap-1">
+                  <p className="text-xs font-mono text-muted-foreground flex items-center justify-center gap-1">
                     <span>{formatTime(activeHoveredItem.startTime)}</span>
                     <ArrowRight className="w-2.5 h-2.5 opacity-60" />
                     <span>{activeHoveredItem.endTime ? formatTime(activeHoveredItem.endTime) : "Now"}</span>
@@ -541,17 +516,17 @@ export function CircularShiftChart({ timesheet, selectedDate }: CircularShiftCha
                 </div>
               ) : (
                 <div className="space-y-0.5">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                  <span className="text-xs font-semibold   text-muted-foreground">
                     Net Worked
                   </span>
-                  <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-foreground">
+                  <div className="text-2xl sm:text-3xl font-semibold font-mono tracking-tight text-foreground">
                     {formatDuration(netMinutes)}
                   </div>
                   <div className="pt-0.5">
                     <span
-                      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold ${
                         targetPct >= 100
-                          ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                          ? "bg-success/15 text-success border border-success/20"
                           : "bg-primary/10 text-primary border border-primary/20"
                       }`}
                     >
@@ -584,8 +559,8 @@ export function CircularShiftChart({ timesheet, selectedDate }: CircularShiftCha
             />
 
             {isToday && chartMode === "CLOCK" && (
-              <span className="flex items-center gap-1.5 px-2.5 py-1 text-muted-foreground text-xs bg-surface-subtle/50 rounded-xl border border-border/50">
-                <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse shadow-xs" />
+              <span className="flex items-center gap-1.5 px-2.5 py-1 text-muted-foreground text-xs bg-surface-subtle/50 rounded-lg border border-border/50">
+                <span className="w-2 h-2 rounded-full bg-destructive animate-pulse shadow-xs" />
                 <span>Live Indicator</span>
               </span>
             )}
@@ -595,31 +570,31 @@ export function CircularShiftChart({ timesheet, selectedDate }: CircularShiftCha
         {/* Right: Key Shift KPI Metrics in 2x2 Grid */}
         <div className="md:col-span-6 lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           {/* Card 1: Net Work Hours vs Target */}
-          <div className="p-4 rounded-md bg-surface-subtle/50 border border-border/80 space-y-2 hover:border-emerald-500/30 transition-all">
+          <div className="p-4 rounded-md bg-surface-subtle/50 border border-border/80 space-y-2 hover:border-success/30 transition-all">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
-                <Briefcase className="w-3.5 h-3.5 text-emerald-500" />
+              <span className="text-xs font-semibold text-muted-foreground   flex items-center gap-1.5">
+                <Briefcase className="w-3.5 h-3.5 text-success" />
                 <span>Net Work Time</span>
               </span>
-              <span className="text-[10px] font-bold font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">
+              <span className="text-xs font-semibold font-mono text-success bg-success/10 px-1.5 py-0.5 rounded">
                 {targetPct}%
               </span>
             </div>
-            <div className="text-xl font-bold font-mono text-foreground">
+            <div className="text-xl font-semibold font-mono text-foreground">
               {formatDuration(netMinutes)}
             </div>
             {/* Progress track */}
             <div className="space-y-1">
               <div className="w-full h-2 rounded-sm bg-border/60 overflow-hidden">
                 <div
-                  className="h-full rounded-sm bg-gradient-to-r from-emerald-500 to-teal-400 transition-all duration-500"
+                  className="h-full rounded-sm transition-all duration-150 bg-success"
                   style={{ width: `${Math.min(100, targetPct)}%` }}
                 />
               </div>
-              <p className="text-[10px] text-muted-foreground flex justify-between">
+              <p className="text-xs text-muted-foreground flex justify-between">
                 <span>Standard Goal: 8h 00m</span>
                 {overtimeMinutes > 0 ? (
-                  <span className="text-emerald-500 font-semibold">+{formatDuration(overtimeMinutes)} OT</span>
+                  <span className="text-success font-semibold">+{formatDuration(overtimeMinutes)} OT</span>
                 ) : (
                   <span>{formatDuration(Math.max(0, targetMinutes - netMinutes))} left</span>
                 )}
@@ -628,40 +603,40 @@ export function CircularShiftChart({ timesheet, selectedDate }: CircularShiftCha
           </div>
 
           {/* Card 2: Break Deductions */}
-          <div className="p-4 rounded-md bg-surface-subtle/50 border border-border/80 space-y-2 hover:border-amber-500/30 transition-all">
+          <div className="p-4 rounded-md bg-surface-subtle/50 border border-border/80 space-y-2 hover:border-warning/30 transition-all">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
-                <Coffee className="w-3.5 h-3.5 text-amber-500" />
+              <span className="text-xs font-semibold text-muted-foreground   flex items-center gap-1.5">
+                <Coffee className="w-3.5 h-3.5 text-warning" />
                 <span>Breaks</span>
               </span>
-              <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded">
+              <span className="text-xs font-semibold text-warning bg-warning/10 px-1.5 py-0.5 rounded">
                 {timesheet.timeline.filter((t) => t.type === "OOO").length} break(s)
               </span>
             </div>
-            <div className="text-xl font-bold font-mono text-amber-600 dark:text-amber-400">
+            <div className="text-xl font-semibold font-mono text-warning">
               {formatDuration(timesheet.summary.totalOooMinutes)}
             </div>
-            <p className="text-[11px] text-muted-foreground">
+            <p className="text-xs text-muted-foreground">
               Deducted automatically from gross work session span
             </p>
           </div>
 
           {/* Card 3: Clock In & Out Timestamps */}
           <div className="p-4 rounded-md bg-surface-subtle/50 border border-border/80 space-y-2">
-            <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+            <span className="text-xs font-semibold text-muted-foreground   flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 text-primary" />
               <span>Punches ({timeZoneConfig.code})</span>
             </span>
             <div className="space-y-1 text-xs font-mono">
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground">First In:</span>
-                <span className="font-bold text-foreground">
+                <span className="font-semibold text-foreground">
                   {formatTime(timesheet.summary.firstClockIn)}
                 </span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground">Last Out:</span>
-                <span className="font-bold text-foreground">
+                <span className="font-semibold text-foreground">
                   {formatTime(timesheet.summary.lastClockOut)}
                 </span>
               </div>
@@ -671,18 +646,18 @@ export function CircularShiftChart({ timesheet, selectedDate }: CircularShiftCha
           {/* Card 4: Gross Session Span */}
           <div className="p-4 rounded-md bg-surface-subtle/50 border border-border/80 space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
-                <Timer className="w-3.5 h-3.5 text-sky-500" />
+              <span className="text-xs font-semibold text-muted-foreground   flex items-center gap-1.5">
+                <Timer className="w-3.5 h-3.5 text-notion-blue-fg" />
                 <span>Gross Session</span>
               </span>
-              <span className="text-[10px] font-bold text-sky-600 dark:text-sky-400 bg-sky-500/10 px-1.5 py-0.5 rounded">
+              <span className="text-xs font-semibold text-notion-blue-fg bg-notion-blue-fg/10 px-1.5 py-0.5 rounded">
                 Elapsed
               </span>
             </div>
-            <div className="text-xl font-bold font-mono text-foreground">
+            <div className="text-xl font-semibold font-mono text-foreground">
               {formatDuration(timesheet.summary.totalSessionMinutes)}
             </div>
-            <p className="text-[11px] text-muted-foreground font-mono">
+            <p className="text-xs text-muted-foreground font-mono">
               Work ({formatDuration(netMinutes)}) + Breaks ({formatDuration(timesheet.summary.totalOooMinutes)})
             </p>
           </div>

@@ -134,7 +134,7 @@ export function AddManualOooModal({
     >
       <form onSubmit={handleSubmit} className="space-y-4 pt-2">
         {error && (
-          <div className="p-3 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-xs flex items-center gap-2">
+          <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-xs flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
@@ -164,7 +164,7 @@ export function AddManualOooModal({
                 type="time"
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
-                className="pl-9 text-xs h-9 rounded-xl"
+                className="pl-9 text-xs h-9 rounded-lg"
                 required
               />
             </div>
@@ -181,7 +181,7 @@ export function AddManualOooModal({
                 type="time"
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
-                className="pl-9 text-xs h-9 rounded-xl"
+                className="pl-9 text-xs h-9 rounded-lg"
                 required
               />
             </div>
@@ -198,7 +198,7 @@ export function AddManualOooModal({
                 key={preset}
                 type="button"
                 onClick={() => setReason(preset)}
-                className={`text-[11px] px-2 py-0.5 rounded-lg border transition-colors ${
+                className={`text-xs px-2 py-0.5 rounded-lg border transition-colors ${
                   reason === preset
                     ? "bg-primary/10 border-primary text-primary font-semibold"
                     : "bg-surface-subtle border-border/70 hover:bg-surface-elevated text-muted-foreground"
@@ -213,7 +213,7 @@ export function AddManualOooModal({
             placeholder="e.g. Lunch break, Out of Office (OOO), Doctor appointment..."
             value={reason}
             onChange={(e) => setReason(e.target.value)}
-            className="text-xs h-9 rounded-xl"
+            className="text-xs h-9 rounded-lg"
             required
             minLength={2}
           />
@@ -226,7 +226,7 @@ export function AddManualOooModal({
             size="sm"
             onClick={() => onOpenChange(false)}
             disabled={isLoading}
-            className="rounded-xl text-xs"
+            className="rounded-lg text-xs"
           >
             Cancel
           </Button>
@@ -234,7 +234,7 @@ export function AddManualOooModal({
             type="submit"
             size="sm"
             disabled={isLoading}
-            className="rounded-xl text-xs gap-1.5"
+            className="rounded-lg text-xs gap-1.5"
           >
             {isLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
             <span>{editSession ? "Update Break" : "Save Manual Break"}</span>

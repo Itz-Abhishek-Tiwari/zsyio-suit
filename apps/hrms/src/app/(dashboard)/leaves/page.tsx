@@ -130,7 +130,7 @@ export default function LeavesPage() {
         <PageHeader
           eyebrow="Leaves & Time Off"
           title="Time Off & Leave Management"
-          titleIcon={<CalendarOff className="w-5 h-5 text-amber-500" />}
+          titleIcon={<CalendarOff className="w-5 h-5 text-warning" />}
           description="Apply for planned absences, check remaining leave quotas, and inspect approval statuses."
         />
 
@@ -140,7 +140,7 @@ export default function LeavesPage() {
               variant="outline"
               size="lg"
               onClick={() => router.push("/admin?tab=POLICIES")}
-              className="h-10 px-3.5 rounded-xl text-xs font-semibold gap-1.5"
+              className="h-10 px-3.5 rounded-lg text-xs font-semibold gap-1.5"
             >
               <Sliders className="w-3.5 h-3.5 text-muted-foreground" />
               <span>Manage Quotas</span>
@@ -150,7 +150,7 @@ export default function LeavesPage() {
           <Button
             size="lg"
             onClick={() => setApplyModalOpen(true)}
-            className="h-10 px-4 rounded-xl text-xs font-bold gap-2 bg-primary hover:bg-primary-hover text-primary-foreground shadow-xs"
+            className="h-10 px-4 rounded-lg text-xs font-semibold gap-2 bg-primary hover:bg-primary-hover text-primary-foreground shadow-xs"
           >
             <PlusCircle className="w-4 h-4" />
             <span>Apply for Leave</span>
@@ -213,14 +213,14 @@ export default function LeavesPage() {
         </div>
       ) : (
         <div className="flex items-center gap-2.5 pt-1">
-          <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary border border-primary/20 flex items-center justify-center shadow-2xs">
+          <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary border border-primary/20 flex items-center justify-center shadow-2xs">
             <Clock className="w-4 h-4" />
           </div>
           <div>
-            <h2 className="text-sm font-bold text-foreground">
+            <h2 className="text-sm font-semibold text-foreground">
               My Leave Applications ({myLeaves.length})
             </h2>
-            <p className="text-[11px] text-muted-foreground">
+            <p className="text-xs text-muted-foreground">
               History of your submitted time off requests and their current review status
             </p>
           </div>
@@ -229,7 +229,7 @@ export default function LeavesPage() {
 
       {/* Tab 1: My Applications Table */}
       {(activeTab === "MY_LEAVES" || !canReviewLeaves) && (
-        <div className="rounded-2xl border border-border/80 bg-card overflow-hidden shadow-xs">
+        <div className="rounded-lg border border-border/80 bg-card overflow-hidden shadow-xs">
           {overviewLoading ? (
             <div className="py-16 flex items-center justify-center gap-2 text-xs text-muted-foreground">
               <Loader2 className="w-4 h-4 animate-spin text-primary" />
@@ -245,7 +245,7 @@ export default function LeavesPage() {
                   <Button
                     size="sm"
                     onClick={() => setApplyModalOpen(true)}
-                    className="mt-3 rounded-xl text-xs font-bold gap-1.5"
+                    className="mt-3 rounded-lg text-xs font-semibold gap-1.5"
                   >
                     <PlusCircle className="w-3.5 h-3.5" />
                     <span>Apply for Leave Now</span>
@@ -270,7 +270,7 @@ export default function LeavesPage() {
                 <tbody className="divide-y divide-border/60">
                   {myLeaves.map((leave: LeaveRequestItem) => (
                     <tr key={leave.id} className="hover:bg-surface-subtle/30 transition-colors">
-                      <td className="py-3.5 px-4 font-bold text-foreground">
+                      <td className="py-3.5 px-4 font-semibold text-foreground">
                         {leave.leaveType}
                       </td>
 
@@ -278,13 +278,13 @@ export default function LeavesPage() {
                         {formatDate(leave.startDate)}
                         {leave.startDate !== leave.endDate && ` → ${formatDate(leave.endDate)}`}
                         {leave.isHalfDay && (
-                          <span className="ml-1.5 text-[10px] font-sans px-1.5 py-0.2 rounded bg-surface-subtle border border-border/60 font-semibold">
+                          <span className="ml-1.5 text-xs font-sans px-1.5 py-0.2 rounded bg-surface-subtle border border-border/60 font-semibold">
                             Half Day ({leave.halfDayType === "FIRST_HALF" ? "1st" : "2nd"})
                           </span>
                         )}
                       </td>
 
-                      <td className="py-3.5 px-4 font-mono font-bold text-foreground">
+                      <td className="py-3.5 px-4 font-mono font-semibold text-foreground">
                         {leave.daysCount} {leave.daysCount === 1 ? "day" : "days"}
                       </td>
 
@@ -301,15 +301,15 @@ export default function LeavesPage() {
                                 <button
                                   type="button"
                                   title={`Rejection reason: "${leave.reviewerComment}"`}
-                                  className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium text-rose-600 dark:text-rose-400 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 transition-all cursor-pointer max-w-[150px] group"
+                                  className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium text-destructive bg-destructive/10 hover:bg-destructive/20 border border-destructive/20 transition-all cursor-pointer max-w-[150px] group"
                                 >
-                                  <Info className="w-3 h-3 shrink-0 text-rose-500 group-hover:scale-110 transition-transform" />
+                                  <Info className="w-3 h-3 shrink-0 text-destructive  transition-transform" />
                                   <span className="truncate italic font-normal">&ldquo;{leave.reviewerComment}&rdquo;</span>
                                 </button>
                               </PopoverTrigger>
-                              <PopoverContent align="start" sideOffset={6} className="w-72 p-3.5 bg-surface-elevated border border-border/80 shadow-xl rounded-xl">
+                              <PopoverContent align="start" sideOffset={6} className="w-72 p-3.5 bg-surface-elevated border border-border/80 shadow-md rounded-lg">
                                 <div className="space-y-2 text-left">
-                                  <div className="flex items-center gap-1.5 text-rose-600 dark:text-rose-400 font-semibold text-xs">
+                                  <div className="flex items-center gap-1.5 text-destructive font-semibold text-xs">
                                     <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                                     <span>Rejection Reason</span>
                                   </div>
@@ -317,7 +317,7 @@ export default function LeavesPage() {
                                     &ldquo;{leave.reviewerComment}&rdquo;
                                   </p>
                                   {leave.reviewer?.name && (
-                                    <p className="text-[11px] text-muted-foreground pt-1 border-t border-border/40">
+                                    <p className="text-xs text-muted-foreground pt-1 border-t border-border/40">
                                       Reviewed by <span className="font-medium text-foreground">{leave.reviewer.name}</span>
                                     </p>
                                   )}
@@ -357,7 +357,7 @@ export default function LeavesPage() {
 
       {/* Tab 2: Team Approvals Queue */}
       {canReviewLeaves && activeTab === "APPROVALS" && (
-        <div className="rounded-2xl border border-border/80 bg-card overflow-hidden shadow-xs">
+        <div className="rounded-lg border border-border/80 bg-card overflow-hidden shadow-xs">
           {teamLoading ? (
             <div className="py-16 flex items-center justify-center gap-2 text-xs text-muted-foreground">
               <Loader2 className="w-4 h-4 animate-spin text-primary" />
@@ -368,7 +368,7 @@ export default function LeavesPage() {
               <EmptyState
                 title="All Clear! No Pending Requests"
                 description="There are currently no leave applications awaiting your review."
-                icon={<CheckCircle2 className="w-8 h-8 text-emerald-500" />}
+                icon={<CheckCircle2 className="w-8 h-8 text-success" />}
               />
             </div>
           ) : (
@@ -394,14 +394,14 @@ export default function LeavesPage() {
                       <tr key={leave.id} className="hover:bg-surface-subtle/30 transition-colors">
                         <td className="py-3.5 px-4">
                           <div className="space-y-0.5">
-                            <p className="font-bold text-foreground">{leave.user?.name}</p>
-                            <p className="text-[10px] text-muted-foreground font-mono">
+                            <p className="font-semibold text-foreground">{leave.user?.name}</p>
+                            <p className="text-xs text-muted-foreground font-mono">
                               {leave.user?.email}
                             </p>
                           </div>
                         </td>
 
-                        <td className="py-3.5 px-4 font-bold text-foreground">
+                        <td className="py-3.5 px-4 font-semibold text-foreground">
                           {leave.leaveType}
                         </td>
 
@@ -409,13 +409,13 @@ export default function LeavesPage() {
                           {formatDate(leave.startDate)}
                           {leave.startDate !== leave.endDate && ` → ${formatDate(leave.endDate)}`}
                           {leave.isHalfDay && (
-                            <span className="ml-1.5 text-[10px] font-sans px-1.5 py-0.2 rounded bg-surface-subtle border border-border/60 font-semibold">
+                            <span className="ml-1.5 text-xs font-sans px-1.5 py-0.2 rounded bg-surface-subtle border border-border/60 font-semibold">
                               Half Day
                             </span>
                           )}
                         </td>
 
-                        <td className="py-3.5 px-4 font-mono font-bold text-foreground">
+                        <td className="py-3.5 px-4 font-mono font-semibold text-foreground">
                           {leave.daysCount}d
                         </td>
 
@@ -430,7 +430,7 @@ export default function LeavesPage() {
                         <td className="py-3.5 px-4 text-right">
                           {leave.status === "PENDING" ? (
                             !canReview ? (
-                              <span className="text-[11px] font-medium text-muted-foreground bg-muted/60 px-2.5 py-1 rounded-md border border-border/60 inline-block">
+                              <span className="text-xs font-medium text-muted-foreground bg-muted/60 px-2.5 py-1 rounded-md border border-border/60 inline-block">
                                 Self-approval disabled
                               </span>
                             ) : (
@@ -439,7 +439,7 @@ export default function LeavesPage() {
                                   size="sm"
                                   onClick={() => handleReview(leave.id, "APPROVED")}
                                   disabled={isReviewing}
-                                  className="h-7 px-2.5 rounded-lg text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white"
+                                  className="h-7 px-2.5 rounded-lg text-xs font-semibold bg-success hover:bg-success text-white"
                                 >
                                   Approve
                                 </Button>
@@ -452,7 +452,7 @@ export default function LeavesPage() {
                                     setRejectionError(null);
                                   }}
                                   disabled={isReviewing}
-                                  className="h-7 px-2.5 rounded-lg text-xs font-semibold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 border-rose-200 dark:border-rose-900"
+                                  className="h-7 px-2.5 rounded-lg text-xs font-semibold text-destructive hover:bg-destructive-light border-destructive/30"
                                 >
                                   Reject
                                 </Button>
@@ -460,11 +460,11 @@ export default function LeavesPage() {
                             )
                           ) : (
                             <div className="space-y-1">
-                              <span className="text-[11px] text-muted-foreground block">
+                              <span className="text-xs text-muted-foreground block">
                                 {leave.status === "APPROVED" ? "Approved" : "Rejected"} by {leave.reviewer?.name || "Admin"}
                               </span>
                               {leave.status === "REJECTED" && leave.reviewerComment && (
-                                <p className="text-[11px] text-rose-600 dark:text-rose-400 italic leading-snug">
+                                <p className="text-xs text-destructive italic leading-snug">
                                   Reason: &ldquo;{leave.reviewerComment}&rdquo;
                                 </p>
                               )}
@@ -502,7 +502,7 @@ export default function LeavesPage() {
       >
         <form onSubmit={handleConfirmRejectLeave} className="space-y-4 pt-1">
           {rejectionError && (
-            <div className="p-3 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-xs flex items-center gap-2">
+            <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{rejectionError}</span>
             </div>
@@ -520,9 +520,9 @@ export default function LeavesPage() {
               rows={3}
               required
               minLength={3}
-              className="text-xs rounded-xl bg-surface-subtle resize-none"
+              className="text-xs rounded-lg bg-surface-subtle resize-none"
             />
-            <p className="text-[11px] text-muted-foreground">
+            <p className="text-xs text-muted-foreground">
               This comment will be visible to the employee on their leave details.
             </p>
           </div>
@@ -534,7 +534,7 @@ export default function LeavesPage() {
               size="sm"
               onClick={() => setRejectModalLeave(null)}
               disabled={isReviewing}
-              className="text-xs rounded-xl"
+              className="text-xs rounded-lg"
             >
               Cancel
             </Button>
@@ -543,7 +543,7 @@ export default function LeavesPage() {
               variant="destructive"
               size="sm"
               disabled={isReviewing || !rejectionReason.trim()}
-              className="text-xs rounded-xl font-bold gap-1.5"
+              className="text-xs rounded-lg font-semibold gap-1.5"
             >
               {isReviewing ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />

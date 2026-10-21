@@ -83,7 +83,7 @@ export function TimesheetFilterBar({
             onClick={() => onIncompleteOnlyToggle(!incompleteOnly)}
             className={`h-9 px-3 rounded-md text-xs gap-1.5 font-semibold ${
               incompleteOnly
-                ? "bg-amber-600 hover:bg-amber-700 text-white"
+                ? "bg-warning hover:bg-warning text-white"
                 : "text-muted-foreground hover:text-foreground border-border"
             }`}
           >

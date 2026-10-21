@@ -129,14 +129,14 @@ export default function DirectoryPage() {
       </div>
 
       {/* Search & Filter Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-card border border-border/80 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-lg bg-card border border-border/80 shadow-xs">
         <div className="relative flex-1 max-w-md">
           <Search className="w-4 h-4 text-muted-foreground absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name, email, department, or role..."
-            className="pl-9.5 text-xs h-9.5 rounded-xl bg-surface-subtle"
+            className="pl-9.5 text-xs h-9.5 rounded-lg bg-surface-subtle"
           />
         </div>
 
@@ -176,12 +176,12 @@ export default function DirectoryPage() {
 
       {/* Directory Content */}
       {isLoading ? (
-        <div className="py-20 flex items-center justify-center gap-2 text-xs text-muted-foreground bg-card rounded-2xl border border-border/80">
+        <div className="py-20 flex items-center justify-center gap-2 text-xs text-muted-foreground bg-card rounded-lg border border-border/80">
           <Loader2 className="w-4 h-4 animate-spin text-primary" />
           <span>Loading organization directory...</span>
         </div>
       ) : filteredEmployees.length === 0 ? (
-        <div className="p-8 rounded-2xl bg-card border border-border/80">
+        <div className="p-8 rounded-lg bg-card border border-border/80">
           <EmptyState
             title="No Employees Found"
             description="No team members match your filter criteria."
@@ -190,16 +190,16 @@ export default function DirectoryPage() {
         </div>
       ) : viewMode === "table" ? (
         /* Primary Table View */
-        <div className="rounded-2xl bg-card border border-border/80 shadow-xs overflow-hidden">
+        <div className="rounded-lg bg-card border border-border/80 shadow-xs overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="border-b border-border/80 bg-surface-subtle/70 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                <tr className="border-b border-border/80 bg-surface-subtle/70 text-xs font-semibold   text-muted-foreground">
                   <th className="py-3.5 pl-4 pr-3 min-w-[220px]">Employee</th>
                   <th className="py-3.5 px-3 min-w-[140px]">Role</th>
                   <th className="py-3.5 px-3 min-w-[160px]">Department</th>
                   <th className="py-3.5 px-3 whitespace-nowrap">
-                    Shift Schedule <span className="font-mono text-[10px] opacity-75">({timeZoneConfig.code})</span>
+                    Shift Schedule <span className="font-mono text-xs opacity-75">({timeZoneConfig.code})</span>
                   </th>
                   <th className="py-3.5 px-3 whitespace-nowrap">Live Status</th>
                   <th className="py-3.5 px-3 whitespace-nowrap">Today&apos;s Work</th>
@@ -224,11 +224,11 @@ export default function DirectoryPage() {
                               size="sm"
                             />
                             <span
-                              className={`absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2 border-card ${
+                              className={`absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border border-card ${
                                 isWorking
-                                  ? "bg-emerald-500 animate-pulse"
+                                  ? "bg-success animate-pulse"
                                   : isOoo
-                                  ? "bg-amber-500"
+                                  ? "bg-warning"
                                   : "bg-muted-foreground/40"
                               }`}
                             />
@@ -237,7 +237,7 @@ export default function DirectoryPage() {
                             <p className="font-semibold text-foreground text-xs leading-snug truncate">
                               {emp.name}
                             </p>
-                            <p className="text-[11px] text-muted-foreground truncate font-mono">
+                            <p className="text-xs text-muted-foreground truncate font-mono">
                               {emp.email}
                             </p>
                           </div>
@@ -246,7 +246,7 @@ export default function DirectoryPage() {
 
                       {/* Role */}
                       <td className="py-3 px-3 align-middle">
-                        <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-primary/10 text-primary border border-primary/20 uppercase tracking-wider">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-semibold bg-primary/10 text-primary border border-primary/20  ">
                           {emp.role}
                         </span>
                       </td>
@@ -276,10 +276,10 @@ export default function DirectoryPage() {
                         <div className="flex flex-col items-start gap-0.5">
                           <TimesheetStatusBadge status={emp.attendanceState} size="xs" />
                           {emp.sessionStartedAt && (isWorking || isOoo) && (
-                            <span className="text-[10px] font-mono text-muted-foreground flex items-center gap-1" suppressHydrationWarning>
+                            <span className="text-xs font-mono text-muted-foreground flex items-center gap-1" suppressHydrationWarning>
                               <span>Since</span>
                               <span className="font-semibold text-foreground/85">{formatTime(emp.sessionStartedAt)}</span>
-                              <span className="text-[9px] opacity-75">({timeZoneConfig.code})</span>
+                              <span className="text-xs opacity-75">({timeZoneConfig.code})</span>
                             </span>
                           )}
                         </div>
@@ -290,7 +290,7 @@ export default function DirectoryPage() {
                         <span
                           className={
                             isTargetMet
-                              ? "text-emerald-600 dark:text-emerald-400 font-bold"
+                              ? "text-success font-semibold"
                               : hasWork
                               ? "text-foreground font-semibold"
                               : "text-muted-foreground/60"
@@ -331,7 +331,7 @@ export default function DirectoryPage() {
             return (
               <div
                 key={emp.id}
-                className="p-5 rounded-2xl border border-border/80 bg-card hover:border-primary/30 hover:bg-surface-subtle/30 transition-all space-y-4 shadow-xs flex flex-col justify-between"
+                className="p-5 rounded-lg border border-border/80 bg-card hover:border-primary/30 hover:bg-surface-subtle/30 transition-all space-y-4 shadow-xs flex flex-col justify-between"
               >
                 {/* Top Profile Strip */}
                 <div className="flex items-start justify-between gap-3">
@@ -342,19 +342,19 @@ export default function DirectoryPage() {
                         size="md"
                       />
                       <span
-                        className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-card ${
+                        className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border border-card ${
                           isWorking
-                            ? "bg-emerald-500 animate-pulse"
+                            ? "bg-success animate-pulse"
                             : isOoo
-                            ? "bg-amber-500"
+                            ? "bg-warning"
                             : "bg-muted-foreground/50"
                         }`}
                       />
                     </div>
 
                     <div className="min-w-0">
-                      <h4 className="text-sm font-bold text-foreground truncate">{emp.name}</h4>
-                      <span className="inline-flex items-center px-1.5 py-0.5 mt-1 rounded text-[10px] font-mono font-bold bg-primary/10 text-primary border border-primary/20 uppercase tracking-wider">
+                      <h4 className="text-sm font-semibold text-foreground truncate">{emp.name}</h4>
+                      <span className="inline-flex items-center px-1.5 py-0.5 mt-1 rounded text-xs font-mono font-semibold bg-primary/10 text-primary border border-primary/20  ">
                         {emp.role}
                       </span>
                     </div>
@@ -363,7 +363,7 @@ export default function DirectoryPage() {
                   <div className="flex flex-col items-end gap-1">
                     <TimesheetStatusBadge status={emp.attendanceState} size="xs" />
                     {emp.sessionStartedAt && (isWorking || isOoo) && (
-                      <span className="text-[10px] font-mono text-muted-foreground" suppressHydrationWarning>
+                      <span className="text-xs font-mono text-muted-foreground" suppressHydrationWarning>
                         Since {formatTime(emp.sessionStartedAt)} ({timeZoneConfig.code})
                       </span>
                     )}
@@ -381,12 +381,12 @@ export default function DirectoryPage() {
 
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <Mail className="w-3.5 h-3.5 shrink-0" />
-                    <span className="truncate font-mono text-[11px]">{emp.email}</span>
+                    <span className="truncate font-mono text-xs">{emp.email}</span>
                   </div>
 
                   <div className="flex items-center gap-2 text-muted-foreground" suppressHydrationWarning>
                     <Clock className="w-3.5 h-3.5 shrink-0" />
-                    <span className="truncate text-[11px] font-mono">{formattedShift} ({timeZoneConfig.code})</span>
+                    <span className="truncate text-xs font-mono">{formattedShift} ({timeZoneConfig.code})</span>
                   </div>
                 </div>
 
@@ -394,7 +394,7 @@ export default function DirectoryPage() {
                 <div className="pt-2 border-t border-border/60 flex items-center justify-between text-xs">
                   <div className="flex items-center gap-1.5">
                     <span className="text-muted-foreground">Today&apos;s Work:</span>
-                    <span className="font-mono font-bold text-foreground">
+                    <span className="font-mono font-semibold text-foreground">
                       {formatDuration(emp.todayWorkedMinutes)}
                     </span>
                   </div>

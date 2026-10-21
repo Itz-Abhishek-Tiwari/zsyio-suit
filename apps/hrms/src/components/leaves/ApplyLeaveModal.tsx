@@ -120,7 +120,7 @@ export function ApplyLeaveModal({
       onOpenChange={onOpenChange}
       title="Apply for Leave / Time Off"
       description="Submit a formal leave request to your reporting manager"
-      icon={<CalendarOff className="w-5 h-5 text-amber-500" />}
+      icon={<CalendarOff className="w-5 h-5 text-warning" />}
       iconVariant="warning"
       size="lg"
       footer={
@@ -131,7 +131,7 @@ export function ApplyLeaveModal({
             size="sm"
             onClick={() => onOpenChange(false)}
             disabled={isLoading}
-            className="rounded-xl text-xs"
+            className="rounded-lg text-xs"
           >
             Cancel
           </Button>
@@ -140,7 +140,7 @@ export function ApplyLeaveModal({
             form="apply-leave-form"
             size="sm"
             disabled={isLoading}
-            className="rounded-xl text-xs font-bold gap-1.5 bg-primary hover:bg-primary-hover text-primary-foreground shadow-xs"
+            className="rounded-lg text-xs font-semibold gap-1.5 bg-primary hover:bg-primary-hover text-primary-foreground shadow-xs"
           >
             {isLoading ? (
               <Loader2 className="w-4 h-4 animate-spin" />
@@ -157,7 +157,7 @@ export function ApplyLeaveModal({
         <div className="space-y-1.5">
           <div className="flex items-center justify-between">
             <label className="text-xs font-semibold text-foreground">Select Leave Type</label>
-            <span className="text-[11px] text-muted-foreground">Available balance shown</span>
+            <span className="text-xs text-muted-foreground">Available balance shown</span>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {LEAVE_TYPES.map((t) => {
@@ -169,20 +169,20 @@ export function ApplyLeaveModal({
                   type="button"
                   key={t.id}
                   onClick={() => setLeaveType(t.id)}
-                  className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer relative ${
+                  className={`p-2.5 rounded-lg border text-left transition-all cursor-pointer relative ${
                     selected
                       ? "bg-primary/10 border-primary text-foreground ring-1 ring-primary/40 shadow-xs"
                       : "bg-surface-subtle/50 border-border/70 hover:bg-surface-elevated hover:border-border text-foreground"
                   }`}
                 >
                   <div className="flex items-center justify-between gap-1">
-                    <p className="text-xs font-bold truncate">{t.shortLabel}</p>
+                    <p className="text-xs font-semibold truncate">{t.shortLabel}</p>
                     {selected && <Check className="w-3.5 h-3.5 text-primary shrink-0" />}
                   </div>
-                  <div className="flex items-center justify-between mt-1 text-[10px]">
+                  <div className="flex items-center justify-between mt-1 text-xs">
                     <span className="text-muted-foreground truncate">{t.desc}</span>
                     {avail !== null && (
-                      <span className="font-mono font-bold text-foreground shrink-0 ml-1">
+                      <span className="font-mono font-semibold text-foreground shrink-0 ml-1">
                         {avail}d
                       </span>
                     )}
@@ -194,11 +194,11 @@ export function ApplyLeaveModal({
         </div>
 
         {/* Half Day Toggle & Session Switcher */}
-        <div className="p-3 rounded-xl bg-surface-subtle/60 border border-border/70 space-y-2.5">
+        <div className="p-3 rounded-lg bg-surface-subtle/60 border border-border/70 space-y-2.5">
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-xs font-bold text-foreground block">Half Day Leave</span>
-              <span className="text-[11px] text-muted-foreground">
+              <span className="text-xs font-semibold text-foreground block">Half Day Leave</span>
+              <span className="text-xs text-muted-foreground">
                 Counts as 0.5 day for partial shift absence
               </span>
             </div>
@@ -212,11 +212,11 @@ export function ApplyLeaveModal({
                 if (next) setEndDate(startDate);
               }}
               className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer border ${
-                isHalfDay ? "bg-emerald-600 border-emerald-600" : "bg-muted border-border"
+                isHalfDay ? "bg-success border-success/30" : "bg-muted border-border"
               }`}
             >
               <span
-                className={`absolute top-0.5 w-4.5 h-4.5 rounded-full bg-white transition-transform ${
+                className={`absolute top-0.5 w-4.5 h-4.5 rounded-full bg-card transition-transform ${
                   isHalfDay ? "left-5.5" : "left-0.5"
                 }`}
               />
@@ -231,7 +231,7 @@ export function ApplyLeaveModal({
                 onClick={() => setHalfDayType("FIRST_HALF")}
                 className={`py-1.5 px-3 rounded-lg text-xs font-semibold transition-all cursor-pointer border ${
                   halfDayType === "FIRST_HALF"
-                    ? "bg-foreground text-background border-foreground font-bold shadow-xs"
+                    ? "bg-foreground text-background border-foreground font-semibold shadow-xs"
                     : "bg-surface-elevated text-muted-foreground border-border hover:text-foreground"
                 }`}
               >
@@ -242,7 +242,7 @@ export function ApplyLeaveModal({
                 onClick={() => setHalfDayType("SECOND_HALF")}
                 className={`py-1.5 px-3 rounded-lg text-xs font-semibold transition-all cursor-pointer border ${
                   halfDayType === "SECOND_HALF"
-                    ? "bg-foreground text-background border-foreground font-bold shadow-xs"
+                    ? "bg-foreground text-background border-foreground font-semibold shadow-xs"
                     : "bg-surface-elevated text-muted-foreground border-border hover:text-foreground"
                 }`}
               >
@@ -288,21 +288,21 @@ export function ApplyLeaveModal({
         {/* Working Days Summary & Weekend Notice */}
         {startDate && endDate && (
           <div
-            className={`p-2.5 rounded-xl border text-xs flex items-center justify-between transition-colors ${
+            className={`p-2.5 rounded-lg border text-xs flex items-center justify-between transition-colors ${
               computedWorkingDays === 0
-                ? "bg-rose-500/10 border-rose-500/30 text-rose-600 dark:text-rose-400"
+                ? "bg-destructive/10 border-destructive/30 text-destructive"
                 : "bg-surface-subtle/70 border-border/70 text-muted-foreground"
             }`}
           >
             <div className="flex items-center gap-1.5">
-              {computedWorkingDays === 0 && <AlertTriangle className="w-3.5 h-3.5 text-rose-500 shrink-0" />}
+              {computedWorkingDays === 0 && <AlertTriangle className="w-3.5 h-3.5 text-destructive shrink-0" />}
               <span>
                 {computedWorkingDays === 0
                   ? "Selected date falls on a configured weekend."
                   : "Working days to deduct (weekends excluded):"}
               </span>
             </div>
-            <span className="font-mono font-bold text-foreground">
+            <span className="font-mono font-semibold text-foreground">
               {computedWorkingDays} {computedWorkingDays === 1 ? "day" : "days"}
             </span>
           </div>
@@ -316,7 +316,7 @@ export function ApplyLeaveModal({
             onChange={(e) => setReason(e.target.value)}
             placeholder="Please provide details regarding your leave request..."
             rows={2}
-            className="text-xs rounded-xl bg-surface-subtle resize-none"
+            className="text-xs rounded-lg bg-surface-subtle resize-none"
             required
           />
         </div>

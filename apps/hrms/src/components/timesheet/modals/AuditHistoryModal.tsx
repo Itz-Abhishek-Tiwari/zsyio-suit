@@ -58,7 +58,7 @@ function getActionBadge(action: string) {
   switch (action) {
     case "CREATED":
       return (
-        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 uppercase font-mono shadow-2xs">
+        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-success/10 text-success border border-success/25  font-mono shadow-2xs">
           <PlusCircle className="w-3 h-3" />
           Created
         </span>
@@ -66,21 +66,21 @@ function getActionBadge(action: string) {
     case "CORRECTED":
     case "UPDATED":
       return (
-        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/25 uppercase font-mono shadow-2xs">
+        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-notion-blue-fg/10 text-notion-blue-fg border border-notion-blue-fg/25  font-mono shadow-2xs">
           <Wrench className="w-3 h-3" />
           Corrected
         </span>
       );
     case "DELETED":
       return (
-        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/25 uppercase font-mono shadow-2xs">
+        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/25  font-mono shadow-2xs">
           <Trash2 className="w-3 h-3" />
           Deleted
         </span>
       );
     default:
       return (
-        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/25 uppercase font-mono shadow-2xs">
+        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-notion-purple-fg/10 text-notion-purple-fg border border-notion-purple-fg/25  font-mono shadow-2xs">
           <ShieldCheck className="w-3 h-3" />
           {action}
         </span>
@@ -111,7 +111,7 @@ export function AuditHistoryModal({ open, onOpenChange, sessionId, label }: Audi
             <span>Loading audit history...</span>
           </div>
         ) : !auditLogs || auditLogs.length === 0 ? (
-          <div className="text-center py-10 text-xs text-muted-foreground bg-surface-subtle/40 rounded-xl border border-dashed border-border/80">
+          <div className="text-center py-10 text-xs text-muted-foreground bg-surface-subtle/40 rounded-lg border border-dashed border-border/80">
             No audit modifications recorded for this entry.
           </div>
         ) : (
@@ -121,7 +121,7 @@ export function AuditHistoryModal({ open, onOpenChange, sessionId, label }: Audi
               return (
                 <div
                   key={log.id}
-                  className="p-3.5 rounded-xl bg-surface-subtle/70 border border-border/80 text-xs space-y-2.5 shadow-2xs"
+                  className="p-3.5 rounded-lg bg-surface-subtle/70 border border-border/80 text-xs space-y-2.5 shadow-2xs"
                 >
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2 font-semibold text-foreground">
@@ -130,7 +130,7 @@ export function AuditHistoryModal({ open, onOpenChange, sessionId, label }: Audi
                         size="xs"
                       />
                       <span>{log.actor.name}</span>
-                      <span className="text-[9px] px-1.5 py-0.5 rounded-md bg-card text-muted-foreground font-mono font-medium border border-border/60 uppercase">
+                      <span className="text-xs px-1.5 py-0.5 rounded-md bg-card text-muted-foreground font-mono font-medium border border-border/60 ">
                         {log.actor.role}
                       </span>
                     </div>
@@ -139,16 +139,16 @@ export function AuditHistoryModal({ open, onOpenChange, sessionId, label }: Audi
                   </div>
 
                   {log.field && (
-                    <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                    <div className="flex items-center gap-1.5 text-xs font-semibold   text-muted-foreground">
                       <span>FIELD:</span>
-                      <span className="px-1.5 py-0.5 rounded bg-card text-[9px] font-mono border border-border/70 text-foreground font-semibold">
+                      <span className="px-1.5 py-0.5 rounded bg-card text-xs font-mono border border-border/70 text-foreground font-semibold">
                         {log.field === "timeRange" ? "TIME RANGE" : log.field.replace(/([A-Z])/g, " $1")}
                       </span>
                     </div>
                   )}
 
                   {log.reason && (
-                    <div className="text-[11px] bg-card p-2.5 rounded-lg border border-border/70 shadow-2xs">
+                    <div className="text-xs bg-card p-2.5 rounded-lg border border-border/70 shadow-2xs">
                       <span className="font-semibold text-muted-foreground">Reason: </span>
                       <span className="text-foreground italic">{log.reason}</span>
                     </div>
@@ -164,7 +164,7 @@ export function AuditHistoryModal({ open, onOpenChange, sessionId, label }: Audi
                       </span>
                       <ArrowRight className="w-3.5 h-3.5 shrink-0 text-muted-foreground" />
                       <span
-                        className="text-emerald-600 dark:text-emerald-400 font-bold"
+                        className="text-success font-semibold"
                         title={formatAuditValue(log.newValue, timeZone)}
                       >
                         {formatAuditValue(log.newValue, timeZone)}
@@ -172,7 +172,7 @@ export function AuditHistoryModal({ open, onOpenChange, sessionId, label }: Audi
                     </div>
                   )}
 
-                  <div className="text-[10px] text-muted-foreground text-right pt-0.5">
+                  <div className="text-xs text-muted-foreground text-right pt-0.5">
                     {formatDate(date, timeZone)} at {formatTime(date, timeZone)} <span className="font-mono opacity-75">({timeZoneConfig.code})</span>
                   </div>
                 </div>
@@ -186,7 +186,7 @@ export function AuditHistoryModal({ open, onOpenChange, sessionId, label }: Audi
             variant="outline"
             size="sm"
             onClick={() => onOpenChange(false)}
-            className="rounded-xl text-xs px-4"
+            className="rounded-lg text-xs px-4"
           >
             Close
           </Button>

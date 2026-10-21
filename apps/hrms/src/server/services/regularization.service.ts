@@ -29,6 +29,12 @@ export class RegularizationService {
     input: ApplyRegularizationInput
   ): Promise<AttendanceRegularizationItem> {
     const normalizedDate = normalizeDate(input.date);
+    if (isNaN(normalizedDate.getTime())) {
+      throw new BadRequestError("Invalid date.");
+    }
+    if (normalizedDate.getTime() > normalizeDate(new Date()).getTime()) {
+      throw new BadRequestError("Cannot request regularization for a future date.");
+    }
 
     // Check for duplicate pending requests on the same date
     const existingPending = await prisma.attendanceRegularization.findFirst({
@@ -111,6 +117,16 @@ export class RegularizationService {
       throw new ForbiddenError("You cannot approve or reject your own attendance regularization request.");
     }
 
+    // Atomic claim: prevents double-approval creating duplicate sessions
+    const claimed = await prisma.attendanceRegularization.updateMany({
+      where: { id, status: "PENDING" },
+      data: { status: input.status },
+    });
+    if (claimed.count === 0) {
+      throw new BadRequestError("This request has already been reviewed.");
+    }
+
+    try {
     if (input.status === "APPROVED") {
       // Find existing work session for the user on that date.
       // If there's an INCOMPLETE session, prioritize it since regularization is meant
@@ -193,6 +209,14 @@ export class RegularizationService {
           },
         });
       }
+    }
+
+    } catch (err) {
+      await prisma.attendanceRegularization.updateMany({
+        where: { id, status: input.status },
+        data: { status: "PENDING" },
+      });
+      throw err;
     }
 
     const updated = await prisma.attendanceRegularization.update({

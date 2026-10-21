@@ -59,9 +59,9 @@ export function StartOooModal({ open, onOpenChange }: StartOooModalProps) {
                     setSelectedPreset(preset.label);
                     setCustomReason("");
                   }}
-                  className={`flex items-center gap-2.5 p-2.5 rounded-xl border text-xs font-medium transition-all text-left ${
+                  className={`flex items-center gap-2.5 p-2.5 rounded-lg border text-xs font-medium transition-all text-left ${
                     isSelected
-                      ? "border-primary bg-primary/10 text-primary font-bold shadow-xs"
+                      ? "border-primary bg-primary/10 text-primary font-semibold shadow-xs"
                       : "border-border hover:bg-surface-elevated text-foreground"
                   }`}
                 >
@@ -82,7 +82,7 @@ export function StartOooModal({ open, onOpenChange }: StartOooModalProps) {
             placeholder="e.g. Bank visit, 30m team sync..."
             value={customReason}
             onChange={(e) => setCustomReason(e.target.value)}
-            className="text-xs h-9 rounded-xl"
+            className="text-xs h-9 rounded-lg"
           />
         </div>
 
@@ -92,7 +92,7 @@ export function StartOooModal({ open, onOpenChange }: StartOooModalProps) {
             size="sm"
             onClick={() => onOpenChange(false)}
             disabled={isLoading}
-            className="rounded-xl text-xs"
+            className="rounded-lg text-xs"
           >
             Cancel
           </Button>
@@ -100,7 +100,7 @@ export function StartOooModal({ open, onOpenChange }: StartOooModalProps) {
             size="sm"
             onClick={handleStart}
             disabled={isLoading}
-            className="rounded-xl text-xs gap-1.5 bg-amber-600 hover:bg-amber-700 text-white"
+            className="rounded-lg text-xs gap-1.5 bg-warning hover:bg-warning text-white"
           >
             {isLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
             <span>Start Break</span>

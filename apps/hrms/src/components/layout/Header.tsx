@@ -62,7 +62,7 @@ export function Header({
     can(role, "timesheet:view:all", permissions);
 
   const allowedApps = useMemo<AppId[]>(() => {
-    return (["pms", "notes", "hrms", "admin", "sales"] as const).filter((appId) =>
+    return (["pms", "notes", "hrms", "admin", "sales", "recruit"] as const).filter((appId) =>
       canAccessApp(role, appId, permissions)
     );
   }, [role, permissions]);
@@ -84,19 +84,19 @@ export function Header({
       {
         title: "Leaves & Time Off",
         href: "/leaves",
-        icon: <CalendarDays className="w-4 h-4 text-amber-500" />,
+        icon: <CalendarDays className="w-4 h-4 text-warning" />,
         desc: "Apply for leaves & quotas",
       },
       {
         title: "Company Holidays",
         href: "/holidays",
-        icon: <CalendarDays className="w-4 h-4 text-sky-500" />,
+        icon: <CalendarDays className="w-4 h-4 text-notion-blue-fg" />,
         desc: "Company holiday calendar",
       },
       {
         title: "Team Directory",
         href: "/directory",
-        icon: <Users2 className="w-4 h-4 text-purple-500" />,
+        icon: <Users2 className="w-4 h-4 text-notion-purple-fg" />,
         desc: "Staff directory & live status",
       },
       ...(canViewTeam
@@ -168,14 +168,14 @@ export function Header({
           <>
             <DropdownMenuItem
               onClick={() => setProfileModalOpen(true)}
-              className="rounded-lg text-xs gap-2.5 p-2 font-medium cursor-pointer text-foreground hover:bg-surface-subtle"
+              className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer text-foreground hover:bg-surface-subtle"
             >
               <User className="w-4 h-4 text-primary" />
               <span>My Profile &amp; Settings</span>
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => router.push("/")}
-              className="rounded-xl text-xs gap-2.5 p-2 font-medium cursor-pointer"
+              className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer"
             >
               <Clock className="w-4 h-4 text-muted-foreground" />
               <span>Dashboard</span>
@@ -183,7 +183,7 @@ export function Header({
 
             <DropdownMenuItem
               onClick={() => router.push("/timeline")}
-              className="rounded-xl text-xs gap-2.5 p-2 font-medium cursor-pointer"
+              className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer"
             >
               <CalendarDays className="w-4 h-4 text-muted-foreground" />
               <span>Timesheets &amp; Logs</span>
@@ -191,23 +191,23 @@ export function Header({
 
             <DropdownMenuItem
               onClick={() => router.push("/leaves")}
-              className="rounded-xl text-xs gap-2.5 p-2 font-medium cursor-pointer"
+              className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer"
             >
-              <CalendarDays className="w-4 h-4 text-amber-500" />
+              <CalendarDays className="w-4 h-4 text-warning" />
               <span>Leaves &amp; Time Off</span>
             </DropdownMenuItem>
 
             <DropdownMenuItem
               onClick={() => router.push("/holidays")}
-              className="rounded-xl text-xs gap-2.5 p-2 font-medium cursor-pointer"
+              className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer"
             >
-              <CalendarDays className="w-4 h-4 text-sky-500" />
+              <CalendarDays className="w-4 h-4 text-notion-blue-fg" />
               <span>Company Holidays</span>
             </DropdownMenuItem>
 
             <DropdownMenuItem
               onClick={() => router.push("/directory")}
-              className="rounded-xl text-xs gap-2.5 p-2 font-medium cursor-pointer"
+              className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer"
             >
               <Users2 className="w-4 h-4 text-primary" />
               <span>Team Directory</span>
@@ -216,7 +216,7 @@ export function Header({
             {canViewTeam && (
               <DropdownMenuItem
                 onClick={() => router.push("/admin")}
-                className="rounded-xl text-xs gap-2.5 p-2 font-medium cursor-pointer"
+                className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer"
               >
                 <Users2 className="w-4 h-4 text-muted-foreground" />
                 <span>Team Attendance</span>
@@ -247,7 +247,7 @@ export function Header({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search team members, timesheets, sections..."
-              className="pl-9.5 text-xs h-10 rounded-xl bg-surface-subtle"
+              className="pl-9.5 text-xs h-10 rounded-md bg-surface-subtle"
             />
           </div>
 
@@ -255,7 +255,7 @@ export function Header({
             {/* Matching Employees Section */}
             {trimmedQuery && (
               <div className="space-y-1.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                <span className="text-xs font-semibold   text-muted-foreground">
                   Team Members &amp; Timesheets ({matchingEmployees.length})
                 </span>
 
@@ -279,23 +279,23 @@ export function Header({
                           setSearchQuery("");
                           router.push(`/timeline?userId=${emp.id}`);
                         }}
-                        className="p-2.5 rounded-xl border border-border/70 bg-card hover:border-primary/40 hover:bg-surface-subtle text-left flex items-center justify-between gap-3 text-xs transition-all cursor-pointer shadow-2xs group"
+                        className="p-2.5 rounded-md border border-border/70 bg-card hover:border-primary/40 hover:bg-surface-subtle text-left flex items-center justify-between gap-3 text-xs transition-all cursor-pointer shadow-2xs group"
                       >
                         <div className="flex items-center gap-2.5 min-w-0">
-                          <div className="w-8 h-8 rounded-full bg-primary/10 text-primary border border-primary/20 flex items-center justify-center font-bold text-xs shrink-0">
+                          <div className="w-8 h-8 rounded-full bg-primary/10 text-primary border border-primary/20 flex items-center justify-center font-semibold text-xs shrink-0">
                             {emp.name.charAt(0).toUpperCase()}
                           </div>
                           <div className="min-w-0">
-                            <p className="font-bold text-foreground truncate group-hover:text-primary transition-colors">
+                            <p className="font-semibold text-foreground truncate group-hover:text-primary transition-colors">
                               {emp.name}
                             </p>
-                            <p className="text-[11px] text-muted-foreground truncate">
+                            <p className="text-xs text-muted-foreground truncate">
                               {emp.designation || emp.role} • {emp.email}
                             </p>
                           </div>
                         </div>
 
-                        <span className="text-[10px] font-semibold text-primary shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="text-xs font-semibold text-primary shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
                           View Timesheet →
                         </span>
                       </button>
@@ -308,7 +308,7 @@ export function Header({
             {/* Quick Navigation Section */}
             {filteredNavItems.length > 0 && (
               <div className="space-y-1.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                <span className="text-xs font-semibold   text-muted-foreground">
                   {trimmedQuery ? "Matching Pages" : "Quick Navigation"}
                 </span>
 
@@ -322,12 +322,12 @@ export function Header({
                         setSearchQuery("");
                         router.push(item.href);
                       }}
-                      className="p-3 rounded-xl border border-border/80 bg-surface-subtle hover:border-primary/30 hover:bg-surface-elevated text-left flex items-center gap-2.5 text-xs font-semibold text-foreground transition-all cursor-pointer shadow-2xs"
+                      className="p-3 rounded-md border border-border/80 bg-surface-subtle hover:border-primary/30 hover:bg-surface-elevated text-left flex items-center gap-2.5 text-xs font-semibold text-foreground transition-all cursor-pointer shadow-2xs"
                     >
                       {item.icon}
                       <div>
-                        <p className="font-bold text-foreground">{item.title}</p>
-                        <p className="text-[10px] text-muted-foreground font-normal">{item.desc}</p>
+                        <p className="font-semibold text-foreground">{item.title}</p>
+                        <p className="text-xs text-muted-foreground font-normal">{item.desc}</p>
                       </div>
                     </button>
                   ))}

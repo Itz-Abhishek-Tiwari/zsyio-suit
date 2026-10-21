@@ -41,19 +41,19 @@ export function IncompleteRecordsBanner({ statusData: propStatusData }: Incomple
 
   return (
     <>
-      <div className="p-4.5 sm:p-5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-950 dark:text-amber-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="p-4.5 sm:p-5 rounded-lg bg-warning/10 border border-warning/30 text-warning shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-start gap-3">
-          <div className="w-9 h-9 rounded-md bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0 mt-0.5">
+          <div className="w-9 h-9 rounded-md bg-warning/20 text-warning flex items-center justify-center shrink-0 mt-0.5">
             <AlertTriangle className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-sm font-bold flex items-center gap-2">
+            <h3 className="text-sm font-semibold flex items-center gap-2">
               <span>⚠️ Incomplete Timesheet Detected</span>
-              <span className="text-[10px] px-2 py-0.5 rounded-md bg-amber-500/20 font-mono">
+              <span className="text-xs px-2 py-0.5 rounded-md bg-warning/20 font-mono">
                 {statusData.incompleteSessions.length} pending
               </span>
             </h3>
-            <p className="text-xs text-amber-900/80 dark:text-amber-300/80 mt-0.5">
+            <p className="text-xs text-warning/80 mt-0.5">
               Missing {firstIncomplete.type === "WORK" ? "Clock Out" : "Break End"} on{" "}
               <span className="font-semibold">{formatDate(firstIncomplete.date)}</span> (Started at{" "}
               {formatTime(firstIncomplete.startTime)}). Please provide the missing time.
@@ -65,7 +65,7 @@ export function IncompleteRecordsBanner({ statusData: propStatusData }: Incomple
           <Button
             size="sm"
             onClick={() => handleOpenFix(firstIncomplete)}
-            className="h-9 px-4 rounded-md text-xs font-semibold gap-1.5 bg-amber-600 hover:bg-amber-700 text-white shadow-xs"
+            className="h-9 px-4 rounded-md text-xs font-semibold gap-1.5 bg-warning hover:bg-warning text-white shadow-xs"
           >
             <Wrench className="w-3.5 h-3.5" />
             <span>Fix Timesheet</span>

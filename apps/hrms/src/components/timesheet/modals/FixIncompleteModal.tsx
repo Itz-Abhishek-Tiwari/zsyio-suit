@@ -65,19 +65,19 @@ export function FixIncompleteModal({ open, onOpenChange, session }: FixIncomplet
     >
       <form onSubmit={handleSubmit} className="space-y-4 pt-2">
         {error && (
-          <div className="p-3 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-xs flex items-center gap-2">
+          <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-xs flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
-        <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-400 text-xs flex items-start gap-2.5">
+        <div className="p-3 rounded-lg bg-warning/10 border border-warning/20 text-warning text-xs flex items-start gap-2.5">
           <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
           <div className="space-y-0.5">
-            <p className="font-bold">
+            <p className="font-semibold">
               Missing {session.type === "WORK" ? "Clock Out" : "Break End"} on {formatDate(session.date)}
             </p>
-            <p className="text-[11px] opacity-90">
+            <p className="text-xs opacity-90">
               Started at: {formatTime(session.startTime)}
             </p>
           </div>
@@ -94,7 +94,7 @@ export function FixIncompleteModal({ open, onOpenChange, session }: FixIncomplet
               type="time"
               value={endTime}
               onChange={(e) => setEndTime(e.target.value)}
-              className="pl-9 text-xs h-9 rounded-xl"
+              className="pl-9 text-xs h-9 rounded-lg"
               required
             />
           </div>
@@ -109,7 +109,7 @@ export function FixIncompleteModal({ open, onOpenChange, session }: FixIncomplet
             placeholder="e.g. Forgot to clock out before leaving..."
             value={reason}
             onChange={(e) => setReason(e.target.value)}
-            className="text-xs h-9 rounded-xl"
+            className="text-xs h-9 rounded-lg"
             required
             minLength={3}
           />
@@ -122,7 +122,7 @@ export function FixIncompleteModal({ open, onOpenChange, session }: FixIncomplet
             size="sm"
             onClick={() => onOpenChange(false)}
             disabled={isLoading}
-            className="rounded-xl text-xs"
+            className="rounded-lg text-xs"
           >
             Cancel
           </Button>
@@ -130,7 +130,7 @@ export function FixIncompleteModal({ open, onOpenChange, session }: FixIncomplet
             type="submit"
             size="sm"
             disabled={isLoading}
-            className="rounded-xl text-xs gap-1.5"
+            className="rounded-lg text-xs gap-1.5"
           >
             {isLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
             <span>Save & Complete Timesheet</span>

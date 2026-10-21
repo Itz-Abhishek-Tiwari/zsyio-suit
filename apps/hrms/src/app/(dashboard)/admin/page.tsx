@@ -117,7 +117,7 @@ export default function AdminAttendancePage() {
         <EmptyState
           title="Access Restricted"
           description="You do not have permission to access administrative consoles, team attendance rosters, or approval queues."
-          icon={<AlertTriangle className="w-10 h-10 text-amber-500" />}
+          icon={<AlertTriangle className="w-10 h-10 text-warning" />}
           action={
             <Button onClick={() => router.push("/leaves")} className="mt-4">
               Return to Leaves
@@ -281,7 +281,7 @@ export default function AdminAttendancePage() {
                   size="sm"
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={data.pagination.page <= 1}
-                  className="h-8 px-2.5 rounded-xl text-xs gap-1"
+                  className="h-8 px-2.5 rounded-lg text-xs gap-1"
                 >
                   <ChevronLeft className="w-3.5 h-3.5" />
                   <span>Previous</span>
@@ -291,7 +291,7 @@ export default function AdminAttendancePage() {
                   size="sm"
                   onClick={() => setPage((p) => Math.min(data.pagination.totalPages, p + 1))}
                   disabled={data.pagination.page >= data.pagination.totalPages}
-                  className="h-8 px-2.5 rounded-xl text-xs gap-1"
+                  className="h-8 px-2.5 rounded-lg text-xs gap-1"
                 >
                   <span>Next</span>
                   <ChevronRight className="w-3.5 h-3.5" />

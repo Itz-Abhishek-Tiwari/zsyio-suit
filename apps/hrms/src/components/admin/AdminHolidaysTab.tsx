@@ -74,9 +74,9 @@ export function AdminHolidaysTab() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4.5 rounded-lg bg-card border border-border/80 shadow-xs">
         <div className="flex items-center gap-2 flex-wrap">
           <div className="flex items-center gap-2 mr-3">
-            <CalendarHeart className="w-5 h-5 text-sky-500" />
+            <CalendarHeart className="w-5 h-5 text-notion-blue-fg" />
             <div>
-              <h3 className="text-sm font-bold text-foreground">
+              <h3 className="text-sm font-semibold text-foreground">
                 Company Holiday Schedule
               </h3>
               <p className="text-xs text-muted-foreground">
@@ -105,7 +105,7 @@ export function AdminHolidaysTab() {
             variant="default"
             size="sm"
             onClick={handleCreate}
-            className="rounded-md text-xs font-bold gap-1.5 shadow-xs"
+            className="rounded-md text-xs font-semibold gap-1.5 shadow-xs"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>Add Holiday</span>
@@ -135,7 +135,7 @@ export function AdminHolidaysTab() {
                   variant="default"
                   size="sm"
                   onClick={handleCreate}
-                  className="mt-2 rounded-md text-xs font-bold gap-1.5"
+                  className="mt-2 rounded-md text-xs font-semibold gap-1.5"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Add First Holiday</span>
@@ -172,24 +172,24 @@ export function AdminHolidaysTab() {
                         <div className="font-semibold text-foreground">
                           {formatDate(h.date)}
                         </div>
-                        <div className="text-[11px] text-muted-foreground">
+                        <div className="text-xs text-muted-foreground">
                           {h.dayOfWeek}
                         </div>
                       </td>
 
                       <td className="py-3 px-4 whitespace-nowrap">
-                        <div className="font-bold text-sm text-foreground flex items-center gap-1.5">
+                        <div className="font-semibold text-sm text-foreground flex items-center gap-1.5">
                           {h.name}
                         </div>
                       </td>
 
                       <td className="py-3 px-4 whitespace-nowrap">
                         {h.isOptional ? (
-                          <span className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/25">
+                          <span className="px-2 py-0.5 rounded-md text-xs font-semibold bg-notion-purple-fg/10 text-notion-purple-fg border border-notion-purple-fg/25">
                             Optional / Restricted
                           </span>
                         ) : (
-                          <span className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/25">
+                          <span className="px-2 py-0.5 rounded-md text-xs font-semibold bg-notion-blue-fg/10 text-notion-blue-fg border border-notion-blue-fg/25">
                             Mandatory Public
                           </span>
                         )}
@@ -201,15 +201,15 @@ export function AdminHolidaysTab() {
 
                       <td className="py-3 px-4 whitespace-nowrap">
                         {isToday ? (
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                          <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-success/15 text-success border border-success/30">
                             Today
                           </span>
                         ) : isPast ? (
-                          <span className="text-[11px] text-muted-foreground/60 font-mono">
+                          <span className="text-xs text-muted-foreground/60 font-mono">
                             Passed
                           </span>
                         ) : (
-                          <span className="text-[11px] text-sky-600 dark:text-sky-400 font-semibold font-mono">
+                          <span className="text-xs text-notion-blue-fg font-semibold font-mono">
                             In {h.daysRemaining} day{h.daysRemaining !== 1 ? "s" : ""}
                           </span>
                         )}
@@ -232,7 +232,7 @@ export function AdminHolidaysTab() {
                               variant="ghost"
                               size="sm"
                               onClick={() => setDeletingHoliday(h)}
-                              className="h-7 w-7 p-0 rounded-md text-rose-500 hover:text-rose-600 hover:bg-rose-500/10"
+                              className="h-7 w-7 p-0 rounded-md text-destructive hover:text-destructive hover:bg-destructive/10"
                               title="Delete Holiday"
                             >
                               <Trash2 className="w-3.5 h-3.5" />

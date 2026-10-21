@@ -160,7 +160,7 @@ export function WeeklyTimesheetTable({ userId, onSelectDay }: WeeklyTimesheetTab
             size="sm"
             onClick={() => setWeekOffset(0)}
             className={`h-9 px-3.5 rounded-md text-xs font-semibold ${
-              weekOffset === 0 ? "bg-primary-light border-primary/30 text-primary font-bold" : ""
+              weekOffset === 0 ? "bg-primary-light border-primary/30 text-primary font-semibold" : ""
             }`}
           >
             This Week
@@ -177,7 +177,7 @@ export function WeeklyTimesheetTable({ userId, onSelectDay }: WeeklyTimesheetTab
             <ChevronRight className="w-4 h-4" />
           </Button>
 
-          <span className="text-xs font-bold text-foreground ml-2 font-mono" suppressHydrationWarning>
+          <span className="text-xs font-semibold text-foreground ml-2 font-mono" suppressHydrationWarning>
             {formatWeekRange()}
           </span>
         </div>
@@ -187,21 +187,21 @@ export function WeeklyTimesheetTable({ userId, onSelectDay }: WeeklyTimesheetTab
           <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-surface-subtle/80 border border-border/60 text-xs">
             <Clock className="w-3.5 h-3.5 text-primary" />
             <span className="text-muted-foreground">Worked:</span>
-            <span className="font-bold text-foreground font-mono">
+            <span className="font-semibold text-foreground font-mono">
               {isLoading ? "-" : `${formatDuration(totalWeekMinutes)} (${daysWorked}d)`}
             </span>
           </div>
 
           <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-surface-subtle/80 border border-border/60 text-xs">
-            <Coffee className="w-3.5 h-3.5 text-amber-500" />
+            <Coffee className="w-3.5 h-3.5 text-warning" />
             <span className="text-muted-foreground">Breaks:</span>
-            <span className="font-bold text-foreground font-mono">
+            <span className="font-semibold text-foreground font-mono">
               {isLoading ? "-" : formatDuration(totalBreakMinutes)}
             </span>
           </div>
 
           {overtimeMinutes > 0 && !isLoading && (
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/25 text-xs text-emerald-600 dark:text-emerald-400 font-bold">
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-success/10 border border-success/25 text-xs text-success font-semibold">
               <TrendingUp className="w-3.5 h-3.5" />
               <span>+{formatDuration(overtimeMinutes)} Overtime</span>
             </div>
@@ -217,10 +217,10 @@ export function WeeklyTimesheetTable({ userId, onSelectDay }: WeeklyTimesheetTab
               <tr className="border-b border-border/80 bg-surface-subtle/60 text-muted-foreground font-semibold">
                 <th className="py-3 px-4">Day & Date</th>
                 <th className="py-3 px-4">
-                  First In <span className="text-[10px] font-mono opacity-75">({timeZoneConfig.code})</span>
+                  First In <span className="text-xs font-mono opacity-75">({timeZoneConfig.code})</span>
                 </th>
                 <th className="py-3 px-4">
-                  Last Out <span className="text-[10px] font-mono opacity-75">({timeZoneConfig.code})</span>
+                  Last Out <span className="text-xs font-mono opacity-75">({timeZoneConfig.code})</span>
                 </th>
                 <th className="py-3 px-4">Break Time</th>
                 <th className="py-3 px-4">Net Worked Hours</th>
@@ -249,8 +249,8 @@ export function WeeklyTimesheetTable({ userId, onSelectDay }: WeeklyTimesheetTab
                   >
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-foreground">{r.dayName}</span>
-                        <span className="text-muted-foreground font-mono text-[11px]" suppressHydrationWarning>
+                        <span className="font-semibold text-foreground">{r.dayName}</span>
+                        <span className="text-muted-foreground font-mono text-xs" suppressHydrationWarning>
                           {r.date}
                         </span>
                       </div>
@@ -270,11 +270,11 @@ export function WeeklyTimesheetTable({ userId, onSelectDay }: WeeklyTimesheetTab
 
                     <td className="py-3.5 px-4">
                       <span
-                        className={`font-mono font-bold px-2 py-0.5 rounded-md ${
+                        className={`font-mono font-semibold px-2 py-0.5 rounded-md ${
                           r.netWorkingMinutes >= 480
-                            ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+                            ? "bg-success/10 text-success"
                             : r.netWorkingMinutes > 0
-                            ? "bg-amber-500/10 text-amber-700 dark:text-amber-300"
+                            ? "bg-warning/10 text-warning"
                             : "text-muted-foreground"
                         }`}
                       >

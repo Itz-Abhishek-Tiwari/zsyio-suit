@@ -117,7 +117,7 @@ export function TodayStatusCard({ initialData, loading: propLoading }: TodayStat
   if (isLoading || !statusData) {
     return (
       <div className="space-y-4">
-        <div className="relative overflow-hidden rounded-lg border border-border/80 bg-card/95 dark:bg-card/75 p-6 sm:p-7 shadow-xs before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:bg-gradient-to-r before:from-emerald-500 before:via-emerald-400/70 before:to-transparent">
+        <div className="relative overflow-hidden rounded-lg border border-border/80 bg-card/95 dark:bg-card/75 p-6 sm:p-7 shadow-xs before:absolute before:inset-x-0 before:top-0 before:h-[2px]">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div className="space-y-3 max-w-xl w-full">
               <div className="flex items-center gap-2">
@@ -170,9 +170,7 @@ export function TodayStatusCard({ initialData, loading: propLoading }: TodayStat
   return (
     <div className="space-y-4">
       {/* Punch Console Hero */}
-      <div className="relative overflow-hidden rounded-lg border border-border/80 bg-card/95 dark:bg-card/75 backdrop-blur-xl p-6 sm:p-7 shadow-xs before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:bg-gradient-to-r before:from-emerald-500 before:via-emerald-400/70 before:to-transparent dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_70%_at_0%_0%,rgba(16,185,129,0.09),transparent_65%)] pointer-events-none" />
-        <div className="absolute right-0 top-0 w-80 h-full opacity-[0.035] dark:opacity-[0.06] bg-[radial-gradient(#000_1px,transparent_1px)] dark:bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:12px_12px] pointer-events-none [mask-image:linear-gradient(to_left,white,transparent)] z-0" />
+      <div className="relative overflow-hidden rounded-lg border border-border/80 bg-card/95 dark:bg-card/75 backdrop-blur-xl p-6 sm:p-7 shadow-xs before:absolute before:inset-x-0 before:top-0 before:h-[2px] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
 
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
           {/* Left Column: Greeting, Live Status, and Timer Display */}
@@ -181,7 +179,7 @@ export function TodayStatusCard({ initialData, loading: propLoading }: TodayStat
               <span className="text-xs font-semibold text-muted-foreground flex items-center gap-1.5" suppressHydrationWarning>
                 <Calendar className="w-3.5 h-3.5 text-primary" />
                 <span>{todayFormattedDate}</span>
-                <span className="text-[10px] font-mono font-bold bg-surface-subtle px-1.5 py-0.5 rounded border border-border/70 text-muted-foreground">
+                <span className="text-xs font-mono font-semibold bg-surface-subtle px-1.5 py-0.5 rounded border border-border/70 text-muted-foreground">
                   {timeZoneConfig.flag} {timeZoneConfig.code}
                 </span>
               </span>
@@ -198,12 +196,12 @@ export function TodayStatusCard({ initialData, loading: propLoading }: TodayStat
             <div className="space-y-1">
               <div className="flex items-baseline gap-3">
                 <span
-                  className="text-4xl sm:text-5xl font-extrabold tracking-tight font-mono text-foreground drop-shadow-xs"
+                  className="text-4xl sm:text-5xl font-semibold tracking-tight font-mono text-foreground drop-shadow-xs"
                   suppressHydrationWarning
                 >
                   <LiveStopwatch startTime={activeStartTime} isActive={state !== "CLOCKED_OUT"} />
                 </span>
-                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <span className="text-xs font-semibold   text-muted-foreground">
                   {state === "WORKING"
                     ? "Current Working Session"
                     : state === "OOO"
@@ -221,22 +219,22 @@ export function TodayStatusCard({ initialData, loading: propLoading }: TodayStat
 
               {/* Zoho-style Daily Shift & Target Hours Progress */}
               <div className="pt-2.5 space-y-1.5 max-w-md">
-                <div className="flex items-center justify-between text-[11px]">
+                <div className="flex items-center justify-between text-xs">
                   <div className="flex items-center gap-1.5">
                     <span className="font-semibold text-foreground">Standard 8h Shift:</span>
-                    <span className="font-mono font-bold text-primary">
+                    <span className="font-mono font-semibold text-primary">
                       {formatDuration(todayWorkedMinutes)} / 8h 00m
                     </span>
                     <span className="text-muted-foreground font-mono">({Math.min(100, Math.round((todayWorkedMinutes / 480) * 100))}%)</span>
                   </div>
 
                   {todayWorkedMinutes >= 480 ? (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20 shadow-2xs">
+                    <span className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-success bg-success/10 px-2 py-0.5 rounded-md border border-success/20 shadow-2xs">
                       <TrendingUp className="w-3 h-3" />
                       {todayWorkedMinutes > 480 ? `+${formatDuration(todayWorkedMinutes - 480)} Overtime` : "Target Met"}
                     </span>
                   ) : (
-                    <span className="text-[10px] text-muted-foreground font-mono">
+                    <span className="text-xs text-muted-foreground font-mono">
                       {formatDuration(480 - todayWorkedMinutes)} remaining
                     </span>
                   )}
@@ -244,10 +242,10 @@ export function TodayStatusCard({ initialData, loading: propLoading }: TodayStat
 
                 <div className="h-2 w-full rounded-sm bg-surface-subtle border border-border/70 overflow-hidden relative">
                   <div
-                    className={`h-full rounded-sm transition-all duration-500 ${
+                    className={`h-full rounded-sm transition-all duration-150 ${
                       todayWorkedMinutes >= 480
-                        ? "bg-gradient-to-r from-emerald-500 to-teal-400"
-                        : "bg-gradient-to-r from-primary to-sky-400"
+                        ? "bg-success"
+                        : "bg-primary"
                     }`}
                     style={{ width: `${Math.min(100, Math.round((todayWorkedMinutes / 480) * 100))}%` }}
                   />
@@ -263,7 +261,7 @@ export function TodayStatusCard({ initialData, loading: propLoading }: TodayStat
                 size="lg"
                 onClick={handleClockIn}
                 disabled={isClockingIn}
-                className="h-11 px-6 rounded-md gap-2 font-bold text-xs bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20"
+                className="h-11 px-6 rounded-md gap-2 font-semibold text-xs bg-success hover:bg-success text-white shadow-md "
               >
                 {isClockingIn ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
@@ -278,16 +276,16 @@ export function TodayStatusCard({ initialData, loading: propLoading }: TodayStat
                   variant="outline"
                   size="lg"
                   onClick={() => setStartOooOpen(true)}
-                  className="h-11 px-4 rounded-md gap-2 font-semibold text-xs border-amber-500/30 text-amber-700 dark:text-amber-400 hover:bg-amber-500/10 shadow-xs"
+                  className="h-11 px-4 rounded-md gap-2 font-semibold text-xs border-warning/30 text-warning hover:bg-warning/10 shadow-xs"
                 >
-                  <Coffee className="w-4 h-4 text-amber-500" />
+                  <Coffee className="w-4 h-4 text-warning" />
                   <span>Take Break</span>
                 </Button>
                 <Button
                   size="lg"
                   onClick={handleClockOut}
                   disabled={isClockingOut}
-                  className="h-11 px-6 rounded-md gap-2 font-bold text-xs bg-rose-600 hover:bg-rose-700 text-white shadow-md shadow-rose-600/20"
+                  className="h-11 px-6 rounded-md gap-2 font-semibold text-xs bg-destructive hover:bg-destructive text-white shadow-md "
                 >
                   {isClockingOut ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -302,7 +300,7 @@ export function TodayStatusCard({ initialData, loading: propLoading }: TodayStat
                 size="lg"
                 onClick={handleEndOoo}
                 disabled={isEndingOoo}
-                className="h-11 px-6 rounded-md gap-2 font-bold text-xs bg-amber-600 hover:bg-amber-700 text-white shadow-md shadow-amber-600/20"
+                className="h-11 px-6 rounded-md gap-2 font-semibold text-xs bg-warning hover:bg-warning text-white shadow-md "
               >
                 {isEndingOoo ? (
                   <Loader2 className="w-4 h-4 animate-spin" />

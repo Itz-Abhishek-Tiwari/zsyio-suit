@@ -35,28 +35,28 @@ function RegularizationStatusBadge({ status }: { status: string }) {
   switch (status) {
     case "APPROVED":
       return (
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-success/10 text-success border border-success/20">
           <CheckCircle2 className="w-3 h-3" />
           Approved
         </span>
       );
     case "REJECTED":
       return (
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20">
           <X className="w-3 h-3" />
           Rejected
         </span>
       );
     case "PENDING":
       return (
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-warning/10 text-warning border border-warning/20">
           <Clock className="w-3 h-3" />
           Pending
         </span>
       );
     default:
       return (
-        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-surface-subtle text-muted-foreground border border-border/60">
+        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-surface-subtle text-muted-foreground border border-border/60">
           {status}
         </span>
       );
@@ -203,7 +203,7 @@ export function AdminApprovalsTab() {
         />
 
         {/* Status Filter Buttons */}
-        <div className="flex items-center gap-1 bg-surface-subtle/80 p-1 rounded-xl border border-border/60 self-start sm:self-auto">
+        <div className="flex items-center gap-1 bg-surface-subtle/80 p-1 rounded-lg border border-border/60 self-start sm:self-auto">
           {(
             [
               { id: "PENDING", label: "Pending" },
@@ -251,16 +251,16 @@ export function AdminApprovalsTab() {
                   ? "All employee attendance regularization requests have been reviewed."
                   : `No attendance regularizations with status ${statusFilter.toLowerCase()} found.`
               }
-              icon={<CheckCircle2 className="w-8 h-8 text-emerald-500" />}
+              icon={<CheckCircle2 className="w-8 h-8 text-success" />}
             />
           </div>
         ) : (
           <div className="rounded-lg border border-border/80 bg-card overflow-hidden shadow-xs">
             <div className="p-4 border-b border-border/60">
-              <h3 className="text-sm font-bold text-foreground">
+              <h3 className="text-sm font-semibold text-foreground">
                 Attendance Regularization Requests ({statusFilter === "ALL" ? "All Records" : statusFilter.charAt(0) + statusFilter.slice(1).toLowerCase()})
               </h3>
-              <p className="text-[11px] text-muted-foreground">
+              <p className="text-xs text-muted-foreground">
                 {teamRegularizations.length}{" "}
                 {teamRegularizations.length === 1 ? "record" : "records"}{" "}
                 {statusFilter === "PENDING" ? "awaiting manager/admin approval" : "in this view"}
@@ -276,7 +276,7 @@ export function AdminApprovalsTab() {
                     <th className="py-3 px-4">Type</th>
                     <th className="py-3 px-4">
                       Requested Shift Interval{" "}
-                      <span className="font-mono text-[10px] opacity-75">
+                      <span className="font-mono text-xs opacity-75">
                         ({timeZoneConfig.code})
                       </span>
                     </th>
@@ -298,8 +298,8 @@ export function AdminApprovalsTab() {
                       <tr key={reg.id} className="hover:bg-surface-subtle/30 transition-colors">
                         <td className="py-3.5 px-4">
                           <div className="space-y-0.5">
-                            <p className="font-bold text-foreground">{reg.user?.name}</p>
-                            <p className="text-[10px] text-muted-foreground font-mono">
+                            <p className="font-semibold text-foreground">{reg.user?.name}</p>
+                            <p className="text-xs text-muted-foreground font-mono">
                               {reg.user?.email}
                             </p>
                           </div>
@@ -310,15 +310,15 @@ export function AdminApprovalsTab() {
                         </td>
 
                         <td className="py-3.5 px-4">
-                          <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold tracking-wider bg-surface-subtle border border-border/60 uppercase">
+                          <span className="px-2 py-0.5 rounded-lg text-xs font-semibold  bg-surface-subtle border border-border/60 ">
                             {reg.type.replace(/_/g, " ")}
                           </span>
                         </td>
 
                         <td className="py-3.5 px-4 font-mono text-muted-foreground">
-                          <span className="font-bold text-foreground">{inTime}</span>
+                          <span className="font-semibold text-foreground">{inTime}</span>
                           {" → "}
-                          <span className="font-bold text-foreground">{outTime}</span>
+                          <span className="font-semibold text-foreground">{outTime}</span>
                         </td>
 
                         <td className="py-3.5 px-4 max-w-xs truncate text-muted-foreground">
@@ -332,7 +332,7 @@ export function AdminApprovalsTab() {
                         <td className="py-3.5 px-4 text-right">
                           {reg.status === "PENDING" ? (
                             !canReviewReg ? (
-                              <span className="text-[11px] font-medium text-muted-foreground bg-muted/60 px-2.5 py-1 rounded-md border border-border/60 inline-block">
+                              <span className="text-xs font-medium text-muted-foreground bg-muted/60 px-2.5 py-1 rounded-md border border-border/60 inline-block">
                                 Self-approval disabled
                               </span>
                             ) : (
@@ -341,7 +341,7 @@ export function AdminApprovalsTab() {
                                   size="sm"
                                   onClick={() => handleReviewReg(reg.id, "APPROVED")}
                                   disabled={isReviewingReg}
-                                  className="h-7 px-2.5 rounded-lg text-xs font-bold gap-1 bg-emerald-600 hover:bg-emerald-700 text-white"
+                                  className="h-7 px-2.5 rounded-lg text-xs font-semibold gap-1 bg-success hover:bg-success text-white"
                                 >
                                   <Check className="w-3.5 h-3.5" />
                                   <span>Approve</span>
@@ -355,7 +355,7 @@ export function AdminApprovalsTab() {
                                     setRegRejectionError(null);
                                   }}
                                   disabled={isReviewingReg}
-                                  className="h-7 px-2.5 rounded-lg text-xs font-semibold gap-1 text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 border-rose-200 dark:border-rose-900"
+                                  className="h-7 px-2.5 rounded-lg text-xs font-semibold gap-1 text-destructive hover:bg-destructive-light border-destructive/30"
                                 >
                                   <X className="w-3.5 h-3.5" />
                                   <span>Reject</span>
@@ -364,29 +364,29 @@ export function AdminApprovalsTab() {
                             )
                           ) : reg.status === "APPROVED" ? (
                             <div className="text-right space-y-0.5">
-                              <div className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                              <div className="inline-flex items-center gap-1 text-xs font-semibold text-success">
                                 <CheckCircle2 className="w-3.5 h-3.5" />
                                 <span>Approved by {reg.reviewer?.name || "Manager"}</span>
                               </div>
                               {reg.reviewedAt && (
-                                <p className="text-[10px] text-muted-foreground font-mono" suppressHydrationWarning>
+                                <p className="text-xs text-muted-foreground font-mono" suppressHydrationWarning>
                                   {formatDate(reg.reviewedAt)}
                                 </p>
                               )}
                             </div>
                           ) : (
                             <div className="text-right space-y-0.5">
-                              <div className="inline-flex items-center gap-1 text-xs font-semibold text-rose-600 dark:text-rose-400">
+                              <div className="inline-flex items-center gap-1 text-xs font-semibold text-destructive">
                                 <X className="w-3.5 h-3.5" />
                                 <span>Rejected by {reg.reviewer?.name || "Manager"}</span>
                               </div>
                               {reg.reviewerComment && (
-                                <p className="text-[10px] text-muted-foreground max-w-[200px] ml-auto truncate" title={reg.reviewerComment}>
+                                <p className="text-xs text-muted-foreground max-w-[200px] ml-auto truncate" title={reg.reviewerComment}>
                                   &ldquo;{reg.reviewerComment}&rdquo;
                                 </p>
                               )}
                               {reg.reviewedAt && (
-                                <p className="text-[10px] text-muted-foreground font-mono" suppressHydrationWarning>
+                                <p className="text-xs text-muted-foreground font-mono" suppressHydrationWarning>
                                   {formatDate(reg.reviewedAt)}
                                 </p>
                               )}
@@ -423,17 +423,17 @@ export function AdminApprovalsTab() {
                 ? "All employee leave applications have been processed."
                 : `No leave applications with status ${statusFilter.toLowerCase()} found.`
             }
-            icon={<CheckCircle2 className="w-8 h-8 text-emerald-500" />}
+            icon={<CheckCircle2 className="w-8 h-8 text-success" />}
           />
         </div>
       ) : (
         <div className="rounded-lg border border-border/80 bg-card overflow-hidden shadow-xs">
           <div className="p-4 border-b border-border/60 flex items-center justify-between">
             <div>
-              <h3 className="text-sm font-bold text-foreground">
+              <h3 className="text-sm font-semibold text-foreground">
                 Leave & Time Off Requests ({statusFilter === "ALL" ? "All Records" : statusFilter.charAt(0) + statusFilter.slice(1).toLowerCase()})
               </h3>
-              <p className="text-[11px] text-muted-foreground">
+              <p className="text-xs text-muted-foreground">
                 {teamLeaves.length} {teamLeaves.length === 1 ? "application" : "applications"}{" "}
                 {statusFilter === "PENDING" ? "awaiting managerial decision" : "in this view"}
               </p>
@@ -464,26 +464,26 @@ export function AdminApprovalsTab() {
                     <tr key={leave.id} className="hover:bg-surface-subtle/30 transition-colors">
                       <td className="py-3.5 px-4">
                         <div className="space-y-0.5">
-                          <p className="font-bold text-foreground">{leave.user?.name}</p>
-                          <p className="text-[10px] text-muted-foreground font-mono">
+                          <p className="font-semibold text-foreground">{leave.user?.name}</p>
+                          <p className="text-xs text-muted-foreground font-mono">
                             {leave.user?.email}
                           </p>
                         </div>
                       </td>
 
-                      <td className="py-3.5 px-4 font-bold text-foreground">{leave.leaveType}</td>
+                      <td className="py-3.5 px-4 font-semibold text-foreground">{leave.leaveType}</td>
 
                       <td className="py-3.5 px-4 font-mono text-muted-foreground" suppressHydrationWarning>
                         {formatDate(leave.startDate)}
                         {leave.startDate !== leave.endDate && ` → ${formatDate(leave.endDate)}`}
                         {leave.isHalfDay && (
-                          <span className="ml-1.5 text-[10px] font-sans px-1.5 py-0.2 rounded bg-surface-subtle border border-border/60 font-semibold">
+                          <span className="ml-1.5 text-xs font-sans px-1.5 py-0.2 rounded bg-surface-subtle border border-border/60 font-semibold">
                             Half Day
                           </span>
                         )}
                       </td>
 
-                      <td className="py-3.5 px-4 font-mono font-bold text-foreground">
+                      <td className="py-3.5 px-4 font-mono font-semibold text-foreground">
                         {leave.daysCount}d
                       </td>
 
@@ -498,7 +498,7 @@ export function AdminApprovalsTab() {
                       <td className="py-3.5 px-4 text-right">
                         {leave.status === "PENDING" ? (
                           !canReview ? (
-                            <span className="text-[11px] font-medium text-muted-foreground bg-muted/60 px-2.5 py-1 rounded-md border border-border/60 inline-block">
+                            <span className="text-xs font-medium text-muted-foreground bg-muted/60 px-2.5 py-1 rounded-md border border-border/60 inline-block">
                               Self-approval disabled
                             </span>
                           ) : (
@@ -507,7 +507,7 @@ export function AdminApprovalsTab() {
                                 size="sm"
                                 onClick={() => handleReviewLeave(leave.id, "APPROVED")}
                                 disabled={isReviewingLeave}
-                                className="h-7 px-3 rounded-lg text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white"
+                                className="h-7 px-3 rounded-lg text-xs font-semibold bg-success hover:bg-success text-white"
                               >
                                 Approve
                               </Button>
@@ -520,7 +520,7 @@ export function AdminApprovalsTab() {
                                   setRejectionError(null);
                                 }}
                                 disabled={isReviewingLeave}
-                                className="h-7 px-3 rounded-lg text-xs font-semibold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 border-rose-200 dark:border-rose-900"
+                                className="h-7 px-3 rounded-lg text-xs font-semibold text-destructive hover:bg-destructive-light border-destructive/30"
                               >
                                 Reject
                               </Button>
@@ -528,29 +528,29 @@ export function AdminApprovalsTab() {
                           )
                         ) : leave.status === "APPROVED" ? (
                           <div className="text-right space-y-0.5">
-                            <div className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                            <div className="inline-flex items-center gap-1 text-xs font-semibold text-success">
                               <CheckCircle2 className="w-3.5 h-3.5" />
                               <span>Approved by {leave.reviewer?.name || "Manager"}</span>
                             </div>
                             {leave.reviewedAt && (
-                              <p className="text-[10px] text-muted-foreground font-mono" suppressHydrationWarning>
+                              <p className="text-xs text-muted-foreground font-mono" suppressHydrationWarning>
                                 {formatDate(leave.reviewedAt)}
                               </p>
                             )}
                           </div>
                         ) : (
                           <div className="text-right space-y-0.5">
-                            <div className="inline-flex items-center gap-1 text-xs font-semibold text-rose-600 dark:text-rose-400">
+                            <div className="inline-flex items-center gap-1 text-xs font-semibold text-destructive">
                               <X className="w-3.5 h-3.5" />
                               <span>Rejected by {leave.reviewer?.name || "Manager"}</span>
                             </div>
                             {leave.reviewerComment && (
-                              <p className="text-[10px] text-muted-foreground max-w-[200px] ml-auto truncate" title={leave.reviewerComment}>
+                              <p className="text-xs text-muted-foreground max-w-[200px] ml-auto truncate" title={leave.reviewerComment}>
                                 &ldquo;{leave.reviewerComment}&rdquo;
                               </p>
                             )}
                             {leave.reviewedAt && (
-                              <p className="text-[10px] text-muted-foreground font-mono" suppressHydrationWarning>
+                              <p className="text-xs text-muted-foreground font-mono" suppressHydrationWarning>
                                 {formatDate(leave.reviewedAt)}
                               </p>
                             )}
@@ -585,7 +585,7 @@ export function AdminApprovalsTab() {
       >
         <form onSubmit={handleConfirmRejectLeave} className="space-y-4 pt-1">
           {rejectionError && (
-            <div className="p-3 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-xs flex items-center gap-2">
+            <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{rejectionError}</span>
             </div>
@@ -603,9 +603,9 @@ export function AdminApprovalsTab() {
               rows={3}
               required
               minLength={3}
-              className="text-xs rounded-xl bg-surface-subtle resize-none"
+              className="text-xs rounded-lg bg-surface-subtle resize-none"
             />
-            <p className="text-[11px] text-muted-foreground">
+            <p className="text-xs text-muted-foreground">
               This reason will be recorded and displayed to the employee.
             </p>
           </div>
@@ -617,7 +617,7 @@ export function AdminApprovalsTab() {
               size="sm"
               onClick={() => setRejectModalLeave(null)}
               disabled={isReviewingLeave}
-              className="text-xs rounded-xl"
+              className="text-xs rounded-lg"
             >
               Cancel
             </Button>
@@ -626,7 +626,7 @@ export function AdminApprovalsTab() {
               variant="destructive"
               size="sm"
               disabled={isReviewingLeave || !rejectionReason.trim()}
-              className="text-xs rounded-xl font-bold gap-1.5"
+              className="text-xs rounded-lg font-semibold gap-1.5"
             >
               {isReviewingLeave ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -658,7 +658,7 @@ export function AdminApprovalsTab() {
       >
         <form onSubmit={handleConfirmRejectReg} className="space-y-4 pt-2">
           {regRejectionError && (
-            <div className="p-3 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-xs flex items-center gap-2">
+            <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{regRejectionError}</span>
             </div>
@@ -676,9 +676,9 @@ export function AdminApprovalsTab() {
               rows={3}
               required
               minLength={3}
-              className="text-xs rounded-xl bg-surface-subtle resize-none"
+              className="text-xs rounded-lg bg-surface-subtle resize-none"
             />
-            <p className="text-[11px] text-muted-foreground">
+            <p className="text-xs text-muted-foreground">
               This reason will be recorded and displayed to the employee.
             </p>
           </div>
@@ -690,7 +690,7 @@ export function AdminApprovalsTab() {
               size="sm"
               onClick={() => setRejectModalReg(null)}
               disabled={isReviewingReg}
-              className="text-xs rounded-xl"
+              className="text-xs rounded-lg"
             >
               Cancel
             </Button>
@@ -699,7 +699,7 @@ export function AdminApprovalsTab() {
               variant="destructive"
               size="sm"
               disabled={isReviewingReg || !regRejectionReason.trim()}
-              className="text-xs rounded-xl font-bold gap-1.5"
+              className="text-xs rounded-lg font-semibold gap-1.5"
             >
               {isReviewingReg ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />

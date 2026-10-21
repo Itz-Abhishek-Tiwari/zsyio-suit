@@ -59,34 +59,34 @@ interface LeaveCardMeta {
 const LEAVE_TYPE_METAS: Record<string, LeaveCardMeta> = {
   CASUAL: {
     icon: Coffee,
-    accentColor: "text-emerald-500 dark:text-emerald-400",
-    badgeClass: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/25",
-    cardBorder: "border-emerald-500/20 hover:border-emerald-500/35",
-    cardBg: "bg-emerald-500/[0.02]",
+    accentColor: "text-success",
+    badgeClass: "bg-success/10 text-success border-success/25",
+    cardBorder: "border-success/20 hover:border-success/35",
+    cardBg: "bg-success/[0.02]",
     defaultDescription: "Short-notice unplanned time-off for personal commitments and domestic emergencies.",
   },
   SICK: {
     icon: HeartPulse,
-    accentColor: "text-rose-500 dark:text-rose-400",
-    badgeClass: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/25",
-    cardBorder: "border-rose-500/20 hover:border-rose-500/35",
-    cardBg: "bg-rose-500/[0.02]",
+    accentColor: "text-destructive",
+    badgeClass: "bg-destructive/10 text-destructive border-destructive/25",
+    cardBorder: "border-destructive/20 hover:border-destructive/35",
+    cardBg: "bg-destructive/[0.02]",
     defaultDescription: "Medical recovery leave for acute illness, health appointments, and recovery.",
   },
   EARNED: {
     icon: CalendarCheck,
-    accentColor: "text-sky-500 dark:text-sky-400",
-    badgeClass: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/25",
-    cardBorder: "border-sky-500/20 hover:border-sky-500/35",
-    cardBg: "bg-sky-500/[0.02]",
+    accentColor: "text-notion-blue-fg",
+    badgeClass: "bg-notion-blue-fg/10 text-notion-blue-fg border-notion-blue-fg/25",
+    cardBorder: "border-notion-blue-fg/20 hover:border-notion-blue-fg/35",
+    cardBg: "bg-notion-blue-fg/[0.02]",
     defaultDescription: "Accrued paid annual vacation days earned through continuous employee tenure.",
   },
   COMPENSATORY: {
     icon: Clock4,
-    accentColor: "text-purple-500 dark:text-purple-400",
-    badgeClass: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/25",
-    cardBorder: "border-purple-500/20 hover:border-purple-500/35",
-    cardBg: "bg-purple-500/[0.02]",
+    accentColor: "text-notion-purple-fg",
+    badgeClass: "bg-notion-purple-fg/10 text-notion-purple-fg border-notion-purple-fg/25",
+    cardBorder: "border-notion-purple-fg/20 hover:border-notion-purple-fg/35",
+    cardBg: "bg-notion-purple-fg/[0.02]",
     defaultDescription: "Compensatory time-off credited for hours worked during official holidays or weekends.",
   },
   UNPAID: {
@@ -273,7 +273,7 @@ export function AdminLeavePoliciesTab() {
 
   if (isLoadingPolicies) {
     return (
-      <div className="py-20 flex flex-col items-center justify-center gap-3 text-xs text-muted-foreground bg-card rounded-2xl border border-border/80 shadow-xs">
+      <div className="py-20 flex flex-col items-center justify-center gap-3 text-xs text-muted-foreground bg-card rounded-lg border border-border/80 shadow-xs">
         <Loader2 className="w-5 h-5 animate-spin text-primary" />
         <span className="font-medium">Loading organization leave policies and rules...</span>
       </div>
@@ -284,8 +284,8 @@ export function AdminLeavePoliciesTab() {
     <div className="space-y-6">
       {/* Permission Notification Banner */}
       {!canManagePolicies && (
-        <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-800 dark:text-amber-200 text-xs flex items-center gap-2.5">
-          <AlertCircle className="w-4 h-4 shrink-0 text-amber-600 dark:text-amber-400" />
+        <div className="p-3.5 rounded-lg bg-warning/10 border border-warning/20 text-warning text-xs flex items-center gap-2.5">
+          <AlertCircle className="w-4 h-4 shrink-0 text-warning" />
           <span>
             <strong>View-Only Mode:</strong> You do not have permission to modify organization leave quotas or HR policies. Only system administrators can save policy changes or adjust employee quotas.
           </span>
@@ -321,7 +321,7 @@ export function AdminLeavePoliciesTab() {
                 size="sm"
                 onClick={resetToLoadedSettings}
                 disabled={isUpdatingPolicies}
-                className="h-8 px-2.5 rounded-xl text-xs gap-1.5"
+                className="h-8 px-2.5 rounded-lg text-xs gap-1.5"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Discard</span>
@@ -333,9 +333,9 @@ export function AdminLeavePoliciesTab() {
               size="sm"
               onClick={handleSavePoliciesAndSettings}
               disabled={isUpdatingPolicies || !isDirty}
-              className={`h-8 px-3.5 rounded-xl text-xs font-bold gap-1.5 shadow-xs transition-all ${
+              className={`h-8 px-3.5 rounded-lg text-xs font-semibold gap-1.5 shadow-xs transition-all ${
                 isDirty
-                  ? "bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm shadow-primary/25 ring-2 ring-primary/20"
+                  ? "bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm  ring-2 ring-primary/20"
                   : "opacity-60"
               }`}
             >
@@ -354,14 +354,14 @@ export function AdminLeavePoliciesTab() {
       {activeSubTab === "QUOTAS" && (
         <div className="space-y-6">
           {/* Work Schedule Card */}
-          <div className="p-5 sm:p-6 rounded-2xl bg-card border border-border/80 shadow-xs space-y-5">
+          <div className="p-5 sm:p-6 rounded-lg bg-card border border-border/80 shadow-xs space-y-5">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-border/60">
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-sky-500/10 text-sky-500 flex items-center justify-center">
+                  <div className="w-7 h-7 rounded-lg bg-notion-blue-fg/10 text-notion-blue-fg flex items-center justify-center">
                     <Clock className="w-4 h-4" />
                   </div>
-                  <h3 className="text-sm font-bold text-foreground">
+                  <h3 className="text-sm font-semibold text-foreground">
                     Standard Attendance & Work Schedule
                   </h3>
                 </div>
@@ -372,7 +372,7 @@ export function AdminLeavePoliciesTab() {
 
               <div className="pl-9 sm:pl-0 flex items-center gap-2 text-xs font-medium text-muted-foreground">
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-subtle border border-border/60 text-foreground font-mono font-semibold">
-                  <Sparkles className="w-3 h-3 text-sky-500" />
+                  <Sparkles className="w-3 h-3 text-notion-blue-fg" />
                   {weekendDays === "0,6" ? "40 hrs/week · 5 days" : "48 hrs/week · 6 days"}
                 </span>
               </div>
@@ -380,12 +380,12 @@ export function AdminLeavePoliciesTab() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Full Shift */}
-              <div className="p-4 rounded-xl border border-border/80 bg-surface-subtle/30 space-y-3">
+              <div className="p-4 rounded-lg border border-border/80 bg-surface-subtle/30 space-y-3">
                 <div className="space-y-1">
-                  <Label htmlFor="standard-hours" className="text-xs font-bold text-foreground">
+                  <Label htmlFor="standard-hours" className="text-xs font-semibold text-foreground">
                     Full Shift Daily Target
                   </Label>
-                  <p className="text-[11px] text-muted-foreground leading-tight">
+                  <p className="text-xs text-muted-foreground leading-tight">
                     Standard daily duration required for complete attendance.
                   </p>
                 </div>
@@ -409,7 +409,7 @@ export function AdminLeavePoliciesTab() {
                       value={standardDailyHours}
                       disabled={!canManagePolicies}
                       onChange={(e) => handleStandardDailyHoursChange(parseFloat(e.target.value) || 8)}
-                      className="w-14 h-8 text-center text-xs font-mono font-bold border-0 shadow-none focus-visible:ring-0 p-0"
+                      className="w-14 h-8 text-center text-xs font-mono font-semibold border-0 shadow-none focus-visible:ring-0 p-0"
                     />
                     <button
                       type="button"
@@ -425,41 +425,41 @@ export function AdminLeavePoliciesTab() {
               </div>
 
               {/* Half Day Cutoff (Locked to 50% of Full Shift) */}
-              <div className="p-4 rounded-xl border border-border/80 bg-surface-subtle/30 space-y-3">
+              <div className="p-4 rounded-lg border border-border/80 bg-surface-subtle/30 space-y-3">
                 <div className="space-y-1">
                   <div className="flex items-center justify-between">
-                    <Label className="text-xs font-bold text-foreground">
+                    <Label className="text-xs font-semibold text-foreground">
                       Half-Day Minimum Cutoff
                     </Label>
-                    <span className="text-[10px] font-bold text-sky-600 dark:text-sky-400 bg-sky-500/10 border border-sky-500/20 px-1.5 py-0.2 rounded">
+                    <span className="text-xs font-semibold text-notion-blue-fg bg-notion-blue-fg/10 border border-notion-blue-fg/20 px-1.5 py-0.2 rounded">
                       50% of Shift
                     </span>
                   </div>
-                  <p className="text-[11px] text-muted-foreground leading-tight">
+                  <p className="text-xs text-muted-foreground leading-tight">
                     Always calculated as 50% of full shift target.
                   </p>
                 </div>
 
                 <div className="flex items-center gap-2">
                   <div className="flex items-center rounded-lg border border-border/80 bg-card/70 shadow-2xs px-3.5 py-1.5 min-w-[70px] justify-center">
-                    <span className="text-xs font-mono font-bold text-foreground">
+                    <span className="text-xs font-mono font-semibold text-foreground">
                       {halfDayMinimumHours}
                     </span>
                   </div>
                   <span className="text-xs font-semibold text-muted-foreground">hrs / day</span>
-                  <span className="text-[11px] text-muted-foreground font-mono">
+                  <span className="text-xs text-muted-foreground font-mono">
                     ({standardDailyHours}h ÷ 2)
                   </span>
                 </div>
               </div>
 
               {/* Weekend Off Days */}
-              <div className="p-4 rounded-xl border border-border/80 bg-surface-subtle/30 space-y-3">
+              <div className="p-4 rounded-lg border border-border/80 bg-surface-subtle/30 space-y-3">
                 <div className="space-y-1">
-                  <Label className="text-xs font-bold text-foreground">
+                  <Label className="text-xs font-semibold text-foreground">
                     Weekly Non-Working Days
                   </Label>
-                  <p className="text-[11px] text-muted-foreground leading-tight">
+                  <p className="text-xs text-muted-foreground leading-tight">
                     Calendar days excluded from work requirements and leaves.
                   </p>
                 </div>
@@ -481,13 +481,13 @@ export function AdminLeavePoliciesTab() {
           </div>
 
           {/* Annual Leave Entitlements */}
-          <div className="p-5 sm:p-6 rounded-2xl bg-card border border-border/80 shadow-xs space-y-5">
+          <div className="p-5 sm:p-6 rounded-lg bg-card border border-border/80 shadow-xs space-y-5">
             <div className="space-y-0.5 pb-3 border-b border-border/60">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+                <div className="w-7 h-7 rounded-lg bg-success/10 text-success flex items-center justify-center">
                   <CalendarOff className="w-4 h-4" />
                 </div>
-                <h3 className="text-sm font-bold text-foreground">
+                <h3 className="text-sm font-semibold text-foreground">
                   Organization Annual Leave Entitlements
                 </h3>
               </div>
@@ -505,25 +505,25 @@ export function AdminLeavePoliciesTab() {
                 return (
                   <div
                     key={policy.leaveType}
-                    className={`p-4 rounded-2xl border transition-all duration-200 bg-card ${meta.cardBorder} space-y-4 shadow-2xs hover:shadow-xs`}
+                    className={`p-4 rounded-lg border transition-all duration-200 bg-card ${meta.cardBorder} space-y-4 shadow-2xs hover:shadow-xs`}
                   >
                     {/* Header */}
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-2.5">
-                        <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${meta.cardBg} border border-border/60`}>
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${meta.cardBg} border border-border/60`}>
                           <Icon className={`w-4 h-4 ${meta.accentColor}`} />
                         </div>
                         <div>
-                          <h4 className="text-sm font-bold text-foreground leading-tight">
+                          <h4 className="text-sm font-semibold text-foreground leading-tight">
                             {policy.label}
                           </h4>
-                          <span className="text-[11px] text-muted-foreground font-mono">
+                          <span className="text-xs text-muted-foreground font-mono">
                             {policy.leaveType}
                           </span>
                         </div>
                       </div>
 
-                      <span className={`px-2 py-0.5 rounded-md text-[10px] font-mono font-bold border ${meta.badgeClass}`}>
+                      <span className={`px-2 py-0.5 rounded-md text-xs font-mono font-semibold border ${meta.badgeClass}`}>
                         Annual
                       </span>
                     </div>
@@ -572,7 +572,7 @@ export function AdminLeavePoliciesTab() {
                                   parseFloat(e.target.value) || 0
                                 )
                               }
-                              className="w-12 h-7 text-center text-xs font-mono font-bold border-0 shadow-none focus-visible:ring-0 p-0 bg-transparent"
+                              className="w-12 h-7 text-center text-xs font-mono font-semibold border-0 shadow-none focus-visible:ring-0 p-0 bg-transparent"
                             />
                             <button
                               type="button"
@@ -596,10 +596,10 @@ export function AdminLeavePoliciesTab() {
                       {/* Carry Forward Toggle */}
                       <div className="flex items-center justify-between pt-2 border-t border-border/40 text-xs">
                         <div className="space-y-0.5">
-                          <span className="font-medium text-foreground block text-[11px]">
+                          <span className="font-medium text-foreground block text-xs">
                             Carry Forward
                           </span>
-                          <span className="text-[10px] text-muted-foreground block">
+                          <span className="text-xs text-muted-foreground block">
                             {policy.carryForward ? "Rolls over into next year" : "Lapses on Dec 31"}
                           </span>
                         </div>
@@ -618,7 +618,7 @@ export function AdminLeavePoliciesTab() {
                             }
                             className="sr-only peer"
                           />
-                          <div className="w-8 h-4.5 bg-muted peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-emerald-500"></div>
+                          <div className="w-8 h-4.5 bg-muted peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-card after:border-border after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-success"></div>
                         </label>
                       </div>
                     </div>
@@ -630,7 +630,7 @@ export function AdminLeavePoliciesTab() {
 
           {/* Sticky Bottom Save Action on Unsaved Changes */}
           {isDirty && canManagePolicies && (
-            <div className="sticky bottom-4 z-40 p-4 rounded-2xl bg-surface-elevated/95 backdrop-blur-md border border-primary/30 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 animate-in fade-in slide-in-from-bottom-2">
+            <div className="sticky bottom-4 z-40 p-4 rounded-lg bg-surface-elevated/95 backdrop-blur-md border border-primary/30 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-3 animate-in fade-in slide-in-from-bottom-2">
               <div className="flex items-center gap-2 text-xs">
                 <AlertCircle className="w-4 h-4 text-primary shrink-0 animate-pulse" />
                 <span className="font-medium text-foreground">
@@ -644,7 +644,7 @@ export function AdminLeavePoliciesTab() {
                   size="sm"
                   onClick={resetToLoadedSettings}
                   disabled={isUpdatingPolicies}
-                  className="rounded-xl text-xs h-8"
+                  className="rounded-lg text-xs h-8"
                 >
                   Discard
                 </Button>
@@ -653,7 +653,7 @@ export function AdminLeavePoliciesTab() {
                   size="sm"
                   onClick={handleSavePoliciesAndSettings}
                   disabled={isUpdatingPolicies}
-                  className="rounded-xl text-xs font-bold gap-1.5 h-8 shadow-xs"
+                  className="rounded-lg text-xs font-semibold gap-1.5 h-8 shadow-xs"
                 >
                   {isUpdatingPolicies ? (
                     <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -670,15 +670,15 @@ export function AdminLeavePoliciesTab() {
 
       {/* SUBTAB 2: Employee Balances & Custom Allocations */}
       {activeSubTab === "EMPLOYEES" && (
-        <div className="p-5 sm:p-6 rounded-2xl bg-card border border-border/80 shadow-xs space-y-5">
+        <div className="p-5 sm:p-6 rounded-lg bg-card border border-border/80 shadow-xs space-y-5">
           {/* Header & Controls */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-border/70">
             <div className="space-y-0.5">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-purple-500/10 text-purple-500 flex items-center justify-center">
+                <div className="w-7 h-7 rounded-lg bg-notion-purple-fg/10 text-notion-purple-fg flex items-center justify-center">
                   <Users2 className="w-4 h-4" />
                 </div>
-                <h3 className="text-sm font-bold text-foreground">
+                <h3 className="text-sm font-semibold text-foreground">
                   Employee Specific Leave Allocations & Balances
                 </h3>
               </div>
@@ -718,16 +718,16 @@ export function AdminLeavePoliciesTab() {
               <button
                 type="button"
                 onClick={() => setFilterCustomOnly(!filterCustomOnly)}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
                   filterCustomOnly
-                    ? "bg-purple-500/10 text-purple-700 dark:text-purple-300 border-purple-500/30 shadow-2xs"
+                    ? "bg-notion-purple-fg/10 text-notion-purple-fg border-notion-purple-fg/30 shadow-2xs"
                     : "bg-surface-subtle hover:bg-surface-subtle/80 text-muted-foreground border-border/60"
                 }`}
               >
                 <Filter className="w-3 h-3" />
                 <span>Custom Overrides Only</span>
                 {customOverridesCount > 0 && (
-                  <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-purple-500 text-white font-mono font-bold">
+                  <span className="ml-1 px-1.5 py-0.2 rounded-full text-xs bg-notion-purple-fg text-white font-mono font-semibold">
                     {customOverridesCount}
                   </span>
                 )}
@@ -742,13 +742,13 @@ export function AdminLeavePoliciesTab() {
               <span>Loading employee leave balances...</span>
             </div>
           ) : filteredBalances.length === 0 ? (
-            <div className="py-12 text-center text-xs text-muted-foreground bg-surface-subtle/30 rounded-xl border border-dashed border-border/80">
+            <div className="py-12 text-center text-xs text-muted-foreground bg-surface-subtle/30 rounded-lg border border-dashed border-border/80">
               {employeeSearch || filterCustomOnly
                 ? "No employees match the specified filters."
                 : "No active employee records found."}
             </div>
           ) : (
-            <div className="overflow-x-auto rounded-xl border border-border/80">
+            <div className="overflow-x-auto rounded-lg border border-border/80">
               <table className="w-full text-xs text-left border-collapse">
                 <thead>
                   <tr className="border-b border-border/80 bg-surface-subtle/60 text-muted-foreground font-semibold">
@@ -771,8 +771,8 @@ export function AdminLeavePoliciesTab() {
                             size="sm"
                           />
                           <div>
-                            <div className="font-bold text-foreground">{item.user.name}</div>
-                            <div className="text-[11px] text-muted-foreground font-mono">
+                            <div className="font-semibold text-foreground">{item.user.name}</div>
+                            <div className="text-xs text-muted-foreground font-mono">
                               {item.user.email}
                             </div>
                           </div>
@@ -803,17 +803,17 @@ export function AdminLeavePoliciesTab() {
                             <div className="space-y-1.5 min-w-[100px]">
                               <div className="flex items-center justify-between gap-2">
                                 <div className="font-mono flex items-baseline gap-1">
-                                  <span className="font-bold text-foreground text-xs">
+                                  <span className="font-semibold text-foreground text-xs">
                                     {bal.available}
                                   </span>
-                                  <span className="text-[10px] text-muted-foreground">
+                                  <span className="text-xs text-muted-foreground">
                                     / {bal.total}d
                                   </span>
                                 </div>
 
                                 {bal.isCustom && (
                                   <span
-                                    className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/25"
+                                    className="px-1.5 py-0.2 rounded text-xs font-semibold bg-notion-purple-fg/10 text-notion-purple-fg border border-notion-purple-fg/25"
                                     title="Custom quota allocation applied"
                                   >
                                     Custom
@@ -828,7 +828,7 @@ export function AdminLeavePoliciesTab() {
                                 className="bg-muted/60"
                               />
 
-                              <div className="text-[10px] text-muted-foreground">
+                              <div className="text-xs text-muted-foreground">
                                 {bal.used} used
                               </div>
                             </div>
@@ -874,22 +874,22 @@ export function AdminLeavePoliciesTab() {
           open={adjustModalOpen}
           onOpenChange={setAdjustModalOpen}
           title="Adjust Employee Leave Quota"
-          icon={<Sliders className="w-5 h-5 text-purple-500" />}
+          icon={<Sliders className="w-5 h-5 text-notion-purple-fg" />}
           iconVariant="indigo"
           size="md"
         >
           <form onSubmit={handleSaveAdjustment} className="space-y-4 pt-1">
             {/* Employee Target Summary */}
-            <div className="p-3 rounded-xl bg-surface-subtle/70 border border-border/70 flex items-center gap-3">
+            <div className="p-3 rounded-lg bg-surface-subtle/70 border border-border/70 flex items-center gap-3">
               <UserAvatar
                 user={{ name: selectedUserName, email: selectedUserEmail }}
                 size="md"
               />
               <div>
-                <span className="text-xs font-bold text-foreground block">
+                <span className="text-xs font-semibold text-foreground block">
                   {selectedUserName}
                 </span>
-                <span className="text-[11px] text-muted-foreground font-mono block">
+                <span className="text-xs text-muted-foreground font-mono block">
                   {selectedUserEmail}
                 </span>
               </div>
@@ -929,7 +929,7 @@ export function AdminLeavePoliciesTab() {
                 {(() => {
                   const standardPolicy = localPolicies.find((p) => p.leaveType === selectedLeaveType);
                   return standardPolicy ? (
-                    <span className="text-[10px] text-muted-foreground">
+                    <span className="text-xs text-muted-foreground">
                       Company baseline: <strong>{standardPolicy.totalDays}d</strong>
                     </span>
                   ) : null;
@@ -937,7 +937,7 @@ export function AdminLeavePoliciesTab() {
               </div>
 
               <div className="flex items-center gap-2">
-                <div className="flex items-center rounded-xl border border-border bg-card shadow-2xs overflow-hidden">
+                <div className="flex items-center rounded-lg border border-border bg-card shadow-2xs overflow-hidden">
                   <button
                     type="button"
                     disabled={adjustedTotalDays <= 0}
@@ -955,7 +955,7 @@ export function AdminLeavePoliciesTab() {
                     value={adjustedTotalDays}
                     onChange={(e) => setAdjustedTotalDays(parseFloat(e.target.value) || 0)}
                     required
-                    className="w-16 h-9 text-center text-sm font-mono font-bold border-0 shadow-none focus-visible:ring-0 p-0"
+                    className="w-16 h-9 text-center text-sm font-mono font-semibold border-0 shadow-none focus-visible:ring-0 p-0"
                   />
                   <button
                     type="button"
@@ -992,7 +992,7 @@ export function AdminLeavePoliciesTab() {
                 variant="outline"
                 size="sm"
                 onClick={() => setAdjustModalOpen(false)}
-                className="rounded-xl text-xs"
+                className="rounded-lg text-xs"
               >
                 Cancel
               </Button>
@@ -1002,7 +1002,7 @@ export function AdminLeavePoliciesTab() {
                 variant="default"
                 size="sm"
                 disabled={isAdjusting}
-                className="rounded-xl text-xs font-bold gap-1.5 shadow-xs"
+                className="rounded-lg text-xs font-semibold gap-1.5 shadow-xs"
               >
                 {isAdjusting ? (
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />

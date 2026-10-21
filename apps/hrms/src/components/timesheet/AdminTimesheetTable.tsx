@@ -106,7 +106,7 @@ export function AdminTimesheetTable({ items, isLoading }: AdminTimesheetTablePro
     return (
       <div className="p-16 text-center rounded-lg border border-dashed border-border/80 bg-card/40 space-y-2">
         <Clock className="w-8 h-8 text-muted-foreground mx-auto" />
-        <h3 className="text-sm font-bold text-foreground">No Timesheets Match Filters</h3>
+        <h3 className="text-sm font-semibold text-foreground">No Timesheets Match Filters</h3>
         <p className="text-xs text-muted-foreground">
           Try broadening your search or adjusting the selected date and status filters.
         </p>
@@ -120,15 +120,15 @@ export function AdminTimesheetTable({ items, isLoading }: AdminTimesheetTablePro
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="border-b border-border/80 bg-surface-subtle/70 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+              <tr className="border-b border-border/80 bg-surface-subtle/70 text-xs font-semibold   text-muted-foreground">
                 <th className="py-3.5 pl-3.5 pr-1 w-9 text-center"></th>
                 <th className="py-3.5 px-3 min-w-[200px]">Employee</th>
                 <th className="py-3.5 px-3 whitespace-nowrap">Date</th>
                 <th className="py-3.5 px-3 whitespace-nowrap">
-                  First In <span className="text-[9px] opacity-75 font-mono">({timeZoneConfig.code})</span>
+                  First In <span className="text-xs opacity-75 font-mono">({timeZoneConfig.code})</span>
                 </th>
                 <th className="py-3.5 px-3 whitespace-nowrap">
-                  Last Out <span className="text-[9px] opacity-75 font-mono">({timeZoneConfig.code})</span>
+                  Last Out <span className="text-xs opacity-75 font-mono">({timeZoneConfig.code})</span>
                 </th>
                 <th className="py-3.5 px-3 whitespace-nowrap">Net Working</th>
                 <th className="py-3.5 px-3 whitespace-nowrap">Breaks</th>
@@ -170,7 +170,7 @@ export function AdminTimesheetTable({ items, isLoading }: AdminTimesheetTablePro
                             <p className="font-semibold text-foreground text-xs leading-snug truncate">
                               {item.user.name}
                             </p>
-                            <p className="text-[11px] text-muted-foreground truncate font-mono">
+                            <p className="text-xs text-muted-foreground truncate font-mono">
                               {item.user.email}
                             </p>
                           </div>
@@ -197,7 +197,7 @@ export function AdminTimesheetTable({ items, isLoading }: AdminTimesheetTablePro
                         <span
                           className={
                             isTargetMet
-                              ? "text-emerald-600 dark:text-emerald-400 font-bold"
+                              ? "text-success font-semibold"
                               : hasWork
                               ? "text-foreground font-semibold"
                               : "text-muted-foreground/60"
@@ -210,7 +210,7 @@ export function AdminTimesheetTable({ items, isLoading }: AdminTimesheetTablePro
                       {/* OOO Breaks */}
                       <td className="py-3 px-3 align-middle whitespace-nowrap font-mono text-xs">
                         {item.totalOooMinutes > 0 ? (
-                          <span className="text-amber-600 dark:text-amber-400 font-medium">
+                          <span className="text-warning font-medium">
                             {formatDuration(item.totalOooMinutes)}
                           </span>
                         ) : (
@@ -228,7 +228,7 @@ export function AdminTimesheetTable({ items, isLoading }: AdminTimesheetTablePro
 
                       {/* Entry Type */}
                       <td className="py-3 px-3 align-middle whitespace-nowrap">
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-surface-subtle text-muted-foreground border border-border/80">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-surface-subtle text-muted-foreground border border-border/80">
                           {item.hasManual ? "Manual" : "Auto"}
                         </span>
                       </td>
@@ -268,10 +268,10 @@ export function AdminTimesheetTable({ items, isLoading }: AdminTimesheetTablePro
                         <td colSpan={10} className="p-4 border-t border-border/60">
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
-                              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                              <p className="text-xs font-semibold   text-muted-foreground">
                                 Activity Timeline Segments ({item.timeline.length})
                               </p>
-                              <span className="text-[11px] text-muted-foreground font-mono">
+                              <span className="text-xs text-muted-foreground font-mono">
                                 Shift total: {formatDuration(item.netWorkingMinutes)} work ·{" "}
                                 {formatDuration(item.totalOooMinutes)} break
                               </span>
@@ -280,20 +280,20 @@ export function AdminTimesheetTable({ items, isLoading }: AdminTimesheetTablePro
                               {item.timeline.map((act) => (
                                 <div
                                   key={act.id}
-                                  className="p-2.5 rounded-xl bg-card border border-border/60 text-xs space-y-1 shadow-2xs"
+                                  className="p-2.5 rounded-lg bg-card border border-border/60 text-xs space-y-1 shadow-2xs"
                                 >
                                   <div className="flex items-center justify-between">
                                     <span
-                                      className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                                      className={`text-xs font-semibold px-1.5 py-0.5 rounded ${
                                         act.type === "WORK"
-                                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                                          : "bg-amber-500/10 text-amber-600 dark:text-amber-400"
+                                          ? "bg-success/10 text-success"
+                                          : "bg-warning/10 text-warning"
                                       }`}
                                     >
                                       {act.label}
                                     </span>
                                     <div className="flex items-center gap-1.5">
-                                      <span className="font-mono font-bold text-foreground">
+                                      <span className="font-mono font-semibold text-foreground">
                                         {formatDuration(act.durationMinutes)}
                                       </span>
                                       {canManageTimesheet && act.type === "OOO" && act.entryType === "MANUAL" && (
@@ -311,7 +311,7 @@ export function AdminTimesheetTable({ items, isLoading }: AdminTimesheetTablePro
                                             type="button"
                                             disabled={isDeletingOoo}
                                             onClick={() => handleDeleteOoo(act.id)}
-                                            className="h-5 w-5 rounded flex items-center justify-center bg-card hover:bg-rose-500/10 text-muted-foreground hover:text-rose-600 border border-border/80 hover:border-rose-500/30 shadow-2xs transition-colors disabled:opacity-50"
+                                            className="h-5 w-5 rounded flex items-center justify-center bg-card hover:bg-destructive/10 text-muted-foreground hover:text-destructive border border-border/80 hover:border-destructive/30 shadow-2xs transition-colors disabled:opacity-50"
                                             title="Delete manual break"
                                             aria-label="Delete manual break"
                                           >
@@ -321,11 +321,11 @@ export function AdminTimesheetTable({ items, isLoading }: AdminTimesheetTablePro
                                       )}
                                     </div>
                                   </div>
-                                  <div className="text-[11px] font-mono text-muted-foreground">
+                                  <div className="text-xs font-mono text-muted-foreground">
                                     {formatTime(act.startTime)} → {formatTime(act.endTime)}
                                   </div>
                                   {act.reason && (
-                                    <div className="text-[10px] text-muted-foreground truncate">
+                                    <div className="text-xs text-muted-foreground truncate">
                                       {act.reason}
                                     </div>
                                   )}

@@ -108,20 +108,20 @@ export function ManageHolidayModal({
       open={open}
       onOpenChange={onOpenChange}
       title={isEditing ? "Edit Company Holiday" : "Add Company Holiday"}
-      icon={<CalendarHeart className="w-5 h-5 text-sky-500" />}
+      icon={<CalendarHeart className="w-5 h-5 text-notion-blue-fg" />}
       iconVariant="indigo"
       size="md"
     >
       <form onSubmit={handleSubmit} className="space-y-4.5 pt-1">
         {error && (
-          <div className="p-3 rounded-xl text-xs bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/25">
+          <div className="p-3 rounded-lg text-xs bg-destructive/10 text-destructive border border-destructive/25">
             {error}
           </div>
         )}
 
         <div className="space-y-1.5">
           <Label htmlFor="holiday-name" className="text-xs font-semibold">
-            Holiday Title <span className="text-rose-500">*</span>
+            Holiday Title <span className="text-destructive">*</span>
           </Label>
           <Input
             id="holiday-name"
@@ -136,7 +136,7 @@ export function ManageHolidayModal({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           <div className="space-y-1.5">
             <Label htmlFor="holiday-date" className="text-xs font-semibold">
-              Date (YYYY-MM-DD) <span className="text-rose-500">*</span>
+              Date (YYYY-MM-DD) <span className="text-destructive">*</span>
             </Label>
             <Input
               id="holiday-date"
@@ -147,7 +147,7 @@ export function ManageHolidayModal({
               className="text-xs font-mono"
             />
             {conflictingHoliday && (
-              <p className="text-[11px] text-rose-500 font-medium">
+              <p className="text-xs text-destructive font-medium">
                 Conflict: &ldquo;{conflictingHoliday.name}&rdquo; already exists on this date.
               </p>
             )}
@@ -159,9 +159,9 @@ export function ManageHolidayModal({
               <button
                 type="button"
                 onClick={() => setIsOptional(false)}
-                className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+                className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
                   !isOptional
-                    ? "bg-sky-500/15 border-sky-500/40 text-sky-700 dark:text-sky-300 font-bold shadow-xs"
+                    ? "bg-notion-blue-fg/15 border-notion-blue-fg/40 text-notion-blue-fg font-semibold shadow-xs"
                     : "bg-surface-subtle border-border/70 text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -170,9 +170,9 @@ export function ManageHolidayModal({
               <button
                 type="button"
                 onClick={() => setIsOptional(true)}
-                className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+                className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
                   isOptional
-                    ? "bg-purple-500/15 border-purple-500/40 text-purple-700 dark:text-purple-300 font-bold shadow-xs"
+                    ? "bg-notion-purple-fg/15 border-notion-purple-fg/40 text-notion-purple-fg font-semibold shadow-xs"
                     : "bg-surface-subtle border-border/70 text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -196,7 +196,7 @@ export function ManageHolidayModal({
           />
         </div>
 
-        <div className="p-3 rounded-xl bg-surface-subtle/50 border border-border/70 text-[11px] text-muted-foreground leading-relaxed flex items-start gap-2">
+        <div className="p-3 rounded-lg bg-surface-subtle/50 border border-border/70 text-xs text-muted-foreground leading-relaxed flex items-start gap-2">
           <Sparkles className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
           <span>
             {isOptional
@@ -212,7 +212,7 @@ export function ManageHolidayModal({
             size="sm"
             onClick={() => onOpenChange(false)}
             disabled={isSaving}
-            className="rounded-xl text-xs"
+            className="rounded-lg text-xs"
           >
             Cancel
           </Button>
@@ -222,7 +222,7 @@ export function ManageHolidayModal({
             variant="default"
             size="sm"
             disabled={isSaving}
-            className="rounded-xl text-xs font-bold gap-1.5 shadow-xs"
+            className="rounded-lg text-xs font-semibold gap-1.5 shadow-xs"
           >
             {isSaving ? (
               <Loader2 className="w-3.5 h-3.5 animate-spin" />

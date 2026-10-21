@@ -105,15 +105,15 @@ export function AdminCorrectionModal({ open, onOpenChange, session }: AdminCorre
     >
       <form onSubmit={handleSubmit} className="space-y-4 pt-2">
         {error && (
-          <div className="p-3 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-xs flex items-center gap-2">
+          <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-xs flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
-        <div className="p-3 rounded-xl bg-surface-subtle border border-border/80 text-xs space-y-1">
+        <div className="p-3 rounded-lg bg-surface-subtle border border-border/80 text-xs space-y-1">
           <p className="font-semibold text-foreground">Current Recorded Record:</p>
-          <div className="flex items-center gap-2 text-muted-foreground font-mono text-[11px]">
+          <div className="flex items-center gap-2 text-muted-foreground font-mono text-xs">
             <span>Start: {formatTime(session.startTime)}</span>
             <span>→</span>
             <span>End: {formatTime(session.endTime)}</span>
@@ -132,7 +132,7 @@ export function AdminCorrectionModal({ open, onOpenChange, session }: AdminCorre
                 type="time"
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
-                className="pl-9 text-xs h-9 rounded-xl"
+                className="pl-9 text-xs h-9 rounded-lg"
                 required
               />
             </div>
@@ -149,7 +149,7 @@ export function AdminCorrectionModal({ open, onOpenChange, session }: AdminCorre
                 type="time"
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
-                className="pl-9 text-xs h-9 rounded-xl"
+                className="pl-9 text-xs h-9 rounded-lg"
                 required
               />
             </div>
@@ -165,11 +165,11 @@ export function AdminCorrectionModal({ open, onOpenChange, session }: AdminCorre
             placeholder="e.g. Employee requested correction, System discrepancy..."
             value={reason}
             onChange={(e) => setReason(e.target.value)}
-            className="text-xs h-9 rounded-xl"
+            className="text-xs h-9 rounded-lg"
             required
             minLength={3}
           />
-          <p className="text-[11px] text-muted-foreground">
+          <p className="text-xs text-muted-foreground">
             This reason will be permanently attached to the audit record with your administrator ID.
           </p>
         </div>
@@ -181,7 +181,7 @@ export function AdminCorrectionModal({ open, onOpenChange, session }: AdminCorre
             size="sm"
             onClick={() => onOpenChange(false)}
             disabled={isLoading}
-            className="rounded-xl text-xs"
+            className="rounded-lg text-xs"
           >
             Cancel
           </Button>
@@ -189,7 +189,7 @@ export function AdminCorrectionModal({ open, onOpenChange, session }: AdminCorre
             type="submit"
             size="sm"
             disabled={isLoading}
-            className="rounded-xl text-xs gap-1.5 bg-primary text-primary-foreground font-semibold"
+            className="rounded-lg text-xs gap-1.5 bg-primary text-primary-foreground font-semibold"
           >
             {isLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
             <span>Apply Correction</span>

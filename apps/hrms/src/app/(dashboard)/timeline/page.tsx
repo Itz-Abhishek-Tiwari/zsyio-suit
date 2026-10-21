@@ -47,16 +47,16 @@ function TimelineContent() {
             {employee && <UserAvatar user={employee} size="md" />}
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-foreground">
+                <span className="text-xs font-semibold text-foreground">
                   {employee?.name || "Loading employee profile..."}
                 </span>
                 {employee?.role && (
-                  <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-primary/10 text-primary border border-primary/20 uppercase tracking-wider">
+                  <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-mono font-semibold bg-primary/10 text-primary border border-primary/20  ">
                     {employee.role}
                   </span>
                 )}
               </div>
-              <p className="text-[11px] text-muted-foreground font-mono">
+              <p className="text-xs text-muted-foreground font-mono">
                 {employee?.email || "Employee Activity Timeline"}
               </p>
             </div>
@@ -78,7 +78,7 @@ function TimelineContent() {
               asChild
               variant="ghost"
               size="sm"
-              className="h-8 px-3 text-xs rounded-xl gap-1.5 text-primary hover:bg-primary/10"
+              className="h-8 px-3 text-xs rounded-lg gap-1.5 text-primary hover:bg-primary/10"
             >
               <Link href="/timeline">
                 <User className="w-3.5 h-3.5" />

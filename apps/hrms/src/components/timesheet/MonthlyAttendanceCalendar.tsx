@@ -236,7 +236,7 @@ export function MonthlyAttendanceCalendar({
             size="sm"
             onClick={handleCurrentMonth}
             className={`h-9 px-3.5 rounded-md text-xs font-semibold ${
-              month === currentMonthStr ? "bg-primary-light border-primary/30 text-primary font-bold shadow-xs" : ""
+              month === currentMonthStr ? "bg-primary-light border-primary/30 text-primary font-semibold shadow-xs" : ""
             }`}
           >
             This Month
@@ -361,16 +361,16 @@ export function MonthlyAttendanceCalendar({
           <div className="p-4.5 rounded-lg bg-card border border-border/80 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <span className="text-xs font-semibold   text-muted-foreground">
                   Monthly Attendance Rate
                 </span>
                 <span
-                  className={`px-2 py-0.5 rounded text-[11px] font-extrabold ${
+                  className={`px-2 py-0.5 rounded text-xs font-semibold ${
                     data.summary.attendancePercentage >= 90
-                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                      ? "bg-success/10 text-success border border-success/20"
                       : data.summary.attendancePercentage >= 75
-                      ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20"
-                      : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20"
+                      ? "bg-warning/10 text-warning border border-warning/20"
+                      : "bg-destructive/10 text-destructive border border-destructive/20"
                   }`}
                 >
                   {data.summary.attendancePercentage}% Compliance
@@ -416,7 +416,7 @@ export function MonthlyAttendanceCalendar({
               />
             </div>
 
-            <div className="text-[11px] text-muted-foreground italic hidden sm:block">
+            <div className="text-xs text-muted-foreground italic hidden sm:block">
               Click any cell to inspect breakdown &bull; Double-click to open Day view
             </div>
           </div>
@@ -429,7 +429,7 @@ export function MonthlyAttendanceCalendar({
                 {WEEK_DAYS.map((day, idx) => (
                   <div
                     key={day}
-                    className={`text-xs font-bold uppercase tracking-wider ${
+                    className={`text-xs font-semibold   ${
                       idx >= 5 ? "text-muted-foreground/60" : "text-muted-foreground"
                     }`}
                   >
@@ -448,16 +448,16 @@ export function MonthlyAttendanceCalendar({
                       setMonth(pad.monthStr);
                       setInspectedDate(pad.date);
                     }}
-                    className="min-h-[105px] rounded-xl border border-dashed border-border/30 bg-surface-subtle/15 p-2 flex flex-col justify-between opacity-35 hover:opacity-75 transition-all cursor-pointer group"
+                    className="min-h-[105px] rounded-lg border border-dashed border-border/30 bg-surface-subtle/15 p-2 flex flex-col justify-between opacity-35 hover:opacity-75 transition-all cursor-pointer group"
                     title={`Jump to ${pad.date}`}
                   >
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-mono font-medium text-muted-foreground/40 group-hover:text-foreground transition-colors">
                         {pad.dayNumber}
                       </span>
-                      <span className="text-[9px] font-mono text-muted-foreground/30">Prev</span>
+                      <span className="text-xs font-mono text-muted-foreground/30">Prev</span>
                     </div>
-                    <div className="text-[10px] text-muted-foreground/30 font-mono">-</div>
+                    <div className="text-xs text-muted-foreground/30 font-mono">-</div>
                   </div>
                 ))}
 
@@ -483,32 +483,32 @@ export function MonthlyAttendanceCalendar({
                     badgeClass = "bg-primary-light text-primary border border-primary/30 animate-pulse";
                     badgeText = "Active";
                   } else if (day.status === "PRESENT") {
-                    cellBorder = "border-emerald-500/30 hover:border-emerald-500/60";
-                    badgeClass = "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20";
+                    cellBorder = "border-success/30 hover:border-success/60";
+                    badgeClass = "bg-success/10 text-success border border-success/20";
                     badgeText = "P";
                   } else if (day.status === "HALF_DAY") {
-                    cellBorder = "border-amber-500/30 hover:border-amber-500/60";
-                    badgeClass = "bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20";
+                    cellBorder = "border-warning/30 hover:border-warning/60";
+                    badgeClass = "bg-warning/10 text-warning border border-warning/20";
                     badgeText = "HD";
                   } else if (day.status === "SHORT_HOURS") {
-                    cellBorder = "border-amber-500/20 hover:border-amber-500/40";
-                    badgeClass = "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20";
+                    cellBorder = "border-warning/20 hover:border-warning/40";
+                    badgeClass = "bg-warning/10 text-warning border border-warning/20";
                     badgeText = "Short";
                   } else if (day.status === "HOLIDAY") {
-                    cellBorder = "border-sky-500/30 hover:border-sky-500/60";
-                    badgeClass = "bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/20";
+                    cellBorder = "border-notion-blue-fg/30 hover:border-notion-blue-fg/60";
+                    badgeClass = "bg-notion-blue-fg/10 text-notion-blue-fg border border-notion-blue-fg/20";
                     badgeText = "Holiday";
                   } else if (day.status === "ON_LEAVE") {
-                    cellBorder = "border-purple-500/30 hover:border-purple-500/60";
-                    badgeClass = "bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20";
+                    cellBorder = "border-notion-purple-fg/30 hover:border-notion-purple-fg/60";
+                    badgeClass = "bg-notion-purple-fg/10 text-notion-purple-fg border border-notion-purple-fg/20";
                     badgeText = "Leave";
                   } else if (day.status === "INCOMPLETE") {
-                    cellBorder = "border-rose-500/40 hover:border-rose-500/70";
-                    badgeClass = "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/25";
+                    cellBorder = "border-destructive/40 hover:border-destructive/70";
+                    badgeClass = "bg-destructive/10 text-destructive border border-destructive/25";
                     badgeText = "Err";
                   } else if (day.status === "ABSENT") {
-                    cellBorder = "border-border/40 hover:border-rose-500/30";
-                    badgeClass = "bg-rose-500/5 text-rose-500/70";
+                    cellBorder = "border-border/40 hover:border-destructive/30";
+                    badgeClass = "bg-destructive/5 text-destructive/70";
                     badgeText = "A";
                   } else if (day.isWeekend) {
                     badgeText = "WO";
@@ -521,7 +521,7 @@ export function MonthlyAttendanceCalendar({
                       key={day.date}
                       onClick={() => setInspectedDate(day.date)}
                       onDoubleClick={() => onSelectDate?.(day.date)}
-                      className={`min-h-[105px] rounded-xl border p-2 flex flex-col justify-between transition-all select-none relative cursor-pointer ${
+                      className={`min-h-[105px] rounded-lg border p-2 flex flex-col justify-between transition-all select-none relative cursor-pointer ${
                         isUpcoming
                           ? "opacity-40 bg-surface-subtle/25"
                           : isSelected
@@ -534,7 +534,7 @@ export function MonthlyAttendanceCalendar({
                       {/* Top: Day Number & Status Badge */}
                       <div className="flex items-center justify-between gap-1">
                         <span
-                          className={`text-xs font-mono font-bold ${
+                          className={`text-xs font-mono font-semibold ${
                             isUpcoming
                               ? "text-muted-foreground/40"
                               : day.isToday
@@ -548,7 +548,7 @@ export function MonthlyAttendanceCalendar({
                         </span>
 
                         <span
-                          className={`text-[9px] font-bold px-1.5 py-0.5 rounded-md uppercase tracking-wider truncate max-w-[55px] ${badgeClass}`}
+                          className={`text-xs font-semibold px-1.5 py-0.5 rounded-md   truncate max-w-[55px] ${badgeClass}`}
                           title={day.holidayName || day.leaveType || badgeText}
                         >
                           {day.status === "HOLIDAY" ? "Hol" : day.status === "ON_LEAVE" ? "Leave" : badgeText}
@@ -558,41 +558,41 @@ export function MonthlyAttendanceCalendar({
                       {/* Middle: Work Duration / Holiday / Leave Details */}
                       <div className="py-1 min-h-[28px] flex flex-col justify-center">
                         {isUpcoming ? (
-                          <span className="text-[10px] text-muted-foreground/30 font-mono">-</span>
+                          <span className="text-xs text-muted-foreground/30 font-mono">-</span>
                         ) : day.netWorkingMinutes > 0 ? (
                           <div className="space-y-0.5">
-                            <div className="font-mono text-xs font-bold text-foreground truncate group-hover:text-primary transition-colors">
+                            <div className="font-mono text-xs font-semibold text-foreground truncate group-hover:text-primary transition-colors">
                               {formatDuration(day.netWorkingMinutes)}
                             </div>
                             {day.firstClockIn && (
-                              <div className="text-[10px] text-muted-foreground font-mono truncate">
+                              <div className="text-xs text-muted-foreground font-mono truncate">
                                 In {formatTime(day.firstClockIn)}
                               </div>
                             )}
                           </div>
                         ) : day.status === "HOLIDAY" ? (
-                          <div className="text-[10px] font-semibold text-sky-600 dark:text-sky-400 truncate flex items-center gap-1">
+                          <div className="text-xs font-semibold text-notion-blue-fg truncate flex items-center gap-1">
                             <Sparkles className="w-2.5 h-2.5 shrink-0" />
                             <span className="truncate">{day.holidayName || "Holiday"}</span>
                           </div>
                         ) : day.status === "ON_LEAVE" ? (
-                          <div className="text-[10px] font-semibold text-purple-600 dark:text-purple-400 truncate flex items-center gap-1">
+                          <div className="text-xs font-semibold text-notion-purple-fg truncate flex items-center gap-1">
                             <Palmtree className="w-2.5 h-2.5 shrink-0" />
                             <span className="truncate">{day.leaveType || "Leave"}</span>
                           </div>
                         ) : day.isWeekend ? (
-                          <span className="text-[10px] text-muted-foreground/50 italic">Weekend</span>
+                          <span className="text-xs text-muted-foreground/50 italic">Weekend</span>
                         ) : day.status === "ABSENT" ? (
-                          <span className="text-[10px] text-rose-500/80 font-semibold">Absent</span>
+                          <span className="text-xs text-destructive/80 font-semibold">Absent</span>
                         ) : (
-                          <span className="text-[10px] text-muted-foreground/40 font-mono">-</span>
+                          <span className="text-xs text-muted-foreground/40 font-mono">-</span>
                         )}
                       </div>
 
                       {/* Bottom: Overtime or Break tags */}
-                      <div className="flex items-center justify-between gap-1 text-[9px] font-mono text-muted-foreground/70">
+                      <div className="flex items-center justify-between gap-1 text-xs font-mono text-muted-foreground/70">
                         {(day.overtimeMinutes ?? 0) > 0 ? (
-                          <span className="text-emerald-600 dark:text-emerald-400 font-bold truncate">
+                          <span className="text-success font-semibold truncate">
                             +{formatDuration(day.overtimeMinutes)} OT
                           </span>
                         ) : day.totalOooMinutes > 0 ? (
@@ -622,16 +622,16 @@ export function MonthlyAttendanceCalendar({
                       setMonth(pad.monthStr);
                       setInspectedDate(pad.date);
                     }}
-                    className="min-h-[105px] rounded-xl border border-dashed border-border/30 bg-surface-subtle/15 p-2 flex flex-col justify-between opacity-35 hover:opacity-75 transition-all cursor-pointer group"
+                    className="min-h-[105px] rounded-lg border border-dashed border-border/30 bg-surface-subtle/15 p-2 flex flex-col justify-between opacity-35 hover:opacity-75 transition-all cursor-pointer group"
                     title={`Jump to ${pad.date}`}
                   >
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-mono font-medium text-muted-foreground/40 group-hover:text-foreground transition-colors">
                         {pad.dayNumber}
                       </span>
-                      <span className="text-[9px] font-mono text-muted-foreground/30">Next</span>
+                      <span className="text-xs font-mono text-muted-foreground/30">Next</span>
                     </div>
-                    <div className="text-[10px] text-muted-foreground/30 font-mono">-</div>
+                    <div className="text-xs text-muted-foreground/30 font-mono">-</div>
                   </div>
                 ))}
               </div>
@@ -648,10 +648,10 @@ export function MonthlyAttendanceCalendar({
                       <th className="py-3 px-4">Date</th>
                       <th className="py-3 px-4">Status</th>
                       <th className="py-3 px-4">
-                        First Clock In <span className="text-[10px] font-mono opacity-75">({timeZoneConfig.code})</span>
+                        First Clock In <span className="text-xs font-mono opacity-75">({timeZoneConfig.code})</span>
                       </th>
                       <th className="py-3 px-4">
-                        Last Clock Out <span className="text-[10px] font-mono opacity-75">({timeZoneConfig.code})</span>
+                        Last Clock Out <span className="text-xs font-mono opacity-75">({timeZoneConfig.code})</span>
                       </th>
                       <th className="py-3 px-4">Net Working Time</th>
                       <th className="py-3 px-4">Breaks</th>
@@ -684,7 +684,7 @@ export function MonthlyAttendanceCalendar({
                                   <span className="w-2 h-2 rounded-full bg-primary" />
                                 )}
                                 <span>{formatDate(day.date)}</span>
-                                <span className="text-[11px] text-muted-foreground font-normal">
+                                <span className="text-xs text-muted-foreground font-normal">
                                   ({WEEK_DAYS[day.dayOfWeek === 0 ? 6 : day.dayOfWeek - 1]})
                                 </span>
                               </div>
@@ -692,19 +692,19 @@ export function MonthlyAttendanceCalendar({
 
                             <td className="py-3 px-4 whitespace-nowrap">
                               <span
-                                className={`px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${
+                                className={`px-2 py-0.5 rounded-md text-xs font-semibold   ${
                                   day.status === "PRESENT"
-                                    ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20"
+                                    ? "bg-success/10 text-success border border-success/20"
                                     : day.status === "ACTIVE"
                                     ? "bg-primary-light text-primary border border-primary/30"
                                     : day.status === "HALF_DAY" || day.status === "SHORT_HOURS"
-                                    ? "bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20"
+                                    ? "bg-warning/10 text-warning border border-warning/20"
                                     : day.status === "HOLIDAY"
-                                    ? "bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/20"
+                                    ? "bg-notion-blue-fg/10 text-notion-blue-fg border border-notion-blue-fg/20"
                                     : day.status === "ON_LEAVE"
-                                    ? "bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20"
+                                    ? "bg-notion-purple-fg/10 text-notion-purple-fg border border-notion-purple-fg/20"
                                     : day.status === "ABSENT"
-                                    ? "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20"
+                                    ? "bg-destructive/10 text-destructive border border-destructive/20"
                                     : "bg-surface-subtle text-muted-foreground"
                                 }`}
                               >
@@ -724,7 +724,7 @@ export function MonthlyAttendanceCalendar({
                                 : "--:--"}
                             </td>
 
-                            <td className="py-3 px-4 font-mono font-bold text-foreground whitespace-nowrap">
+                            <td className="py-3 px-4 font-mono font-semibold text-foreground whitespace-nowrap">
                               {day.netWorkingMinutes > 0
                                 ? formatDuration(day.netWorkingMinutes)
                                 : "-"}
@@ -738,17 +738,17 @@ export function MonthlyAttendanceCalendar({
 
                             <td className="py-3 px-4 text-xs whitespace-nowrap">
                               {day.holidayName ? (
-                                <span className="text-sky-600 dark:text-sky-400 font-semibold flex items-center gap-1">
+                                <span className="text-notion-blue-fg font-semibold flex items-center gap-1">
                                   <Sparkles className="w-3 h-3" />
                                   {day.holidayName}
                                 </span>
                               ) : day.leaveType ? (
-                                <span className="text-purple-600 dark:text-purple-400 font-semibold flex items-center gap-1">
+                                <span className="text-notion-purple-fg font-semibold flex items-center gap-1">
                                   <Palmtree className="w-3 h-3" />
                                   {day.leaveType}
                                 </span>
                               ) : (day.overtimeMinutes ?? 0) > 0 ? (
-                                <span className="text-emerald-600 dark:text-emerald-400 font-bold font-mono">
+                                <span className="text-success font-semibold font-mono">
                                   +{formatDuration(day.overtimeMinutes)} Overtime
                                 </span>
                               ) : (
@@ -808,7 +808,7 @@ export function MonthlyAttendanceCalendar({
                     <div className="flex items-center justify-between gap-2 pr-6">
                       <div className="flex items-center gap-2">
                         <CalendarCheck className="w-4 h-4 text-primary" />
-                        <SheetTitle className="text-base font-bold text-foreground">
+                        <SheetTitle className="text-base font-semibold text-foreground">
                           Day Attendance Details
                         </SheetTitle>
                       </div>
@@ -849,27 +849,27 @@ export function MonthlyAttendanceCalendar({
                     <div
                       className={`p-4 rounded-lg border ${
                         inspectedDayItem.status === "PRESENT"
-                          ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-800 dark:text-emerald-200"
+                          ? "bg-success/10 border-success/30 text-success"
                           : inspectedDayItem.status === "ACTIVE"
                           ? "bg-primary-light border-primary/40 text-primary"
                           : inspectedDayItem.status === "HALF_DAY" || inspectedDayItem.status === "SHORT_HOURS"
-                          ? "bg-amber-500/10 border-amber-500/30 text-amber-800 dark:text-amber-200"
+                          ? "bg-warning/10 border-warning/30 text-warning"
                           : inspectedDayItem.status === "HOLIDAY"
-                          ? "bg-sky-500/10 border-sky-500/30 text-sky-800 dark:text-sky-200"
+                          ? "bg-notion-blue-fg/10 border-notion-blue-fg/30 text-notion-blue-fg"
                           : inspectedDayItem.status === "ON_LEAVE"
-                          ? "bg-purple-500/10 border-purple-500/30 text-purple-800 dark:text-purple-200"
+                          ? "bg-notion-purple-fg/10 border-notion-purple-fg/30 text-notion-purple-fg"
                           : inspectedDayItem.status === "ABSENT"
-                          ? "bg-rose-500/10 border-rose-500/30 text-rose-800 dark:text-rose-200"
+                          ? "bg-destructive/10 border-destructive/30 text-destructive"
                           : inspectedDayItem.status === "INCOMPLETE"
-                          ? "bg-rose-500/15 border-rose-500/40 text-rose-900 dark:text-rose-100"
+                          ? "bg-destructive/15 border-destructive/40 text-destructive"
                           : "bg-surface-subtle border-border/80 text-foreground"
                       }`}
                     >
                       <div className="flex items-center justify-between gap-2">
-                        <span className="text-xs font-bold uppercase tracking-wider">
+                        <span className="text-xs font-semibold  ">
                           Attendance Status
                         </span>
-                        <span className="font-extrabold text-sm">
+                        <span className="font-semibold text-sm">
                           {inspectedDayItem.status.replace("_", " ")}
                         </span>
                       </div>
@@ -897,24 +897,24 @@ export function MonthlyAttendanceCalendar({
 
                     {/* Timing Metrics 4-Box Grid */}
                     <div className="grid grid-cols-2 gap-3">
-                      <div className="p-3 rounded-xl bg-surface-subtle/50 border border-border/70 space-y-1">
-                        <span className="text-[11px] font-semibold text-muted-foreground flex items-center gap-1">
+                      <div className="p-3 rounded-lg bg-surface-subtle/50 border border-border/70 space-y-1">
+                        <span className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
                           <Clock className="w-3 h-3 text-primary" />
                           First Clock In
                         </span>
-                        <div className="text-sm font-bold font-mono text-foreground">
+                        <div className="text-sm font-semibold font-mono text-foreground">
                           {inspectedDayItem.firstClockIn
                             ? formatTime(inspectedDayItem.firstClockIn)
                             : "--:--"}
                         </div>
                       </div>
 
-                      <div className="p-3 rounded-xl bg-surface-subtle/50 border border-border/70 space-y-1">
-                        <span className="text-[11px] font-semibold text-muted-foreground flex items-center gap-1">
-                          <Clock className="w-3 h-3 text-emerald-500" />
+                      <div className="p-3 rounded-lg bg-surface-subtle/50 border border-border/70 space-y-1">
+                        <span className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
+                          <Clock className="w-3 h-3 text-success" />
                           Last Clock Out
                         </span>
-                        <div className="text-sm font-bold font-mono text-foreground">
+                        <div className="text-sm font-semibold font-mono text-foreground">
                           {inspectedDayItem.status === "ACTIVE"
                             ? "In Progress"
                             : inspectedDayItem.lastClockOut
@@ -923,24 +923,24 @@ export function MonthlyAttendanceCalendar({
                         </div>
                       </div>
 
-                      <div className="p-3 rounded-xl bg-surface-subtle/50 border border-border/70 space-y-1">
-                        <span className="text-[11px] font-semibold text-muted-foreground flex items-center gap-1">
-                          <TrendingUp className="w-3 h-3 text-sky-500" />
+                      <div className="p-3 rounded-lg bg-surface-subtle/50 border border-border/70 space-y-1">
+                        <span className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
+                          <TrendingUp className="w-3 h-3 text-notion-blue-fg" />
                           Net Working Time
                         </span>
-                        <div className="text-sm font-bold font-mono text-foreground">
+                        <div className="text-sm font-semibold font-mono text-foreground">
                           {inspectedDayItem.netWorkingMinutes > 0
                             ? formatDuration(inspectedDayItem.netWorkingMinutes)
                             : "0m"}
                         </div>
                       </div>
 
-                      <div className="p-3 rounded-xl bg-surface-subtle/50 border border-border/70 space-y-1">
-                        <span className="text-[11px] font-semibold text-muted-foreground flex items-center gap-1">
-                          <Coffee className="w-3 h-3 text-amber-500" />
+                      <div className="p-3 rounded-lg bg-surface-subtle/50 border border-border/70 space-y-1">
+                        <span className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
+                          <Coffee className="w-3 h-3 text-warning" />
                           Breaks
                         </span>
-                        <div className="text-sm font-bold font-mono text-foreground">
+                        <div className="text-sm font-semibold font-mono text-foreground">
                           {inspectedDayItem.totalOooMinutes > 0
                             ? formatDuration(inspectedDayItem.totalOooMinutes)
                             : "0m"}
@@ -949,7 +949,7 @@ export function MonthlyAttendanceCalendar({
                     </div>
 
                     {/* Overtime & Sessions summary strip */}
-                    <div className="p-3.5 rounded-xl bg-surface-subtle/30 border border-border/60 space-y-2 text-xs">
+                    <div className="p-3.5 rounded-lg bg-surface-subtle/30 border border-border/60 space-y-2 text-xs">
                       <div className="flex items-center justify-between">
                         <span className="text-muted-foreground">Sessions Recorded:</span>
                         <span className="font-semibold text-foreground font-mono">
@@ -960,9 +960,9 @@ export function MonthlyAttendanceCalendar({
                       <div className="flex items-center justify-between">
                         <span className="text-muted-foreground">Overtime Accrued:</span>
                         <span
-                          className={`font-mono font-bold ${
+                          className={`font-mono font-semibold ${
                             (inspectedDayItem.overtimeMinutes ?? 0) > 0
-                              ? "text-emerald-600 dark:text-emerald-400"
+                              ? "text-success"
                               : "text-muted-foreground"
                           }`}
                         >
@@ -973,14 +973,14 @@ export function MonthlyAttendanceCalendar({
                       </div>
 
                       {inspectedDayItem.holidayName && (
-                        <div className="flex items-center justify-between pt-1 border-t border-border/60 text-sky-600 dark:text-sky-400">
+                        <div className="flex items-center justify-between pt-1 border-t border-border/60 text-notion-blue-fg">
                           <span>Holiday Event:</span>
                           <span className="font-semibold">{inspectedDayItem.holidayName}</span>
                         </div>
                       )}
 
                       {inspectedDayItem.leaveType && (
-                        <div className="flex items-center justify-between pt-1 border-t border-border/60 text-purple-600 dark:text-purple-400">
+                        <div className="flex items-center justify-between pt-1 border-t border-border/60 text-notion-purple-fg">
                           <span>Leave Type:</span>
                           <span className="font-semibold">
                             {inspectedDayItem.leaveType}
@@ -1013,7 +1013,7 @@ export function MonthlyAttendanceCalendar({
                         if (onSelectDate) onSelectDate(inspectedDayItem.date);
                         setInspectedDate(null);
                       }}
-                      className="w-full sm:w-auto text-xs font-bold gap-1.5 shadow-xs"
+                      className="w-full sm:w-auto text-xs font-semibold gap-1.5 shadow-xs"
                     >
                       <span>Open Day Timeline</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />

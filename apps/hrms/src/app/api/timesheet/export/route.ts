@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireUser } from "@zsyio/auth/api-helpers";
+import { requireUser, withApiHandler } from "@zsyio/auth/api-helpers";
 import { timesheetExportService } from "@/server/services/timesheet-export.service";
 import { timesheetFilterSchema } from "@zsyio/validators";
 
@@ -31,10 +31,10 @@ export async function GET(request: NextRequest) {
     });
   } catch (err: any) {
     if (err instanceof NextResponse) return err;
+    if (err instanceof Response) return err;
     console.error("Export error:", err);
-    return NextResponse.json(
-      { error: { code: "EXPORT_FAILED", message: err.message || "Failed to generate timesheet export." } },
-      { status: 500 }
-    );
+    return withApiHandler(async () => {
+      throw err;
+    });
   }
 }

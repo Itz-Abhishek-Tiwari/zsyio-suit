@@ -218,6 +218,18 @@ export class TimesheetRepository {
     });
   }
 
+  /** Creates an ACTIVE session unless one exists; serialized per user via an advisory lock. Returns null if already active. */
+  async createActiveWorkSessionIfNone(data: Prisma.WorkSessionUncheckedCreateInput) {
+    return prisma.$transaction(async (tx) => {
+      await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtext(${"clock:" + data.userId}))`;
+      const existing = await tx.workSession.findFirst({
+        where: { userId: data.userId, status: "ACTIVE", endTime: null },
+      });
+      if (existing) return null;
+      return tx.workSession.create({ data });
+    });
+  }
+
   async createWorkSession(data: Prisma.WorkSessionUncheckedCreateInput) {
     return prisma.workSession.create({ data });
   }

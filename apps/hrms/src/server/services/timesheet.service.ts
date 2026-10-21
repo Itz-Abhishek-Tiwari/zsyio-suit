@@ -187,7 +187,7 @@ export class TimesheetService {
     const now = new Date();
     const date = normalizeDate(now);
 
-    const session = await timesheetRepository.createWorkSession({
+    const session = await timesheetRepository.createActiveWorkSessionIfNone({
       userId: user.id,
       date,
       startTime: now,
@@ -196,6 +196,10 @@ export class TimesheetService {
       reason: input?.note?.trim() || null,
       createdById: user.id,
     });
+
+    if (!session) {
+      throw new BadRequestError("You already have an active working session. Please clock out first.");
+    }
 
     return { success: true, session };
   }
@@ -300,6 +304,10 @@ export class TimesheetService {
 
     if (endTime <= startTime) {
       throw new BadRequestError("Clock Out time must be after Clock In time.");
+    }
+
+    if (endTime.getTime() > Date.now() + 5 * 60 * 1000) {
+      throw new BadRequestError("Manual entries cannot end in the future.");
     }
 
     const overlap = await timesheetRepository.checkWorkSessionOverlap(user.id, startTime, endTime);
@@ -515,6 +523,9 @@ export class TimesheetService {
 
       const endTime = new Date(input.endTime);
       if (isNaN(endTime.getTime())) throw new BadRequestError("Invalid end time.");
+      if (endTime.getTime() > Date.now() + 5 * 60 * 1000) {
+        throw new BadRequestError("End time cannot be in the future.");
+      }
       if (endTime <= new Date(session.startTime)) {
         throw new BadRequestError("Clock Out time must be after Clock In time.");
       }
@@ -558,6 +569,9 @@ export class TimesheetService {
 
       const endTime = new Date(input.endTime);
       if (isNaN(endTime.getTime())) throw new BadRequestError("Invalid end time.");
+      if (endTime.getTime() > Date.now() + 5 * 60 * 1000) {
+        throw new BadRequestError("End time cannot be in the future.");
+      }
       if (endTime <= new Date(session.startTime)) {
         throw new BadRequestError("Break end time must be after break start time.");
       }
@@ -661,6 +675,9 @@ export class TimesheetService {
     }
 
     const targetDate = dateStr ? new Date(dateStr) : new Date();
+    if (isNaN(targetDate.getTime())) {
+      throw new BadRequestError("Invalid date.");
+    }
     const normalized = normalizeDate(targetDate);
 
     const [workSessions, oooSessions] = await Promise.all([

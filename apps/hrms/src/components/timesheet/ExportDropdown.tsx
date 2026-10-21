@@ -49,7 +49,7 @@ export function ExportDropdown({ filters = {} }: ExportDropdownProps) {
           variant="outline"
           size="sm"
           disabled={downloading}
-          className="h-9 px-3.5 text-xs font-semibold gap-2 rounded-xl border-border hover:bg-surface-elevated shadow-xs"
+          className="h-9 px-3.5 text-xs font-semibold gap-2 rounded-lg border-border hover:bg-surface-elevated shadow-xs"
         >
           {downloading ? (
             <Loader2 className="w-3.5 h-3.5 animate-spin text-primary" />
@@ -60,42 +60,42 @@ export function ExportDropdown({ filters = {} }: ExportDropdownProps) {
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-56 rounded-2xl p-1.5 shadow-xl">
-        <DropdownMenuLabel className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground px-2 py-1">
+      <DropdownMenuContent align="end" className="w-56 rounded-lg p-1.5 shadow-md">
+        <DropdownMenuLabel className="text-xs font-semibold   text-muted-foreground px-2 py-1">
           Daily Summary Export
         </DropdownMenuLabel>
         <DropdownMenuItem
           onClick={() => handleExport("xlsx", "summary")}
-          className="text-xs font-medium gap-2 rounded-xl cursor-pointer"
+          className="text-xs font-medium gap-2 rounded-lg cursor-pointer"
         >
-          <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
+          <FileSpreadsheet className="w-4 h-4 text-success" />
           <span>Summary in Excel (.xlsx)</span>
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => handleExport("csv", "summary")}
-          className="text-xs font-medium gap-2 rounded-xl cursor-pointer"
+          className="text-xs font-medium gap-2 rounded-lg cursor-pointer"
         >
-          <FileText className="w-4 h-4 text-blue-600" />
+          <FileText className="w-4 h-4 text-notion-blue-fg" />
           <span>Summary in CSV (.csv)</span>
         </DropdownMenuItem>
 
         <DropdownMenuSeparator className="my-1" />
 
-        <DropdownMenuLabel className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground px-2 py-1">
+        <DropdownMenuLabel className="text-xs font-semibold   text-muted-foreground px-2 py-1">
           Detailed Activity Breakdown
         </DropdownMenuLabel>
         <DropdownMenuItem
           onClick={() => handleExport("xlsx", "detailed")}
-          className="text-xs font-medium gap-2 rounded-xl cursor-pointer"
+          className="text-xs font-medium gap-2 rounded-lg cursor-pointer"
         >
-          <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
+          <FileSpreadsheet className="w-4 h-4 text-success" />
           <span>Activities in Excel (.xlsx)</span>
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => handleExport("csv", "detailed")}
-          className="text-xs font-medium gap-2 rounded-xl cursor-pointer"
+          className="text-xs font-medium gap-2 rounded-lg cursor-pointer"
         >
-          <FileText className="w-4 h-4 text-blue-600" />
+          <FileText className="w-4 h-4 text-notion-blue-fg" />
           <span>Activities in CSV (.csv)</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
