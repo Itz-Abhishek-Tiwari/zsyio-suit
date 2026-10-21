@@ -67,7 +67,7 @@ async function main() {
   const fatima = userMap.get("fatima.alrashid@zsyio.com");
   const rachel = userMap.get("rachel.green@zsyio.com");
   const alex = userMap.get("alex.vance@zsyio.com");
-  const superadmin = userMap.get("superadmin@mediloon.de");
+  const superadmin = userMap.get("superadmin@zsyio.de");
 
   if (!admin) {
     throw new Error("Admin user admin@zsyio.com not found!");
