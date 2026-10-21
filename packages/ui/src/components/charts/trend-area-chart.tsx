@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useId } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { TrendingUp, TrendingDown, Activity } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { ChartCard } from "./chart-card";
@@ -47,6 +47,7 @@ export function TrendAreaChart({
   className,
   chartHeight = 160,
   strokeColor = "var(--primary)",
+  showAverageLine = false,
   formatValue = (v) => String(v),
   unitLabel,
 }: TrendAreaChartProps) {
@@ -86,7 +87,7 @@ export function TrendAreaChart({
   // Build SVG path coordinates
   const width = 500;
   const height = chartHeight;
-  const padding = { top: 16, bottom: 24, left: 16, right: 16 };
+  const padding = { top: 16, bottom: 28, left: 58, right: 16 };
 
   const chartBounds = {
     xMin: padding.left,
@@ -95,8 +96,10 @@ export function TrendAreaChart({
     yMax: height - padding.bottom,
   };
 
-  const minVal = Math.min(...activeData.map((d) => d.value), 0);
-  const maxVal = Math.max(...activeData.map((d) => d.value), 1);
+  const minVal = Math.min(...activeData.flatMap(d => [d.value, d.secondaryValue ?? d.value]), 0);
+  const rawMax = Math.max(...activeData.flatMap(d => [d.value, d.secondaryValue ?? d.value]), 1);
+  const magnitude = 10 ** Math.floor(Math.log10(rawMax));
+  const maxVal = Math.ceil(rawMax / magnitude / 0.5) * magnitude * 0.5;
   const valRange = maxVal - minVal || 1;
 
   const points = useMemo(() => {
@@ -120,17 +123,10 @@ export function TrendAreaChart({
 
     let d = `M ${points[0].x} ${points[0].y}`;
     for (let i = 0; i < points.length - 1; i++) {
-      const p0 = i > 0 ? points[i - 1] : points[i];
       const p1 = points[i];
       const p2 = points[i + 1];
-      const p3 = i != points.length - 2 ? points[i + 2] : p2;
-
-      const cp1x = p1.x + (p2.x - p0.x) / 6;
-      const cp1y = p1.y + (p2.y - p0.y) / 6;
-      const cp2x = p2.x - (p3.x - p1.x) / 6;
-      const cp2y = p2.y - (p3.y - p1.y) / 6;
-
-      d += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p2.x} ${p2.y}`;
+      const midX = (p1.x + p2.x) / 2;
+      d += ` C ${midX} ${p1.y}, ${midX} ${p2.y}, ${p2.x} ${p2.y}`;
     }
 
     const area = `${d} L ${points[points.length - 1].x} ${chartBounds.yMax} L ${points[0].x} ${chartBounds.yMax} Z`;
@@ -146,16 +142,16 @@ export function TrendAreaChart({
       icon={icon}
       headerAction={
         ranges && ranges.length > 1 ? (
-          <div className="flex items-center gap-1 p-0.5 rounded-lg bg-surface-subtle border border-border/60">
+          <div className="flex items-center gap-1 p-0.5 rounded-sm bg-surface-subtle border border-border/60">
             {ranges.map((r) => (
               <button
                 key={r.id}
                 type="button"
                 onClick={() => setActiveRangeId(r.id)}
                 className={cn(
-                  "px-2 py-0.5 rounded text-[11px] font-medium transition-all",
+                  "px-2 py-0.5 rounded text-xs font-medium transition-all",
                   activeRangeId === r.id
-                    ? "bg-card text-foreground shadow-2xs font-semibold"
+                    ? "bg-card text-foreground font-medium"
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
@@ -167,16 +163,16 @@ export function TrendAreaChart({
       }
       className={className}
     >
-      <div className="flex items-baseline justify-between pb-2 border-b border-border/50">
+      <div className="flex flex-wrap items-baseline justify-between gap-2 pb-3">
         <div className="flex items-baseline gap-2">
-          <span className="text-2xl font-extrabold font-mono tracking-tight text-foreground">
+          <span className="text-3xl font-normal font-[family-name:var(--font-editorial)] tracking-tight text-foreground">
             {formatValue(activePoint ? activePoint.data.value : stats.current)}
           </span>
           {unitLabel && (
             <span className="text-xs text-muted-foreground font-mono">{unitLabel}</span>
           )}
           {activePoint && (
-            <span className="text-[11px] text-muted-foreground font-mono ml-2">
+            <span className="text-xs text-muted-foreground font-mono ml-2">
               ({activePoint.data.label || activePoint.data.date})
             </span>
           )}
@@ -185,10 +181,10 @@ export function TrendAreaChart({
         <div className="flex items-center gap-1.5">
           <span
             className={cn(
-              "inline-flex items-center gap-1 text-[11px] font-mono font-bold px-1.5 py-0.5 rounded border shadow-2xs",
+              "inline-flex items-center gap-1 text-xs font-medium px-1.5 py-0.5 rounded-sm",
               isPositive
-                ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20 dark:text-emerald-400"
-                : "bg-red-500/10 text-red-600 border-red-500/20 dark:text-red-400"
+                ? "bg-success/10 text-success border-success/20"
+                : "bg-destructive/10 text-destructive border-destructive/20"
             )}
           >
             {isPositive ? (
@@ -198,62 +194,77 @@ export function TrendAreaChart({
             )}
             {isPositive ? `+${stats.deltaPct}%` : `${stats.deltaPct}%`}
           </span>
-          <span className="text-[10px] text-muted-foreground">vs period start</span>
+          <span className="text-xs text-muted-foreground">vs period start</span>
         </div>
       </div>
 
+      {activeData.length === 0 && <p className="py-8 text-sm text-muted-foreground text-center">No trend data yet</p>}
+      {(showAverageLine || activeData.some(d => d.secondaryValue !== undefined)) && <div className="flex flex-wrap gap-4 text-[10px] text-muted-foreground py-2">
+        <span className="inline-flex items-center gap-1.5"><span className="w-4 border-t-2" style={{borderColor:strokeColor}} />Actual</span>
+        {activeData.some(d => d.secondaryValue !== undefined) && <span className="inline-flex items-center gap-1.5"><span className="w-4 border-t border-dashed border-muted-foreground" />Comparison</span>}
+        {showAverageLine && <span>Average: {formatValue(stats.average)}</span>}
+      </div>}
       <div className="w-full relative pt-2" style={{ height }}>
         <svg
+          role="img" aria-label={title}
           viewBox={`0 0 ${width} ${height}`}
           className="w-full h-full overflow-visible select-none"
         >
           <defs>
             <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={strokeColor} stopOpacity={0.25} />
+              <stop offset="0%" stopColor={strokeColor} stopOpacity={0.12} />
               <stop offset="100%" stopColor={strokeColor} stopOpacity={0.0} />
             </linearGradient>
           </defs>
 
-          {/* Baseline track */}
-          <line
-            x1={chartBounds.xMin}
-            y1={chartBounds.yMax}
-            x2={chartBounds.xMax}
-            y2={chartBounds.yMax}
-            stroke="var(--border)"
-            strokeDasharray="3 3"
-          />
-
+          {[0, 0.5, 1].map((fraction) => {
+            const y = chartBounds.yMax - fraction * (chartBounds.yMax - chartBounds.yMin);
+            return <g key={fraction}>
+              <line x1={chartBounds.xMin} x2={chartBounds.xMax} y1={y} y2={y} stroke="var(--border)" strokeWidth={0.7} />
+              <text x={chartBounds.xMin - 10} y={y + 3} textAnchor="end" fill="var(--muted-foreground)" fontSize={10}>{formatValue(minVal + fraction * valRange)}</text>
+            </g>;
+          })}
+          {points.filter((_, i) => i === 0 || i === points.length - 1 || (points.length > 4 && i === Math.floor(points.length / 2))).map((point, i) =>
+            <text key={point.data.date + i} x={point.x} y={height - 5} textAnchor={i === 0 ? "start" : point === points[points.length - 1] ? "end" : "middle"} fill="var(--muted-foreground)" fontSize={10}>{point.data.label || point.data.date}</text>
+          )}
+          {showAverageLine && <line x1={chartBounds.xMin} x2={chartBounds.xMax} y1={chartBounds.yMax - ((stats.average - minVal) / valRange) * (chartBounds.yMax - chartBounds.yMin)} y2={chartBounds.yMax - ((stats.average - minVal) / valRange) * (chartBounds.yMax - chartBounds.yMin)} stroke="var(--muted-foreground)" strokeDasharray="4 4"><title>Average: {formatValue(stats.average)}</title></line>}
           {/* Area Fill with Spring Appearance */}
           {areaPath && (
             <path
               d={areaPath}
               fill={`url(#${gradientId})`}
-              className="transition-opacity duration-300"
+              className="transition-opacity duration-150"
             />
           )}
 
-          {/* Line Spline with PathLength Animation */}
+          {activeData.some(d => d.secondaryValue !== undefined) && <path d={activeData.map((d, i) => d.secondaryValue === undefined ? "" : `${i === 0 || activeData[i - 1].secondaryValue === undefined ? "M" : "L"} ${points[i].x} ${chartBounds.yMax - ((d.secondaryValue - minVal) / valRange) * (chartBounds.yMax - chartBounds.yMin)}`).join(" ")} fill="none" stroke="var(--muted-foreground)" strokeWidth={1.5} strokeDasharray="4 4"><title>Comparison series</title></path>}
+          {/* Primary trend */}
           {linePath && (
             <motion.path
               d={linePath}
               fill="none"
               stroke={strokeColor}
-              strokeWidth={2.5}
+              strokeWidth={2}
               strokeLinecap="round"
               strokeLinejoin="round"
-              initial={{ pathLength: 0 }}
+              initial={false}
               animate={{ pathLength: 1 }}
               transition={{ type: "spring", stiffness: 70, damping: 15 }}
             />
           )}
 
+          {points.length === 1 && <circle cx={points[0].x} cy={points[0].y} r={3} fill={strokeColor} />}
           {/* Interactive Crosshair & Nodes */}
           {points.map((pt, idx) => {
             const isHovered = hoveredIdx === idx;
             return (
               <g
                 key={idx}
+                tabIndex={0}
+                role="img"
+                aria-label={`${pt.data.label || pt.data.date}: ${formatValue(pt.data.value)}`}
+                onFocus={() => setHoveredIdx(idx)}
+                onBlur={() => setHoveredIdx(null)}
                 onMouseEnter={() => setHoveredIdx(idx)}
                 onMouseLeave={() => setHoveredIdx(null)}
                 className="cursor-pointer"
@@ -278,7 +289,7 @@ export function TrendAreaChart({
                       r={5}
                       fill="var(--card)"
                       stroke={strokeColor}
-                      strokeWidth={2.5}
+                      strokeWidth={2}
                       className="shadow-sm"
                     />
                   </>

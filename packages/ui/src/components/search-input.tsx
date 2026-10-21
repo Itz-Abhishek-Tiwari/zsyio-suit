@@ -23,13 +23,13 @@ const SIZE_CONFIG = {
     clearIcon: "w-3 h-3",
   },
   md: {
-    input: "h-9 text-xs sm:text-sm pl-9 pr-8 rounded-xl",
+    input: "h-9 text-xs sm:text-sm pl-9 pr-8 rounded-lg",
     icon: "w-4 h-4 left-3",
     clear: "right-2.5 p-0.5",
     clearIcon: "w-3.5 h-3.5",
   },
   lg: {
-    input: "h-11 text-sm pl-10 pr-9 rounded-xl",
+    input: "h-11 text-sm pl-10 pr-9 rounded-lg",
     icon: "w-4.5 h-4.5 left-3.5",
     clear: "right-3 p-1",
     clearIcon: "w-4 h-4",
@@ -114,7 +114,7 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
               <X className={config.clearIcon} />
             </button>
           ) : shortcutBadge ? (
-            <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded bg-muted border border-border text-[10px] font-mono text-muted-foreground">
+            <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded bg-muted border border-border text-xs font-mono text-muted-foreground">
               {shortcutBadge}
             </kbd>
           ) : null}

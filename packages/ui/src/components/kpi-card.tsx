@@ -88,7 +88,7 @@ export function KpiCard({
     <>
       <div className="flex flex-col gap-1 min-w-0 pr-2">
         <div className="flex items-center gap-1.5">
-          <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider truncate">
+          <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider truncate">
             {label}
           </span>
           {badge && <div className="shrink-0">{badge}</div>}
@@ -98,7 +98,7 @@ export function KpiCard({
         </div>
 
         <div className="flex items-baseline gap-2 flex-wrap">
-          <span className="text-2xl font-bold font-display tracking-tight text-foreground tabular-nums truncate">
+          <span className="text-2xl font-semibold font-display tracking-tight text-foreground tabular-nums truncate">
             <AnimatedNumber value={value} />
           </span>
 
@@ -108,10 +108,10 @@ export function KpiCard({
               animate={{ scale: 1, opacity: 1 }}
               transition={transitions.bouncy}
               className={cn(
-                "inline-flex items-center gap-0.5 text-[11px] font-semibold tabular-nums",
+                "inline-flex items-center gap-0.5 text-xs font-semibold tabular-nums",
                 trend.isPositive !== false
-                  ? "text-emerald-600 dark:text-emerald-400"
-                  : "text-rose-600 dark:text-rose-400"
+                  ? "text-success"
+                  : "text-destructive"
               )}
             >
               {trend.isPositive !== false ? (
@@ -125,9 +125,9 @@ export function KpiCard({
         </div>
 
         {subtext && (
-          <span className="text-[11px] text-muted-foreground/80 truncate flex items-center gap-1.5 mt-0.5">
+          <span className="text-xs text-muted-foreground/80 truncate flex items-center gap-1.5 mt-0.5">
             {highlightAlert && (
-              <span className="h-1.5 w-1.5 rounded-full bg-red-500 shrink-0" />
+              <span className="h-1.5 w-1.5 rounded-full bg-destructive shrink-0" />
             )}
             <span className="truncate">{subtext}</span>
           </span>
@@ -136,9 +136,9 @@ export function KpiCard({
 
       <div
         className={cn(
-          "w-10 h-10 sm:w-11 sm:h-11 rounded-md border flex items-center justify-center shrink-0 shadow-2xs transition-transform duration-200 group-hover:scale-110",
+          "w-7 h-7 rounded-[6px] border flex items-center justify-center shrink-0 shadow-2xs transition-transform duration-200 ",
           highlightAlert
-            ? "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/30"
+            ? "bg-destructive/10 text-destructive border-destructive/30"
             : styles.iconBg
         )}
       >

@@ -50,16 +50,16 @@ export function CorporateEmailField({
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-center justify-between">
-        <Label htmlFor={id} className="text-xs font-bold text-foreground">
+        <Label htmlFor={id} className="text-xs font-semibold text-foreground">
           {label}
         </Label>
-        <span className="text-[10px] font-mono text-muted-foreground flex items-center gap-1">
+        <span className="text-xs font-mono text-muted-foreground flex items-center gap-1">
           <Building2 className="w-3 h-3 text-primary" />
           <span>{hint}</span>
         </span>
       </div>
 
-      <div className="flex items-center rounded-xl border border-border/80 bg-surface-elevated/90 overflow-hidden shadow-2xs transition-colors duration-200 ease-out focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary">
+      <div className="flex items-center rounded-lg border border-border/80 bg-surface-elevated/90 overflow-hidden shadow-2xs transition-colors duration-200 ease-out focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary">
         <div className="pl-3.5 text-muted-foreground flex items-center pointer-events-none">
           <Mail className="w-4 h-4" />
         </div>
@@ -91,7 +91,7 @@ export function CorporateEmailField({
         <Select value={selectedDomain} onValueChange={onSelectedDomainChange}>
           <SelectTrigger
             aria-label="Select email domain"
-            className="w-[140px] sm:w-[155px] border-0 shadow-none rounded-none bg-surface-subtle/80 hover:bg-surface-subtle text-xs font-mono font-bold text-foreground focus:ring-0 h-11 px-3 cursor-pointer shrink-0 transition-colors duration-200"
+            className="w-[140px] sm:w-[155px] border-0 shadow-none rounded-none bg-surface-subtle/80 hover:bg-surface-subtle text-xs font-mono font-semibold text-foreground focus:ring-0 h-11 px-3 cursor-pointer shrink-0 transition-colors duration-200"
           >
             <SelectValue placeholder={`@${selectedDomain}`} />
           </SelectTrigger>
@@ -99,7 +99,7 @@ export function CorporateEmailField({
             {allowedDomains.map((d) => (
               <SelectItem key={d} value={d} className="text-xs font-mono font-semibold cursor-pointer">
                 <span className="flex items-center gap-1.5">
-                  <span className="text-primary font-bold">@</span>
+                  <span className="text-primary font-semibold">@</span>
                   <span>{d}</span>
                 </span>
               </SelectItem>
@@ -108,9 +108,9 @@ export function CorporateEmailField({
         </Select>
       </div>
 
-      <div className="flex items-center justify-between px-1 text-[11px] text-muted-foreground font-mono">
+      <div className="flex items-center justify-between px-1 text-xs text-muted-foreground font-mono">
         <span>{previewLabel}</span>
-        <span className="font-bold text-foreground truncate max-w-[240px]">
+        <span className="font-semibold text-foreground truncate max-w-[240px]">
           {cleanUsername ? `${cleanUsername}@${selectedDomain}` : `username@${selectedDomain}`}
         </span>
       </div>

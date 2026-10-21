@@ -38,11 +38,11 @@ const SIZE_MAP = {
 
 const ICON_BG_MAP = {
   primary: "bg-primary/10 text-primary border-primary/20",
-  warning: "bg-amber-500/10 text-amber-600 border-amber-500/20",
+  warning: "bg-warning/10 text-warning border-warning/20",
   destructive: "bg-destructive/10 text-destructive border-destructive/20",
-  emerald: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
-  purple: "bg-purple-500/10 text-purple-600 border-purple-500/20",
-  indigo: "bg-indigo-500/10 text-indigo-600 border-indigo-500/20",
+  emerald: "bg-success/10 text-success border-success/20",
+  purple: "bg-notion-purple-fg/10 text-notion-purple-fg border-notion-purple-fg/20",
+  indigo: "bg-notion-purple-fg/10 text-notion-purple-fg border-notion-purple-fg/20",
 };
 
 export function ModalHeader({
@@ -79,7 +79,7 @@ export function ModalHeader({
           </div>
         )}
         <div className="flex flex-col min-w-0">
-          <DialogTitle className="text-sm font-bold text-foreground truncate tracking-tight">
+          <DialogTitle className="text-sm font-semibold text-foreground truncate tracking-tight">
             {title}
           </DialogTitle>
           {description && (
@@ -91,7 +91,7 @@ export function ModalHeader({
       </div>
 
       {shortcutBadge && (
-        <kbd className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-md bg-background border border-border text-[10px] font-mono text-muted-foreground shrink-0 mr-8">
+        <kbd className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-md bg-background border border-border text-xs font-mono text-muted-foreground shrink-0 mr-8">
           {shortcutBadge}
         </kbd>
       )}
@@ -157,7 +157,7 @@ export function Modal({
       <DialogContent
         hideClose={hideClose}
         className={cn(
-          "p-0 overflow-hidden rounded-lg border border-border bg-surface-elevated shadow-2xl gap-0 flex flex-col max-h-[90vh] sm:max-h-[85vh]",
+          "p-0 overflow-hidden rounded-lg border border-border bg-surface-elevated shadow-md gap-0 flex flex-col max-h-[90vh] sm:max-h-[85vh]",
           SIZE_MAP[size],
           className
         )}

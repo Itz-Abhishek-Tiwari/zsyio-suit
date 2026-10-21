@@ -179,7 +179,7 @@ export function DatePicker({
           id={id}
           disabled={disabled}
           className={cn(
-            "group flex h-10 w-full items-center justify-between rounded-xl border border-input-border bg-input px-3.5 py-2 text-xs font-semibold text-foreground shadow-xs transition-all duration-150 outline-none cursor-pointer",
+            "group flex h-10 w-full items-center justify-between rounded-lg border border-input-border bg-input px-3.5 py-2 text-xs font-semibold text-foreground shadow-xs transition-all duration-150 outline-none cursor-pointer",
             "hover:border-border-strong",
             isOpen
               ? "border-ring ring-4 ring-ring/15"
@@ -189,7 +189,7 @@ export function DatePicker({
           )}
         >
           <div className="flex items-center gap-2.5 min-w-0">
-            <CalendarIcon className="w-4 h-4 text-primary shrink-0 transition-transform group-hover:scale-110" />
+            <CalendarIcon className="w-4 h-4 text-primary shrink-0 transition-transform " />
             <span className={cn("truncate", !value && "text-muted-foreground/60 font-normal")}>
               {value ? (formatFn && selectedDate ? formatFn(selectedDate) : formatDisplayDate(value)) : placeholder}
             </span>
@@ -215,27 +215,27 @@ export function DatePicker({
           side="top"
           sideOffset={8}
           collisionPadding={16}
-          className="z-50 w-72 rounded-2xl border border-border bg-surface-elevated p-3.5 shadow-2xl animate-fade-in select-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2"
+          className="z-50 w-72 rounded-lg border border-border bg-surface-elevated p-3.5 shadow-md animate-fade-in select-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2"
         >
-          <div className="flex items-center justify-between gap-1 pb-3 mb-3 border-b border-border/60 text-[11px] font-medium">
+          <div className="flex items-center justify-between gap-1 pb-3 mb-3 border-b border-border/60 text-xs font-medium">
             <button
               type="button"
               onClick={() => handleQuickPreset(0)}
-              className="flex-1 py-1 px-2 rounded-lg bg-surface-subtle hover:bg-primary-light hover:text-primary transition-colors text-center font-bold text-foreground-secondary cursor-pointer"
+              className="flex-1 py-1 px-2 rounded-lg bg-surface-subtle hover:bg-primary-light hover:text-primary transition-colors text-center font-semibold text-foreground-secondary cursor-pointer"
             >
               Today
             </button>
             <button
               type="button"
               onClick={() => handleQuickPreset(1)}
-              className="flex-1 py-1 px-2 rounded-lg bg-surface-subtle hover:bg-primary-light hover:text-primary transition-colors text-center font-bold text-foreground-secondary cursor-pointer"
+              className="flex-1 py-1 px-2 rounded-lg bg-surface-subtle hover:bg-primary-light hover:text-primary transition-colors text-center font-semibold text-foreground-secondary cursor-pointer"
             >
               Tomorrow
             </button>
             <button
               type="button"
               onClick={() => handleQuickPreset(7)}
-              className="flex-1 py-1 px-2 rounded-lg bg-surface-subtle hover:bg-primary-light hover:text-primary transition-colors text-center font-bold text-foreground-secondary cursor-pointer"
+              className="flex-1 py-1 px-2 rounded-lg bg-surface-subtle hover:bg-primary-light hover:text-primary transition-colors text-center font-semibold text-foreground-secondary cursor-pointer"
             >
               +1 Week
             </button>
@@ -251,7 +251,7 @@ export function DatePicker({
               <ChevronLeft className="w-4 h-4" />
             </button>
 
-            <span className="text-xs font-bold text-foreground font-display">
+            <span className="text-xs font-semibold text-foreground font-display">
               {MONTH_NAMES[month]} {year}
             </span>
 
@@ -267,7 +267,7 @@ export function DatePicker({
 
           <div className="grid grid-cols-7 gap-1 mb-1 text-center">
             {DAYS_OF_WEEK.map((day) => (
-              <span key={day} className="text-[10px] font-bold text-muted-foreground uppercase">
+              <span key={day} className="text-xs font-semibold text-muted-foreground ">
                 {day}
               </span>
             ))}
@@ -299,8 +299,8 @@ export function DatePicker({
                       : "cursor-pointer",
                     !isDayDisabled && !isCurrentMonth && "text-muted-foreground/30 font-normal",
                     !isDayDisabled && isCurrentMonth && !isSelected && "text-foreground hover:bg-surface-subtle",
-                    !isDayDisabled && isToday && !isSelected && "border border-primary text-primary font-bold",
-                    !isDayDisabled && isSelected && "bg-primary text-primary-foreground font-bold shadow-xs"
+                    !isDayDisabled && isToday && !isSelected && "border border-primary text-primary font-semibold",
+                    !isDayDisabled && isSelected && "bg-primary text-primary-foreground font-semibold shadow-xs"
                   )}
                 >
                   {date.getDate()}

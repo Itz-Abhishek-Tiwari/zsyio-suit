@@ -10,13 +10,19 @@ import {
   ArrowUpRight,
   Terminal,
   Target,
+  BriefcaseBusiness,
 } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "../components/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider,
+} from "../components/tooltip";
 import { motion, AnimatePresence, transitions } from "../components/motion";
 import { cn } from "../lib/utils";
 
 export interface SuiteAppConfig {
-  id: "pms" | "notes" | "hrms" | "admin" | "sales";
+  id: "pms" | "notes" | "hrms" | "admin" | "sales" | "recruit";
   name: string;
   shortName: string;
   tagline: string;
@@ -36,17 +42,37 @@ function sanitizeUrl(url: string | undefined, fallback: string): string {
 
 export const SUITE_APPS: SuiteAppConfig[] = [
   {
+    id: "recruit",
+    name: "Zsyio Recruit",
+    shortName: "Recruit",
+    tagline: "Jobs, applicants & interviews",
+    icon: BriefcaseBusiness,
+    accentColor: "hover:bg-muted",
+    activeColor: "bg-primary-light text-primary",
+    indicatorColor: "bg-primary",
+    badgeBg: "bg-primary-light",
+    badgeText: "text-primary",
+    defaultUrl: sanitizeUrl(
+      process.env.NEXT_PUBLIC_RECRUIT_URL,
+      "http://localhost:3006",
+    ),
+  },
+  {
     id: "pms",
     name: "Zsyio Flow",
     shortName: "Flow",
     tagline: "Product workflows, tasks & clients",
     icon: Workflow,
     accentColor: "hover:bg-surface-subtle hover:text-foreground",
-    activeColor: "bg-primary/12 text-primary shadow-2xs border border-primary/25",
+    activeColor:
+      "bg-primary/12 text-primary shadow-2xs border border-primary/25",
     indicatorColor: "bg-primary",
     badgeBg: "bg-primary/10 border-primary/20",
     badgeText: "text-primary",
-    defaultUrl: sanitizeUrl(process.env.NEXT_PUBLIC_PMS_URL, "http://localhost:3000"),
+    defaultUrl: sanitizeUrl(
+      process.env.NEXT_PUBLIC_PMS_URL,
+      "http://localhost:3000",
+    ),
   },
   {
     id: "notes",
@@ -55,11 +81,15 @@ export const SUITE_APPS: SuiteAppConfig[] = [
     tagline: "Notion-like docs & knowledge hub",
     icon: FileText,
     accentColor: "hover:bg-surface-subtle hover:text-foreground",
-    activeColor: "bg-primary/12 text-primary shadow-2xs border border-primary/25",
+    activeColor:
+      "bg-primary/12 text-primary shadow-2xs border border-primary/25",
     indicatorColor: "bg-primary",
     badgeBg: "bg-primary/10 border-primary/20",
     badgeText: "text-primary",
-    defaultUrl: sanitizeUrl(process.env.NEXT_PUBLIC_NOTES_URL, "http://localhost:3001"),
+    defaultUrl: sanitizeUrl(
+      process.env.NEXT_PUBLIC_NOTES_URL,
+      "http://localhost:3001",
+    ),
   },
   {
     id: "hrms",
@@ -68,11 +98,15 @@ export const SUITE_APPS: SuiteAppConfig[] = [
     tagline: "Timesheet, attendance & breaks",
     icon: Fingerprint,
     accentColor: "hover:bg-surface-subtle hover:text-foreground",
-    activeColor: "bg-primary/12 text-primary shadow-2xs border border-primary/25",
+    activeColor:
+      "bg-primary/12 text-primary shadow-2xs border border-primary/25",
     indicatorColor: "bg-primary",
     badgeBg: "bg-primary/10 border-primary/20",
     badgeText: "text-primary",
-    defaultUrl: sanitizeUrl(process.env.NEXT_PUBLIC_HRMS_URL, "http://localhost:3002"),
+    defaultUrl: sanitizeUrl(
+      process.env.NEXT_PUBLIC_HRMS_URL,
+      "http://localhost:3002",
+    ),
   },
   {
     id: "admin",
@@ -81,11 +115,15 @@ export const SUITE_APPS: SuiteAppConfig[] = [
     tagline: "User directory, roles & access control",
     icon: Terminal,
     accentColor: "hover:bg-surface-subtle hover:text-foreground",
-    activeColor: "bg-primary/12 text-primary shadow-2xs border border-primary/25",
+    activeColor:
+      "bg-primary/12 text-primary shadow-2xs border border-primary/25",
     indicatorColor: "bg-primary",
     badgeBg: "bg-primary/10 border-primary/20",
     badgeText: "text-primary",
-    defaultUrl: sanitizeUrl(process.env.NEXT_PUBLIC_ADMIN_URL, "http://localhost:3003"),
+    defaultUrl: sanitizeUrl(
+      process.env.NEXT_PUBLIC_ADMIN_URL,
+      "http://localhost:3003",
+    ),
   },
   {
     id: "sales",
@@ -94,18 +132,22 @@ export const SUITE_APPS: SuiteAppConfig[] = [
     tagline: "Pipeline, CRM & Kanban leads",
     icon: Target,
     accentColor: "hover:bg-surface-subtle hover:text-foreground",
-    activeColor: "bg-primary/12 text-primary shadow-2xs border border-primary/25",
+    activeColor:
+      "bg-primary/12 text-primary shadow-2xs border border-primary/25",
     indicatorColor: "bg-primary",
     badgeBg: "bg-primary/10 border-primary/20",
     badgeText: "text-primary",
-    defaultUrl: sanitizeUrl(process.env.NEXT_PUBLIC_SALES_URL, "http://localhost:3005"),
+    defaultUrl: sanitizeUrl(
+      process.env.NEXT_PUBLIC_SALES_URL,
+      "http://localhost:3005",
+    ),
   },
 ];
 
 interface SuiteSideRailProps {
-  currentApp: "pms" | "notes" | "hrms" | "admin" | "sales";
+  currentApp: "pms" | "notes" | "hrms" | "admin" | "sales" | "recruit";
   className?: string;
-  allowedApps?: ("pms" | "notes" | "hrms" | "admin" | "sales")[];
+  allowedApps?: ("pms" | "notes" | "hrms" | "admin" | "sales" | "recruit")[];
 }
 
 const STORAGE_KEY = "zsyio_suite_rail_collapsed";
@@ -113,7 +155,9 @@ const CHANNEL_NAME = "zsyio-suite-rail";
 
 function getCookieCollapsed(): boolean | null {
   if (typeof document === "undefined") return null;
-  const match = document.cookie.match(/(?:^|; )zsyio_suite_rail_collapsed=([^;]*)/);
+  const match = document.cookie.match(
+    /(?:^|; )zsyio_suite_rail_collapsed=([^;]*)/,
+  );
   if (!match) return null;
   return match[1] === "true";
 }
@@ -123,7 +167,11 @@ function setCookieCollapsed(val: boolean) {
   document.cookie = `zsyio_suite_rail_collapsed=${val}; path=/; max-age=31536000; SameSite=Lax`;
 }
 
-export function SuiteSideRail({ currentApp, allowedApps, className }: SuiteSideRailProps) {
+export function SuiteSideRail({
+  currentApp,
+  allowedApps,
+  className,
+}: SuiteSideRailProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -207,12 +255,16 @@ export function SuiteSideRail({ currentApp, allowedApps, className }: SuiteSideR
                   whileHover={{ scale: 1.12, x: -2 }}
                   whileTap={{ scale: 0.92 }}
                   transition={transitions.bouncy}
-                  className="w-6 h-10 -ml-2 rounded-l-md bg-surface-elevated hover:bg-surface-subtle border-y border-l border-border/80 flex items-center justify-center text-muted-foreground hover:text-foreground shadow-md hover:shadow-lg transition-colors cursor-pointer group"
+                  className="w-6 h-10 -ml-2 rounded-l-md bg-surface-elevated hover:bg-surface-subtle border-y border-l border-border/80 flex items-center justify-center text-muted-foreground hover:text-foreground shadow-md hover:shadow-md transition-colors cursor-pointer group"
                 >
                   <ChevronLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" />
                 </motion.button>
               </TooltipTrigger>
-              <TooltipContent side="left" sideOffset={10} className="font-bold text-xs py-1.5 px-3 rounded-md shadow-xl">
+              <TooltipContent
+                side="left"
+                sideOffset={10}
+                className="font-semibold text-xs py-1.5 px-3 rounded-md shadow-md"
+              >
                 Show Suite Rail
               </TooltipContent>
             </Tooltip>
@@ -227,14 +279,14 @@ export function SuiteSideRail({ currentApp, allowedApps, className }: SuiteSideR
             aria-label="Zsyio Companion Rail"
             className={cn(
               "hidden sm:flex flex-col items-center justify-between w-12 shrink-0 h-full border-l border-border/80 suite-rail-gradient select-none z-30 py-3.5 will-change-transform relative overflow-hidden",
-              className
+              className,
             )}
           >
             {/* Top ambient radial glow */}
-            <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-primary/8 via-indigo-500/4 to-transparent pointer-events-none dark:from-primary/14 dark:via-indigo-500/8" />
+            <div className="absolute top-0 inset-x-0 h-32 pointer-events-none" />
 
             {/* Left border gradient accent */}
-            <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-primary/35 via-indigo-500/20 to-transparent pointer-events-none" />
+            <div className="absolute top-0 left-0 bottom-0 w-px pointer-events-none" />
 
             {/* Top App Icons Container */}
             <div className="relative flex flex-col items-center gap-3 w-full z-10">
@@ -261,11 +313,11 @@ export function SuiteSideRail({ currentApp, allowedApps, className }: SuiteSideR
                             ? app.activeColor
                             : cn(
                                 "text-muted-foreground/70 hover:text-foreground hover:bg-surface-subtle/80 hover:shadow-2xs",
-                                app.accentColor
-                              )
+                                app.accentColor,
+                              ),
                         )}
                       >
-                        <Icon className="w-4 h-4 transition-transform group-hover:scale-105" />
+                        <Icon className="w-4 h-4 transition-transform " />
 
                         {/* Active Indicator Sliding Pill */}
                         {isCurrent && (
@@ -274,7 +326,7 @@ export function SuiteSideRail({ currentApp, allowedApps, className }: SuiteSideR
                             transition={transitions.snappy}
                             className={cn(
                               "absolute -left-1.5 top-1.5 bottom-1.5 w-1 rounded-r-md",
-                              app.indicatorColor
+                              app.indicatorColor,
                             )}
                           />
                         )}
@@ -284,33 +336,35 @@ export function SuiteSideRail({ currentApp, allowedApps, className }: SuiteSideR
                     <TooltipContent
                       side="left"
                       sideOffset={14}
-                      className="py-2 px-3 text-left min-w-[190px] rounded-md border border-border/80 shadow-xl bg-surface-elevated/95 backdrop-blur-xl"
+                      className="py-2 px-3 text-left min-w-[190px] rounded-md border border-border/80 shadow-md bg-surface-elevated/95 backdrop-blur-xl"
                     >
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex items-center gap-1.5">
-                          <span className="font-bold text-xs text-foreground">{app.name}</span>
+                          <span className="font-semibold text-xs text-foreground">
+                            {app.name}
+                          </span>
                           <span
                             className={cn(
-                              "px-1.5 py-0.2 text-[9px] font-bold rounded border",
+                              "px-1.5 py-0.2 text-xs font-semibold rounded border",
                               app.badgeBg,
-                              app.badgeText
+                              app.badgeText,
                             )}
                           >
                             {app.shortName}
                           </span>
                         </div>
                         {isCurrent ? (
-                          <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded">
+                          <span className="text-xs font-semibold text-success bg-success/10 border border-success/20 px-1.5 py-0.5 rounded">
                             Active
                           </span>
                         ) : (
-                          <span className="text-[10px] font-medium text-muted-foreground flex items-center gap-0.5 group-hover:text-foreground">
+                          <span className="text-xs font-medium text-muted-foreground flex items-center gap-0.5 group-hover:text-foreground">
                             <span>Open</span>
                             <ArrowUpRight className="w-3.5 h-3.5" />
                           </span>
                         )}
                       </div>
-                      <p className="text-[11px] text-muted-foreground mt-1 leading-snug">
+                      <p className="text-xs text-muted-foreground mt-1 leading-snug">
                         {app.tagline}
                       </p>
                     </TooltipContent>
@@ -335,7 +389,11 @@ export function SuiteSideRail({ currentApp, allowedApps, className }: SuiteSideR
                     <ChevronRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
                   </motion.button>
                 </TooltipTrigger>
-                <TooltipContent side="left" sideOffset={12} className="font-semibold text-xs py-1 px-2.5">
+                <TooltipContent
+                  side="left"
+                  sideOffset={12}
+                  className="font-semibold text-xs py-1 px-2.5"
+                >
                   Collapse panel
                 </TooltipContent>
               </Tooltip>

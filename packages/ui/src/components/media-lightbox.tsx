@@ -283,16 +283,16 @@ export function MediaLightbox({
       onMouseUp={handleMouseUp}
     >
       {/* ── Top Floating Toolbar ── */}
-      <header className="relative z-20 flex items-center justify-between px-4 sm:px-6 py-3 border-b border-white/10 bg-slate-950/60 backdrop-blur-md text-white">
+      <header className="relative z-20 flex items-center justify-between px-4 sm:px-6 py-3 border-b border-white/10 bg-foreground/60 backdrop-blur-md text-white">
         {/* Left: File details & index */}
         <div className="flex items-center gap-3 min-w-0 pr-4">
           <div className="w-8 h-8 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center shrink-0">
             {isImage ? (
-              <ImageIcon className="w-4 h-4 text-emerald-400" />
+              <ImageIcon className="w-4 h-4 text-success" />
             ) : isPdf ? (
-              <FileText className="w-4 h-4 text-rose-400" />
+              <FileText className="w-4 h-4 text-destructive" />
             ) : (
-              <FileText className="w-4 h-4 text-amber-400" />
+              <FileText className="w-4 h-4 text-warning" />
             )}
           </div>
           <div className="flex flex-col min-w-0">
@@ -301,12 +301,12 @@ export function MediaLightbox({
                 {currentItem.name}
               </span>
               {items.length > 1 && (
-                <span className="px-2 py-0.5 rounded-full bg-white/10 border border-white/15 text-[10px] font-mono font-bold text-white/80 shrink-0">
+                <span className="px-2 py-0.5 rounded-full bg-white/10 border border-white/15 text-xs font-mono font-semibold text-white/80 shrink-0">
                   {activeIndex + 1} / {items.length}
                 </span>
               )}
             </div>
-            <div className="flex items-center gap-2 text-[11px] text-white/60 font-mono">
+            <div className="flex items-center gap-2 text-xs text-white/60 font-mono">
               {currentItem.size ? <span>{formatBytes(currentItem.size)}</span> : null}
               {currentItem.uploadedAt && (
                 <>
@@ -320,7 +320,7 @@ export function MediaLightbox({
 
         {/* Center: Interactive Viewport Controls (Images) */}
         {isImage && (
-          <div className="hidden md:flex items-center gap-1.5 px-2 py-1 rounded-xl bg-white/10 border border-white/15 shadow-xl">
+          <div className="hidden md:flex items-center gap-1.5 px-2 py-1 rounded-lg bg-white/10 border border-white/15 shadow-md">
             <button
               type="button"
               onClick={handleZoomOut}
@@ -380,7 +380,7 @@ export function MediaLightbox({
             type="button"
             onClick={handleDownload}
             title="Download file"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-xs font-semibold text-white transition-all cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-xs font-semibold text-white transition-all cursor-pointer"
           >
             <Download className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Download</span>
@@ -392,7 +392,7 @@ export function MediaLightbox({
               disabled={isDeleting}
               onClick={() => onDelete(currentItem)}
               title="Delete attachment"
-              className="p-2 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-400 hover:text-rose-300 transition-all cursor-pointer disabled:opacity-50"
+              className="p-2 rounded-lg bg-destructive/15 hover:bg-destructive/25 border border-destructive/30 text-destructive hover:text-destructive transition-all cursor-pointer disabled:opacity-50"
             >
               {isDeleting ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -408,7 +408,7 @@ export function MediaLightbox({
             type="button"
             onClick={onClose}
             title="Close viewer (ESC)"
-            className="p-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-white/80 hover:text-white transition-all cursor-pointer"
+            className="p-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-white/80 hover:text-white transition-all cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -430,7 +430,7 @@ export function MediaLightbox({
             type="button"
             onClick={() => setActiveIndex(activeIndex - 1)}
             aria-label="Previous attachment"
-            className="absolute left-4 sm:left-8 z-30 p-3 rounded-2xl bg-black/60 hover:bg-black/90 border border-white/20 text-white/80 hover:text-white hover:scale-105 shadow-2xl transition-all cursor-pointer backdrop-blur-md"
+            className="absolute left-4 sm:left-8 z-30 p-3 rounded-lg bg-black/60 hover:bg-black/90 border border-white/20 text-white/80 hover:text-white  shadow-md transition-all cursor-pointer backdrop-blur-md"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -442,7 +442,7 @@ export function MediaLightbox({
             type="button"
             onClick={() => setActiveIndex(activeIndex + 1)}
             aria-label="Next attachment"
-            className="absolute right-4 sm:right-8 z-30 p-3 rounded-2xl bg-black/60 hover:bg-black/90 border border-white/20 text-white/80 hover:text-white hover:scale-105 shadow-2xl transition-all cursor-pointer backdrop-blur-md"
+            className="absolute right-4 sm:right-8 z-30 p-3 rounded-lg bg-black/60 hover:bg-black/90 border border-white/20 text-white/80 hover:text-white  shadow-md transition-all cursor-pointer backdrop-blur-md"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
@@ -476,7 +476,7 @@ export function MediaLightbox({
                   transition: isDragging ? "none" : "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
                 className={cn(
-                  "max-w-[85vw] max-h-[75vh] object-contain rounded-xl shadow-2xl transition-opacity duration-200",
+                  "max-w-[85vw] max-h-[75vh] object-contain rounded-lg shadow-md transition-opacity duration-200",
                   imageLoading ? "opacity-0" : "opacity-100"
                 )}
               />
@@ -486,16 +486,16 @@ export function MediaLightbox({
               <iframe
                 src={currentItem.url}
                 title={currentItem.name}
-                className="w-full h-full rounded-2xl border border-white/20 bg-white shadow-2xl"
+                className="w-full h-full rounded-lg border border-white/20 bg-card shadow-md"
               />
             </div>
           ) : (
-            <div className="p-8 sm:p-12 rounded-3xl bg-slate-900/90 border border-white/15 max-w-md w-full flex flex-col items-center text-center gap-4 text-white shadow-2xl">
-              <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center">
-                <FileText className="w-8 h-8 text-rose-400" />
+            <div className="p-8 sm:p-12 rounded-lg bg-foreground/90 border border-white/15 max-w-md w-full flex flex-col items-center text-center gap-4 text-white shadow-md">
+              <div className="w-16 h-16 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center">
+                <FileText className="w-8 h-8 text-destructive" />
               </div>
               <div className="flex flex-col gap-1">
-                <span className="font-bold text-base">{currentItem.name}</span>
+                <span className="font-semibold text-base">{currentItem.name}</span>
                 <span className="text-xs text-white/60 font-mono">
                   {formatBytes(currentItem.size)}
                 </span>
@@ -508,7 +508,7 @@ export function MediaLightbox({
                   href={currentItem.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-xl bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-2 hover:opacity-90 transition-opacity"
+                  className="px-4 py-2 rounded-lg bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-2 hover:opacity-90 transition-opacity"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
                   <span>Open in Browser</span>
@@ -516,7 +516,7 @@ export function MediaLightbox({
                 <button
                   type="button"
                   onClick={handleDownload}
-                  className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 font-semibold text-xs flex items-center gap-2 transition-all cursor-pointer"
+                  className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 font-semibold text-xs flex items-center gap-2 transition-all cursor-pointer"
                 >
                   <Download className="w-3.5 h-3.5" />
                   <span>Download</span>
@@ -529,7 +529,7 @@ export function MediaLightbox({
 
       {/* ── Bottom Floating Thumbnail Strip ── */}
       {items.length > 1 && (
-        <footer className="relative z-20 flex items-center justify-center px-4 py-3 border-t border-white/10 bg-slate-950/60 backdrop-blur-md">
+        <footer className="relative z-20 flex items-center justify-center px-4 py-3 border-t border-white/10 bg-foreground/60 backdrop-blur-md">
           <div className="flex items-center gap-2.5 max-w-3xl overflow-x-auto p-1 custom-scrollbar">
             {items.map((it, idx) => {
               const isSelected = idx === activeIndex;
@@ -540,7 +540,7 @@ export function MediaLightbox({
                   type="button"
                   onClick={() => setActiveIndex(idx)}
                   className={cn(
-                    "relative w-12 h-12 rounded-xl border overflow-hidden shrink-0 transition-all cursor-pointer",
+                    "relative w-12 h-12 rounded-lg border overflow-hidden shrink-0 transition-all cursor-pointer",
                     isSelected
                       ? "border-primary ring-2 ring-primary ring-offset-2 ring-offset-slate-950 scale-105"
                       : "border-white/20 opacity-50 hover:opacity-100"
@@ -551,7 +551,7 @@ export function MediaLightbox({
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={it.url} alt={it.name} className="w-full h-full object-cover" />
                   ) : (
-                    <div className="w-full h-full bg-slate-800 flex items-center justify-center">
+                    <div className="w-full h-full bg-foreground flex items-center justify-center">
                       <FileText className="w-4 h-4 text-white/60" />
                     </div>
                   )}

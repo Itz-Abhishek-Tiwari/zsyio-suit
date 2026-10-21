@@ -156,7 +156,7 @@ export function UnsavedChangesProvider({ children }: { children: React.ReactNode
         }}
         title="Unsaved Changes"
         description="You have unsaved changes. Do you want to save them before leaving?"
-        icon={<AlertTriangle className="w-5 h-5 text-amber-500" />}
+        icon={<AlertTriangle className="w-5 h-5 text-warning" />}
         iconVariant="warning"
         size="md"
         bodyClassName="p-5 flex flex-col gap-3 text-xs text-muted-foreground"
@@ -168,21 +168,21 @@ export function UnsavedChangesProvider({ children }: { children: React.ReactNode
                 setModalOpen(false);
                 setPendingAction(null);
               }}
-              className="px-3.5 py-1.5 rounded-xl border border-border hover:bg-surface-elevated text-xs font-semibold text-foreground transition-colors cursor-pointer"
+              className="px-3.5 py-1.5 rounded-lg border border-border hover:bg-surface-elevated text-xs font-semibold text-foreground transition-colors cursor-pointer"
             >
               Keep Editing
             </button>
             <button
               type="button"
               onClick={handleDiscardAndProceed}
-              className="px-3.5 py-1.5 rounded-xl border border-destructive/30 bg-destructive/10 hover:bg-destructive/20 text-destructive text-xs font-bold transition-colors cursor-pointer"
+              className="px-3.5 py-1.5 rounded-lg border border-destructive/30 bg-destructive/10 hover:bg-destructive/20 text-destructive text-xs font-semibold transition-colors cursor-pointer"
             >
               Discard Changes
             </button>
             <button
               type="button"
               onClick={handleSaveAndProceed}
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-primary text-primary-foreground text-xs font-bold hover:bg-primary-hover transition-colors cursor-pointer shadow-xs shadow-primary/20"
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary-hover transition-colors cursor-pointer shadow-xs "
             >
               <Save className="w-3.5 h-3.5" />
               <span>Save & Continue</span>

@@ -46,11 +46,11 @@ export function PageHeader({
 
           <div className="flex items-center gap-3">
             {titleIcon && (
-              <div className="w-10 h-10 rounded-xl bg-primary-light text-primary border border-primary/20 flex items-center justify-center shrink-0 shadow-2xs">
+              <div className="w-10 h-10 rounded-lg bg-primary-light text-primary border border-primary/20 flex items-center justify-center shrink-0 shadow-2xs">
                 {titleIcon}
               </div>
             )}
-            <h1 className="text-2xl font-bold font-display tracking-tight text-foreground">
+            <h1 className="text-2xl font-semibold font-display tracking-tight text-foreground">
               {title}
             </h1>
           </div>

@@ -50,7 +50,7 @@ export function EmptyState({
     >
       <div
         className={cn(
-          "rounded-2xl flex items-center justify-center bg-primary-light text-primary border border-primary/20 shadow-2xs",
+          "rounded-lg flex items-center justify-center bg-primary-light text-primary border border-primary/20 shadow-2xs",
           iconSizeClass
         )}
       >
@@ -58,7 +58,7 @@ export function EmptyState({
       </div>
 
       <div className="max-w-md">
-        <p className="font-bold text-sm text-foreground tracking-tight">{title}</p>
+        <p className="font-semibold text-sm text-foreground tracking-tight">{title}</p>
         {description && (
           <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
             {description}

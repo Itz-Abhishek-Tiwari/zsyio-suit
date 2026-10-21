@@ -179,6 +179,27 @@
     "base": {
       "white": "#FFFFFF",
       "black": "#000000"
+    },
+    "mascot": {
+      "hair": "#F6A5BC",
+      "hair-light": "#FFD5E1",
+      "hair-shadow": "#DA789B",
+      "skin": "#FFE9DC",
+      "ink": "#493749",
+      "iris": "#508D76",
+      "iris-light": "#B7DC95",
+      "hoodie": "#F7D88E",
+      "blush": "#F29DB0"
+    },
+    "editorial": {
+      "paper": "#F5F3EB",
+      "ink": "#202722",
+      "muted": "#626960",
+      "peach": "#F3C5B7",
+      "lime": "#D2ED8B",
+      "line": "#D7D9CF",
+      "white": "#FFFFFF",
+      "night": "#17221E"
     }
   },
   "radius": {
@@ -187,7 +208,7 @@
     "md": "4px",
     "lg": "6px",
     "xl": "8px",
-    "2xl": "10px",
+    "2xl": "12px",
     "full": "9999px"
   },
   "space": {

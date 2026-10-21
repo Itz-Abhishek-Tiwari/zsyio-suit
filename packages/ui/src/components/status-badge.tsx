@@ -62,7 +62,7 @@ const VARIANT_STYLES: Record<
 };
 
 const SIZE_STYLES = {
-  xs: "text-[10px] px-1.5 py-0.5 gap-1 font-medium rounded-[3px]",
+  xs: "text-xs px-1.5 py-0.5 gap-1 font-medium rounded-[3px]",
   sm: "text-xs px-2 py-0.5 gap-1.5 font-normal rounded-[3px]",
   md: "text-xs px-2.5 py-1 gap-1.5 font-medium rounded-[4px]",
 };

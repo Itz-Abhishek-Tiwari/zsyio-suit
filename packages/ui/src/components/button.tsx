@@ -6,11 +6,11 @@ import { cn } from "../lib/utils"
 const buttonVariants = cva(
   [
     "inline-flex items-center justify-center gap-2 whitespace-nowrap",
-    "font-medium text-xs leading-none rounded-[4px]",
-    "transition-all duration-120 ease-out",
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30",
+    "font-medium text-sm leading-none rounded-md",
+    "transition-colors duration-150 ease-out",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
     "disabled:pointer-events-none disabled:opacity-50",
-    "active:scale-[0.98]",
+    "",
     "[&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   ].join(" "),
   {
@@ -41,7 +41,7 @@ const buttonVariants = cva(
       },
       size: {
         sm: "h-8 px-3 text-xs rounded-md",
-        default: "h-9 px-3.5 text-xs rounded-md",
+        default: "h-10 px-4 text-sm rounded-md",
         lg: "h-10 px-4 text-sm rounded-md",
         xl: "h-11 px-5 text-sm rounded-md",
         icon: "h-9 w-9 rounded-md",

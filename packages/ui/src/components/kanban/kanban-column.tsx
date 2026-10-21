@@ -35,9 +35,9 @@ export function KanbanColumnEmpty({
       <div className="mb-2 opacity-40 flex items-center justify-center">
         {icon || <Inbox className="w-5 h-5" />}
       </div>
-      <p className="text-[11px] font-semibold text-foreground/70">{title}</p>
+      <p className="text-xs font-semibold text-foreground/70">{title}</p>
       {description && (
-        <p className="text-[11px] text-muted-foreground mt-0.5 max-w-[200px]">
+        <p className="text-xs text-muted-foreground mt-0.5 max-w-[200px]">
           {description}
         </p>
       )}
@@ -207,7 +207,7 @@ export function KanbanColumn({
           </h2>
 
           {typeof count === "number" && (
-            <span className="text-[11px] font-normal text-muted-foreground ml-0.5">
+            <span className="text-xs font-normal text-muted-foreground ml-0.5">
               {count}
             </span>
           )}

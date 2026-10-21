@@ -76,8 +76,18 @@ export function KanbanCard({
         onDragEnd?.();
       }}
       onClick={onClick}
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={(event) => {
+        if (event.target !== event.currentTarget || !onClick) return;
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onClick();
+        }
+      }}
       className={cn(
         "group relative flex flex-col gap-2 rounded-[4px] border p-2.5 shadow-2xs transition-all duration-150 select-none",
+        onClick && "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         variantClasses,
         draggable ? "cursor-grab active:cursor-grabbing" : "cursor-pointer",
         isDragging
@@ -92,7 +102,7 @@ export function KanbanCard({
           <div className="flex items-center gap-1.5 min-w-0 flex-wrap">
             {identifier && (
               typeof identifier === "string" ? (
-                <span className="font-mono text-[11px] font-bold text-muted-foreground/80 group-hover:text-primary transition-colors shrink-0">
+                <span className="font-mono text-xs font-semibold text-muted-foreground/80 group-hover:text-primary transition-colors shrink-0">
                   {identifier}
                 </span>
               ) : (
@@ -116,7 +126,7 @@ export function KanbanCard({
           {title}
         </div>
         {subtitle && (
-          <div className="text-[11px] text-muted-foreground/80 truncate font-medium">
+          <div className="text-xs text-muted-foreground/80 truncate font-medium">
             {subtitle}
           </div>
         )}

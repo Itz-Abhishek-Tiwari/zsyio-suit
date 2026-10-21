@@ -103,7 +103,7 @@ export function SegmentedTabs<T extends string = string>({
                 "focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-1",
                 tab.disabled && "opacity-40 pointer-events-none cursor-not-allowed",
                 isActive
-                  ? "text-foreground font-bold"
+                  ? "text-foreground font-semibold"
                   : "text-muted-foreground hover:text-foreground hover:bg-black/[0.02] dark:hover:bg-white/[0.02]",
                 itemSizeClasses[size],
                 tabClassName
@@ -143,7 +143,7 @@ export function SegmentedTabs<T extends string = string>({
             {tab.count !== undefined && tab.count !== null && (
               <span
                 className={cn(
-                  "font-mono font-medium text-[10px] px-1.5 py-0.5 rounded-[3px] shrink-0 transition-colors",
+                  "font-mono font-medium text-xs px-1.5 py-0.5 rounded-[3px] shrink-0 transition-colors",
                   isActive
                     ? tab.badgeVariant === "primary"
                       ? "bg-notion-blue text-notion-blue-fg"

@@ -75,3 +75,6 @@ export * from "./hooks/useDeleteWithConfirm";
 
 // Store utilities
 export * from "./store/ReduxProvider";
+
+export * from "./components/accent-provider";
+export * from "./components/accent-picker";

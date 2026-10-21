@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { PanelLeftClose, ChevronRight, Plus } from "lucide-react";
+import { PanelLeftClose, PanelLeftOpen, Plus } from "lucide-react";
 import { Logo } from "../components/logo";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../components/tooltip";
 import { motion, transitions } from "../components/motion";
@@ -39,7 +39,7 @@ export interface SuiteSidebarUser {
 }
 
 export interface SuiteSidebarProps {
-  currentApp?: "admin" | "pms" | "hrms" | "notes" | "sales";
+  currentApp?: "admin" | "pms" | "hrms" | "notes" | "sales" | "recruit";
   navGroups: SuiteNavGroup[];
   actionButton?: SuiteSidebarActionButton;
   actionSlot?: React.ReactNode;
@@ -70,10 +70,10 @@ export function SuiteSidebar({
       item.isActive !== undefined
         ? item.isActive
         : item.exact
-        ? pathname === item.href
-        : item.href === "/"
-        ? pathname === "/"
-        : pathname === item.href || pathname.startsWith(`${item.href}/`);
+          ? pathname === item.href
+          : item.href === "/"
+            ? pathname === "/"
+            : pathname === item.href || pathname.startsWith(`${item.href}/`);
 
     const Icon = item.icon;
 
@@ -85,10 +85,12 @@ export function SuiteSidebar({
         onClick={onCloseMobile}
         className={cn(
           "group relative flex items-center h-9 rounded-md text-xs font-medium tracking-tight outline-none select-none cursor-pointer overflow-hidden transition-colors",
-          isCollapsed ? "w-9 h-9 mx-auto justify-center px-0 gap-0" : "w-full px-3 gap-2.5",
+          isCollapsed
+            ? "w-9 h-9 mx-auto justify-center px-0 gap-0"
+            : "w-full px-3 gap-2.5",
           isActive
             ? "bg-primary-light/75 dark:bg-primary/15 text-primary font-semibold border border-primary/25 shadow-xs"
-            : "text-muted-foreground hover:bg-surface-subtle/90 hover:text-foreground border border-transparent hover:border-border/60"
+            : "text-muted-foreground hover:bg-surface-subtle/90 hover:text-foreground border border-transparent hover:border-border/60",
         )}
       >
         {isActive && (
@@ -97,15 +99,19 @@ export function SuiteSidebar({
             transition={transitions.snappy}
             className={cn(
               "absolute top-1/2 -translate-y-1/2 bg-primary",
-              isCollapsed ? "-left-2 w-1 h-5 rounded-r-full" : "left-0 w-1 h-4.5 rounded-r-full"
+              isCollapsed
+                ? "-left-2 w-1 h-5 rounded-r-full"
+                : "left-0 w-1 h-4.5 rounded-r-full",
             )}
           />
         )}
 
         <span
           className={cn(
-            "w-5 h-5 shrink-0 flex items-center justify-center transition-transform duration-200 group-hover:scale-110",
-            isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground"
+            "w-5 h-5 shrink-0 flex items-center justify-center transition-transform duration-200 ",
+            isActive
+              ? "text-primary"
+              : "text-muted-foreground group-hover:text-foreground",
           )}
         >
           <Icon className="w-4 h-4" />
@@ -121,7 +127,7 @@ export function SuiteSidebar({
           <motion.span
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="px-1.5 py-0.5 rounded-md text-[10px] font-mono font-bold bg-surface-subtle text-foreground border border-border/80"
+            className="px-1.5 py-0.5 rounded-md text-xs font-mono font-semibold bg-surface-subtle text-foreground border border-border/80"
           >
             {item.badge}
           </motion.span>
@@ -137,10 +143,16 @@ export function SuiteSidebar({
       return (
         <Tooltip key={item.href} delayDuration={50}>
           <TooltipTrigger asChild>{linkContent}</TooltipTrigger>
-          <TooltipContent side="right" sideOffset={12} className="flex items-center gap-2 font-medium">
+          <TooltipContent
+            side="right"
+            sideOffset={12}
+            className="flex items-center gap-2 font-medium"
+          >
             <span>{item.label}</span>
             {item.badge !== undefined && (
-              <span className="px-1 py-0.2 rounded text-[10px] bg-muted font-mono">{item.badge}</span>
+              <span className="px-1 py-0.2 rounded text-xs bg-muted font-mono">
+                {item.badge}
+              </span>
             )}
           </TooltipContent>
         </Tooltip>
@@ -153,9 +165,9 @@ export function SuiteSidebar({
   return (
     <div
       className={cn(
-        "relative h-full flex flex-col justify-between select-none suite-sidebar-gradient border-r border-border/80 transition-[width] duration-300 cubic-bezier(0.2,0,0,1)",
+        "relative h-full flex flex-col justify-between select-none suite-sidebar-gradient border-r border-border/80 transition-[width] duration-150 cubic-bezier(0.2,0,0,1)",
         isCollapsed ? "w-[72px]" : "w-64",
-        className
+        className,
       )}
     >
       {/* Top Section */}
@@ -163,8 +175,8 @@ export function SuiteSidebar({
         {/* Header Branding Slot */}
         <div
           className={cn(
-            "relative h-14 shrink-0 flex items-center border-b border-border/80 transition-all duration-300 bg-surface-subtle",
-            isCollapsed ? "justify-center px-0" : "justify-between px-4"
+            "relative h-16 shrink-0 flex items-center border-b border-border/80 transition-all duration-150 bg-surface-subtle",
+            isCollapsed ? "justify-center px-0" : "justify-between px-4",
           )}
         >
           {isCollapsed ? (
@@ -173,13 +185,20 @@ export function SuiteSidebar({
               onClick={onToggleCollapse}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="group relative flex items-center justify-center cursor-pointer outline-none"
+              className="group relative h-10 w-10 rounded-lg flex items-center justify-center cursor-pointer hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               title="Expand sidebar"
+              aria-label="Expand sidebar"
+              aria-expanded={false}
             >
-              <Logo variant="mark" collapsed={true} className="transition-transform group-hover:scale-105" />
-              <span className="absolute -bottom-1 -right-1.5 w-3.5 h-3.5 rounded-sm bg-surface-elevated border border-border flex items-center justify-center text-muted-foreground group-hover:text-foreground group-hover:border-border-strong transition-all shadow-xs">
-                <ChevronRight className="w-2.5 h-2.5" />
-              </span>
+              <Logo
+                variant="mark"
+                collapsed={true}
+                className="transition-opacity group-hover:opacity-0 group-focus-visible:opacity-0"
+              />
+              <PanelLeftOpen
+                aria-hidden="true"
+                className="absolute w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity"
+              />
             </motion.button>
           ) : (
             <>
@@ -191,6 +210,8 @@ export function SuiteSidebar({
                 whileTap={{ scale: 0.9 }}
                 className="w-8 h-8 rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors cursor-pointer"
                 title="Collapse sidebar"
+                aria-label="Collapse sidebar"
+                aria-expanded={true}
               >
                 <PanelLeftClose className="w-4 h-4" />
               </motion.button>
@@ -200,11 +221,21 @@ export function SuiteSidebar({
 
         {/* Quick Action Button Slot */}
         {actionSlot ? (
-          <div className={cn("shrink-0 py-3 transition-all duration-300", isCollapsed ? "px-2" : "px-3")}>
+          <div
+            className={cn(
+              "shrink-0 py-3 transition-all duration-150",
+              isCollapsed ? "px-2" : "px-3",
+            )}
+          >
             {actionSlot}
           </div>
         ) : actionButton ? (
-          <div className={cn("shrink-0 py-3 transition-all duration-300", isCollapsed ? "px-2" : "px-3")}>
+          <div
+            className={cn(
+              "shrink-0 py-3 transition-all duration-150",
+              isCollapsed ? "px-2" : "px-3",
+            )}
+          >
             {isCollapsed ? (
               <Tooltip delayDuration={50}>
                 <TooltipTrigger asChild>
@@ -212,7 +243,7 @@ export function SuiteSidebar({
                     <Link
                       href={actionButton.href}
                       onClick={onCloseMobile}
-                      className="w-9 h-9 mx-auto rounded-md bg-primary hover:bg-primary-hover text-primary-foreground flex items-center justify-center shadow-xs transition-all hover:scale-105 active:scale-95 cursor-pointer"
+                      className="w-9 h-9 mx-auto rounded-md bg-primary hover:bg-primary-hover text-primary-foreground flex items-center justify-center shadow-xs transition-all   cursor-pointer"
                     >
                       <ActionIcon className="w-4 h-4" />
                     </Link>
@@ -228,7 +259,11 @@ export function SuiteSidebar({
                     </motion.button>
                   )}
                 </TooltipTrigger>
-                <TooltipContent side="right" sideOffset={12} className="font-semibold text-xs">
+                <TooltipContent
+                  side="right"
+                  sideOffset={12}
+                  className="font-semibold text-xs"
+                >
                   {actionButton.label}
                 </TooltipContent>
               </Tooltip>
@@ -236,7 +271,7 @@ export function SuiteSidebar({
               <Link
                 href={actionButton.href}
                 onClick={onCloseMobile}
-                className="w-full h-9 rounded-md bg-primary hover:bg-primary-hover text-primary-foreground flex items-center justify-center gap-2 text-xs font-semibold shadow-xs hover:shadow-sm transition-all hover:scale-[1.01] active:scale-[0.98] cursor-pointer"
+                className="w-full h-9 rounded-md bg-primary hover:bg-primary-hover text-primary-foreground flex items-center justify-center gap-2 text-xs font-semibold shadow-xs hover:shadow-sm transition-all  cursor-pointer"
               >
                 <ActionIcon className="w-3.5 h-3.5 shrink-0" />
                 <span className="truncate">{actionButton.label}</span>
@@ -261,7 +296,7 @@ export function SuiteSidebar({
           {navGroups.map((group, gIdx) => (
             <div key={group.title || gIdx} className="flex flex-col gap-0.5">
               {group.title && !isCollapsed && (
-                <div className="px-2 pb-1 text-[10px] font-mono font-bold tracking-wider text-muted-foreground/80 uppercase">
+                <div className="px-2 pb-1 text-xs font-mono font-semibold  text-muted-foreground/80 ">
                   {group.title}
                 </div>
               )}
@@ -270,7 +305,6 @@ export function SuiteSidebar({
           ))}
         </div>
       </div>
-
     </div>
   );
 }

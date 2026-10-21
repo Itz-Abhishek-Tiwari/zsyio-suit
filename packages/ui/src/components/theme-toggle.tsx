@@ -25,7 +25,7 @@ export function ThemeToggle({ className, size = "md" }: ThemeToggleProps) {
     return (
       <div
         className={cn(
-          "rounded-xl border border-border bg-card/60 shrink-0",
+          "rounded-lg border border-border bg-card/60 shrink-0",
           size === "sm" ? "w-8 h-8" : "w-9 h-9",
           className
         )}
@@ -40,15 +40,15 @@ export function ThemeToggle({ className, size = "md" }: ThemeToggleProps) {
       title={isDark ? "Switch to Light mode" : "Switch to Dark mode"}
       aria-label="Toggle Theme"
       className={cn(
-        "rounded-xl text-muted-foreground hover:bg-card hover:text-foreground transition-colors border border-border bg-card/70 outline-none cursor-pointer shadow-2xs flex items-center justify-center shrink-0",
+        "rounded-lg text-muted-foreground hover:bg-card hover:text-foreground transition-colors border border-border bg-card/70 outline-none cursor-pointer shadow-2xs flex items-center justify-center shrink-0",
         size === "sm" ? "w-8 h-8" : "w-9 h-9",
         className
       )}
     >
       {isDark ? (
-        <Sun className="w-4 h-4 text-amber-400 hover:text-amber-300 transition-colors" />
+        <Sun className="w-4 h-4 text-warning hover:text-warning transition-colors" />
       ) : (
-        <Moon className="w-4 h-4 text-indigo-600 hover:text-indigo-700 transition-colors" />
+        <Moon className="w-4 h-4 text-notion-purple-fg hover:text-notion-purple-fg transition-colors" />
       )}
     </button>
   );

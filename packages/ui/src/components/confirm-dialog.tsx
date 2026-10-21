@@ -51,7 +51,7 @@ const VARIANT_CONFIG: Record<
     icon: <AlertTriangle className="w-5 h-5" />,
     iconVariant: "warning",
     buttonVariant: "default",
-    buttonClassName: "bg-amber-600 hover:bg-amber-700 text-white",
+    buttonClassName: "bg-warning hover:bg-warning text-white",
     defaultConfirmText: "Proceed",
   },
   info: {
@@ -128,7 +128,7 @@ export function ConfirmDialog({
             size="sm"
             onClick={handleCancel}
             disabled={isBusy}
-            className="rounded-xl border-border/80 hover:bg-surface-subtle"
+            className="rounded-lg border-border/80 hover:bg-surface-subtle"
           >
             {cancelText}
           </Button>
@@ -138,7 +138,7 @@ export function ConfirmDialog({
             size="sm"
             onClick={handleConfirm}
             disabled={isBusy}
-            className={cn("rounded-xl shadow-xs min-w-[80px]", config.buttonClassName)}
+            className={cn("rounded-lg shadow-xs min-w-[80px]", config.buttonClassName)}
           >
             {isBusy ? (
               <Loader2 className="w-3.5 h-3.5 animate-spin" />

@@ -32,7 +32,7 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const sheetVariants = cva(
-  "fixed z-50 gap-4 bg-card shadow-2xl will-change-transform",
+  "fixed z-50 gap-4 bg-card shadow-md will-change-transform",
   {
     variants: {
       side: {
@@ -65,7 +65,7 @@ const SheetContent = React.forwardRef<
       ref={ref}
       data-slot="sheet-content"
       data-side={side}
-      className={cn(sheetVariants({ side }), "flex flex-col p-0 bg-card border-border shadow-2xl overflow-hidden", className)}
+      className={cn(sheetVariants({ side }), "flex flex-col p-0 bg-card border-border shadow-md overflow-hidden", className)}
       onPointerDownOutside={(e) => {
         if (
           typeof document !== "undefined" &&
@@ -134,7 +134,7 @@ const SheetTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Title
     ref={ref}
-    className={cn("text-2xl font-bold font-display tracking-tight text-foreground", className)}
+    className={cn("text-2xl font-semibold font-display tracking-tight text-foreground", className)}
     {...props}
   />
 ));

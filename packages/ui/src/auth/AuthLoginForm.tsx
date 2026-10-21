@@ -75,7 +75,7 @@ export function AuthLoginForm({
     () =>
       allowedDomainsProp && allowedDomainsProp.length > 0
         ? allowedDomainsProp
-        : ["zsyio.com", "mediloon.de"],
+        : ["zsyio.com", "zsyio.de"],
     [allowedDomainsProp]
   );
 
@@ -202,7 +202,7 @@ export function AuthLoginForm({
           <div className="flex flex-col gap-1.5">
             <Label
               htmlFor="auth-email"
-              className="text-xs font-bold text-foreground"
+              className="text-xs font-semibold text-foreground"
             >
               Work Email
             </Label>
@@ -228,14 +228,14 @@ export function AuthLoginForm({
           <div className="flex items-center justify-between">
             <Label
               htmlFor="auth-password"
-              className="text-xs font-bold text-foreground"
+              className="text-xs font-semibold text-foreground"
             >
               Password
             </Label>
             {forgotHref && (
               <Link
                 href={forgotHref}
-                className="text-[11px] font-semibold text-primary hover:text-primary-hover hover:underline transition-colors duration-200 cursor-pointer"
+                className="text-xs font-semibold text-primary hover:text-primary-hover hover:underline transition-colors duration-200 cursor-pointer"
               >
                 Forgot password?
               </Link>
@@ -273,7 +273,7 @@ export function AuthLoginForm({
           type="submit"
           disabled={loading}
           size="lg"
-          className="w-full mt-2 font-bold text-xs h-11 rounded-xl shadow-md shadow-primary/20 gap-2 cursor-pointer transition-colors duration-200"
+          className="w-full mt-2 font-semibold text-xs h-11 rounded-xl shadow-md  gap-2 cursor-pointer transition-colors duration-200"
         >
           {loading ? (
             <>

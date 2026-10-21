@@ -16,16 +16,16 @@ const VARIANT_MAP: Record<NonNullable<ProgressProps["variant"]>, { fill: string 
     fill: "bg-primary text-primary-foreground",
   },
   success: {
-    fill: "bg-emerald-500 text-white",
+    fill: "bg-success text-white",
   },
   warning: {
-    fill: "bg-amber-500 text-white",
+    fill: "bg-warning text-white",
   },
   destructive: {
     fill: "bg-destructive text-white",
   },
   info: {
-    fill: "bg-blue-500 text-white",
+    fill: "bg-notion-blue-fg text-white",
   },
 };
 
@@ -64,7 +64,7 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
           className={`relative w-full ${heightClass} overflow-hidden rounded-full bg-surface-subtle border border-border/40 p-0.5 shadow-inner`}
         >
           <div
-            className={`h-full rounded-full transition-all duration-500 ease-out ${fill}`}
+            className={`h-full rounded-full transition-all duration-150 ease-out ${fill}`}
             style={{ width: `${percentage}%` }}
           />
         </div>

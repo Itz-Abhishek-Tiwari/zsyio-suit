@@ -158,16 +158,6 @@ code, kbd, samp, pre, .font-mono {
   background: var(--surface-subtle);
 }
 
-/* Focus Visible */
-:is(a, button):focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
-}
-:is(input, textarea, select):focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 1px;
-}
-
 /* ── Animations ────────────────────────────────────── */
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(4px); }
@@ -771,3 +761,31 @@ code, kbd, samp, pre, .font-mono {
 .ProseMirror.resize-cursor {
   cursor: col-resize !important;
 }
+
+/* Shared interaction contract: visible keyboard focus and calm motion. */
+/* Controls supply their own ring. Plain links retain a keyboard outline. */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible:not([role="menuitem"]):not([role="menuitemcheckbox"]):not([role="menuitemradio"]):not([class*="focus-visible:ring"]):not([class*="focus-visible:outline"]) {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+:where(section[id]) { scroll-margin-top: 88px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Shared accent choices override semantic theme tokens throughout every app. */
+:root[data-accent="emerald"] { --primary: var(--color-emerald-700); --primary-hover: var(--color-emerald-800); --suite-accent-soft: var(--color-emerald-300); }
+:root[data-accent="violet"] { --primary: var(--color-purple-700); --primary-hover: var(--color-purple-800); --suite-accent-soft: var(--color-purple-300); }
+:root[data-accent="amber"] { --primary: var(--color-amber-700); --primary-hover: var(--color-amber-800); --suite-accent-soft: var(--color-amber-300); }
+:root[data-accent="crimson"] { --primary: var(--color-red-700); --primary-hover: var(--color-red-800); --suite-accent-soft: var(--color-red-300); }
+:root[data-accent]:not([data-accent="blue"]) { --primary-light: color-mix(in srgb, var(--primary) 13%, var(--background)); --ring: var(--primary); }
+:root[data-theme="dark"][data-accent="emerald"] { --primary: var(--color-emerald-400); --primary-hover: var(--color-emerald-300); }
+:root[data-theme="dark"][data-accent="violet"] { --primary: var(--color-purple-400); --primary-hover: var(--color-purple-300); }
+:root[data-theme="dark"][data-accent="amber"] { --primary: var(--color-amber-400); --primary-hover: var(--color-amber-300); }
+:root[data-theme="dark"][data-accent="crimson"] { --primary: var(--color-red-400); --primary-hover: var(--color-red-300); }
+:root[data-theme="dark"][data-accent]:not([data-accent="blue"]) { --primary-foreground: var(--color-slate-900); }

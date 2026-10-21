@@ -20,7 +20,7 @@ export function TableSkeleton({
   return (
     <div
       className={cn(
-        "rounded-2xl border border-border/80 bg-card shadow-xs overflow-hidden divide-y divide-border/60",
+        "rounded-lg border border-border/80 bg-card shadow-xs overflow-hidden divide-y divide-border/60",
         className
       )}
     >
@@ -83,11 +83,11 @@ export function CardGridSkeleton({
       {Array.from({ length: count }).map((_, i) => (
         <div
           key={`card-skel-${i}`}
-          className="rounded-2xl border border-border/80 bg-card p-5 flex flex-col gap-4 shadow-xs"
+          className="rounded-lg border border-border/80 bg-card p-5 flex flex-col gap-4 shadow-xs"
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <Skeleton className="w-10 h-10 rounded-xl" />
+              <Skeleton className="w-10 h-10 rounded-lg" />
               <div className="flex flex-col gap-1.5">
                 <Skeleton className="h-4 w-28 rounded-md" />
                 <Skeleton className="h-3 w-20 rounded-sm" />

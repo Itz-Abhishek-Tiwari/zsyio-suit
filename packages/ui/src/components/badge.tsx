@@ -5,7 +5,7 @@ import { cn } from "../lib/utils"
 const badgeVariants = cva(
   [
     "inline-flex items-center gap-1.5 rounded-[3px]",
-    "px-2 py-0.5 text-[11px] font-normal leading-tight tracking-tight",
+    "px-2 py-0.5 text-xs font-normal leading-tight tracking-tight",
     "transition-colors duration-150 shrink-0 select-none",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
   ].join(" "),
@@ -13,7 +13,7 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-notion-blue text-notion-blue-fg border border-notion-blue/30 shadow-2xs",
+          "bg-primary-light text-primary border border-primary/20 shadow-2xs",
         secondary:
           "bg-notion-gray text-notion-gray-fg border border-notion-gray/30",
         destructive:

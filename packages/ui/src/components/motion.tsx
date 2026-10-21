@@ -293,7 +293,7 @@ export function PulseDot({
     <span className={cn("relative flex items-center justify-center shrink-0", size, className)}>
       <span
         className={cn(
-          "absolute inset-0 rounded-full animate-ping opacity-75",
+          "absolute inset-0 rounded-full  opacity-75",
           auraColor
         )}
       />

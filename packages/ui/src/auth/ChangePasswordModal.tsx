@@ -17,7 +17,7 @@ const schema = z
     newPassword: z
       .string()
       .min(8, "Must be at least 8 characters.")
-      .regex(/[A-Z]/, "Must contain at least one uppercase letter.")
+      .regex(/[A-Z]/, "Must contain at least one  letter.")
       .regex(/[0-9]/, "Must contain at least one number."),
     confirmPassword: z.string().min(1, "Please confirm your new password."),
   })
@@ -164,10 +164,10 @@ export function ChangePasswordModal({
     >
       {success ? (
         <div className="flex flex-col items-center gap-3 py-8 text-center">
-          <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
-            <ShieldCheck className="w-7 h-7 text-emerald-500" />
+          <div className="w-14 h-14 rounded-lg bg-success/10 border border-success/20 flex items-center justify-center">
+            <ShieldCheck className="w-7 h-7 text-success" />
           </div>
-          <p className="text-sm font-bold text-foreground">Password Updated!</p>
+          <p className="text-sm font-semibold text-foreground">Password Updated!</p>
           <p className="text-xs text-muted-foreground">
             {forced ? "Signing you back in…" : "Your password has been changed successfully."}
           </p>
@@ -233,7 +233,7 @@ export function ChangePasswordModal({
               />
 
               {serverError && (
-                <p className="text-xs text-destructive font-medium bg-destructive/8 border border-destructive/20 rounded-xl px-3 py-2">
+                <p className="text-xs text-destructive font-medium bg-destructive/8 border border-destructive/20 rounded-lg px-3 py-2">
                   {serverError}
                 </p>
               )}
@@ -242,7 +242,7 @@ export function ChangePasswordModal({
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full h-10 rounded-xl bg-primary hover:bg-primary-hover text-primary-foreground text-xs font-bold transition-all shadow-md shadow-primary/20 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+                  className="w-full h-10 rounded-lg bg-primary hover:bg-primary-hover text-primary-foreground text-xs font-semibold transition-all shadow-md  disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
                 >
                   {isSubmitting
                     ? "Updating…"

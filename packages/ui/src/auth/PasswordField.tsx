@@ -23,7 +23,7 @@ export interface PasswordFieldProps extends React.InputHTMLAttributes<HTMLInputE
 export const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(
   ({ id, label, icon, show, onToggle, error, className, ...rest }, ref) => (
     <div className="flex flex-col gap-1.5">
-      <Label htmlFor={id} className="text-xs font-bold text-foreground">
+      <Label htmlFor={id} className="text-xs font-semibold text-foreground">
         {label}
       </Label>
       <div className="relative flex items-center">
@@ -35,7 +35,7 @@ export const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldPro
           id={id}
           type={show ? "text" : "password"}
           className={cn(
-            "pl-9 pr-9 h-10 text-xs rounded-xl bg-surface-subtle font-sans transition-colors",
+            "pl-9 pr-9 h-10 text-xs rounded-lg bg-surface-subtle font-sans transition-colors",
             error && "border-destructive focus-visible:ring-destructive/30",
             className
           )}
@@ -51,7 +51,7 @@ export const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldPro
           {show ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
         </button>
       </div>
-      {error && <p className="text-[11px] text-destructive font-medium">{error}</p>}
+      {error && <p className="text-xs text-destructive font-medium">{error}</p>}
     </div>
   )
 );
@@ -66,7 +66,7 @@ export const PASSWORD_STRENGTH_RULES: { label: string; test: (pwd: string) => bo
 ];
 
 /**
- * Inline strength indicator dots (8+ chars / uppercase / number), shown
+ * Inline strength indicator dots (8+ chars / / number), shown
  * beneath a "new password" field. Shared by both auth flows.
  */
 export function PasswordStrengthChecklist({ password }: { password: string }) {
@@ -80,14 +80,14 @@ export function PasswordStrengthChecklist({ password }: { password: string }) {
           <span
             key={rule.label}
             className={cn(
-              "text-[10px] font-medium flex items-center gap-1 transition-colors",
-              ok ? "text-emerald-600 dark:text-emerald-400" : "text-muted-foreground"
+              "text-xs font-medium flex items-center gap-1 transition-colors",
+              ok ? "text-success" : "text-muted-foreground"
             )}
           >
             <span
               className={cn(
                 "w-1.5 h-1.5 rounded-full transition-colors",
-                ok ? "bg-emerald-500" : "bg-muted-foreground/30"
+                ok ? "bg-success" : "bg-muted-foreground/30"
               )}
             />
             {rule.label}

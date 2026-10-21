@@ -191,11 +191,11 @@ export function ImageUploader({
 
       {value ? (
         /* Preview Card */
-        <div className="relative group rounded-2xl border border-border/80 bg-surface-subtle overflow-hidden p-3 transition-all hover:border-primary/40 shadow-xs">
+        <div className="relative group rounded-lg border border-border/80 bg-surface-subtle overflow-hidden p-3 transition-all hover:border-primary/40 shadow-xs">
           <div className="flex items-center gap-4">
             <div
               className={cn(
-                "relative rounded-xl overflow-hidden bg-background border border-border/60 shrink-0 flex items-center justify-center shadow-inner",
+                "relative rounded-lg overflow-hidden bg-background border border-border/60 shrink-0 flex items-center justify-center shadow-inner",
                 aspectRatio === "square" && "w-20 h-20",
                 aspectRatio === "landscape" && "w-28 h-20",
                 aspectRatio === "auto" && "max-w-[120px] max-h-[80px]"
@@ -213,7 +213,7 @@ export function ImageUploader({
                   size="icon"
                   variant="ghost"
                   onClick={openFilePicker}
-                  className="w-8 h-8 rounded-full bg-white/90 text-slate-800 hover:bg-white shadow-sm"
+                  className="w-8 h-8 rounded-full bg-white/90 text-foreground hover:bg-card shadow-sm"
                   title="Change Image"
                   disabled={disabled}
                 >
@@ -227,7 +227,7 @@ export function ImageUploader({
                 <Sparkles className="w-3.5 h-3.5 text-primary" />
                 <span>Image stored as Base64</span>
               </div>
-              <p className="text-[11px] text-muted-foreground truncate">
+              <p className="text-xs text-muted-foreground truncate">
                 {value.startsWith("data:")
                   ? `Base64 encoded string (${Math.round((value.length * 3) / 4 / 1024)} KB)`
                   : "Image URL"}
@@ -240,7 +240,7 @@ export function ImageUploader({
                   variant="outline"
                   onClick={openFilePicker}
                   disabled={disabled || isProcessing}
-                  className="h-7 px-2.5 text-[11px] font-medium rounded-lg"
+                  className="h-7 px-2.5 text-xs font-medium rounded-lg"
                 >
                   <RefreshCw className="w-3 h-3 mr-1.5" />
                   Replace
@@ -251,7 +251,7 @@ export function ImageUploader({
                   variant="ghost"
                   onClick={handleRemove}
                   disabled={disabled}
-                  className="h-7 px-2.5 text-[11px] font-medium rounded-lg text-destructive hover:bg-destructive/10 hover:text-destructive"
+                  className="h-7 px-2.5 text-xs font-medium rounded-lg text-destructive hover:bg-destructive/10 hover:text-destructive"
                 >
                   <X className="w-3 h-3 mr-1.5" />
                   Remove
@@ -268,7 +268,7 @@ export function ImageUploader({
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           className={cn(
-            "relative flex flex-col items-center justify-center p-6 rounded-2xl border-2 border-dashed transition-all cursor-pointer text-center group",
+            "relative flex flex-col items-center justify-center p-6 rounded-lg border border-dashed transition-all cursor-pointer text-center group",
             isDragging
               ? "border-primary bg-primary/5 shadow-inner scale-[0.99]"
               : "border-border hover:border-primary/50 hover:bg-surface-subtle/70 bg-card",
@@ -277,7 +277,7 @@ export function ImageUploader({
         >
           <div
             className={cn(
-              "w-12 h-12 rounded-2xl flex items-center justify-center mb-3 transition-transform group-hover:scale-105 shadow-xs",
+              "w-12 h-12 rounded-lg flex items-center justify-center mb-3 transition-transform  shadow-xs",
               isDragging
                 ? "bg-primary text-primary-foreground"
                 : "bg-primary/10 text-primary border border-primary/20"
@@ -298,10 +298,10 @@ export function ImageUploader({
                 ? "Drop image file here"
                 : label}
             </span>
-            <span className="text-[11px] text-muted-foreground max-w-xs">{description}</span>
+            <span className="text-xs text-muted-foreground max-w-xs">{description}</span>
           </div>
 
-          <div className="mt-3 flex items-center gap-1.5 text-[10px] font-medium text-muted-foreground/80 bg-surface-subtle px-2.5 py-1 rounded-full border border-border/60">
+          <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-muted-foreground/80 bg-surface-subtle px-2.5 py-1 rounded-full border border-border/60">
             <ImageIcon className="w-3 h-3" />
             <span>Click or drag & drop</span>
           </div>

@@ -107,7 +107,7 @@ function SettingsRow({
       <div className="sm:w-44 md:w-48 shrink-0">
         <p className="text-xs font-semibold text-foreground">{label}</p>
         {hint && (
-          <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">
+          <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
             {hint}
           </p>
         )}
@@ -120,7 +120,7 @@ function SettingsRow({
 function SectionHeading({ children, sub }: { children: React.ReactNode; sub?: string }) {
   return (
     <div className="mb-2 pb-3.5 border-b border-border/50">
-      <h2 className="text-sm font-bold text-foreground font-display">{children}</h2>
+      <h2 className="text-sm font-semibold text-foreground font-display">{children}</h2>
       {sub && <p className="text-xs text-muted-foreground mt-0.5">{sub}</p>}
     </div>
   );
@@ -409,7 +409,7 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
                 <UserAvatar
                   user={{ name: name || profileUser?.name, email: profileUser?.email, avatarUrl: avatarUrl || undefined }}
                   size="lg"
-                  className="w-14 h-14 text-base border-2 border-border ring-2 ring-background shadow-sm"
+                  className="w-14 h-14 text-base border border-border ring-2 ring-background shadow-sm"
                 />
                 <span className="absolute inset-0 rounded-full bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                   <Camera className="w-4 h-4 text-white" />
@@ -417,13 +417,13 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
               </button>
 
               <div className="min-w-0">
-                <p className="text-xs font-bold text-foreground truncate leading-tight">
+                <p className="text-xs font-semibold text-foreground truncate leading-tight">
                   {name || profileUser?.name || "Not set"}
                 </p>
-                <p className="text-[10px] text-muted-foreground font-mono truncate mt-0.5">
+                <p className="text-xs text-muted-foreground font-mono truncate mt-0.5">
                   {profileUser?.email}
                 </p>
-                <span className="inline-flex items-center mt-1.5 px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-primary/10 text-primary border border-primary/20 uppercase tracking-wide">
+                <span className="inline-flex items-center mt-1.5 px-2 py-0.5 rounded text-xs font-mono font-semibold bg-primary/10 text-primary border border-primary/20  tracking-wide">
                   {profileUser?.customRole?.label || profileUser?.role || "MEMBER"}
                 </span>
               </div>
@@ -452,7 +452,7 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
                     {item.count !== undefined && item.count > 0 && (
                       <span
                         className={cn(
-                          "px-1.5 py-0.5 rounded text-[9px] font-mono font-bold border",
+                          "px-1.5 py-0.5 rounded text-xs font-mono font-semibold border",
                           active
                             ? "bg-primary/20 text-primary border-primary/30"
                             : "bg-surface-subtle text-muted-foreground border-border/60"
@@ -485,7 +485,7 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
                     <UserAvatar
                       user={{ name: name || profileUser?.name, email: profileUser?.email, avatarUrl: avatarUrl || undefined }}
                       size="lg"
-                      className="w-14 h-14 text-base border-2 border-border shadow-2xs"
+                      className="w-14 h-14 text-base border border-border shadow-2xs"
                     />
                     <button
                       type="button"
@@ -502,7 +502,7 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
                         variant="outline"
                         size="sm"
                         onClick={() => setAvatarModalOpen(true)}
-                        className="h-7 text-[11px] rounded-md gap-1.5 cursor-pointer"
+                        className="h-7 text-xs rounded-md gap-1.5 cursor-pointer"
                       >
                         <Camera className="w-3.5 h-3.5" />
                         Change photo
@@ -513,14 +513,14 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
                           variant="ghost"
                           size="sm"
                           onClick={() => setAvatarUrl(null)}
-                          className="h-7 text-[11px] rounded-md gap-1 text-destructive hover:text-destructive cursor-pointer"
+                          className="h-7 text-xs rounded-md gap-1 text-destructive hover:text-destructive cursor-pointer"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                           Remove
                         </Button>
                       )}
                     </div>
-                    <p className="text-[11px] text-muted-foreground">JPG, PNG, or GIF. Max 500×500px.</p>
+                    <p className="text-xs text-muted-foreground">JPG, PNG, or GIF. Max 500×500px.</p>
                   </div>
                 </div>
               </SettingsRow>
@@ -545,7 +545,7 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
                     />
                     <Lock className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-muted-foreground" />
                   </div>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shrink-0">
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-mono font-medium bg-success/10 text-success border border-success/20 shrink-0">
                     <CheckCheck className="w-3 h-3" />
                     SSO verified
                   </span>
@@ -595,7 +595,7 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
                     <span className="font-semibold text-foreground">
                       {profileUser?.customRole?.label || profileUser?.role || "Team Member"}
                     </span>
-                    <span className="ml-auto font-mono text-[10px] text-muted-foreground">
+                    <span className="ml-auto font-mono text-xs text-muted-foreground">
                       {profileUser?.customRole?.isSystem ? "system" : "custom"}
                     </span>
                   </div>
@@ -633,7 +633,7 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
                         <SelectItem key={tz.value} value={tz.value} className="text-xs">
                           <div className="flex items-center justify-between w-full gap-6">
                             <span className="font-medium">{tz.label}</span>
-                            <span className="font-mono text-[10px] text-muted-foreground">UTC {tz.offset}</span>
+                            <span className="font-mono text-xs text-muted-foreground">UTC {tz.offset}</span>
                           </div>
                         </SelectItem>
                       ))}
@@ -643,16 +643,16 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
                   {/* Live clock card */}
                   <div className="flex items-center justify-between px-4 py-3 rounded-md border border-border/70 bg-surface-subtle/70">
                     <div className="flex flex-col gap-0.5">
-                      <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+                      <span className="text-xs font-mono text-muted-foreground   flex items-center gap-1.5">
                         <Clock className="w-3 h-3 text-primary" />
                         Live time: {activeTimezone.city || timeZone}
                       </span>
-                      <span className="font-mono tabular-nums text-xl font-bold text-foreground tracking-tight mt-0.5">
+                      <span className="font-mono tabular-nums text-xl font-semibold text-foreground tracking-tight mt-0.5">
                         {liveTime.time || "Not available"}
                       </span>
-                      <span className="text-[11px] text-muted-foreground">{liveTime.date}</span>
+                      <span className="text-xs text-muted-foreground">{liveTime.date}</span>
                     </div>
-                    <span className="font-mono text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded-md border border-primary/20">
+                    <span className="font-mono text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded-md border border-primary/20">
                       UTC {activeTimezone.offset}
                     </span>
                   </div>
@@ -662,7 +662,7 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
               <SettingsRow label="Color Theme" hint="Applies to all Zsyio apps on this device." last>
                 <div className="flex gap-3 flex-wrap">
                   {[
-                    { id: "light",  label: "Light",  icon: <Sun className="w-4 h-4 text-amber-500" />,     desc: "Slate paper white" },
+                    { id: "light",  label: "Light",  icon: <Sun className="w-4 h-4 text-warning" />,     desc: "Slate paper white" },
                     { id: "dark",   label: "Dark",   icon: <Moon className="w-4 h-4 text-primary" />,      desc: "Sapphire charcoal" },
                     { id: "system", label: "System", icon: <Laptop className="w-4 h-4 text-muted-foreground" />, desc: "Matches your OS" },
                   ].map((t) => {
@@ -690,7 +690,7 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
                         {t.icon}
                         <div>
                           <p className="text-xs font-semibold text-foreground">{t.label}</p>
-                          <p className="text-[10px] text-muted-foreground">{t.desc}</p>
+                          <p className="text-xs text-muted-foreground">{t.desc}</p>
                         </div>
                       </button>
                     );
@@ -727,7 +727,7 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
                 </div>
               </SettingsRow>
 
-              <SettingsRow label="New Password" hint="Min 8 chars, one uppercase, one number.">
+              <SettingsRow label="New Password" hint="Min 8 chars, one , one number.">
                 <div className="flex flex-col gap-2.5 max-w-sm">
                   <div className="relative">
                     <Input
@@ -753,8 +753,8 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
                       <div className="h-1.5 w-full bg-surface-subtle rounded-full overflow-hidden border border-border/50">
                         <div
                           className={cn(
-                            "h-full rounded-full transition-all duration-300",
-                            passwordStrength < 50 ? "bg-destructive" : passwordStrength < 80 ? "bg-amber-500" : "bg-emerald-500"
+                            "h-full rounded-full transition-all duration-150",
+                            passwordStrength < 50 ? "bg-destructive" : passwordStrength < 80 ? "bg-warning" : "bg-success"
                           )}
                           style={{ width: `${passwordStrength}%` }}
                         />
@@ -769,8 +769,8 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
                           <span
                             key={label}
                             className={cn(
-                              "flex items-center gap-1 text-[10px] font-mono transition-colors",
-                              ok ? "text-emerald-600 dark:text-emerald-400 font-bold" : "text-muted-foreground"
+                              "flex items-center gap-1 text-xs font-mono transition-colors",
+                              ok ? "text-success font-semibold" : "text-muted-foreground"
                             )}
                           >
                             <CheckCircle2 className="w-3 h-3" /> {label}
@@ -816,10 +816,10 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
               {/* Account info strip */}
               <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="px-4 py-3 rounded-md border border-border/60 bg-surface-subtle/50 flex items-start gap-3">
-                  <ShieldCheck className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                  <ShieldCheck className="w-4 h-4 text-success mt-0.5 shrink-0" />
                   <div>
                     <p className="text-xs font-semibold text-foreground">Zero-Trust IAM Active</p>
-                    <p className="text-[11px] text-muted-foreground mt-0.5">
+                    <p className="text-xs text-muted-foreground mt-0.5">
                       Corporate domain enforcement and token revocation enabled.
                     </p>
                   </div>
@@ -828,7 +828,7 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
                   <Calendar className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                   <div>
                     <p className="text-xs font-semibold text-foreground">Member Since</p>
-                    <p className="text-[11px] text-muted-foreground font-mono mt-0.5">
+                    <p className="text-xs text-muted-foreground font-mono mt-0.5">
                       {profileUser?.createdAt
                         ? new Date(profileUser.createdAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
                         : "Not available"}
@@ -864,11 +864,11 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
                         <div className="min-w-0">
                           <p className="text-xs font-semibold text-foreground truncate">{tm.team?.name}</p>
                           {tm.team?.description && (
-                            <p className="text-[11px] text-muted-foreground truncate mt-0.5">{tm.team.description}</p>
+                            <p className="text-xs text-muted-foreground truncate mt-0.5">{tm.team.description}</p>
                           )}
                         </div>
                       </div>
-                      <Badge variant="outline" className="text-[9px] font-mono uppercase px-1.5 py-0.5 shrink-0">
+                      <Badge variant="outline" className="text-xs font-mono  px-1.5 py-0.5 shrink-0">
                         {tm.role}
                       </Badge>
                     </div>
@@ -876,7 +876,7 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
                 </div>
               ) : (
                 <div className="py-16 flex flex-col items-center gap-3 text-center">
-                  <div className="w-12 h-12 rounded-xl border border-border/60 bg-surface-subtle flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-lg border border-border/60 bg-surface-subtle flex items-center justify-center">
                     <Users2 className="w-5 h-5 text-muted-foreground" />
                   </div>
                   <div>
@@ -897,13 +897,13 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
         <footer className="shrink-0 border-t border-border/70 bg-card/95 backdrop-blur-xs px-6 py-3 flex items-center justify-between z-10">
           <div className="flex items-center gap-2">
             {hasFormChanges ? (
-              <div className="flex items-center gap-2 text-xs text-amber-600 dark:text-amber-400 font-medium">
-                <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse shrink-0" />
+              <div className="flex items-center gap-2 text-xs text-warning font-medium">
+                <span className="w-2 h-2 rounded-full bg-warning animate-pulse shrink-0" />
                 <span>Unsaved changes</span>
               </div>
             ) : (
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <Check className="w-3.5 h-3.5 text-emerald-500" />
+                <Check className="w-3.5 h-3.5 text-success" />
                 <span>All profile changes saved</span>
               </div>
             )}
@@ -949,7 +949,7 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
             <UserAvatar
               user={{ name: name || profileUser?.name, email: profileUser?.email, avatarUrl: avatarUrl || undefined }}
               size="xl"
-              className="w-20 h-20 text-xl border-2 border-border shadow-md"
+              className="w-20 h-20 text-xl border border-border shadow-md"
             />
           </div>
 
@@ -971,7 +971,7 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
                 <button
                   type="button"
                   onClick={() => setAvatarUrl(null)}
-                  className="text-[11px] text-destructive hover:underline flex items-center gap-1 cursor-pointer"
+                  className="text-xs text-destructive hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   <Trash2 className="w-3 h-3" /> Remove
                 </button>
@@ -984,7 +984,7 @@ export function UserProfileView({ onSaved, isModal = false }: UserProfileViewPro
                   type="button"
                   onClick={() => setAvatarUrl(preset)}
                   className={cn(
-                    "w-11 h-11 rounded-full overflow-hidden border-2 transition-transform cursor-pointer shrink-0 hover:scale-105",
+                    "w-11 h-11 rounded-full overflow-hidden border transition-transform cursor-pointer shrink-0 ",
                     avatarUrl === preset ? "border-primary ring-2 ring-primary/30" : "border-border/60 opacity-75 hover:opacity-100"
                   )}
                 >

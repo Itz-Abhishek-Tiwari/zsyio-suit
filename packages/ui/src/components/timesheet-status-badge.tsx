@@ -30,14 +30,14 @@ const BADGE_CONFIG: Record<
 > = {
   WORKING: {
     label: "Working",
-    badgeClass: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/25",
-    dotClass: "bg-emerald-500",
+    badgeClass: "bg-success/10 text-success border-success/25",
+    dotClass: "bg-success",
     pulse: true,
   },
   OOO: {
     label: "On Break",
-    badgeClass: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/25",
-    dotClass: "bg-amber-500",
+    badgeClass: "bg-warning/10 text-warning border-warning/25",
+    dotClass: "bg-warning",
     pulse: true,
   },
   CLOCKED_OUT: {
@@ -48,19 +48,19 @@ const BADGE_CONFIG: Record<
   },
   COMPLETED: {
     label: "Completed",
-    badgeClass: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/25",
-    dotClass: "bg-sky-500",
+    badgeClass: "bg-notion-blue-fg/10 text-notion-blue-fg border-notion-blue-fg/25",
+    dotClass: "bg-notion-blue-fg",
     pulse: false,
   },
   INCOMPLETE: {
     label: "Incomplete",
-    badgeClass: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/25",
-    dotClass: "bg-rose-500",
+    badgeClass: "bg-destructive/10 text-destructive border-destructive/25",
+    dotClass: "bg-destructive",
     pulse: false,
   },
   MANUAL: {
     label: "Manual",
-    badgeClass: "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30",
+    badgeClass: "bg-warning/10 text-warning border-warning/30",
     pulse: false,
   },
   AUTOMATIC: {
@@ -71,7 +71,7 @@ const BADGE_CONFIG: Record<
 };
 
 const SIZE_STYLES = {
-  xs: "text-[10px] px-2 py-0.5 gap-1.5 font-semibold",
+  xs: "text-xs px-2 py-0.5 gap-1.5 font-semibold",
   sm: "text-xs px-2.5 py-0.5 gap-1.5 font-medium",
   md: "text-xs px-3 py-1 gap-2 font-semibold",
 };

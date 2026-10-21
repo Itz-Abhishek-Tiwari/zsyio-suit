@@ -54,23 +54,23 @@ function css(primitives) {
 ${primitiveVars.join("\n")}
 
   /* ── Semantic tokens - Notion Utilitarian & Warm Minimalist System (light-first) ── */
-  --background:              #FBFBFA;
-  --foreground:              #37352F;
-  --foreground-secondary:    #787774;
+  --background:              #FAFAF8;
+  --foreground:              #302F35;
+  --foreground-secondary:    #68666F;
   --foreground-tertiary:     #9B9A97;
   --foreground-disabled:     #C5C4C0;
 
   --surface-elevated:        #FFFFFF;
   --surface-card:            #FFFFFF;
   --surface-overlay:         rgba(251, 251, 250, 0.96);
-  --surface-subtle:          #F7F6F3;
+  --surface-subtle:          #F4F3F1;
 
   --border:                  rgba(55, 53, 47, 0.09);
   --border-strong:           rgba(55, 53, 47, 0.16);
-  --border-focus:            #2383E2;
+  --border-focus:            #2869C8;
 
-  --primary:                 #2383E2;
-  --primary-hover:           #1D70C2;
+  --primary:                 #2869C8;
+  --primary-hover:           #2057AA;
   --primary-light:           #E7F3F8;
   --primary-foreground:      #FFFFFF;
 
@@ -85,29 +85,29 @@ ${primitiveVars.join("\n")}
   --warning-light:           #FBF3DB;
 
   --muted:                   #F1F1EF;
-  --muted-foreground:        #787774;
+  --muted-foreground:        #68666F;
 
   --accent:                  #E7F3F8;
-  --accent-foreground:       #2383E2;
+  --accent-foreground:       #2869C8;
 
-  --secondary:               #F7F6F3;
-  --secondary-foreground:    #37352F;
+  --secondary:               #F4F3F1;
+  --secondary-foreground:    #302F35;
 
   --card:                    #FFFFFF;
-  --card-foreground:         #37352F;
+  --card-foreground:         #302F35;
 
   --popover:                 #FFFFFF;
-  --popover-foreground:      #37352F;
+  --popover-foreground:      #302F35;
 
   --input:                   #FFFFFF;
   --input-border:            rgba(55, 53, 47, 0.16);
-  --ring:                    #2383E2;
+  --ring:                    #2869C8;
 
   --radius:                  var(--radius-md);
 
   /* ── Status & Priority Chart Tokens (Restrained & Harmonious) ── */
-  --color-status-todo:       #787774;
-  --color-status-in-progress: #2383E2;
+  --color-status-todo:       #68666F;
+  --color-status-in-progress: #2869C8;
   --color-status-in-review:  #9065B0;
   --color-status-qa:         #C29243;
   --color-status-blocked:    #EB5757;
@@ -116,11 +116,11 @@ ${primitiveVars.join("\n")}
 
   --color-priority-critical: #EB5757;
   --color-priority-high:     #CC782F;
-  --color-priority-medium:   #2383E2;
+  --color-priority-medium:   #2869C8;
   --color-priority-low:      #9B9A97;
 
   --chart-grid:              rgba(55, 53, 47, 0.08);
-  --chart-axis:              #787774;
+  --chart-axis:              #68666F;
 
   /* ── Notion Palette & Tag Tokens (Light) ── */
   --notion-hover:            rgba(55, 53, 47, 0.06);
@@ -129,7 +129,7 @@ ${primitiveVars.join("\n")}
   --notion-border-strong:    rgba(55, 53, 47, 0.16);
 
   --notion-gray:             #EBECED;
-  --notion-gray-fg:          #37352F;
+  --notion-gray-fg:          #302F35;
   --notion-brown:            #E9E5E3;
   --notion-brown-fg:         #64473A;
   --notion-orange:           #FAEBDD;
@@ -166,7 +166,7 @@ ${primitiveVars.join("\n")}
   --border-strong:           rgba(255, 255, 255, 0.16);
   --border-focus:            #529CCA;
 
-  --primary:                 #2383E2;
+  --primary:                 #2869C8;
   --primary-hover:           #529CCA;
   --primary-light:           rgba(35, 131, 226, 0.15);
   --primary-foreground:      #FFFFFF;

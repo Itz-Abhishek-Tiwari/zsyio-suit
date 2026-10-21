@@ -17,6 +17,7 @@ export interface DistributionChartItem {
 }
 
 export interface ChartDimension {
+  centerLabel?: string;
   id: string;
   label: string;
   icon?: React.ComponentType<{ className?: string }> | React.ReactNode;
@@ -110,15 +111,16 @@ export function DonutDistributionChart({
 
   const activeSlice = hoveredKey ? activeSlices.find((s) => s.key === hoveredKey) : null;
   const displayCount = activeSlice ? activeSlice.count : calculatedTotal;
-  const displayLabel = activeSlice ? activeSlice.label : centerLabel;
+  const resolvedCenterLabel = activeDimension?.centerLabel || centerLabel;
+  const displayLabel = activeSlice ? activeSlice.label : resolvedCenterLabel;
   const displayPct = activeSlice
     ? Math.round(activeSlice.percentage)
     : 100;
 
   // SVG Geometry
   const size = 180;
-  const strokeWidth = 14;
-  const hoveredStrokeWidth = 18;
+  const strokeWidth = 24;
+  const hoveredStrokeWidth = 26;
   const radius = (size - hoveredStrokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
 
@@ -129,7 +131,8 @@ export function DonutDistributionChart({
 
   let cumulativeOffset = 0;
   const arcSegments = activeSlices.map((slice) => {
-    const arcLength = (slice.percentage / 100) * availableCircumference;
+    const sliceTotal = activeSlices.reduce((sum, item) => sum + item.count, 0);
+    const arcLength = (slice.count / Math.max(sliceTotal, calculatedTotal)) * availableCircumference;
     const dashArray = `${arcLength} ${circumference - arcLength}`;
     const offset = -cumulativeOffset;
     cumulativeOffset += arcLength + (gapAngleDegrees / 360) * circumference;
@@ -175,29 +178,7 @@ export function DonutDistributionChart({
       headerAction={headerAction || dimensionTabsHeader}
       className={className}
     >
-      <div className="flex flex-col gap-4">
-        {/* Modern Segmented Track Preview */}
-        {calculatedTotal > 0 && activeSlices.length > 0 && (
-          <div className="w-full h-2 rounded-full bg-surface-subtle overflow-hidden flex p-0.5 border border-border/60 shadow-2xs">
-            {activeSlices.map((slice) => {
-              const isHovered = hoveredKey === slice.key;
-              return (
-                <div
-                  key={slice.key}
-                  style={{ width: `${slice.percentage}%`, backgroundColor: slice.resolvedColor }}
-                  className={cn(
-                    "h-full first:rounded-l-full last:rounded-r-full transition-all duration-200 cursor-pointer",
-                    isHovered ? "brightness-125 scale-y-125 shadow-xs" : "opacity-85 hover:opacity-100"
-                  )}
-                  onMouseEnter={() => setHoveredKey(slice.key)}
-                  onMouseLeave={() => setHoveredKey(null)}
-                  title={`${slice.label}: ${slice.count} (${Math.round(slice.percentage)}%)`}
-                />
-              );
-            })}
-          </div>
-        )}
-
+      <div className="grid grid-cols-1 min-[540px]:grid-cols-[190px_1fr] items-center gap-5">
         {/* Center Donut Ring */}
         <div
           className="relative w-full flex items-center justify-center my-1"
@@ -211,10 +192,11 @@ export function DonutDistributionChart({
           ) : (
             <div className="relative flex items-center justify-center">
               <svg
+                role="img" aria-label={`${title}: ${formatValueFn(calculatedTotal)} ${resolvedCenterLabel}`}
                 width={size}
                 height={size}
                 viewBox={`0 0 ${size} ${size}`}
-                className="transform -rotate-90 origin-center transition-all duration-300"
+                className="transform -rotate-90 origin-center transition-all duration-150"
               >
                 {/* Background Track */}
                 <circle
@@ -246,11 +228,9 @@ export function DonutDistributionChart({
                       className="cursor-pointer transition-all duration-200"
                       style={{
                         opacity: isDimmed ? 0.35 : 1,
-                        filter: isHovered
-                          ? "drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2))"
-                          : "none",
+                        filter: "none",
                       }}
-                      initial={{ strokeDashoffset: circumference }}
+                      initial={false}
                       animate={{ strokeDashoffset: segment.dashOffset }}
                       transition={{ type: "spring", stiffness: 90, damping: 16 }}
                       onMouseEnter={() => setHoveredKey(segment.key)}
@@ -265,25 +245,25 @@ export function DonutDistributionChart({
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={displayCount + displayLabel}
-                    initial={{ opacity: 0, y: 3 }}
+                    initial={false}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -3 }}
                     transition={{ duration: 0.15 }}
                     className="flex flex-col items-center"
                   >
-                    <span className="text-3xl font-extrabold text-foreground font-mono tracking-tight leading-none">
+                    <span className="text-4xl font-normal text-foreground font-[family-name:var(--font-editorial)] tracking-tight leading-none">
                       {formatValueFn(displayCount)}
                     </span>
-                    <span className="text-[10px] font-semibold text-muted-foreground truncate max-w-[120px] mt-1 uppercase tracking-widest font-mono">
+                    <span className="text-xs font-semibold text-muted-foreground truncate max-w-[120px] mt-1   font-mono">
                       {displayLabel}
                     </span>
                     {activeSlice && (
                       <span
-                        className="text-[10px] font-mono font-bold px-2 py-0.5 rounded mt-1 border transition-all shadow-2xs"
+                        className="text-xs font-mono font-semibold px-2 py-0.5 rounded mt-1 border transition-all shadow-2xs"
                         style={{
-                          backgroundColor: `${activeSlice.resolvedColor}18`,
-                          color: activeSlice.resolvedColor,
-                          borderColor: `${activeSlice.resolvedColor}33`,
+                          backgroundColor: "var(--surface-subtle)",
+                          color: "var(--foreground)",
+                          borderColor: "var(--border)",
                         }}
                       >
                         {displayPct}%
@@ -298,9 +278,9 @@ export function DonutDistributionChart({
 
         {/* High-Density Streamlined Legend */}
         {activeItems.length > 0 && (
-          <div className="flex flex-col gap-2 pt-2 border-t border-border/50">
+          <div className="flex flex-col gap-2 min-w-0">
             {/* Active Items List */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+            <div className="grid grid-cols-1 gap-1.5">
               {activeItems
                 .filter((item) => item.count > 0)
                 .map((item, idx) => {
@@ -312,26 +292,29 @@ export function DonutDistributionChart({
                     <div
                       key={item.key}
                       className={cn(
-                        "flex items-center justify-between px-2.5 py-1.5 rounded-lg border transition-all duration-150 cursor-pointer select-none",
+                        "flex items-center justify-between px-2.5 py-1.5 rounded-sm border-b transition-colors duration-150 select-none",
                         isHovered
-                          ? "bg-surface-elevated border-border shadow-xs scale-101"
-                          : "bg-surface-subtle/40 border-border/40 hover:bg-surface-subtle/80"
+                          ? "bg-surface-subtle border-border"
+                          : "border-border/60 hover:bg-surface-subtle/50"
                       )}
+                      tabIndex={0}
+                      onFocus={() => setHoveredKey(item.key)}
+                      onBlur={() => setHoveredKey(null)}
                       onMouseEnter={() => setHoveredKey(item.key)}
                       onMouseLeave={() => setHoveredKey(null)}
                     >
-                      <div className="flex items-center gap-2 min-w-0">
+                      <div className="flex items-center gap-2 min-w-0 flex-1">
                         <span
-                          className="w-2 h-2 rounded-full shrink-0 ring-2 ring-background"
+                          className="w-2 h-2 rounded-sm shrink-0"
                           style={{ backgroundColor: color }}
                         />
-                        <span className="text-xs font-semibold text-foreground truncate">
+                        <span className="text-xs font-medium text-foreground leading-snug">
                           {item.label}
                         </span>
                       </div>
                       <div className="flex items-center gap-2 shrink-0 font-mono text-xs">
-                        <span className="font-bold text-foreground">{formatValueFn(item.count)}</span>
-                        <span className="text-[10px] text-muted-foreground px-1 py-0.5 rounded bg-surface-subtle border border-border/40">
+                        <span className="font-semibold text-foreground">{formatValueFn(item.count)}</span>
+                        <span className="text-xs text-muted-foreground px-1 py-0.5 rounded bg-surface-subtle border border-border/40">
                           {pct}%
                         </span>
                       </div>
@@ -348,7 +331,7 @@ export function DonutDistributionChart({
                   .map((item) => (
                     <span
                       key={item.key}
-                      className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium text-muted-foreground/70 bg-surface-subtle/30 border border-border/30"
+                      className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-medium text-muted-foreground/70 bg-surface-subtle/30 border border-border/30"
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground/40 shrink-0" />
                       <span>{item.label}: 0</span>

@@ -209,7 +209,7 @@ export function MentionTextarea({
         }}
         placeholder={placeholder}
         className={cn(
-          "w-full rounded-xl border border-border/80 bg-card p-3 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-primary/40 transition-all resize-none font-sans",
+          "w-full rounded-lg border border-border/80 bg-card p-3 text-xs text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-primary/40 transition-all resize-none font-sans",
           minHeight,
           className
         )}
@@ -219,14 +219,14 @@ export function MentionTextarea({
       {mentionOpen && filteredUsers.length > 0 && (
         <div
           ref={dropdownRef}
-          className="absolute z-50 bottom-full mb-2 left-0 w-72 max-h-60 overflow-y-auto rounded-2xl border border-border/90 bg-card/95 backdrop-blur-md shadow-2xl p-1.5 flex flex-col gap-1 animate-in fade-in zoom-in-95 duration-100"
+          className="absolute z-50 bottom-full mb-2 left-0 w-72 max-h-60 overflow-y-auto rounded-lg border border-border/90 bg-card/95 backdrop-blur-md shadow-md p-1.5 flex flex-col gap-1 animate-in fade-in zoom-in-95 duration-100"
         >
-          <div className="px-2 py-1 border-b border-border/50 text-[10px] font-bold text-muted-foreground uppercase tracking-wider flex items-center justify-between">
+          <div className="px-2 py-1 border-b border-border/50 text-xs font-semibold text-muted-foreground   flex items-center justify-between">
             <span className="flex items-center gap-1.5">
               <AtSign className="w-3 h-3 text-primary" />
               <span>Mention Teammate</span>
             </span>
-            <span className="text-[9px] font-mono text-muted-foreground/70">↑↓ to navigate, ↵ to choose</span>
+            <span className="text-xs font-mono text-muted-foreground/70">↑↓ to navigate, ↵ to choose</span>
           </div>
 
           <div className="flex flex-col gap-0.5">
@@ -246,7 +246,7 @@ export function MentionTextarea({
                   onMouseEnter={() => setMentionIndex(idx)}
                   onClick={() => handleSelectUser(user)}
                   className={cn(
-                    "w-full flex items-center justify-between p-2 rounded-xl text-left transition-all cursor-pointer text-xs group",
+                    "w-full flex items-center justify-between p-2 rounded-lg text-left transition-all cursor-pointer text-xs group",
                     isSelected
                       ? "bg-primary text-primary-foreground font-semibold shadow-xs ring-1 ring-primary/40"
                       : "hover:bg-surface-subtle text-foreground"
@@ -255,7 +255,7 @@ export function MentionTextarea({
                   <div className="flex items-center gap-2.5 min-w-0 pr-1">
                     <div
                       className={cn(
-                        "w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-bold shrink-0 border",
+                        "w-7 h-7 rounded-lg flex items-center justify-center text-xs font-semibold shrink-0 border",
                         isSelected
                           ? "bg-white/20 text-white border-white/30"
                           : "bg-primary-light text-primary border-primary/20"
@@ -264,12 +264,12 @@ export function MentionTextarea({
                       {initials || <UserIcon className="w-3.5 h-3.5" />}
                     </div>
                     <div className="flex flex-col min-w-0">
-                      <span className="truncate text-xs font-bold leading-tight">
+                      <span className="truncate text-xs font-semibold leading-tight">
                         {user.name}
                       </span>
                       <span
                         className={cn(
-                          "truncate text-[10px] leading-tight font-mono",
+                          "truncate text-xs leading-tight font-mono",
                           isSelected ? "text-white/80" : "text-muted-foreground"
                         )}
                       >
@@ -280,7 +280,7 @@ export function MentionTextarea({
 
                   <span
                     className={cn(
-                      "text-[9px] font-mono uppercase px-1.5 py-0.5 rounded-md shrink-0 font-bold",
+                      "text-xs font-mono  px-1.5 py-0.5 rounded-md shrink-0 font-semibold",
                       isSelected
                         ? "bg-white/20 text-white"
                         : "bg-muted text-muted-foreground border border-border/50"

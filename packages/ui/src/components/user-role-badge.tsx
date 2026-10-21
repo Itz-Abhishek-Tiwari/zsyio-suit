@@ -25,48 +25,48 @@ export const ROLE_COLOR_STYLES: Record<
   { badgeClass: string; dot: string }
 > = {
   purple: {
-    badgeClass: "bg-purple-50 text-purple-700 border-purple-200/90 dark:bg-purple-500/15 dark:text-purple-400 dark:border-purple-500/30",
-    dot: "bg-purple-500",
+    badgeClass: "bg-notion-purple text-notion-purple-fg border-notion-purple-fg/90",
+    dot: "bg-notion-purple-fg",
   },
   blue: {
-    badgeClass: "bg-blue-50 text-blue-700 border-blue-200/90 dark:bg-blue-500/15 dark:text-blue-400 dark:border-blue-500/30",
-    dot: "bg-blue-500",
+    badgeClass: "bg-notion-blue text-notion-blue-fg border-notion-blue-fg/90",
+    dot: "bg-notion-blue-fg",
   },
   emerald: {
-    badgeClass: "bg-emerald-50 text-emerald-700 border-emerald-200/90 dark:bg-emerald-500/15 dark:text-emerald-400 dark:border-emerald-500/30",
-    dot: "bg-emerald-500",
+    badgeClass: "bg-success-light text-success border-success/90",
+    dot: "bg-success",
   },
   amber: {
-    badgeClass: "bg-amber-50 text-amber-800 border-amber-200/90 dark:bg-amber-500/15 dark:text-amber-400 dark:border-amber-500/30",
-    dot: "bg-amber-500",
+    badgeClass: "bg-warning-light text-warning border-warning/90",
+    dot: "bg-warning",
   },
   pink: {
-    badgeClass: "bg-pink-50 text-pink-700 border-pink-200/90 dark:bg-pink-500/15 dark:text-pink-400 dark:border-pink-500/30",
-    dot: "bg-pink-500",
+    badgeClass: "bg-notion-pink text-notion-pink-fg border-notion-pink-fg/90",
+    dot: "bg-notion-pink-fg",
   },
   rose: {
-    badgeClass: "bg-rose-50 text-rose-700 border-rose-200/90 dark:bg-rose-500/15 dark:text-rose-400 dark:border-rose-500/30",
-    dot: "bg-rose-500",
+    badgeClass: "bg-destructive-light text-destructive border-destructive/90",
+    dot: "bg-destructive",
   },
   indigo: {
-    badgeClass: "bg-indigo-50 text-indigo-700 border-indigo-200/90 dark:bg-indigo-500/15 dark:text-indigo-400 dark:border-indigo-500/30",
-    dot: "bg-indigo-500",
+    badgeClass: "bg-notion-purple text-notion-purple-fg border-notion-purple-fg/90",
+    dot: "bg-notion-purple-fg",
   },
   teal: {
-    badgeClass: "bg-teal-50 text-teal-700 border-teal-200/90 dark:bg-teal-500/15 dark:text-teal-400 dark:border-teal-500/30",
-    dot: "bg-teal-500",
+    badgeClass: "bg-notion-blue text-notion-blue-fg border-notion-blue-fg/90",
+    dot: "bg-notion-blue-fg",
   },
   cyan: {
-    badgeClass: "bg-cyan-50 text-cyan-700 border-cyan-200/90 dark:bg-cyan-500/15 dark:text-cyan-400 dark:border-cyan-500/30",
-    dot: "bg-cyan-500",
+    badgeClass: "bg-notion-blue text-notion-blue-fg border-notion-blue-fg/90",
+    dot: "bg-notion-blue-fg",
   },
   orange: {
-    badgeClass: "bg-orange-50 text-orange-800 border-orange-200/90 dark:bg-orange-500/15 dark:text-orange-400 dark:border-orange-500/30",
-    dot: "bg-orange-500",
+    badgeClass: "bg-notion-orange text-notion-orange-fg border-notion-orange-fg/90",
+    dot: "bg-notion-orange-fg",
   },
   violet: {
-    badgeClass: "bg-violet-50 text-violet-700 border-violet-200/90 dark:bg-violet-500/15 dark:text-violet-400 dark:border-violet-500/30",
-    dot: "bg-violet-500",
+    badgeClass: "bg-notion-purple text-notion-purple-fg border-notion-purple-fg/90",
+    dot: "bg-notion-purple-fg",
   },
   gray: {
     badgeClass: "bg-muted text-muted-foreground border-border dark:bg-muted/50 dark:text-muted-foreground",
@@ -106,8 +106,8 @@ export const USER_ROLE_CONFIG: Record<
   SUPER_ADMIN: {
     label: "Super Admin",
     desc: "Primary workspace owner & root administrator",
-    badgeClass: "bg-amber-500/15 text-amber-800 border-amber-400/80 dark:bg-amber-500/25 dark:text-amber-300 dark:border-amber-500/50 font-bold",
-    dot: "bg-amber-500",
+    badgeClass: "bg-warning/15 text-warning border-warning/80 font-semibold",
+    dot: "bg-warning",
     icon: Crown,
   },
   ADMIN: {
@@ -168,7 +168,7 @@ export function UserRoleBadge({
     return (
       <Badge
         variant="outline"
-        className={`text-[11px] font-semibold border ${colorStyle.badgeClass} ${className ?? ""}`}
+        className={`text-xs font-semibold border ${colorStyle.badgeClass} ${className ?? ""}`}
       >
         {showIcon ? (
           <IconComponent className="w-3 h-3 shrink-0" />
@@ -193,7 +193,7 @@ export function UserRoleBadge({
   return (
     <Badge
       variant="outline"
-      className={`text-[11px] font-semibold border ${cfg.badgeClass} ${className ?? ""}`}
+      className={`text-xs font-semibold border ${cfg.badgeClass} ${className ?? ""}`}
     >
       {showIcon ? (
         <Icon className="w-3 h-3 shrink-0" />

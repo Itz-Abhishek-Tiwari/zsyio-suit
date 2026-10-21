@@ -37,7 +37,7 @@ export function KanbanBoard({
     <div className={cn("flex flex-col gap-3.5 w-full", className)}>
       {/* Top Helper Bar */}
       {showHelperBar && (
-        <div className="flex items-center justify-between text-[11px] text-muted-foreground px-1 select-none">
+        <div className="flex items-center justify-between text-xs text-muted-foreground px-1 select-none">
           <div className="flex items-center gap-1.5 text-muted-foreground/70">
             <GripVertical className="w-3.5 h-3.5 text-primary/60 shrink-0" />
             <span>{instructionText}</span>
@@ -50,7 +50,7 @@ export function KanbanBoard({
               <button
                 type="button"
                 onClick={onResetOrder}
-                className="inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground hover:underline transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground hover:underline transition-colors cursor-pointer"
                 title={resetButtonTitle}
               >
                 <RotateCcw className="w-3 h-3" />
