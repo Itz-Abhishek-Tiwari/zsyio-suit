@@ -65,7 +65,7 @@ describe("Timezone handling and CSV/XLSX export formatting", () => {
     const mockAdmin = {
       id: "admin-1",
       name: "Admin User",
-      email: "admin@mediloon.de",
+      email: "admin@zsyio.de",
       role: "ADMIN",
       permissions: ["timesheet:export", "timesheet:view:all"],
     };
@@ -83,7 +83,7 @@ describe("Timezone handling and CSV/XLSX export formatting", () => {
             entryType: "AUTOMATIC",
             status: "COMPLETED",
             reason: null,
-            user: { name: "Alexander Becker", email: "alexander@mediloon.de" },
+            user: { name: "Alexander Becker", email: "alexander@zsyio.de" },
             oooEntries: [],
           } as any,
         ],

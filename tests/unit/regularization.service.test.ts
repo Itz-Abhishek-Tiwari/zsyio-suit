@@ -28,7 +28,7 @@ vi.mock("@zsyio/database", () => {
 const mockEmployee = {
   id: "emp-1",
   name: "John Doe",
-  email: "john@mediloon.de",
+  email: "john@zsyio.de",
   role: "DEVELOPER",
   permissions: ["timesheet:view:own", "timesheet:clock"],
 };
@@ -36,7 +36,7 @@ const mockEmployee = {
 const mockManager = {
   id: "mgr-1",
   name: "Manager Smith",
-  email: "manager@mediloon.de",
+  email: "manager@zsyio.de",
   role: "MANAGER",
   permissions: ["timesheet:view:own", "timesheet:view:all"],
 };
@@ -44,7 +44,7 @@ const mockManager = {
 const mockSuperAdmin = {
   id: "admin-1",
   name: "Super Admin",
-  email: "admin@mediloon.de",
+  email: "admin@zsyio.de",
   role: "SUPER_ADMIN",
   permissions: ["timesheet:manage", "timesheet:view:all"],
 };
@@ -71,7 +71,7 @@ describe("RegularizationService", () => {
         reviewedAt: null,
         createdAt: new Date(),
         updatedAt: new Date(),
-        user: { id: "emp-1", name: "John Doe", email: "john@mediloon.de", role: "DEVELOPER" },
+        user: { id: "emp-1", name: "John Doe", email: "john@zsyio.de", role: "DEVELOPER" },
       } as any);
 
       const res = await regularizationService.applyRegularization(mockEmployee, {
@@ -153,8 +153,8 @@ describe("RegularizationService", () => {
         reviewedAt: new Date(),
         createdAt: new Date(),
         updatedAt: new Date(),
-        user: { id: "emp-1", name: "John Doe", email: "john@mediloon.de", role: "DEVELOPER" },
-        reviewer: { id: "mgr-1", name: "Manager Smith", email: "manager@mediloon.de", role: "MANAGER" },
+        user: { id: "emp-1", name: "John Doe", email: "john@zsyio.de", role: "DEVELOPER" },
+        reviewer: { id: "mgr-1", name: "Manager Smith", email: "manager@zsyio.de", role: "MANAGER" },
       } as any);
 
       const res = await regularizationService.reviewRegularization(mockManager, "reg-1", {
@@ -269,8 +269,8 @@ describe("RegularizationService", () => {
         reviewerId: "admin-1",
         createdAt: new Date(),
         updatedAt: new Date(),
-        user: { id: "admin-1", name: "Super Admin", email: "admin@mediloon.de", role: "SUPER_ADMIN" },
-        reviewer: { id: "admin-1", name: "Super Admin", email: "admin@mediloon.de", role: "SUPER_ADMIN" },
+        user: { id: "admin-1", name: "Super Admin", email: "admin@zsyio.de", role: "SUPER_ADMIN" },
+        reviewer: { id: "admin-1", name: "Super Admin", email: "admin@zsyio.de", role: "SUPER_ADMIN" },
       } as any);
 
       const res = await regularizationService.reviewRegularization(mockSuperAdmin, "superadmin-reg", {

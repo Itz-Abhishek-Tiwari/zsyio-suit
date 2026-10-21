@@ -33,7 +33,7 @@ describe("Theme Synchronization & Schema Validation", () => {
       setCachedUserAuth({
         id: userId,
         name: "Cache User",
-        email: "cache@mediloon.de",
+        email: "cache@zsyio.de",
         role: "DEVELOPER",
         customRoleId: null,
         permissions: [],

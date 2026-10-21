@@ -38,7 +38,7 @@ vi.mock("../../apps/hrms/src/server/repositories/timesheet.repository", () => {
 const mockEmployee: UserContext = {
   id: "emp-1",
   name: "John Doe",
-  email: "john@mediloon.de",
+  email: "john@zsyio.de",
   role: "DEVELOPER",
   permissions: ["timesheet:view:own", "timesheet:clock", "timesheet:manual:create"],
 };
@@ -46,7 +46,7 @@ const mockEmployee: UserContext = {
 const mockAdmin: UserContext = {
   id: "admin-1",
   name: "Super Admin",
-  email: "admin@mediloon.de",
+  email: "admin@zsyio.de",
   role: "SUPER_ADMIN",
   permissions: ["timesheet:view:own", "timesheet:clock", "timesheet:manual:create", "timesheet:view:all", "timesheet:manage", "timesheet:export"],
 };

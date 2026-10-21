@@ -28,7 +28,7 @@ const mockDevUser = {
   id: "user-1",
   role: "DEVELOPER",
   mustChangePassword: false,
-  email: "dev@mediloon.de",
+  email: "dev@zsyio.de",
   name: "Dev User",
   permissions: ["task:edit:any"],
 };
@@ -37,7 +37,7 @@ const mockAdminUser = {
   id: "user-1",
   role: "ADMIN",
   mustChangePassword: false,
-  email: "admin@mediloon.de",
+  email: "admin@zsyio.de",
   name: "Admin User",
   permissions: [],
 };

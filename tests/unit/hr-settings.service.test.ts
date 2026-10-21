@@ -19,7 +19,7 @@ vi.mock("@zsyio/database", () => {
 const mockSuperAdmin = {
   id: "admin-1",
   name: "Super Admin",
-  email: "admin@mediloon.de",
+  email: "admin@zsyio.de",
   role: "SUPER_ADMIN",
   permissions: ["timesheet:manage", "timesheet:view:all"],
 };
@@ -27,7 +27,7 @@ const mockSuperAdmin = {
 const mockEmployee = {
   id: "emp-1",
   name: "Regular Employee",
-  email: "emp@mediloon.de",
+  email: "emp@zsyio.de",
   role: "DEVELOPER",
   permissions: ["timesheet:view:own"],
 };

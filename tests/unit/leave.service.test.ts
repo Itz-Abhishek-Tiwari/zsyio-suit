@@ -58,7 +58,7 @@ vi.mock("@zsyio/database", () => {
 const mockSuperAdmin = {
   id: "admin-1",
   name: "Super Admin",
-  email: "admin@mediloon.de",
+  email: "admin@zsyio.de",
   role: "SUPER_ADMIN",
   permissions: ["timesheet:manage", "timesheet:view:all"],
 };
@@ -66,7 +66,7 @@ const mockSuperAdmin = {
 const mockEmployee = {
   id: "emp-1",
   name: "John Doe",
-  email: "john@mediloon.de",
+  email: "john@zsyio.de",
   role: "DEVELOPER",
   permissions: ["timesheet:view:own", "timesheet:clock"],
 };
@@ -74,7 +74,7 @@ const mockEmployee = {
 const mockManager = {
   id: "mgr-1",
   name: "Manager Smith",
-  email: "manager@mediloon.de",
+  email: "manager@zsyio.de",
   role: "MANAGER",
   permissions: ["timesheet:view:own", "timesheet:view:all"],
 };
@@ -99,7 +99,7 @@ describe("LeaveService", () => {
           reason: "Family vacation",
           status: "APPROVED",
           reviewerId: "mgr-1",
-          reviewer: { id: "mgr-1", name: "Manager Smith", email: "mgr@mediloon.de", role: "MANAGER" },
+          reviewer: { id: "mgr-1", name: "Manager Smith", email: "mgr@zsyio.de", role: "MANAGER" },
           reviewerComment: "Approved enjoy",
           reviewedAt: new Date("2026-09-08T10:00:00.000Z"),
           createdAt: new Date(),
@@ -426,7 +426,7 @@ describe("LeaveService", () => {
       vi.mocked(prisma.userLeaveAllocation.upsert).mockResolvedValue({
         id: "alloc-1",
         userId: "emp-1",
-        user: { name: "John Doe", email: "john@mediloon.de" },
+        user: { name: "John Doe", email: "john@zsyio.de" },
         leaveType: "CASUAL",
         year: 2026,
         totalDays: 18,

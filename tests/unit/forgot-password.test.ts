@@ -5,7 +5,7 @@ import { forgotPasswordRequestSchema, forgotPasswordVerifySchema } from "@zsyio/
 describe("Forgot Password Auth & OTP System", () => {
   describe("Validation Schemas", () => {
     it("should validate allowed corporate email in forgot password request", () => {
-      const valid = forgotPasswordRequestSchema.safeParse({ email: "suyashgaikwad@mediloon.de" });
+      const valid = forgotPasswordRequestSchema.safeParse({ email: "suyashgaikwad@zsyio.de" });
       expect(valid.success).toBe(true);
 
       const invalidDomain = forgotPasswordRequestSchema.safeParse({ email: "attacker@gmail.com" });
@@ -17,21 +17,21 @@ describe("Forgot Password Auth & OTP System", () => {
 
     it("should validate OTP and new password in verify request", () => {
       const valid = forgotPasswordVerifySchema.safeParse({
-        email: "suyashgaikwad@mediloon.de",
+        email: "suyashgaikwad@zsyio.de",
         otp: "123456",
         newPassword: "NewSecurePassword123!",
       });
       expect(valid.success).toBe(true);
 
       const invalidOtp = forgotPasswordVerifySchema.safeParse({
-        email: "suyashgaikwad@mediloon.de",
+        email: "suyashgaikwad@zsyio.de",
         otp: "1234",
         newPassword: "NewSecurePassword123!",
       });
       expect(invalidOtp.success).toBe(false);
 
       const shortPassword = forgotPasswordVerifySchema.safeParse({
-        email: "suyashgaikwad@mediloon.de",
+        email: "suyashgaikwad@zsyio.de",
         otp: "123456",
         newPassword: "short",
       });
