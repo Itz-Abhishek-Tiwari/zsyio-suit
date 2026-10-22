@@ -27,7 +27,10 @@
     "EMAIL_PROVIDER_API_KEY",
     "SUPER_ADMIN_EMAIL",
     "GEMINI_API_KEY",
-    "GEMINI_MODEL"
+    "GEMINI_MODEL",
+    "AUTH_URL",
+    "NEXTAUTH_URL",
+    "NEXT_PUBLIC_*"
   ],
   "tasks": {
     "build": {

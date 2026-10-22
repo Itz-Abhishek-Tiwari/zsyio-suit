@@ -87,6 +87,8 @@ All apps share one sign-in and one design system. Screenshots are taken with the
 
 ## 📖 Documentation
 
+* **[Microfrontend deployment](docs/microfrontends.md)** — Six independent app deployments, subdomain routing, shared sign-in, and production preflight checks.
+
 All detailed project documentation is organized in the [`docs/`](docs) directory:
 
 * 📘 **[Official Rule Book (`docs/rulebook.md`)](docs/rulebook.md)** — Architectural principles, permission rules, workflow state machines, and code standards.

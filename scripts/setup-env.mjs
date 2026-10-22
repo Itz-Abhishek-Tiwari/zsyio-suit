@@ -22,6 +22,13 @@ const targets = [
   path.join(rootDir, "packages/database/.env"),
 ];
 
+// Cloud projects receive their own environment from Vercel. Do not create
+// placeholder files or link local development credentials into cloud builds.
+if (process.env.VERCEL === "1") {
+  console.log("Using the Vercel project's configured environment.");
+  process.exit(0);
+}
+
 console.log("🔧 Configuring unified single-source .env across monorepo...");
 
 // 1. Ensure root .env.local exists

@@ -43,7 +43,8 @@
     "db:studio": "turbo run db:studio",
     "clean": "node scripts/clean.mjs",
     "dev:recruit": "turbo run dev --filter=@zsyio/recruit",
-    "start:recruit": "turbo run start --filter=@zsyio/recruit"
+    "start:recruit": "turbo run start --filter=@zsyio/recruit",
+    "deploy:check": "node scripts/check-deployment.mjs"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.6",
