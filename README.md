@@ -9,6 +9,7 @@ Zsyio is a unified, multi-application workspace for project execution, collabora
 * **Zsyio Console (`apps/admin`)**: User directory, roles & permissions matrix, teams, and security policies.
 * **Zsyio Pulse (`apps/sales`)**: Sales pipeline, CRM leads, 7-stage Kanban board, and client deal flow.
 * **Zsyio Recruit (`apps/recruit`)**: Job openings, candidate pipeline, interviews, and hiring feedback.
+* **Zsyio Landing (`apps/landing`)**: Public marketing site and careers page (no sign-in).
 
 ---
 

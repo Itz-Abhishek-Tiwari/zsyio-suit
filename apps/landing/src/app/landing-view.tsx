@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState, type KeyboardEvent } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, ArrowRight, Workflow, FileText, Fingerprint, Target, Terminal, KeyRound, ShieldCheck, Users, Plus, ChevronLeft, ChevronRight, Check } from "lucide-react";
 import gsap from "gsap";
@@ -15,7 +14,6 @@ import "./landing.css";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 interface LandingViewProps {
-  user?: { name?: string | null; email?: string | null; role?: string | null } | null;
   appUrls: { pms: string; notes: string; hrms: string; admin: string; sales: string };
 }
 
@@ -40,13 +38,13 @@ const QUESTIONS = [
   ["Does the interface support dark mode?", "Yes. The workspace supports light and dark themes, along with keyboard shortcuts for everyday navigation."],
 ];
 
-export function LandingView({ user, appUrls }: LandingViewProps) {
+export function LandingView({ appUrls }: LandingViewProps) {
   const root = useRef<HTMLDivElement>(null);
   const locomotive = useRef<LocomotiveScroll | null>(null);
   const [activeApp, setActiveApp] = useState(0);
   const selectedApp = APPS[activeApp];
-  const primaryHref = user ? "/" : "/login";
-  const primaryLabel = user ? "Open workspace" : "Enter workspace";
+  const primaryHref = `${appUrls.pms}/login`;
+  const primaryLabel = "Enter workspace";
 
   useGSAP(() => {
     const mm = gsap.matchMedia();
@@ -111,7 +109,7 @@ export function LandingView({ user, appUrls }: LandingViewProps) {
   return (
     <div ref={root} className="landing-page">
       <a href="#main-content" className="landing-skip">Skip to content</a>
-      <MarketingHeader signedIn={Boolean(user)} />
+      <MarketingHeader />
       <main id="main-content">
         <section className="landing-hero">
           <div className="hero-composition">
@@ -120,7 +118,7 @@ export function LandingView({ user, appUrls }: LandingViewProps) {
               <h1><span className="hero-line"><span>Work,</span></span><span className="hero-line"><span>connected<span className="hero-period">.</span></span></span></h1>
               <div className="hero-support">
                 <p>Bring your projects, knowledge, and people into one shared workspace.</p>
-                <div className="hero-links"><Link className="landing-button" href={primaryHref}>{primaryLabel}<ArrowUpRight aria-hidden="true" size={19} /></Link><a href="#apps" className="hero-secondary">Discover the suite<ArrowRight size={16} aria-hidden="true" /></a></div>
+                <div className="hero-links"><a className="landing-button" href={primaryHref}>{primaryLabel}<ArrowUpRight aria-hidden="true" size={19} /></a><a href="#apps" className="hero-secondary">Discover the suite<ArrowRight size={16} aria-hidden="true" /></a></div>
               </div>
             </div>
             <figure className="hero-art">
@@ -180,7 +178,7 @@ export function LandingView({ user, appUrls }: LandingViewProps) {
         </section>
 
         <section className="closing section-shell">
-          <div className="closing-copy landing-reveal"><p>Your next chapter, together.</p><h2>Make room<br />for better work<span>.</span></h2></div><Link href={primaryHref} className="closing-action landing-reveal"><ArrowUpRight size={56} strokeWidth={1.2} aria-hidden="true" /><span>{primaryLabel}</span></Link>
+          <div className="closing-copy landing-reveal"><p>Your next chapter, together.</p><h2>Make room<br />for better work<span>.</span></h2></div><a href={primaryHref} className="closing-action landing-reveal"><ArrowUpRight size={56} strokeWidth={1.2} aria-hidden="true" /><span>{primaryLabel}</span></a>
         </section>
       </main>
       <div className="closing-wordmark section-shell" aria-hidden="true">zsyio<span>.</span></div>

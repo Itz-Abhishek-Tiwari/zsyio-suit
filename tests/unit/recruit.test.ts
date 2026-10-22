@@ -6,7 +6,7 @@ import {
   stageSchema,
   candidateDetailsSchema,
 } from "../../apps/recruit/src/lib/schemas";
-import { careerApplicationSchema } from "../../apps/pms/src/app/api/careers/applications/schema";
+import { careerApplicationSchema } from "../../apps/landing/src/app/api/careers/applications/schema";
 import { can, canAccessApp } from "@zsyio/auth/permissions";
 describe("Recruit validation and access", () => {
   it("requires app access and a separate management permission", () => {

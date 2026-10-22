@@ -15,7 +15,7 @@ gsap.registerPlugin(useGSAP);
 type PublicJob = { id: string; title: string; department: string; location: string; employment: string; description: string };
 const employmentLabel = (value: string) => ({ FULL_TIME: "Full time", PART_TIME: "Part time", CONTRACT: "Contract" }[value] ?? value);
 
-export function CareersView({ jobs, unavailable, signedIn }: { jobs: PublicJob[]; unavailable: boolean; signedIn: boolean }) {
+export function CareersView({ jobs, unavailable }: { jobs: PublicJob[]; unavailable: boolean }) {
   const root = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState("");
   const [department, setDepartment] = useState("all");
@@ -49,11 +49,11 @@ export function CareersView({ jobs, unavailable, signedIn }: { jobs: PublicJob[]
 
   return <div ref={root} className="landing-page careers-page">
     <a href="#main-content" className="landing-skip">Skip to content</a>
-    <MarketingHeader signedIn={signedIn} />
+    <MarketingHeader />
     <main id="main-content">
       <section className="careers-hero section-shell">
         <div className="careers-intro">
-          <Link href="/landing" className="careers-back"><ArrowLeft size={15} aria-hidden="true" /> Back to Zsyio</Link>
+          <Link href="/" className="careers-back"><ArrowLeft size={15} aria-hidden="true" /> Back to Zsyio</Link>
           <h1>Build what<br />connects us<span>.</span></h1>
           <p>Help shape a workspace that brings people, ideas, and progress together.</p>
           <Button asChild size="xl"><a href="#open-roles">Explore open roles<ArrowUpRight aria-hidden="true" /></a></Button>

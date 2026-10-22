@@ -32,7 +32,7 @@ export async function POST(request: Request) {
 - Never return `passwordHash`, OTP hashes or tokens. Use the shared safe user select.
 - Core PMS entities (`Task`, `Client`, `Product`) are soft-deleted with `deletedAt`, never hard-deleted.
 - Use `$transaction` when a change and its audit/event row must succeed together (see Recruit stage changes).
-- Public (unauthenticated) endpoints need an origin check, size limit, honeypot and a rate limit. Copy `apps/pms/src/app/api/careers/applications/route.ts`.
+- Public (unauthenticated) endpoints need an origin check, size limit, honeypot and a rate limit. Copy `apps/landing/src/app/api/careers/applications/route.ts`.
 
 ## Tests
 Add unit tests in `tests/unit/*.test.ts` for schemas and permission rules, then run the specific files plus any test that imports the schema you changed: `npx vitest run tests/unit/<name>.test.ts`. Search `tests/` for the schema name before changing it; a changed schema can break a test in a different file.

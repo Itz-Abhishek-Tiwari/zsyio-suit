@@ -20,7 +20,7 @@ Validation: schema/access unit tests, all six app type-checks, an isolated brows
 
 ## Public careers page
 
-The marketing site links to `/landing/careers`. It reads OPEN jobs from the shared Recruit database and accepts name/email applications through `/api/careers/applications`. New applications appear in Recruit's Applied stage with source `Careers website`. Paused/closed jobs are hidden and reject applications; the same email cannot apply twice to the same job. The public endpoint returns no candidate records or internal job metadata. There are no resume uploads or confirmation emails in this version.
+The marketing site (`apps/landing`) serves the careers page at `/careers`. It reads OPEN jobs from the shared Recruit database and accepts name/email applications through `/api/careers/applications`. New applications appear in Recruit's Applied stage with source `Careers website`. Paused/closed jobs are hidden and reject applications; the same email cannot apply twice to the same job. The public endpoint returns no candidate records or internal job metadata. There are no resume uploads or confirmation emails in this version.
 
 Recruit forms and filters use the shared `Select` primitives; job surfaces, action controls, and loading placeholders reuse `Card`, `Button`, and `Skeleton` from `@zsyio/ui`.
 

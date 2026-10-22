@@ -43,7 +43,9 @@
     "db:studio": "turbo run db:studio",
     "clean": "node scripts/clean.mjs",
     "dev:recruit": "turbo run dev --filter=@zsyio/recruit",
+    "dev:landing": "turbo run dev --filter=@zsyio/landing",
     "start:recruit": "turbo run start --filter=@zsyio/recruit",
+    "start:landing": "turbo run start --filter=@zsyio/landing",
     "deploy:check": "node scripts/check-deployment.mjs"
   },
   "devDependencies": {

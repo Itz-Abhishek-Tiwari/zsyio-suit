@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { auth } from "@zsyio/auth";
 import { prisma } from "@zsyio/database";
 import { CareersView } from "./careers-view";
 
@@ -10,11 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default async function CareersPage() {
-  const session = await auth();
   let jobs: Awaited<ReturnType<typeof loadJobs>> = [];
   let unavailable = false;
   try { jobs = await loadJobs(); } catch { unavailable = true; }
-  return <CareersView jobs={jobs} unavailable={unavailable} signedIn={Boolean(session?.user)} />;
+  return <CareersView jobs={jobs} unavailable={unavailable} />;
 }
 
 function loadJobs() {

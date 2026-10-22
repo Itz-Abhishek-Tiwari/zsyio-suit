@@ -43,7 +43,7 @@ import {
 } from "@/lib/schemas";
 import { ManageContext } from "./recruit-shell";
 import { RecruitKanbanBoard } from "@/components/recruit-kanban-board";
-const pmsUrl = (process.env.NEXT_PUBLIC_PMS_URL || "http://localhost:3000").replace(/\/+$/, "");
+const landingUrl = (process.env.NEXT_PUBLIC_LANDING_URL || "http://localhost:3007").replace(/\/+$/, "");
 const label = (value: string) =>
   value
     .toLowerCase()
@@ -272,7 +272,7 @@ export function HiringWorkspace({
               : "Keep interview schedules and feedback close to each application."
         }
         actions={<>
-          {view === "jobs" && <Button variant="outline" asChild><a href={`${pmsUrl}/landing/careers`} target="_blank" rel="noopener noreferrer">View careers page<ArrowRight aria-hidden="true" /></a></Button>}
+          {view === "jobs" && <Button variant="outline" asChild><a href={`${landingUrl}/careers`} target="_blank" rel="noopener noreferrer">View careers page<ArrowRight aria-hidden="true" /></a></Button>}
           {action}
         </>}
       />

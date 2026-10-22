@@ -24,7 +24,7 @@ function isAuthPage() {
   return /^\/(login|forgot-password|invite)(\/|$)/.test(window.location.pathname);
 }
 
-function ThemeSyncWatcher({ cookieDomain }: { cookieDomain?: string }) {
+function ThemeSyncWatcher({ cookieDomain, syncAccount }: { cookieDomain?: string; syncAccount: boolean }) {
   // Persist the selected mode, including "system", rather than its resolved color.
   const { theme, setTheme } = useNextTheme();
   const current = useRef(theme);
@@ -49,7 +49,7 @@ function ThemeSyncWatcher({ cookieDomain }: { cookieDomain?: string }) {
     };
     const saved = getThemeCookie();
     if (saved) apply(saved);
-    else if (!isAuthPage()) {
+    else if (syncAccount && !isAuthPage()) {
       // The account preference is a fallback for a browser with no saved choice.
       // Ignore a late response if the user has changed appearance in the meantime.
       const initial = current.current;
@@ -80,7 +80,7 @@ function ThemeSyncWatcher({ cookieDomain }: { cookieDomain?: string }) {
       window.removeEventListener("storage", onStorage);
       document.removeEventListener("visibilitychange", sync);
     };
-  }, [cookieDomain]);
+  }, [cookieDomain, syncAccount]);
 
   useEffect(() => {
     if (!isTheme(theme)) return;
@@ -95,7 +95,7 @@ function ThemeSyncWatcher({ cookieDomain }: { cookieDomain?: string }) {
     // Do not replace another app's preference during initial hydration.
     if (initial) return;
     setThemeCookie(theme, 365, cookieDomain);
-    if (isAuthPage()) return;
+    if (!syncAccount || isAuthPage()) return;
     const timer = window.setTimeout(() => {
       fetch("/api/users/theme", {
         method: "PATCH",
@@ -105,7 +105,7 @@ function ThemeSyncWatcher({ cookieDomain }: { cookieDomain?: string }) {
       }).catch(() => {});
     }, 300);
     return () => window.clearTimeout(timer);
-  }, [theme, cookieDomain]);
+  }, [theme, cookieDomain, syncAccount]);
 
   return null;
 }
@@ -114,8 +114,13 @@ export function ThemeProvider({
   children,
   attribute = ["class", "data-theme"],
   accentCookieDomain,
+  syncAccountTheme = true,
   ...props
-}: React.ComponentProps<typeof NextThemesProvider> & { accentCookieDomain?: string }) {
+}: React.ComponentProps<typeof NextThemesProvider> & {
+  accentCookieDomain?: string;
+  /** Load and save the signed-in user's theme via /api/users/theme. Off for public sites without that route. */
+  syncAccountTheme?: boolean;
+}) {
   return (
     <NextThemesProvider
       attribute={attribute}
@@ -126,7 +131,7 @@ export function ThemeProvider({
       {...props}
     >
       <AccentProvider cookieDomain={accentCookieDomain}>
-        <ThemeSyncWatcher cookieDomain={accentCookieDomain} />
+        <ThemeSyncWatcher cookieDomain={accentCookieDomain} syncAccount={syncAccountTheme} />
         {children}
       </AccentProvider>
     </NextThemesProvider>

@@ -36,7 +36,7 @@ A cohesive, single-pane-of-glass workspace platform engineered on Next.js 15, Re
 
 ## Evidence on Hand
 - Seeded enterprise demo dataset in `scripts/seed-zsyio.ts` with real technical RFCs (such as RFC-042 event-driven architecture), sprint tasks, and leave policies.
-- Bento Grid landing showcase page at `/landing`.
+- Bento Grid landing showcase page, served by its own app (`apps/landing`).
 - 290 passing unit tests verifying permissions, timesheets, domain restrictions, and editor utilities.
 
 ## Product Principles

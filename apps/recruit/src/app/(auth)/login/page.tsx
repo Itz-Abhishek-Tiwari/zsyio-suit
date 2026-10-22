@@ -24,7 +24,6 @@ export default async function Page() {
     footerRight="Recruit"
     formHeading="Sign in to Recruit"
     formSubtitle="Use your workspace account to continue."
-    productOverviewHref={`${(process.env.NEXT_PUBLIC_PMS_URL || "http://localhost:3000").replace(/\/+$/, "")}/landing`}
     securityNote="Access is controlled by your workspace permissions."
   ><LoginForm serverAllowedDomains={getAllowedEmailDomains()} /></LoginPageLayout>;
 }

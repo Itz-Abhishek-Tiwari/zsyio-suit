@@ -9,7 +9,6 @@ export interface AuthMiddlewareOptions {
 }
 
 export const DEFAULT_PUBLIC_PATHS = [
-  "/landing",
   "/login",
   "/forgot-password",
   "/api/auth",

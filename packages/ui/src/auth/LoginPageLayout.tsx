@@ -76,8 +76,8 @@ export function LoginPageLayout({
   formHeading,
   formSubtitle,
   securityNote,
-  // The landing page only exists in Flow (PMS), so link there from every app.
-  productOverviewHref = `${(process.env.NEXT_PUBLIC_PMS_URL || "").replace(/\/+$/, "")}/landing`,
+  // The marketing site is its own app (apps/landing).
+  productOverviewHref = process.env.NEXT_PUBLIC_LANDING_URL || "http://localhost:3007",
   children,
 }: LoginPageLayoutProps) {
   return (

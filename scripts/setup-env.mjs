@@ -13,6 +13,7 @@ const rootEnv = path.join(rootDir, ".env");
 // Targets to link to the root env file
 const targets = [
   path.join(rootDir, "apps/recruit/.env.local"),
+  path.join(rootDir, "apps/landing/.env.local"),
   path.join(rootDir, "apps/pms/.env.local"),
   path.join(rootDir, "apps/notes/.env.local"),
   path.join(rootDir, "apps/hrms/.env.local"),
