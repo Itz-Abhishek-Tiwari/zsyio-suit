@@ -18,6 +18,8 @@ export const DEFAULT_PUBLIC_PATHS = [
   "/branding",
   "/sw.js",
   "/favicon.ico",
+  // GET answers signed-out pages with no theme; PATCH still requires a session.
+  "/api/users/theme",
 ];
 
 export const DEFAULT_SESSION_COOKIE_SUBSTRINGS = ["session-token"];

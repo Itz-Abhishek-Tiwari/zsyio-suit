@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { z } from "zod";
 import { prisma } from "@zsyio/database";
 import { requireUser, withApiHandler } from "./api-helpers";
+import { auth } from "./auth";
 import { getCachedUserAuth, setCachedUserAuth } from "./auth-cache";
 
 const themeSchema = z.object({
@@ -12,11 +13,13 @@ export type UpdateThemeBody = z.infer<typeof themeSchema>;
 
 /**
  * GET handler for /api/users/theme:
- * Retrieves the current authenticated user's theme from DB or cache.
+ * Retrieves the current user's theme from the session or DB. Signed-out pages
+ * also ask, so they get `{ theme: null }` instead of a 401 console error.
  */
 export async function handleThemeGet() {
   return withApiHandler(async () => {
-    const user = await requireUser();
+    const user = (await auth())?.user;
+    if (!user?.id) return { theme: null };
 
     // Fast check: return from session user if populated
     if (user.theme) {
