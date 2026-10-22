@@ -154,7 +154,7 @@ Navigate to **Project Settings → Database → Connection String** in Supabase:
 
 | Connection Type | Port | Parameter / Mode | Used For | Environment Variable |
 |---|---|---|---|---|
-| **Transaction Pooler** | `6543` / Neon `-pooler` | `?pgbouncer=true&connection_limit=1&pool_timeout=15&connect_timeout=15` | Serverless Next.js API Routes / SSR (Lambda) | `DATABASE_URL` |
+| **Transaction Pooler** | `6543` / Neon `-pooler` | `?pgbouncer=true&connection_limit=5&pool_timeout=20&connect_timeout=15` | Serverless Next.js API Routes / SSR (Lambda) | `DATABASE_URL` |
 | **Session / Direct Pooler** | `5432` / Neon direct | Direct Connection (`?connect_timeout=15`) | Prisma Migrations (`prisma migrate deploy`), Seed, Schema Push | `DIRECT_URL` |
 
 > [!IMPORTANT]
@@ -162,7 +162,7 @@ Navigate to **Project Settings → Database → Connection String** in Supabase:
 > If your database is in Frankfurt (`eu-central-1`), your Vercel projects MUST be configured to run in Frankfurt (`fra1`). In a monorepo, each app workspace (`apps/pms`, `apps/sales`, etc.) has its own `vercel.json` defining `"regions": ["fra1"]`. Omitting this causes Vercel to default to `iad1` (Washington DC) or `hnd1` (Tokyo), adding 100–240ms of cross-continental latency to every single database query!
 >
 > **Serverless Connection Pooling**:
-> In serverless lambdas on Vercel, set `connection_limit=1` on `DATABASE_URL`. Because each lambda handles one request at a time, higher limits waste connection slots in PgBouncer and cause pool exhaustion under concurrent traffic.
+> Set `connection_limit=5` on `DATABASE_URL`. Vercel Fluid Compute serves many requests concurrently from one function instance, so `connection_limit=1` makes them queue on a single connection and fail with "Timed out fetching a new connection from the connection pool". PgBouncer (port 6543) multiplexes these connections, so a small per-instance pool is safe.
 
 ### 4.3 Apply Database Migrations and Seed
 
@@ -172,7 +172,7 @@ Run migrations from your local terminal against the Supabase database:
 # 1. Ensure root .env.local has your production credentials
 # (Use DIRECT_URL for migrations and DATABASE_URL for runtime)
 DIRECT_URL="postgresql://postgres.[REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:5432/postgres"
-DATABASE_URL="postgresql://postgres.[REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=10&pool_timeout=20"
+DATABASE_URL="postgresql://postgres.[REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=5&pool_timeout=20"
 
 # 2. Generate Prisma Client
 pnpm run db:generate
@@ -232,7 +232,7 @@ Configure these variables in **Vercel Dashboard → Project Settings → Environ
 
 | Variable Name | Required By | Scope | Description / Example |
 |---|---|---|---|
-| `DATABASE_URL` | Both | Prod, Preview | Supabase Transaction Pooler URL (Port 6543) with `?pgbouncer=true&connection_limit=10&pool_timeout=20` |
+| `DATABASE_URL` | Both | Prod, Preview | Supabase Transaction Pooler URL (Port 6543) with `?pgbouncer=true&connection_limit=5&pool_timeout=20` |
 | `DIRECT_URL` | Both | Prod, Preview | Supabase Session Mode URL (Port 5432) |
 | `AUTH_SECRET` | Both | Prod, Preview, Dev | High-entropy 32+ char secret generated via `openssl rand -base64 32` or `npx auth secret` |
 | `AUTH_URL` | Both | Prod, Preview | Canonical URL of the specific app (e.g., `https://pms.zsyio.de` for PMS, `https://notes.zsyio.de` for Notes) |

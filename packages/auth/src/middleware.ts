@@ -4,6 +4,8 @@ import type { NextRequest } from "next/server";
 export interface AuthMiddlewareOptions {
   publicPaths?: string[];
   sessionCookieNameSubstrings?: string[];
+  /** Where signed-out visitors to "/" go. Only apps that serve a landing page should set this; others fall back to /login. */
+  landingPath?: string;
 }
 
 export const DEFAULT_PUBLIC_PATHS = [
@@ -58,9 +60,9 @@ export function createAuthMiddleware(options: AuthMiddlewareOptions = {}) {
           { status: 401 }
         );
       }
-      // On root path for unauthenticated users, direct them to the main landing page
-      if (pathname === "/") {
-        const landingUrl = new URL("/landing", request.url);
+      // On root path for unauthenticated users, direct them to the landing page when this app has one
+      if (pathname === "/" && options.landingPath) {
+        const landingUrl = new URL(options.landingPath, request.url);
         return NextResponse.redirect(landingUrl);
       }
       const loginUrl = new URL("/login", request.url);
