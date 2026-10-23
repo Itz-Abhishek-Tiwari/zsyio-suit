@@ -29,7 +29,7 @@ const CATEGORY_FILTERS: { id: string; label: string; groupIds?: string[] }[] = [
   { id: "business", label: "Clients & Products", groupIds: ["clients", "products"] },
   { id: "admin", label: "Workspace & Admin", groupIds: ["dashboard", "reports", "teams", "users", "roles"] },
 ];
-import { getErrorMessage } from "@zsyio/ui";
+import { CardGridSkeleton, getErrorMessage, LoadErrorState } from "@zsyio/ui";
 import {
   ACTION_GROUPS,
   ALL_ACTIONS,
@@ -50,7 +50,7 @@ import {
 } from "lucide-react";
 
 export function RolesView() {
-  const { data: rawRoles = [] } = useGetRolesQuery();
+  const { data: rawRoles = [], isLoading: isLoadingRoles, isError: isRolesError, refetch: refetchRoles } = useGetRolesQuery();
   const roles = useMemo(() => {
     return rawRoles.filter((r) => r.name !== "SUPER_ADMIN");
   }, [rawRoles]);
@@ -304,34 +304,51 @@ export function RolesView() {
     }
   };
 
+  const pageHeader = (
+    <PageHeader
+      title="Roles &amp; Access Permissions"
+      description="Manage system roles, create custom authorization levels, and configure resource access matrices."
+      eyebrow="Access Control"
+      actions={
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setIsResetConfirmOpen(true)}
+            className="gap-1.5 rounded-lg text-xs font-semibold cursor-pointer"
+          >
+            <RotateCcw className="w-3.5 h-3.5 text-muted-foreground" />
+            <span>Reset Defaults</span>
+          </Button>
+          <Button
+            onClick={handleOpenCreateModal}
+            size="sm"
+            className="gap-1.5 rounded-lg font-semibold bg-primary hover:bg-primary-hover text-primary-foreground shadow-xs cursor-pointer"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Create Custom Role</span>
+          </Button>
+        </div>
+      }
+    />
+  );
+
+  if (isLoadingRoles || (isRolesError && rawRoles.length === 0)) {
+    return (
+      <div className="flex flex-col gap-6 pb-12">
+        {pageHeader}
+        {isLoadingRoles ? (
+          <CardGridSkeleton count={6} columns={3} />
+        ) : (
+          <LoadErrorState title="Couldn't load roles" onRetry={refetchRoles} />
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-6 pb-12">
-      <PageHeader
-        title="Roles &amp; Access Permissions"
-        description="Manage system roles, create custom authorization levels, and configure resource access matrices."
-        eyebrow="Access Control"
-        actions={
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setIsResetConfirmOpen(true)}
-              className="gap-1.5 rounded-lg text-xs font-semibold cursor-pointer"
-            >
-              <RotateCcw className="w-3.5 h-3.5 text-muted-foreground" />
-              <span>Reset Defaults</span>
-            </Button>
-            <Button
-              onClick={handleOpenCreateModal}
-              size="sm"
-              className="gap-1.5 rounded-lg font-semibold bg-primary hover:bg-primary-hover text-primary-foreground shadow-xs cursor-pointer"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Create Custom Role</span>
-            </Button>
-          </div>
-        }
-      />
+      {pageHeader}
 
       {/* KPI Overview */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">

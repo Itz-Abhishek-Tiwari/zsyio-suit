@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { auth, SessionProvider } from "@zsyio/auth";
 import { canAccessApp, type AppId } from "@zsyio/auth/permissions";
-import { NavigationProgress, AccessRestricted } from "@zsyio/ui";
+import { NavigationProgress, AccessRestricted, ForcedPasswordChange } from "@zsyio/ui";
 import { DashboardShell } from "./dashboard-shell";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -32,7 +32,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const initialCollapsed = cookieStore.get("sidebar_collapsed")?.value === "true";
 
   return (
-    <SessionProvider>
+    <SessionProvider session={session}>
       <Suspense fallback={null}>
         <NavigationProgress />
       </Suspense>
@@ -44,6 +44,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
       >
         {children}
       </DashboardShell>
+      {session.user.mustChangePassword ? (
+        <ForcedPasswordChange userEmail={session.user.email ?? undefined} />
+      ) : null}
     </SessionProvider>
   );
 }

@@ -104,6 +104,7 @@ model SalesLead {
   @@index([pipelineId])
   @@index([deletedAt])
   @@index([nextFollowUpAt])
+  @@index([stageId])
 }
 
 model SalesTag {
@@ -121,6 +122,7 @@ model SalesLeadTag {
   tag    SalesTag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
 
   @@id([leadId, tagId])
+  @@index([tagId])
 }
 
 model SalesActivity {

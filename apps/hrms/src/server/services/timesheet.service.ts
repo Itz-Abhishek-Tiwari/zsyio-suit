@@ -104,9 +104,9 @@ export class TimesheetService {
 
     const todayWorkedMinutes = Math.max(0, todayTotalSessionMinutes - todayOooMinutes);
 
-    const pendingIncomplete = hasStale
-      ? await timesheetRepository.findIncompleteSessions(user.id, today)
-      : yesterdayIncomplete;
+    // The stale sessions were just marked INCOMPLETE above; the list below only
+    // reads id/date/startTime/reason, so the earlier result is still accurate.
+    const pendingIncomplete = yesterdayIncomplete;
 
     const incompleteList = [
       ...pendingIncomplete.workSessions.map((w) => ({
@@ -886,7 +886,7 @@ export class TimesheetService {
           entryType: ws.entryType,
           status: ws.status,
           reason: ws.reason,
-          hasAuditLogs: ws.auditLogs.length > 0,
+          hasAuditLogs: ws._count.auditLogs > 0,
         });
 
         for (const os of ws.oooEntries) {

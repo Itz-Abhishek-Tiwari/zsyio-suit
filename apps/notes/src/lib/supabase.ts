@@ -1,1 +1,1 @@
-export { getSupabaseClient } from "@zsyio/ui";
+export { loadSupabaseClient } from "@zsyio/ui";

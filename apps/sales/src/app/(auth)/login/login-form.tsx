@@ -1,7 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { AuthLoginForm } from "@zsyio/ui";
+import { AuthLoginForm, getAppUrl } from "@zsyio/ui";
 import { isEmailDomainAllowed, getAllowedDomainsNotice, getAllowedEmailDomains } from "@zsyio/auth/domain-restriction";
 import { useMemo } from "react";
 
@@ -42,7 +42,7 @@ export function LoginForm({ serverAllowedDomains }: LoginFormProps) {
       allowedDomains={allowedDomains}
       submitLabel="Sign In to Sales CRM"
       loadingLabel="Verifying credentials…"
-      forgotPasswordBase="/forgot-password"
+      forgotPasswordBase={getAppUrl("pms", "/forgot-password")}
       onSignIn={handleSignIn}
     />
   );

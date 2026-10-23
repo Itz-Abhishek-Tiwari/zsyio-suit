@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@zsyio/auth";
 import { can } from "@zsyio/auth/permissions";
-import { Button } from "@zsyio/ui";
+import { Button, getAppUrl } from "@zsyio/ui";
 import { ClientTable } from "@/components/clients/ClientTable";
 import { PageHeader, AccessDenied } from "@/components/shared";
 import { Plus, Building2, Columns3 } from "lucide-react";
@@ -61,7 +61,7 @@ export default async function ClientsPage() {
                 className="h-9 px-3 text-xs font-semibold gap-1.5 border-notion-purple-fg/30 text-notion-purple-fg hover:bg-notion-purple-fg/10 shadow-2xs"
               >
                 <a
-                  href={process.env.NEXT_PUBLIC_SALES_URL || "http://localhost:3005/kanban"}
+                  href={getAppUrl("sales", "/kanban")}
                 >
                   <span>Sales CRM</span>
                 </a>

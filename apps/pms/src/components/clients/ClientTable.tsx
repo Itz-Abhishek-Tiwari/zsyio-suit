@@ -20,7 +20,7 @@ import {
 
 import { useGetClientsQuery } from "@/store/api/clientsApi";
 import { ClientStatusBadge } from "./ClientStatusBadge";
-import { Skeleton } from "@zsyio/ui";
+import { LoadErrorState, Skeleton } from "@zsyio/ui";
 import { EmptyState, KpiCard, SearchInput } from "@/components/shared";
 import { Button } from "@zsyio/ui";
 import { SegmentedTabs } from "@zsyio/ui";
@@ -296,7 +296,7 @@ function ClientCardSkeleton() {
 }
 
 export function ClientTable() {
-  const { data, isLoading } = useGetClientsQuery({ page: 1, pageSize: 50, clientType: "DEVELOPMENT" });
+  const { data, isLoading, isError, refetch } = useGetClientsQuery({ page: 1, pageSize: 50, clientType: "DEVELOPMENT" });
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<typeof STATUS_OPTIONS[number]>("ALL");
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
@@ -362,6 +362,10 @@ export function ClientTable() {
         </div>
       </div>
     );
+  }
+
+  if (isError && !data) {
+    return <LoadErrorState title="Couldn't load clients" onRetry={refetch} />;
   }
 
   if (!clients.length) {

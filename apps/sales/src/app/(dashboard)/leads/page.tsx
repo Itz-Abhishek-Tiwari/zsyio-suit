@@ -17,18 +17,18 @@ export default function LeadsPage() {
         description="Track all prospective clients, deal statuses, contact info, and follow-up activities."
         actions={
           <div className="flex items-center gap-2">
-            <Link href="/kanban">
-              <Button variant="outline" size="sm" className="gap-1.5 h-9">
+            <Button asChild variant="outline" size="sm" className="gap-1.5 h-9">
+              <Link href="/kanban">
                 <Kanban className="w-4 h-4" />
                 Kanban View
-              </Button>
-            </Link>
-            <Link href="/leads/new">
-              <Button size="sm" className="gap-1.5 h-9">
+              </Link>
+            </Button>
+            <Button asChild size="sm" className="gap-1.5 h-9">
+              <Link href="/leads/new">
                 <Plus className="w-4 h-4" />
                 New Lead
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         }
       />

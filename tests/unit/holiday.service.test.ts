@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { holidayService } from "../../apps/hrms/src/server/services/holiday.service";
+import { clearHolidaySeedCache, holidayService } from "../../apps/hrms/src/server/services/holiday.service";
 import { prisma } from "@zsyio/database";
 import { ConflictError, ForbiddenError, NotFoundError } from "@zsyio/auth/permissions";
 
@@ -39,6 +39,7 @@ const mockEmployee = {
 describe("HolidayService", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    clearHolidaySeedCache();
   });
 
   describe("getHolidays", () => {

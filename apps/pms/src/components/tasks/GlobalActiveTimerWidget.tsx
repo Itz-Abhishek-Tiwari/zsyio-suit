@@ -14,6 +14,7 @@ import { toast } from "sonner";
 export function GlobalActiveTimerWidget() {
   const { data, isLoading } = useGetActiveTimerQuery(undefined, {
     pollingInterval: 30000, // Re-check every 30s
+    skipPollingIfUnfocused: true,
   });
   const [stopTimer, { isLoading: isStopping }] = useStopTimeEntryMutation();
 

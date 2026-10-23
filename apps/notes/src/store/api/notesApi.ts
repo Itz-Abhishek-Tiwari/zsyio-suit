@@ -17,6 +17,25 @@ export type {
   NotesTreeResponse,
 };
 
+// GET /api/notes sends the sidebar groups as id lists into `notes` to keep the payload small.
+type NotesTreeWireResponse = Omit<NotesTreeResponse, "starredNotes" | "sharedWithMeNotes" | "myRootNotes"> & {
+  starredNoteIds?: string[];
+  sharedWithMeNoteIds?: string[];
+  myRootNoteIds?: string[];
+};
+
+function expandNotesTree(wire: NotesTreeWireResponse): NotesTreeResponse {
+  const { starredNoteIds = [], sharedWithMeNoteIds = [], myRootNoteIds = [], ...rest } = wire;
+  const byId = new Map((rest.notes ?? []).map((n) => [n.id, n]));
+  const pick = (ids: string[]) => ids.map((id) => byId.get(id)).filter((n): n is NoteItem => Boolean(n));
+  return {
+    ...rest,
+    starredNotes: pick(starredNoteIds),
+    sharedWithMeNotes: pick(sharedWithMeNoteIds),
+    myRootNotes: pick(myRootNoteIds),
+  };
+}
+
 export const notesApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getNotesTree: builder.query<NotesTreeResponse, { q?: string } | void>({
@@ -24,6 +43,7 @@ export const notesApi = baseApi.injectEndpoints({
         url: "/notes",
         params: params ? { q: params.q } : undefined,
       }),
+      transformResponse: (wire: NotesTreeWireResponse) => expandNotesTree(wire),
       providesTags: (result) =>
         result
           ? [

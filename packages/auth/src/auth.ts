@@ -1,3 +1,4 @@
+import { cache } from "react";
 import NextAuth from "next-auth";
 import { decode } from "next-auth/jwt";
 import Credentials from "next-auth/providers/credentials";
@@ -123,7 +124,12 @@ const cookieDomain =
     ? rawCookieDomain
     : undefined;
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+const {
+  handlers,
+  signIn,
+  signOut,
+  auth: uncachedAuth,
+} = NextAuth({
   secret: getAuthSecret(),
   trustHost: true,
   session: { strategy: "jwt" },
@@ -317,3 +323,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
 });
 
+export { handlers, signIn, signOut };
+
+/**
+ * The current session, memoized per server request: the layout, the page and
+ * `requireUser` calls share one JWT decode and one user/permission lookup.
+ */
+export const auth = cache(() => uncachedAuth());

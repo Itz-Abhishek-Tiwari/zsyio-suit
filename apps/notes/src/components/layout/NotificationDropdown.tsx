@@ -119,6 +119,7 @@ export function NotificationDropdown() {
   // Fallback polling (60s) with instant refresh on window focus / network reconnect
   const { data, isLoading } = useGetNotificationsQuery(undefined, {
     pollingInterval: 60000,
+    skipPollingIfUnfocused: true,
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });

@@ -9,37 +9,8 @@ export const salesDashboardService = {
   async getStats(user: AuthenticatedUser) {
     if (!can(user.role, "sales:dashboard:view", user.permissions)) throw new ForbiddenError();
 
-    const leads = await prisma.salesLead.findMany({
-      where: { deletedAt: null },
-      select: {
-        currentStage: true,
-        dealValue: true,
-        nextFollowUpAt: true,
-      },
-    });
-
     const now = new Date();
     const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
-
-    const stageCounts: Record<string, number> = {};
-    const stageValues: Record<string, number> = {};
-
-    let totalPipelineValue = 0;
-    let wonValue = 0;
-    let upcomingFollowUps = 0;
-
-    for (const lead of leads) {
-      const stage = lead.currentStage;
-      stageCounts[stage] = (stageCounts[stage] ?? 0) + 1;
-      const value = lead.dealValue ? Number(lead.dealValue) : 0;
-      stageValues[stage] = (stageValues[stage] ?? 0) + value;
-
-      if (stage !== "LOST") totalPipelineValue += value;
-      if (stage === "WON") wonValue += value;
-      if (lead.nextFollowUpAt && lead.nextFollowUpAt >= now && lead.nextFollowUpAt <= nextWeek) {
-        upcomingFollowUps++;
-      }
-    }
 
     const allStages: SalesStage[] = [
       "NEW_LEAD",
@@ -51,7 +22,17 @@ export const salesDashboardService = {
       "LOST",
     ];
 
-    const [recentLeadsRaw, upcomingFollowUpsRaw, recentActivitiesRaw] = await Promise.all([
+    // Totals are aggregated in the database instead of loading every lead.
+    const [stageGroups, upcomingFollowUps, recentLeadsRaw, upcomingFollowUpsRaw, recentActivitiesRaw] = await Promise.all([
+      prisma.salesLead.groupBy({
+        by: ["currentStage"],
+        where: { deletedAt: null },
+        _count: { _all: true },
+        _sum: { dealValue: true },
+      }),
+      prisma.salesLead.count({
+        where: { deletedAt: null, nextFollowUpAt: { gte: now, lte: nextWeek } },
+      }),
       prisma.salesLead.findMany({
         where: { deletedAt: null },
         orderBy: { updatedAt: "desc" },
@@ -90,6 +71,23 @@ export const salesDashboardService = {
       }),
     ]);
 
+    const stageCounts: Record<string, number> = {};
+    const stageValues: Record<string, number> = {};
+    let totalLeads = 0;
+    let totalPipelineValue = 0;
+    let wonValue = 0;
+
+    for (const group of stageGroups) {
+      const stage = group.currentStage;
+      const count = group._count._all;
+      const value = group._sum.dealValue ? Number(group._sum.dealValue) : 0;
+      stageCounts[stage] = count;
+      stageValues[stage] = value;
+      totalLeads += count;
+      if (stage !== "LOST") totalPipelineValue += value;
+      if (stage === "WON") wonValue += value;
+    }
+
     const recentLeads = recentLeadsRaw.map((l) => ({
       ...l,
       dealValue: l.dealValue ? Number(l.dealValue) : null,
@@ -117,7 +115,7 @@ export const salesDashboardService = {
     }));
 
     return {
-      totalLeads: leads.length,
+      totalLeads,
       newLeads: stageCounts["NEW_LEAD"] ?? 0,
       contacted: stageCounts["CONTACTED"] ?? 0,
       qualified: stageCounts["QUALIFIED"] ?? 0,

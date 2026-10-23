@@ -25,7 +25,7 @@ import {
 import { useSession } from "next-auth/react";
 import { UserInviteModal, UsersTable } from "@/components/users";
 import { useAvailableRoles } from "@/hooks/useAvailableRoles";
-import { getErrorMessage } from "@zsyio/ui";
+import { getErrorMessage, LoadErrorState } from "@zsyio/ui";
 import { isEmailDomainAllowed, getAllowedDomainsNotice, getAllowedEmailDomains } from "@zsyio/auth/domain-restriction";
 import type { User } from "@zsyio/types";
 import { UserPlus, Globe, Building2, Crown } from "lucide-react";
@@ -35,7 +35,7 @@ import { cn } from "@zsyio/ui";
 
 export function UsersView({ serverAllowedDomains }: { serverAllowedDomains?: string[] } = {}) {
   const { data: session } = useSession();
-  const { data: users = [], isLoading } = useGetUsersQuery();
+  const { data: users = [], isLoading, isError, refetch } = useGetUsersQuery();
   const [createUser, { isLoading: isCreating }] = useCreateUserMutation();
   const [updateUser] = useUpdateUserMutation();
   const [deleteUser] = useDeleteUserMutation();
@@ -376,19 +376,23 @@ export function UsersView({ serverAllowedDomains }: { serverAllowedDomains?: str
       </div>
 
       {/* Users Table */}
-      <UsersTable
-        users={filteredUsers}
-        isLoading={isLoading}
-        searchQuery={searchQuery}
-        currentUserId={session?.user?.id}
-        availableRolesList={availableRolesList}
-        resendingUserId={resendingUserId}
-        onOpenInvite={() => setOpen(true)}
-        onRoleChange={handleRoleChange}
-        onResendInvite={handleResendInvite}
-        onToggleStatus={handleToggleStatus}
-        onDeleteUser={handleDeleteUser}
-      />
+      {isError && users.length === 0 ? (
+        <LoadErrorState title="Couldn't load users" onRetry={refetch} />
+      ) : (
+        <UsersTable
+          users={filteredUsers}
+          isLoading={isLoading}
+          searchQuery={searchQuery}
+          currentUserId={session?.user?.id}
+          availableRolesList={availableRolesList}
+          resendingUserId={resendingUserId}
+          onOpenInvite={() => setOpen(true)}
+          onRoleChange={handleRoleChange}
+          onResendInvite={handleResendInvite}
+          onToggleStatus={handleToggleStatus}
+          onDeleteUser={handleDeleteUser}
+        />
+      )}
 
       {/* User Invite Modal */}
       <UserInviteModal

@@ -2,6 +2,7 @@ import { ForbiddenError, NotFoundError, can } from "@zsyio/auth/permissions";
 import { isSuperAdmin } from "@zsyio/auth/super-admin";
 import { dashboardNoteRepository } from "@/server/repositories/dashboard-note.repository";
 import { notificationService } from "@/server/services/notification.service";
+import { runAfterResponse } from "@/lib/after-response";
 import type { CreateDashboardNoteInput } from "@zsyio/validators";
 
 export interface AuthUserSession {
@@ -39,8 +40,7 @@ export const dashboardNoteService = {
 
     const note = await dashboardNoteRepository.create(user.id, data);
 
-    notificationService
-      .notifyNoteCreated({
+    runAfterResponse(() => notificationService.notifyNoteCreated({
         noteId: note.id,
         content: note.content,
         isPersonal: note.isPersonal,
@@ -51,8 +51,7 @@ export const dashboardNoteService = {
         clientName: note.client?.name,
         actorId: user.id,
         actorName: user.name || "A team member",
-      })
-      .catch((err) => console.error("[Notes] Notification error:", err));
+      }), "[Notes] Notification");
 
     return note;
   },

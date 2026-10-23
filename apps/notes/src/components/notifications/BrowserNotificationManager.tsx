@@ -10,7 +10,7 @@ import {
   useGetNotificationsQuery,
   useGetNotificationPreferencesQuery,
 } from "@/store/api/notificationsApi";
-import { getSupabaseClient } from "@/lib/supabase";
+import { loadSupabaseClient } from "@/lib/supabase";
 import {
   isBrowserNotificationSupported,
   showBrowserNotification,
@@ -41,6 +41,7 @@ export function BrowserNotificationManager() {
   // Gentle fallback polling (every 60s) with instant refresh on window focus / reconnect
   const { data: notificationsData } = useGetNotificationsQuery(undefined, {
     pollingInterval: 60000,
+    skipPollingIfUnfocused: true,
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
@@ -49,32 +50,37 @@ export function BrowserNotificationManager() {
   useEffect(() => {
     if (!userId) return;
 
-    const supabase = getSupabaseClient();
-    if (!supabase) return;
+    let cancelled = false;
+    let unsubscribe: (() => void) | undefined;
 
-    const channel = supabase
-      .channel(`realtime-notifications:${userId}`)
-      .on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "Notification",
-          filter: `userId=eq.${userId}`,
-        },
-        () => {
-          // Immediately invalidate RTK Query notifications tag to trigger instant fresh fetch
-          dispatch(
-            notificationsApi.util.invalidateTags([
-              { type: "Notifications", id: "LIST" },
-            ])
-          );
-        }
-      )
-      .subscribe();
+    void loadSupabaseClient().then((supabase) => {
+      if (!supabase || cancelled) return;
+      const channel = supabase
+        .channel(`realtime-notifications:${userId}`)
+        .on(
+          "postgres_changes",
+          {
+            event: "INSERT",
+            schema: "public",
+            table: "Notification",
+            filter: `userId=eq.${userId}`,
+          },
+          () => {
+            // Immediately invalidate RTK Query notifications tag to trigger instant fresh fetch
+            dispatch(
+              notificationsApi.util.invalidateTags([
+                { type: "Notifications", id: "LIST" },
+              ])
+            );
+          }
+        )
+        .subscribe();
+      unsubscribe = () => void supabase.removeChannel(channel);
+    });
 
     return () => {
-      supabase.removeChannel(channel);
+      cancelled = true;
+      unsubscribe?.();
     };
   }, [userId, dispatch]);
 

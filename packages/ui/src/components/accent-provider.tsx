@@ -42,6 +42,13 @@ function saveAccent(accent: SuiteAccent, cookieDomain?: string) {
   }
 }
 
+// Applies the saved accent while the HTML is still parsing, so pages don't flash the default blue.
+const ACCENT_BOOT_SCRIPT = `(function(){try{var k=${JSON.stringify(STORAGE_KEY)},ok=${JSON.stringify(SUITE_ACCENTS.map((accent) => accent.id))},v=null;var c=document.cookie.split("; ").find(function(i){return i.indexOf(k+"=")===0});if(c)v=c.slice(k.length+1);if(ok.indexOf(v)<0){try{v=localStorage.getItem(k)}catch(e){}}if(ok.indexOf(v)>=0)document.documentElement.dataset.accent=v}catch(e){}})();`;
+
+export function AccentBootScript() {
+  return <script suppressHydrationWarning dangerouslySetInnerHTML={{ __html: ACCENT_BOOT_SCRIPT }} />;
+}
+
 export function AccentProvider({ children, cookieDomain }: { children: ReactNode; cookieDomain?: string }) {
   const [accent, updateAccent] = useState<SuiteAccent>("blue");
 
@@ -59,9 +66,7 @@ export function AccentProvider({ children, cookieDomain }: { children: ReactNode
     window.addEventListener("focus", sync);
     window.addEventListener("storage", onStorage);
     document.addEventListener("visibilitychange", onVisibility);
-    const timer = window.setInterval(() => { if (document.visibilityState === "visible") sync(); }, 1000);
     return () => {
-      window.clearInterval(timer);
       window.removeEventListener("focus", sync);
       window.removeEventListener("storage", onStorage);
       document.removeEventListener("visibilitychange", onVisibility);

@@ -46,9 +46,6 @@ const getAnalyticsData = (filters: QueryFilters) =>
 
       const [
         clientsList,
-        totalTasks,
-        doneTasks,
-        blockedTasks,
         overdueTasks,
         groupedStatus,
         groupedPriority,
@@ -84,9 +81,6 @@ const getAnalyticsData = (filters: QueryFilters) =>
           orderBy: { name: "asc" },
         }),
 
-        prisma.task.count({ where: taskWhere }),
-        prisma.task.count({ where: { ...taskWhere, status: "DONE" } }),
-        prisma.task.count({ where: { ...taskWhere, status: "BLOCKED" } }),
         prisma.task.count({
           where: { ...taskWhere, status: { not: "DONE" }, dueDate: { lt: now } },
         }),
@@ -134,6 +128,12 @@ const getAnalyticsData = (filters: QueryFilters) =>
           _count: true,
         }),
       ]);
+
+      // Totals come from the status breakdown rather than separate counts.
+      const countForStatus = (status: string) => groupedStatus.find((g) => g.status === status)?._count ?? 0;
+      const totalTasks = groupedStatus.reduce((sum, g) => sum + g._count, 0);
+      const doneTasks = countForStatus("DONE");
+      const blockedTasks = countForStatus("BLOCKED");
 
       // Map product stats by product ID
       const productStatsMap = new Map<

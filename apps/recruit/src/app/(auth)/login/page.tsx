@@ -1,12 +1,20 @@
 import { auth, getAllowedEmailDomains } from "@zsyio/auth";
 import { redirect } from "next/navigation";
-import { LoginPageLayout } from "@zsyio/ui";
+import { LoginPageLayout, safeCallbackPath } from "@zsyio/ui";
 import { BriefcaseBusiness, Users, CalendarDays, MessageSquare } from "lucide-react";
 import { LoginForm } from "./login-form";
 
-export default async function Page() {
-  const session = await auth();
-  if (session?.user) redirect("/");
+export default async function Page({ searchParams }: { searchParams: Promise<{ callbackUrl?: string | string[] }> }) {
+  let session = null;
+  try {
+    session = await auth();
+  } catch {
+    session = null;
+  }
+  if (session?.user) {
+    const { callbackUrl } = await searchParams;
+    redirect(safeCallbackPath(typeof callbackUrl === "string" ? callbackUrl : undefined));
+  }
   return <LoginPageLayout
     appName="Zsyio Recruit"
     appTagline="Hiring workspace"

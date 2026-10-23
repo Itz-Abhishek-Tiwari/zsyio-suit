@@ -304,6 +304,7 @@ export default function ActivitiesPage() {
                     size="sm"
                     onClick={() => setDeleteTarget(activity)}
                     className="h-8 w-8 p-0 text-muted-foreground hover:text-destructive"
+                    aria-label="Delete activity"
                   >
                     <Trash2 className="w-4 h-4" />
                   </Button>

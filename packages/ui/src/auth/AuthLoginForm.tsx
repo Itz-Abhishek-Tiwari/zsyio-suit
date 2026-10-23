@@ -15,6 +15,7 @@ import { Button } from "../components/button";
 import { Input } from "../components/input";
 import { Label } from "../components/label";
 import { CorporateEmailField } from "./CorporateEmailField";
+import { safeCallbackPath } from "../lib/safe-redirect";
 
 export interface AuthLoginFormProps {
   /**
@@ -157,14 +158,7 @@ export function AuthLoginForm({
         typeof window !== "undefined"
           ? new URLSearchParams(window.location.search)
           : null;
-      const callbackUrl = params?.get("callbackUrl");
-      const target =
-        callbackUrl &&
-        callbackUrl.startsWith("/") &&
-        !callbackUrl.startsWith("//")
-          ? callbackUrl
-          : "/";
-      window.location.href = target;
+      window.location.href = safeCallbackPath(params?.get("callbackUrl"));
     } catch {
       setError(
         "An unexpected authentication error occurred. Please try again."

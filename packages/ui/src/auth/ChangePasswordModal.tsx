@@ -272,3 +272,13 @@ export function ChangePasswordModal({
     </Modal>
   );
 }
+
+const keepOpen = () => {};
+
+/**
+ * The first-login password reset, renderable from a server layout:
+ * `{session.user.mustChangePassword ? <ForcedPasswordChange userEmail={...} /> : null}`.
+ */
+export function ForcedPasswordChange({ userEmail }: { userEmail?: string }) {
+  return <ChangePasswordModal open onOpenChange={keepOpen} forced userEmail={userEmail} />;
+}

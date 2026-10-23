@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getAppUrl } from "@zsyio/ui";
 
 export default async function UserDetailPage({
   params,
@@ -6,6 +7,5 @@ export default async function UserDetailPage({
   params: Promise<{ userId: string }>;
 }) {
   const { userId } = await params;
-  const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:3003";
-  redirect(`${adminUrl}/users/${userId}`);
+  redirect(getAppUrl("admin", `/users/${encodeURIComponent(userId)}`));
 }

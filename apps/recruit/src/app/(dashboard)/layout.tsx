@@ -29,7 +29,7 @@ export default async function Layout({
   const cookieStore = await cookies();
   const initialCollapsed = cookieStore.get("sidebar_collapsed")?.value === "true";
   return (
-    <SessionProvider>
+    <SessionProvider session={session}>
       <Suspense fallback={null}>
         <NavigationProgress />
       </Suspense>

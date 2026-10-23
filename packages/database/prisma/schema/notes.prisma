@@ -51,6 +51,8 @@ model Note {
   @@index([isArchived, generalAccess])
   @@index([title])
   @@index([createdAt])
+  @@index([title(ops: raw("gin_trgm_ops"))], type: Gin, map: "Note_title_trgm_idx")
+  @@index([content(ops: raw("gin_trgm_ops"))], type: Gin, map: "Note_content_trgm_idx")
 }
 
 model NoteFolderShare {

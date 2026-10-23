@@ -52,6 +52,7 @@ model WorkSession {
   @@index([userId, date, status])
   @@index([date])
   @@index([status])
+  @@index([createdById])
 }
 
 model OooSession {
@@ -80,6 +81,7 @@ model OooSession {
   @@index([userId, status])
   @@index([userId, date, status])
   @@index([workSessionId])
+  @@index([createdById])
 }
 
 model TimesheetAuditLog {

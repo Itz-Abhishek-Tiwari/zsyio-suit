@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
+import { getAppUrl } from "@zsyio/ui";
 
 export default function TeamsPage() {
-  const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:3003";
-  redirect(`${adminUrl}/teams`);
+  redirect(getAppUrl("admin", "/teams"));
 }

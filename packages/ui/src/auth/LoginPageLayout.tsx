@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ShieldCheck, Lock } from "lucide-react";
 import { ThemeToggle } from "../components/theme-toggle";
 import { cn } from "../lib/utils";
+import { SUITE_APP_URLS } from "../lib/app-urls";
 
 export interface LoginPageFeature {
   icon: React.ReactNode;
@@ -77,7 +78,7 @@ export function LoginPageLayout({
   formSubtitle,
   securityNote,
   // The marketing site is its own app (apps/landing).
-  productOverviewHref = process.env.NEXT_PUBLIC_LANDING_URL || "http://localhost:3007",
+  productOverviewHref = SUITE_APP_URLS.landing,
   children,
 }: LoginPageLayoutProps) {
   return (

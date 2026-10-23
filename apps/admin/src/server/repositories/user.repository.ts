@@ -18,6 +18,8 @@ export function formatSuperAdminUser<T extends { email: string; role?: string; c
   return u;
 }
 
+const MAX_USER_LIST = 500;
+
 export interface UserListFilters {
   q?: string;
   role?: string;
@@ -25,13 +27,14 @@ export interface UserListFilters {
   active?: boolean;
   sortBy?: string;
   sortDir?: "asc" | "desc";
+  limit?: number;
 }
 
 const ALLOWED_USER_SORT_FIELDS = new Set(["name", "email", "createdAt", "updatedAt", "role", "active", "invitedAt"]);
 
 export const userRepository = {
   async list(filters?: UserListFilters) {
-    const { q, role, status, active, sortBy = "createdAt", sortDir = "desc" } = filters || {};
+    const { q, role, status, active, sortBy = "createdAt", sortDir = "desc", limit } = filters || {};
 
     const where: Prisma.UserWhereInput = {};
     if (typeof active === "boolean") {
@@ -84,7 +87,7 @@ export const userRepository = {
     const users = await prisma.user.findMany({
       where,
       orderBy: { [effectiveSortBy]: sortDir },
-      take: 500,
+      take: limit && limit > 0 ? Math.min(limit, MAX_USER_LIST) : MAX_USER_LIST,
       select: {
         ...SAFE_USER_SELECT,
         teamMemberships: {

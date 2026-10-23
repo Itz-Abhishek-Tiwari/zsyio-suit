@@ -326,8 +326,13 @@ export function AnimatedNumber({
   );
 }
 
+// Set after the first page has mounted, so only client-side navigations animate.
+let hasMountedPage = false;
+
 /**
- * PageTransition - Smooth route change transition with clean depth fade
+ * PageTransition - Smooth route change transition with clean depth fade.
+ * The first, server-rendered page is shown as is: animating it would ship the
+ * content at opacity 0 until JavaScript loads.
  */
 export function PageTransition({
   children,
@@ -336,9 +341,14 @@ export function PageTransition({
   children: React.ReactNode;
   className?: string;
 }) {
+  const [animateIn] = React.useState(() => hasMountedPage);
+  React.useEffect(() => {
+    hasMountedPage = true;
+  }, []);
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 6 }}
+      initial={animateIn ? { opacity: 0, y: 6 } : false}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -6 }}
       transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}

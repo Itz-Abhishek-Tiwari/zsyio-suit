@@ -9,7 +9,6 @@ interface NotesShellProps {
   role: Role | string;
   permissions?: string[] | null;
   name: string;
-  mustChangePassword?: boolean;
   children: React.ReactNode;
 }
 

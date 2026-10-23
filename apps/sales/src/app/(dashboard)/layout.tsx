@@ -33,7 +33,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const initialCollapsed = cookieStore.get("sidebar_collapsed")?.value !== "false";
 
   return (
-    <SessionProvider>
+    <SessionProvider session={session}>
       <Suspense fallback={null}>
         <NavigationProgress />
       </Suspense>

@@ -19,13 +19,12 @@ import {
   Coffee,
   CheckCircle2,
   Mail,
-  Loader2,
   List,
   LayoutGrid,
   ArrowUpRight,
 } from "lucide-react";
 import { useGetDirectoryQuery } from "@/store/api/timesheetApi";
-import { formatDuration, localTimeToIso } from "@zsyio/ui";
+import { formatDuration, localTimeToIso, LoadErrorState, TableSkeleton } from "@zsyio/ui";
 import { useTimeZone } from "@/context/TimeZoneContext";
 
 export default function DirectoryPage() {
@@ -34,7 +33,7 @@ export default function DirectoryPage() {
   const [roleFilter, setRoleFilter] = useState("ALL");
   const [viewMode, setViewMode] = useState<"table" | "grid">("table");
 
-  const { data: directory, isLoading } = useGetDirectoryQuery();
+  const { data: directory, isLoading, isError, refetch } = useGetDirectoryQuery();
 
   // Convert base shift (09:00 - 18:00 IST) to user's active timezone dynamically
   const formattedShift = useMemo(() => {
@@ -176,15 +175,18 @@ export default function DirectoryPage() {
 
       {/* Directory Content */}
       {isLoading ? (
-        <div className="py-20 flex items-center justify-center gap-2 text-xs text-muted-foreground bg-card rounded-lg border border-border/80">
-          <Loader2 className="w-4 h-4 animate-spin text-primary" />
-          <span>Loading organization directory...</span>
-        </div>
+        <TableSkeleton columns={5} rows={8} showHeader />
+      ) : isError && !directory ? (
+        <LoadErrorState title="Couldn't load the directory" onRetry={refetch} />
       ) : filteredEmployees.length === 0 ? (
         <div className="p-8 rounded-lg bg-card border border-border/80">
           <EmptyState
             title="No Employees Found"
-            description="No team members match your filter criteria."
+            description={
+              search.trim() || roleFilter !== "ALL"
+                ? "No team members match your filter criteria."
+                : "No team members have been added yet."
+            }
             icon={<Users2 className="w-8 h-8 text-muted-foreground" />}
           />
         </div>

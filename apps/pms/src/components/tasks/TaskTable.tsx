@@ -5,8 +5,9 @@ import { formatTicketId } from "@/lib/utils";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@zsyio/ui";
 import { Button } from "@zsyio/ui";
 import { EmptyState, TableSkeleton, UserAvatarGroup, ConfirmDialog } from "@/components/shared";
+import { LoadErrorState } from "@zsyio/ui";
 import { ColumnIcon } from "./ColumnIcon";
-import { TaskViewModal } from "./TaskViewModal";
+
 import { useGetTasksQuery, useUpdateTaskStatusMutation, useDeleteTaskMutation } from "@/store/api/tasksApi";
 import { useGetTaskColumnsQuery } from "@/store/api/taskColumnsApi";
 import { useAppDispatch } from "@/store/hooks";
@@ -61,6 +62,11 @@ import { TASK_STATUS_LIST } from "@zsyio/types";
 import { compareTaskHierarchy, getTaskVisualHierarchy } from "@/lib/task-hierarchy";
 import { cn } from "@/lib/utils";
 
+import dynamic from "next/dynamic";
+
+// The task modal pulls in the markdown renderer, comments and test sheets; load it on first open.
+const TaskViewModal = dynamic(() => import("./TaskViewModal").then((module) => module.TaskViewModal), { ssr: false });
+
 const STATUS_LIST = TASK_STATUS_LIST;
 
 export interface TaskTableFilters {
@@ -79,14 +85,26 @@ export interface TaskTableFilters {
   sortDir?: "asc" | "desc";
 }
 
+const SORT_KEYS = new Set(["sortBy", "sortDir", "page", "pageSize"]);
+
+function hasActiveTaskFilters(filters: TaskTableFilters): boolean {
+  return Object.entries(filters).some(([key, value]) => {
+    if (SORT_KEYS.has(key) || value === undefined || value === null || value === "") return false;
+    return !Array.isArray(value) || value.length > 0;
+  });
+}
+
 function TaskTableInner({ filters = {} }: { filters?: TaskTableFilters }) {
   const dispatch = useAppDispatch();
-  const { data, isLoading } = useGetTasksQuery(filters);
+  const { data, isLoading, isError, refetch } = useGetTasksQuery(filters);
   const { data: dbColumns } = useGetTaskColumnsQuery();
   const [updateStatus] = useUpdateTaskStatusMutation();
   const [deleteTask, { isLoading: isDeleting }] = useDeleteTaskMutation();
   const [taskToDelete, setTaskToDelete] = React.useState<{ id: string; title: string } | null>(null);
   const [selectedTask, setSelectedTask] = React.useState<Task | null>(null);
+  // Mount the lazily loaded modal on first open, then keep it for its close animation.
+  const [hasOpenedTaskModal, setHasOpenedTaskModal] = React.useState(false);
+  if (selectedTask && !hasOpenedTaskModal) setHasOpenedTaskModal(true);
   const { data: session } = useSession();
   const currentUser = session?.user;
 
@@ -153,8 +171,16 @@ function TaskTableInner({ filters = {} }: { filters?: TaskTableFilters }) {
     return <TableSkeleton columns={6} rows={7} showHeader />;
   }
 
+  if (isError && !data) {
+    return <LoadErrorState title="Couldn't load tasks" onRetry={refetch} />;
+  }
+
   if (!data?.items.length) {
-    return <EmptyState title="No tasks match these filters" description="Try resetting your search or priority filters." />;
+    return hasActiveTaskFilters(filters) ? (
+      <EmptyState title="No tasks match these filters" description="Try resetting your search or priority filters." />
+    ) : (
+      <EmptyState title="No tasks yet" description="Tasks you create or are assigned to will show up here." />
+    );
   }
 
   const handleConfirmDelete = async () => {
@@ -365,6 +391,7 @@ function TaskTableInner({ filters = {} }: { filters?: TaskTableFilters }) {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button
+                        aria-label="Task actions"
                         variant="ghost"
                         size="icon"
                         className="h-8 w-8 text-muted-foreground hover:text-foreground opacity-70 group-hover:opacity-100 transition-opacity"
@@ -546,11 +573,13 @@ function TaskTableInner({ filters = {} }: { filters?: TaskTableFilters }) {
         onConfirm={handleConfirmDelete}
       />
 
-      <TaskViewModal
-        task={selectedTask}
-        isOpen={Boolean(selectedTask)}
-        onClose={() => setSelectedTask(null)}
-      />
+      {hasOpenedTaskModal ? (
+        <TaskViewModal
+          task={selectedTask}
+          isOpen={Boolean(selectedTask)}
+          onClose={() => setSelectedTask(null)}
+        />
+      ) : null}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { AccentProvider } from "./accent-provider";
+import { AccentBootScript, AccentProvider } from "./accent-provider";
 import { savePreferenceCookie } from "./appearance-storage";
 import { ThemeProvider as NextThemesProvider, useTheme as useNextTheme } from "next-themes";
 
@@ -72,10 +72,9 @@ function ThemeSyncWatcher({ cookieDomain, syncAccount }: { cookieDomain?: string
     window.addEventListener("storage", onStorage);
     document.addEventListener("visibilitychange", sync);
     // Cookies are shared across ports and configured subdomains; storage events aren't.
-    const timer = window.setInterval(sync, 1000);
+    // Another app's change is picked up when this tab regains focus or becomes visible.
     return () => {
       active = false;
-      window.clearInterval(timer);
       window.removeEventListener("focus", sync);
       window.removeEventListener("storage", onStorage);
       document.removeEventListener("visibilitychange", sync);
@@ -130,6 +129,7 @@ export function ThemeProvider({
       disableTransitionOnChange
       {...props}
     >
+      <AccentBootScript />
       <AccentProvider cookieDomain={accentCookieDomain}>
         <ThemeSyncWatcher cookieDomain={accentCookieDomain} syncAccount={syncAccountTheme} />
         {children}

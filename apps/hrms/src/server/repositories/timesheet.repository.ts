@@ -146,33 +146,18 @@ export class TimesheetRepository {
   async findIncompleteSessions(userId: string, today: Date) {
     const todayStart = getStartOfDay(today);
 
-    const workSessions = await prisma.workSession.findMany({
-      where: {
-        userId,
-        OR: [
-          { status: "INCOMPLETE" },
-          {
-            status: "ACTIVE",
-            date: { lt: todayStart },
-          },
-        ],
-      },
-      orderBy: { startTime: "desc" },
-    });
+    const where = {
+      userId,
+      OR: [
+        { status: "INCOMPLETE" as const },
+        { status: "ACTIVE" as const, date: { lt: todayStart } },
+      ],
+    };
 
-    const oooSessions = await prisma.oooSession.findMany({
-      where: {
-        userId,
-        OR: [
-          { status: "INCOMPLETE" },
-          {
-            status: "ACTIVE",
-            date: { lt: todayStart },
-          },
-        ],
-      },
-      orderBy: { startTime: "desc" },
-    });
+    const [workSessions, oooSessions] = await Promise.all([
+      prisma.workSession.findMany({ where, orderBy: { startTime: "desc" } }),
+      prisma.oooSession.findMany({ where, orderBy: { startTime: "desc" } }),
+    ]);
 
     return {
       workSessions,
@@ -341,10 +326,8 @@ export class TimesheetRepository {
           oooEntries: {
             orderBy: { startTime: "asc" },
           },
-          auditLogs: {
-            include: { actor: { select: { id: true, name: true, email: true, role: true } } },
-            orderBy: { createdAt: "desc" },
-          },
+          // The roster only shows whether a session was edited, so count instead of loading the logs.
+          _count: { select: { auditLogs: true } },
         },
         orderBy: [{ date: "desc" }, { startTime: "desc" }],
         skip,

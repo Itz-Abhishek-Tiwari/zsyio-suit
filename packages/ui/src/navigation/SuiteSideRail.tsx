@@ -20,6 +20,7 @@ import {
 } from "../components/tooltip";
 import { motion, AnimatePresence, transitions } from "../components/motion";
 import { cn } from "../lib/utils";
+import { SUITE_APP_URLS } from "../lib/app-urls";
 
 export interface SuiteAppConfig {
   id: "pms" | "notes" | "hrms" | "admin" | "sales" | "recruit";
@@ -35,10 +36,6 @@ export interface SuiteAppConfig {
   defaultUrl: string;
 }
 
-function sanitizeUrl(url: string | undefined, fallback: string): string {
-  if (!url) return fallback;
-  return url.trim().replace(/\/+$/, "");
-}
 
 export const SUITE_APPS: SuiteAppConfig[] = [
   {
@@ -52,10 +49,7 @@ export const SUITE_APPS: SuiteAppConfig[] = [
     indicatorColor: "bg-primary",
     badgeBg: "bg-primary-light",
     badgeText: "text-primary",
-    defaultUrl: sanitizeUrl(
-      process.env.NEXT_PUBLIC_RECRUIT_URL,
-      "http://localhost:3006",
-    ),
+    defaultUrl: SUITE_APP_URLS.recruit,
   },
   {
     id: "pms",
@@ -69,10 +63,7 @@ export const SUITE_APPS: SuiteAppConfig[] = [
     indicatorColor: "bg-primary",
     badgeBg: "bg-primary/10 border-primary/20",
     badgeText: "text-primary",
-    defaultUrl: sanitizeUrl(
-      process.env.NEXT_PUBLIC_PMS_URL,
-      "http://localhost:3000",
-    ),
+    defaultUrl: SUITE_APP_URLS.pms,
   },
   {
     id: "notes",
@@ -86,10 +77,7 @@ export const SUITE_APPS: SuiteAppConfig[] = [
     indicatorColor: "bg-primary",
     badgeBg: "bg-primary/10 border-primary/20",
     badgeText: "text-primary",
-    defaultUrl: sanitizeUrl(
-      process.env.NEXT_PUBLIC_NOTES_URL,
-      "http://localhost:3001",
-    ),
+    defaultUrl: SUITE_APP_URLS.notes,
   },
   {
     id: "hrms",
@@ -103,10 +91,7 @@ export const SUITE_APPS: SuiteAppConfig[] = [
     indicatorColor: "bg-primary",
     badgeBg: "bg-primary/10 border-primary/20",
     badgeText: "text-primary",
-    defaultUrl: sanitizeUrl(
-      process.env.NEXT_PUBLIC_HRMS_URL,
-      "http://localhost:3002",
-    ),
+    defaultUrl: SUITE_APP_URLS.hrms,
   },
   {
     id: "admin",
@@ -120,10 +105,7 @@ export const SUITE_APPS: SuiteAppConfig[] = [
     indicatorColor: "bg-primary",
     badgeBg: "bg-primary/10 border-primary/20",
     badgeText: "text-primary",
-    defaultUrl: sanitizeUrl(
-      process.env.NEXT_PUBLIC_ADMIN_URL,
-      "http://localhost:3003",
-    ),
+    defaultUrl: SUITE_APP_URLS.admin,
   },
   {
     id: "sales",
@@ -137,10 +119,7 @@ export const SUITE_APPS: SuiteAppConfig[] = [
     indicatorColor: "bg-primary",
     badgeBg: "bg-primary/10 border-primary/20",
     badgeText: "text-primary",
-    defaultUrl: sanitizeUrl(
-      process.env.NEXT_PUBLIC_SALES_URL,
-      "http://localhost:3005",
-    ),
+    defaultUrl: SUITE_APP_URLS.sales,
   },
 ];
 

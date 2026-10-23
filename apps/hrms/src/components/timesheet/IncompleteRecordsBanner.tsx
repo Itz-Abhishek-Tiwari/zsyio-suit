@@ -48,7 +48,7 @@ export function IncompleteRecordsBanner({ statusData: propStatusData }: Incomple
           </div>
           <div>
             <h3 className="text-sm font-semibold flex items-center gap-2">
-              <span>⚠️ Incomplete Timesheet Detected</span>
+              <span>Incomplete Timesheet Detected</span>
               <span className="text-xs px-2 py-0.5 rounded-md bg-warning/20 font-mono">
                 {statusData.incompleteSessions.length} pending
               </span>

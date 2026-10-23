@@ -25,7 +25,7 @@ import {
   TableCell,
 } from "@zsyio/ui";
 import { isSuperAdmin } from "@zsyio/auth/super-admin";
-import { formatDate } from "@zsyio/ui";
+import { formatDate, TableSkeleton } from "@zsyio/ui";
 import type { User } from "@zsyio/types";
 import type { AvailableRole } from "./UserInviteModal";
 import {
@@ -76,12 +76,7 @@ export function UsersTable({
 }: UsersTableProps) {
   if (isLoading) {
     return (
-      <div className="w-full rounded-lg border border-border/80 bg-card p-8 flex flex-col gap-4 animate-pulse">
-        <div className="h-6 w-48 bg-muted rounded-md" />
-        <div className="h-10 w-full bg-muted/60 rounded-md" />
-        <div className="h-10 w-full bg-muted/40 rounded-md" />
-        <div className="h-10 w-full bg-muted/30 rounded-md" />
-      </div>
+      <TableSkeleton columns={5} rows={6} showHeader />
     );
   }
 

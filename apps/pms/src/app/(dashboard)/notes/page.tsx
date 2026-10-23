@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@zsyio/auth";
+import { getAppUrl } from "@zsyio/ui";
 
 export const metadata = {
   title: "Knowledge Base & Notes - Zsyio",
@@ -12,6 +13,5 @@ export default async function NotesRedirectPage() {
     redirect("/login");
   }
 
-  const notesUrl = (process.env.NEXT_PUBLIC_NOTES_URL || "http://localhost:3001").replace(/\/+$/, "");
-  redirect(notesUrl);
+  redirect(getAppUrl("notes"));
 }

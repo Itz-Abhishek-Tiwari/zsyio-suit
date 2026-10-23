@@ -1,12 +1,13 @@
 import { Prisma } from "@prisma/client";
 import { assertCan, can, ForbiddenError, NotFoundError, BadRequestError } from "@zsyio/auth/permissions";
-import { taskRepository, TASK_INCLUDE, type TaskListFilters } from "@/server/repositories/task.repository";
+import { taskRepository, attachTaskTags, TASK_INCLUDE, type TaskListFilters } from "@/server/repositories/task.repository";
 import { SAFE_USER_SELECT } from "@/server/repositories/shared";
 import { prisma } from "@zsyio/database";
 import { getActiveStorageProvider } from "@zsyio/auth/providers";
 import { notificationService } from "@/server/services/notification.service";
 import { generateGeminiBranchSlug } from "@/lib/ai/gemini-branch-helper";
 import { isOwner, assertActingUserId } from "@/lib/task-access";
+import { runAfterResponse } from "@/lib/after-response";
 import type { CreateTaskInput, UpdateTaskInput, AssignTaskInput } from "@zsyio/validators";
 import type { Session } from "next-auth";
 
@@ -271,21 +272,7 @@ export const taskService = {
       }
 
       if (input.tags?.length) {
-        for (const tagName of input.tags) {
-          const trimmed = tagName.trim();
-          if (!trimmed) continue;
-          const tagRecord = await tx.taskTag.upsert({
-            where: { name: trimmed },
-            update: {},
-            create: { name: trimmed },
-          });
-          await tx.taskTagAssignment.create({
-            data: {
-              taskId: task.id,
-              tagId: tagRecord.id,
-            },
-          });
-        }
+        await attachTaskTags(tx, task.id, input.tags);
       }
 
       await tx.activityLog.create({
@@ -295,25 +282,19 @@ export const taskService = {
     }, { maxWait: 10000, timeout: 25000 });
 
     if (!input.gitBranchSlug) {
-      // Fire-and-forget: generateGeminiBranchSlug already swallows its own
-      // errors via .catch() below, and the trailing .catch() here covers the
-      // subsequent prisma update too - no outer try/catch needed.
-      generateGeminiBranchSlug({
-        title: input.title,
-        description: input.description,
-        type,
-      })
-        .then(async (slugResult) => {
-          if (slugResult?.slug) {
-            await prisma.task.update({
-              where: { id: result.task.id },
-              data: { gitBranchSlug: slugResult.slug },
-            });
-          }
-        })
-        .catch((err) => {
-          console.error("Background AI branch generation error on task create:", err);
+      runAfterResponse(async () => {
+        const slugResult = await generateGeminiBranchSlug({
+          title: input.title,
+          description: input.description,
+          type,
         });
+        if (slugResult?.slug) {
+          await prisma.task.update({
+            where: { id: result.task.id },
+            data: { gitBranchSlug: slugResult.slug },
+          });
+        }
+      }, "Background AI branch generation on task create");
     }
 
     const targetAssignees = [
@@ -326,35 +307,36 @@ export const taskService = {
     ];
 
     if (targetAssignees.length > 0 || targetTeams.length > 0) {
-      notificationService.notifyTaskAssigned({
+      runAfterResponse(() => notificationService.notifyTaskAssigned({
         taskId: result.task.id,
         taskTitle: result.task.title,
         assigneeUserIds: targetAssignees,
         teamIds: targetTeams,
         actorId: result.validActorId,
         actorName: user.name || "A team member",
-      }).catch((e) => console.error("Notification error:", e));
+      }), "Notification");
     }
 
     if (uniqueReviewerIds.length > 0) {
-      notificationService.notifyReviewersAssigned({
+      runAfterResponse(() => notificationService.notifyReviewersAssigned({
         taskId: result.task.id,
         taskTitle: result.task.title,
         reviewerIds: uniqueReviewerIds,
         actorId: result.validActorId,
         actorName: user.name || "A team member",
-      }).catch((e) => console.error("Reviewer notification error:", e));
+      }), "Reviewer notification");
     }
 
-    if (input.description) {
-      notificationService.notifyMentions({
-        text: input.description,
+    const createdDescription = input.description;
+    if (createdDescription) {
+      runAfterResponse(() => notificationService.notifyMentions({
+        text: createdDescription,
         sourceTitle: input.title,
         link: `/tasks?taskId=${result.task.id}`,
         actorId: result.validActorId,
         actorName: user.name || "A team member",
         taskId: result.task.id,
-      }).catch((e) => console.error("Mention notification error:", e));
+      }), "Mention notification");
     }
 
     return result.task;
@@ -461,18 +443,7 @@ export const taskService = {
 
       if (tags !== undefined) {
         await tx.taskTagAssignment.deleteMany({ where: { taskId: id } });
-        for (const tagName of tags) {
-          const trimmed = tagName.trim();
-          if (!trimmed) continue;
-          const tagRecord = await tx.taskTag.upsert({
-            where: { name: trimmed },
-            update: {},
-            create: { name: trimmed },
-          });
-          await tx.taskTagAssignment.create({
-            data: { taskId: id, tagId: tagRecord.id },
-          });
-        }
+        await attachTaskTags(tx, id, tags);
       }
 
       const updatedTask = await tx.task.update({
@@ -576,20 +547,21 @@ export const taskService = {
       return updatedTask;
     }, { maxWait: 10000, timeout: 25000 });
 
-    if (statusChanged && input.status) {
+    const newStatus = input.status;
+    if (statusChanged && newStatus) {
       const recipientIds = [
         ...(task.assignedToId ? [task.assignedToId] : []),
         ...(task.assignees?.map((a) => a.userId) || []),
       ];
-      notificationService.notifyStatusChanged({
+      runAfterResponse(() => notificationService.notifyStatusChanged({
         taskId: task.id,
         taskTitle: task.title,
         oldStatus: existing.status,
-        newStatus: input.status,
+        newStatus,
         actorId: validActorId,
         actorName: user.name || "A team member",
         recipientUserIds: recipientIds,
-      }).catch((e) => console.error("Status notification error:", e));
+      }), "Status notification");
     }
 
     const hasNewAssignee = input.assignedToId && input.assignedToId !== existing.assignedToId;
@@ -601,14 +573,14 @@ export const taskService = {
     const hasNewTeams = newlyAddedTeamIds.length > 0;
 
     if (hasNewAssignee || hasNewTeams) {
-      notificationService.notifyTaskAssigned({
+      runAfterResponse(() => notificationService.notifyTaskAssigned({
         taskId: task.id,
         taskTitle: task.title,
         assigneeUserIds: hasNewAssignee && input.assignedToId ? [input.assignedToId] : [],
         teamIds: hasNewTeams ? newlyAddedTeamIds : [],
         actorId: validActorId,
         actorName: user.name || "A team member",
-      }).catch((e) => console.error("Assignment notification error:", e));
+      }), "Assignment notification");
     }
 
     const newlyAddedReviewers = cleanReviewerIds
@@ -616,25 +588,26 @@ export const taskService = {
       : (primaryReviewerId && primaryReviewerId !== existing.reviewerId ? [primaryReviewerId] : []);
 
     if (newlyAddedReviewers.length > 0) {
-      notificationService.notifyReviewersAssigned({
+      runAfterResponse(() => notificationService.notifyReviewersAssigned({
         taskId: task.id,
         taskTitle: task.title,
         reviewerIds: newlyAddedReviewers,
         actorId: validActorId,
         actorName: user.name || "A team member",
-      }).catch((e) => console.error("Reviewers notification error:", e));
+      }), "Reviewers notification");
     }
 
     // PMS-7: Use trimmed descriptionChanged check rather than raw input.description
-    if (descriptionChanged && input.description) {
-      notificationService.notifyMentions({
-        text: input.description,
+    const updatedDescription = input.description;
+    if (descriptionChanged && updatedDescription) {
+      runAfterResponse(() => notificationService.notifyMentions({
+        text: updatedDescription,
         sourceTitle: task.title,
         link: `/tasks?taskId=${task.id}`,
         actorId: validActorId,
         actorName: user.name || "A team member",
         taskId: task.id,
-      }).catch((e) => console.error("Mention notification error:", e));
+      }), "Mention notification");
     }
 
     return task;
@@ -748,14 +721,14 @@ export const taskService = {
     ];
 
     if (newAssigneeIds.length > 0 || newTeamIds.length > 0) {
-      notificationService.notifyTaskAssigned({
+      runAfterResponse(() => notificationService.notifyTaskAssigned({
         taskId: task.id,
         taskTitle: task.title,
         assigneeUserIds: newAssigneeIds,
         teamIds: newTeamIds,
         actorId: validActorId,
         actorName: user.name || "A team member",
-      }).catch((e) => console.error("Reassign notification error:", e));
+      }), "Reassign notification");
     }
 
     const newlyAddedReviewers = cleanReviewerIds
@@ -763,13 +736,13 @@ export const taskService = {
       : (primaryReviewerId && primaryReviewerId !== existing.reviewerId ? [primaryReviewerId] : []);
 
     if (newlyAddedReviewers.length > 0) {
-      notificationService.notifyReviewersAssigned({
+      runAfterResponse(() => notificationService.notifyReviewersAssigned({
         taskId: task.id,
         taskTitle: task.title,
         reviewerIds: newlyAddedReviewers,
         actorId: validActorId,
         actorName: user.name || "A team member",
-      }).catch((e) => console.error("Reassign reviewers notification error:", e));
+      }), "Reassign reviewers notification");
     }
 
     return task;
@@ -820,7 +793,7 @@ export const taskService = {
       ...(existing.assignees?.map((a) => a.userId) || []),
     ];
 
-    notificationService.notifyCommentAdded({
+    runAfterResponse(() => notificationService.notifyCommentAdded({
       taskId,
       taskTitle: existing.title,
       commentId: comment.id,
@@ -829,7 +802,7 @@ export const taskService = {
       actorName: user.name || "A team member",
       parentAuthorId,
       taskAssigneeIds: taskAssignees,
-    }).catch((e) => console.error("Comment notification error:", e));
+    }), "Comment notification");
 
     return comment;
   },

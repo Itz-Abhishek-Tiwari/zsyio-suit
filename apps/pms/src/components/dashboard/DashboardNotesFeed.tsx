@@ -97,8 +97,11 @@ export function DashboardNotesFeed({ userRole: initialUserRole }: { userRole: st
     shouldApplyClientFilter ? { clientId: selectedFilterClient } : undefined
   );
   const { data: clients = [] } = useGetClientsLiteQuery();
-  const { data: teams = [] } = useGetTeamsQuery();
-  const { data: users = [] } = useGetUsersQuery();
+  // Teams and users only feed the create-note modal, so fetch them when it first opens.
+  const [hasOpenedCreateModal, setHasOpenedCreateModal] = useState(false);
+  if (isLeaveModalOpen && !hasOpenedCreateModal) setHasOpenedCreateModal(true);
+  const { data: teams = [] } = useGetTeamsQuery(undefined, { skip: !hasOpenedCreateModal });
+  const { data: users = [] } = useGetUsersQuery(undefined, { skip: !hasOpenedCreateModal });
 
   const [createNote, { isLoading: isCreating }] = useCreateDashboardNoteMutation();
   const [deleteNote] = useDeleteDashboardNoteMutation();

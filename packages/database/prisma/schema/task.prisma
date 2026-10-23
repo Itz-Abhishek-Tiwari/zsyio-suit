@@ -62,6 +62,9 @@ model Task {
   @@index([deletedAt, status, createdAt])
   @@index([deletedAt, priority, status])
   @@index([productId, deletedAt, status])
+  // Trigram indexes back the case-insensitive "contains" search on the task list.
+  @@index([title(ops: raw("gin_trgm_ops"))], type: Gin, map: "Task_title_trgm_idx")
+  @@index([description(ops: raw("gin_trgm_ops"))], type: Gin, map: "Task_description_trgm_idx")
 }
 
 model TaskAssignee {

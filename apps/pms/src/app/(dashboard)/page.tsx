@@ -4,8 +4,8 @@ import { auth } from "@zsyio/auth";
 import { prisma } from "@zsyio/database";
 import { can } from "@zsyio/auth/permissions";
 import type { Role } from "@zsyio/auth/permissions";
-import { Button, DashboardHero } from "@zsyio/ui";
-import { CheckSquare, Workflow, AlertTriangle, TrendingUp } from "lucide-react";
+import { Button, DashboardHero, EmptyState, getAppUrl } from "@zsyio/ui";
+import { CheckSquare, Workflow, AlertTriangle, TrendingUp, Lock } from "lucide-react";
 import { DashboardNotesFeed } from "@/components/dashboard/DashboardNotesFeed";
 import {
   TaskDistributionChart,
@@ -34,6 +34,12 @@ import {
 } from "@/lib/dashboard-role-config";
 export const dynamic = "force-dynamic";
 
+function countBy<T extends { _count: { _all: number } }>(rows: T[], key: (row: T) => string) {
+  const counts = new Map<string, number>();
+  for (const row of rows) counts.set(key(row), (counts.get(key(row)) ?? 0) + row._count._all);
+  return counts;
+}
+
 async function getDashboardData(
   userId: string,
   role: Role | string,
@@ -42,9 +48,7 @@ async function getDashboardData(
 ) {
   try {
     const [
-    statusGroupCounts,
-    priorityGroupCounts,
-    typeGroupCounts,
+    taskBreakdown,
     clientCount,
     productCount,
     clientPortfolio,
@@ -53,26 +57,15 @@ async function getDashboardData(
     blockedTasks,
     dueSoonTasks,
     recentActivities,
-    myStatusGroupCounts,
-    myUrgentTasksCount,
-    supportStatusGroupCounts,
-    supportCriticalCount,
+    myBreakdown,
     overdueTasksCount,
   ] = await Promise.all([
+    // One pass over the visible tasks; the status / priority / type / support
+    // tallies below are all derived from it instead of separate queries.
     prisma.task.groupBy({
-      by: ["status"],
+      by: ["status", "priority", "type"],
       where: taskWhere,
-      _count: { status: true },
-    }),
-    prisma.task.groupBy({
-      by: ["priority"],
-      where: taskWhere,
-      _count: { priority: true },
-    }),
-    prisma.task.groupBy({
-      by: ["type"],
-      where: taskWhere,
-      _count: { type: true },
+      _count: { _all: true },
     }),
     can(role, "client:view", permissions)
       ? prisma.client.count({ where: { deletedAt: null } })
@@ -184,7 +177,7 @@ async function getDashboardData(
       },
     }),
     prisma.task.groupBy({
-      by: ["status"],
+      by: ["status", "priority"],
       where: {
         deletedAt: null,
         OR: [
@@ -192,34 +185,7 @@ async function getDashboardData(
           { assignees: { some: { userId } } },
         ],
       },
-      _count: { status: true },
-    }),
-    prisma.task.count({
-      where: {
-        deletedAt: null,
-        OR: [
-          { assignedToId: userId },
-          { assignees: { some: { userId } } },
-        ],
-        priority: { in: ["CRITICAL", "HIGH"] },
-        status: { notIn: ["DONE"] },
-      },
-    }),
-    prisma.task.groupBy({
-      by: ["status"],
-      where: {
-        ...taskWhere,
-        type: "SUPPORT_REQUEST",
-      },
-      _count: { status: true },
-    }),
-    prisma.task.count({
-      where: {
-        ...taskWhere,
-        type: "SUPPORT_REQUEST",
-        priority: "CRITICAL",
-        status: { notIn: ["DONE"] },
-      },
+      _count: { _all: true },
     }),
     prisma.task.count({
       where: {
@@ -229,6 +195,37 @@ async function getDashboardData(
       },
     }),
   ]);
+
+  const isOpen = (status: string) => status !== "DONE";
+  const isSupport = (type: string) => type === "SUPPORT_REQUEST";
+
+  const statusGroupCounts = Array.from(
+    countBy(taskBreakdown, (r) => r.status),
+    ([status, count]) => ({ status, _count: { status: count } })
+  );
+  const priorityGroupCounts = Array.from(
+    countBy(taskBreakdown, (r) => r.priority),
+    ([priority, count]) => ({ priority, _count: { priority: count } })
+  );
+  const typeGroupCounts = Array.from(
+    countBy(taskBreakdown, (r) => r.type),
+    ([type, count]) => ({ type, _count: { type: count } })
+  );
+  const supportRows = taskBreakdown.filter((r) => isSupport(r.type));
+  const supportStatusGroupCounts = Array.from(
+    countBy(supportRows, (r) => r.status),
+    ([status, count]) => ({ status, _count: { status: count } })
+  );
+  const supportCriticalCount = supportRows
+    .filter((r) => r.priority === "CRITICAL" && isOpen(r.status))
+    .reduce((sum, r) => sum + r._count._all, 0);
+  const myStatusGroupCounts = Array.from(
+    countBy(myBreakdown, (r) => r.status),
+    ([status, count]) => ({ status, _count: { status: count } })
+  );
+  const myUrgentTasksCount = myBreakdown
+    .filter((r) => (r.priority === "CRITICAL" || r.priority === "HIGH") && isOpen(r.status))
+    .reduce((sum, r) => sum + r._count._all, 0);
 
   return {
     statusGroupCounts,
@@ -291,9 +288,17 @@ export default async function DashboardPage() {
     } else if (can(role, "report:view", permissions)) {
       redirect("/reports");
     } else if (can(role, "user:manage", permissions)) {
-      redirect(process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:3003");
+      redirect(getAppUrl("admin"));
     } else {
-      redirect("/login");
+      // Redirecting to /login here loops: the login page sends signed-in users back to "/".
+      return (
+        <EmptyState
+          size="lg"
+          icon={<Lock className="h-6 w-6" />}
+          title="No Flow pages are available to you yet"
+          description="Your role has access to Flow but not to its dashboard, tasks, clients or reports. Ask an administrator to grant you a permission."
+        />
+      );
     }
   }
 

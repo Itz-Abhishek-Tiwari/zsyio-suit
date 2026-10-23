@@ -407,6 +407,12 @@ export function TaskViewModal({ task, taskId, isOpen, onClose }: TaskViewModalPr
                 <div className="rounded-md border border-border/70 bg-card p-4 min-h-[110px] shadow-2xs leading-relaxed text-sm">
                   {activeTask.description ? (
                     <FormattedText content={activeTask.description} />
+                  ) : !isFetchedForCurrentTask ? (
+                    // List rows omit the description; wait for the full task before saying there is none.
+                    <div className="flex flex-col gap-2 py-1" aria-busy="true">
+                      <div className="h-3 w-3/4 rounded bg-muted animate-pulse" />
+                      <div className="h-3 w-1/2 rounded bg-muted animate-pulse" />
+                    </div>
                   ) : (
                     <div className="flex flex-col items-center justify-center py-6 text-center text-muted-foreground/60">
                       <FileText className="w-8 h-8 opacity-40 mb-1.5" />

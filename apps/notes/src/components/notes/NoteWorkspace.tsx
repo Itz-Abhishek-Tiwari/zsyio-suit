@@ -10,13 +10,26 @@ import {
 } from "@/store/api/notesApi";
 import dynamic from "next/dynamic";
 import { NoteSidebarTree } from "./NoteSidebarTree";
-import { NoteEditor } from "./NoteEditor";
+import { Skeleton } from "@zsyio/ui";
+
+// The editor bundles Tiptap and ProseMirror; load it after the sidebar tree has rendered.
+const NoteEditor = dynamic(() => import("./NoteEditor").then((m) => m.NoteEditor), {
+  ssr: false,
+  loading: () => (
+    <div className="space-y-4 p-6" aria-busy="true" aria-label="Loading editor">
+      <Skeleton className="h-9 w-2/3" />
+      <Skeleton className="h-4 w-full" />
+      <Skeleton className="h-4 w-5/6" />
+      <Skeleton className="h-4 w-4/6" />
+    </div>
+  ),
+});
 
 const NoteShareModal = dynamic(() => import("./NoteShareModal").then((m) => m.NoteShareModal), { ssr: false });
 const FolderShareModal = dynamic(() => import("./FolderShareModal").then((m) => m.FolderShareModal), { ssr: false });
 const FolderModal = dynamic(() => import("./FolderModal").then((m) => m.FolderModal), { ssr: false });
 const NoteTemplatesModal = dynamic(() => import("./NoteTemplatesModal").then((m) => m.NoteTemplatesModal), { ssr: false });
-import { useUnsavedChanges, Button, DashboardHero } from "@zsyio/ui";
+import { useUnsavedChanges, Button, DashboardHero, LoadErrorState } from "@zsyio/ui";
 import { NOTE_TEMPLATES, NoteIcon } from "@zsyio/editor";
 import {
   Plus,
@@ -39,7 +52,7 @@ export function NoteWorkspace() {
 
   const noteIdParam = searchParams.get("id");
 
-  const { data: treeData, isLoading: isTreeLoading } = useGetNotesTreeQuery();
+  const { data: treeData, isLoading: isTreeLoading, isError: isTreeError, refetch: refetchTree } = useGetNotesTreeQuery();
 
   const [activeNoteId, setActiveNoteId] = useState<string | null>(noteIdParam);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -156,6 +169,14 @@ export function NoteWorkspace() {
     );
   }
 
+  if (isTreeError && !treeData) {
+    return (
+      <div className="w-full h-full min-h-[500px] flex items-center justify-center bg-card p-6">
+        <LoadErrorState title="Couldn't load your notes" onRetry={refetchTree} />
+      </div>
+    );
+  }
+
   const defaultTree: typeof treeData = treeData || {
     folders: [],
     archivedFolders: [],
@@ -164,7 +185,6 @@ export function NoteWorkspace() {
     starredNotes: [],
     sharedWithMeNotes: [],
     myRootNotes: [],
-    otherRootNotes: [],
   };
 
   const featuredTemplates = NOTE_TEMPLATES.slice(0, 4);

@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { AlertTriangle, X, GripVertical, RotateCcw } from "lucide-react";
 import { motion, LayoutGroup } from "framer-motion";
 import { KanbanColumn } from "./KanbanColumn";
-import { TaskViewModal } from "./TaskViewModal";
+
 import { ICON_OPTIONS } from "./ColumnIcon";
 import { useGetTasksQuery, useUpdateTaskStatusMutation } from "@/store/api/tasksApi";
 import {
@@ -19,6 +19,11 @@ import { Skeleton } from "@zsyio/ui";
 import { Button } from "@zsyio/ui";
 import { Input } from "@zsyio/ui";
 import { toast } from "sonner";
+
+import dynamic from "next/dynamic";
+
+// The task modal pulls in the markdown renderer, comments and test sheets; load it on first open.
+const TaskViewModal = dynamic(() => import("./TaskViewModal").then((module) => module.TaskViewModal), { ssr: false });
 
 interface ColumnDef {
   status: string;
@@ -201,6 +206,9 @@ export function KanbanBoard({ filters }: { filters: Record<string, string | numb
 
   const [updateStatus] = useUpdateTaskStatusMutation();
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  // Mount the lazily loaded modal on first open, then keep it for its close animation.
+  const [hasOpenedTaskModal, setHasOpenedTaskModal] = useState(false);
+  if (selectedTask && !hasOpenedTaskModal) setHasOpenedTaskModal(true);
 
   const handleDrop = useCallback(
     (taskId: string, status: string) => {
@@ -563,11 +571,13 @@ export function KanbanBoard({ filters }: { filters: Record<string, string | numb
         />
       </div>
 
-      <TaskViewModal
-        task={selectedTask}
-        isOpen={!!selectedTask}
-        onClose={handleCloseModal}
-      />
+      {hasOpenedTaskModal ? (
+        <TaskViewModal
+          task={selectedTask}
+          isOpen={!!selectedTask}
+          onClose={handleCloseModal}
+        />
+      ) : null}
     </div>
   );
 }

@@ -595,6 +595,7 @@ export function NoteSidebarTree({
                 <button
                   type="button"
                   onClick={toggleCollapse}
+                  aria-label="Expand sidebar"
                   className="w-10 h-10 rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-surface-elevated transition-colors cursor-pointer border border-transparent hover:border-border mb-3"
                 >
                   <PanelLeft className="w-4 h-4" />
@@ -611,6 +612,7 @@ export function NoteSidebarTree({
                   <button
                     type="button"
                     onClick={() => handleQuickCreateNote(null)}
+                    aria-label="New page"
                     disabled={isCreating}
                     className="w-10 h-10 rounded-md bg-primary text-primary-foreground flex items-center justify-center shadow-xs  hover:bg-primary-hover transition-all cursor-pointer"
                   >
@@ -625,6 +627,7 @@ export function NoteSidebarTree({
                   <button
                     type="button"
                     onClick={() => onOpenTemplates()}
+                    aria-label="Browse templates"
                     className="w-10 h-10 rounded-md border border-border/80 bg-surface-subtle hover:bg-surface-elevated text-foreground flex items-center justify-center transition-all cursor-pointer"
                   >
                     <LayoutTemplate className="w-4 h-4 text-primary" />
@@ -638,6 +641,7 @@ export function NoteSidebarTree({
                   <button
                     type="button"
                     onClick={() => onOpenNewFolder(null)}
+                    aria-label="New folder"
                     className="w-10 h-10 rounded-md border border-border/80 bg-surface-subtle hover:bg-surface-elevated text-foreground flex items-center justify-center transition-all cursor-pointer"
                   >
                     <FolderPlus className="w-4 h-4" />

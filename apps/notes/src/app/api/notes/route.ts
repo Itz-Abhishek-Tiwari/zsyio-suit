@@ -4,7 +4,7 @@ import { prisma } from "@zsyio/database";
 import { assertCan } from "@zsyio/auth/permissions";
 import { getUserTeamIds, computeAccessibleFolderIds, evaluateFolderAccess, hasPermissionLevel } from "@zsyio/auth/note-permissions";
 import { NoteGeneralAccess as NoteGeneralAccessEnum, type Role, type NoteGeneralAccess } from "@prisma/client";
-import { NOTE_TEMPLATES } from "@zsyio/editor";
+import { NOTE_TEMPLATES } from "@zsyio/editor/note-templates";
 
 export async function GET(req: NextRequest) {
   return withApiHandler(async () => {
@@ -165,44 +165,41 @@ export async function GET(req: NextRequest) {
       .filter((n) => n.isArchived)
       .map(mapNoteSummary);
 
-    // Grouping for Notion-style sidebar:
+    // Grouping for Notion-style sidebar. These groups are subsets of `notes`,
+    // so they go over the wire as id lists; the client rebuilds them.
     // 1. Starred Notes
-    const starredNotes = activeNotes.filter((n) => n.isStarred);
+    const starredNoteIds = activeNotes.filter((n) => n.isStarred).map((n) => n.id);
 
     // 2. Shared with me (Notes where author is NOT current user)
     // Directly shared notes or notes not in a visible folder
-    const sharedWithMeNotes = activeNotes.filter((n) => {
-      if (n.authorId === user.id) return false;
-      const hasDirectShare = n.shares.some(
-        (s) =>
-          s.userId === user.id ||
-          (isPrismaRole && s.role?.toUpperCase() === roleUpper) ||
-          (user.customRoleId && s.customRoleId === user.customRoleId) ||
-          (s.teamId && teamIds.includes(s.teamId))
-      );
-      const isUnfiledOrOrphan = !n.folderId || !activeFolderIdSet.has(n.folderId);
-      return hasDirectShare || isUnfiledOrOrphan;
-    });
+    const sharedWithMeNoteIds = activeNotes
+      .filter((n) => {
+        if (n.authorId === user.id) return false;
+        const hasDirectShare = n.shares.some(
+          (s) =>
+            s.userId === user.id ||
+            (isPrismaRole && s.role?.toUpperCase() === roleUpper) ||
+            (user.customRoleId && s.customRoleId === user.customRoleId) ||
+            (s.teamId && teamIds.includes(s.teamId))
+        );
+        const isUnfiledOrOrphan = !n.folderId || !activeFolderIdSet.has(n.folderId);
+        return hasDirectShare || isUnfiledOrOrphan;
+      })
+      .map((n) => n.id);
 
     // 3. Private / My root notes (notes created by user with no folder or in non-visible folder)
-    const myRootNotes = activeNotes.filter(
-      (n) => n.authorId === user.id && (!n.folderId || !activeFolderIdSet.has(n.folderId))
-    );
-
-    // 4. Other root notes
-    const otherRootNotes = activeNotes.filter(
-      (n) => n.authorId !== user.id && (!n.folderId || !activeFolderIdSet.has(n.folderId))
-    );
+    const myRootNoteIds = activeNotes
+      .filter((n) => n.authorId === user.id && (!n.folderId || !activeFolderIdSet.has(n.folderId)))
+      .map((n) => n.id);
 
     return {
       folders: activeFolders,
       archivedFolders,
       notes: activeNotes,
       archivedNotes,
-      starredNotes,
-      sharedWithMeNotes,
-      myRootNotes,
-      otherRootNotes,
+      starredNoteIds,
+      sharedWithMeNoteIds,
+      myRootNoteIds,
     };
   });
 }

@@ -10,8 +10,10 @@ export async function GET(request: NextRequest) {
     const q = searchParams.get("q") ?? undefined;
     const role = searchParams.get("role") ?? undefined;
     const status = searchParams.get("status") ?? undefined;
+    const limitParam = Number.parseInt(searchParams.get("limit") ?? "", 10);
+    const limit = Number.isFinite(limitParam) && limitParam > 0 ? limitParam : undefined;
 
-    return userService.list({ q, role, status });
+    return userService.list({ q, role, status, limit });
   });
 }
 

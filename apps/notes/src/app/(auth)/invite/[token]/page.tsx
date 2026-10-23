@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getAppUrl } from "@zsyio/ui";
 
 export default async function NotesInviteRedirectPage({
   params,
@@ -6,6 +7,5 @@ export default async function NotesInviteRedirectPage({
   params: Promise<{ token: string }>;
 }) {
   const { token } = await params;
-  const pmsUrl = (process.env.NEXT_PUBLIC_PMS_URL || "").replace(/\/+$/, "");
-  redirect(`${pmsUrl}/invite/${encodeURIComponent(token)}`);
+  redirect(getAppUrl("pms", `/invite/${encodeURIComponent(token)}`));
 }

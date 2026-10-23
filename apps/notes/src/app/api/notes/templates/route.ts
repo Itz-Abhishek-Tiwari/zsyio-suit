@@ -1,5 +1,5 @@
 import { requireUser, withApiHandler } from "@zsyio/auth/api-helpers";
-import { NOTE_TEMPLATES } from "@zsyio/editor";
+import { NOTE_TEMPLATES } from "@zsyio/editor/note-templates";
 
 export async function GET() {
   return withApiHandler(async () => {

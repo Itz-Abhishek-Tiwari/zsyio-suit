@@ -9,7 +9,8 @@
     ".": "./src/index.ts",
     "./RichTextEditor": "./src/RichTextEditor.tsx",
     "./FormattedText": "./src/FormattedText.tsx",
-    "./clipboard-helper": "./src/clipboard-helper.ts"
+    "./clipboard-helper": "./src/clipboard-helper.ts",
+    "./note-templates": "./src/note-templates.ts"
   },
   "sideEffects": false,
   "dependencies": {

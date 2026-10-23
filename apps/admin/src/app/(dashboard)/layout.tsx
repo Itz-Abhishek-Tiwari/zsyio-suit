@@ -1,9 +1,10 @@
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { auth, SessionProvider } from "@zsyio/auth";
 import { canAccessApp, can, type AppId } from "@zsyio/auth/permissions";
 import { DashboardShell } from "./dashboard-shell";
-import { AccessRestricted } from "@zsyio/ui";
+import { AccessRestricted, ForcedPasswordChange, NavigationProgress } from "@zsyio/ui";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
@@ -43,7 +44,10 @@ export default async function DashboardLayout({ children }: { children: React.Re
       cookieStore.get("sidebar_collapsed")?.value) === "true";
 
   return (
-    <SessionProvider>
+    <SessionProvider session={session}>
+      <Suspense fallback={null}>
+        <NavigationProgress />
+      </Suspense>
       <DashboardShell
         role={role}
         permissions={permissions}
@@ -53,6 +57,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
       >
         {children}
       </DashboardShell>
+      {session.user.mustChangePassword ? (
+        <ForcedPasswordChange userEmail={session.user.email ?? undefined} />
+      ) : null}
     </SessionProvider>
   );
 }

@@ -6,12 +6,17 @@ import { Button, TopProgressBar, PageHeader } from "@zsyio/ui";
 import { TaskFiltersBar } from "@/components/tasks/TaskFiltersBar";
 import { KanbanBoard } from "@/components/tasks/KanbanBoard";
 import { TaskTable } from "@/components/tasks/TaskTable";
-import { TaskViewModal } from "@/components/tasks/TaskViewModal";
+
 import { useGetTasksQuery, useGetTaskQuery } from "@/store/api/tasksApi";
 import { useAppSelector } from "@/store/hooks";
 import type { Role } from "@zsyio/auth/permissions";
 import { can } from "@zsyio/auth/permissions";
 import { Plus, CheckSquare } from "lucide-react";
+
+import dynamic from "next/dynamic";
+
+// The task modal pulls in the markdown renderer, comments and test sheets; load it on first open.
+const TaskViewModal = dynamic(() => import("@/components/tasks/TaskViewModal").then((module) => module.TaskViewModal), { ssr: false });
 
 export function TasksView({ role, permissions }: { role: Role | string; permissions?: string[] | null }) {
   const boardView = useAppSelector((s) => s.boardView);

@@ -22,7 +22,10 @@ import {
   Shrink,
   X,
 } from "lucide-react";
-import { InteractiveFlowDiagram } from "./InteractiveFlowDiagram";
+// @xyflow/react is large; load it only when the interactive view is opened.
+const InteractiveFlowDiagram = React.lazy(() =>
+  import("./InteractiveFlowDiagram").then((module) => ({ default: module.InteractiveFlowDiagram }))
+);
 import { parseMermaidToFlow } from "./mermaid-to-flow";
 import { cleanMermaidCode, getMermaidDiagramType } from "./mermaid-utils";
 
@@ -544,7 +547,15 @@ export function MermaidDiagram({
         <div className="relative">
           {/* Interactive React Flow Canvas View */}
           {viewMode === "interactive" && canUseFlow && (
-            <InteractiveFlowDiagram code={cleanedCode} height={500} />
+            <React.Suspense
+              fallback={
+                <div className="flex items-center justify-center min-h-[500px] text-sm text-muted-foreground">
+                  Loading interactive view…
+                </div>
+              }
+            >
+              <InteractiveFlowDiagram code={cleanedCode} height={500} />
+            </React.Suspense>
           )}
 
           {/* Loading State */}

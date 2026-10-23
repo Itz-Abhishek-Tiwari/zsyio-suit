@@ -57,19 +57,51 @@ export const TASK_CARD_USER_SELECT = {
   active: true,
 } satisfies Prisma.UserSelect;
 
-// Slim include for list views (Kanban / Table): omits the full team member
-// roster and deep user metadata - those are only needed in the detail panel.
-export const TASK_LIST_INCLUDE = {
-  product: { include: { client: true } },
+// Slim select for list views (Kanban / Table): omits the long text columns
+// (description, aiSummary), client notes/contacts, the full team member roster
+// and deep user metadata - those are only needed in the detail panel, which
+// fetches the full task itself. The Kanban loads up to 500 rows, so this matters.
+export const TASK_LIST_SELECT = {
+  id: true,
+  ticketNumber: true,
+  productId: true,
+  title: true,
+  status: true,
+  priority: true,
+  type: true,
+  dueDate: true,
+  dueDateReason: true,
+  changeReason: true,
+  blockedReason: true,
+  gitBranchSlug: true,
+  deletedAt: true,
+  estimatedHours: true,
+  actualHours: true,
+  assignedToId: true,
+  reviewerId: true,
+  assignedTeamId: true,
+  createdById: true,
+  createdAt: true,
+  updatedAt: true,
+  product: {
+    select: {
+      id: true,
+      name: true,
+      clientId: true,
+      imageUrl: true,
+      environment: true,
+      client: { select: { id: true, name: true, logoUrl: true } },
+    },
+  },
   createdBy: { select: TASK_CARD_USER_SELECT },
   assignedTo: { select: TASK_CARD_USER_SELECT },
   reviewer: { select: TASK_CARD_USER_SELECT },
-  reviewers: { include: { user: { select: TASK_CARD_USER_SELECT } } },
-  assignees: { include: { user: { select: TASK_CARD_USER_SELECT } } },
+  reviewers: { select: { taskId: true, userId: true, user: { select: TASK_CARD_USER_SELECT } } },
+  assignees: { select: { taskId: true, userId: true, user: { select: TASK_CARD_USER_SELECT } } },
   assignedTeam: { select: { id: true, name: true, color: true } },
-  teams: { include: { team: { select: { id: true, name: true, color: true } } } },
-  tags: { include: { tag: true } },
-} satisfies Prisma.TaskInclude;
+  teams: { select: { taskId: true, teamId: true, team: { select: { id: true, name: true, color: true } } } },
+  tags: { select: { taskId: true, tagId: true, tag: true } },
+} satisfies Prisma.TaskSelect;
 
 const ALLOWED_TASK_SORT_FIELDS = new Set([
   "createdAt",
@@ -82,18 +114,16 @@ const ALLOWED_TASK_SORT_FIELDS = new Set([
   "ticketNumber",
 ]);
 
-async function resolveTaskId(id: string, includeDeleted = false): Promise<string | null> {
+/**
+ * Resolves a ticket reference ("TSK-123", "123", an id suffix) to a task id.
+ * Callers try the exact id first with their own query, so this only handles
+ * the fallbacks and does not re-check the direct id.
+ */
+async function resolveTaskIdFallback(id: string, includeDeleted = false): Promise<string | null> {
   const trimmed = id.trim();
   if (!trimmed) return null;
 
-  // 1. Direct ID match
-  const direct = await prisma.task.findFirst({
-    where: { id: trimmed, ...(includeDeleted ? {} : { deletedAt: null }) },
-    select: { id: true },
-  });
-  if (direct) return direct.id;
-
-  // 2. Numeric ticket number check (e.g. "TSK-123", "tsk-123", or "123")
+  // 1. Numeric ticket number check (e.g. "TSK-123", "tsk-123", or "123")
   const clean = trimmed.toLowerCase().replace(/^tsk-/i, "");
   if (/^\d+$/.test(clean)) {
     const num = parseInt(clean, 10);
@@ -104,7 +134,7 @@ async function resolveTaskId(id: string, includeDeleted = false): Promise<string
     if (byNum) return byNum.id;
   }
 
-  // 3. Suffix check if clean is at least 6 characters
+  // 2. Suffix check if clean is at least 6 characters
   if (clean.length >= 6) {
     const bySuffix = await prisma.task.findFirst({
       where: {
@@ -117,6 +147,55 @@ async function resolveTaskId(id: string, includeDeleted = false): Promise<string
   }
 
   return null;
+}
+
+/**
+ * Attaches tags (created on demand by name) to a task in three round trips,
+ * however many tags there are. Existing assignments are left alone, so callers
+ * replacing the set delete the old assignments first.
+ */
+export async function attachTaskTags(
+  db: Prisma.TransactionClient | typeof prisma,
+  taskId: string,
+  tagNames: string[]
+) {
+  const names = Array.from(new Set(tagNames.map((n) => n.trim()).filter(Boolean)));
+  if (names.length === 0) return;
+  await db.taskTag.createMany({ data: names.map((name) => ({ name })), skipDuplicates: true });
+  const tagRecords = await db.taskTag.findMany({ where: { name: { in: names } }, select: { id: true } });
+  await db.taskTagAssignment.createMany({
+    data: tagRecords.map((t) => ({ taskId, tagId: t.id })),
+    skipDuplicates: true,
+  });
+}
+
+// Narrow select for ownership/authorization checks (isOwner + status diffing).
+function findOwnershipInfoById(id: string, includeDeleted: boolean) {
+  if (!id) return Promise.resolve(null);
+  return prisma.task.findFirst({
+    where: { id, ...(includeDeleted ? {} : { deletedAt: null }) },
+    select: {
+      id: true,
+      createdById: true,
+      title: true,
+      description: true,
+      status: true,
+      priority: true,
+      type: true,
+      dueDate: true,
+      dueDateReason: true,
+      changeReason: true,
+      blockedReason: true,
+      assignedToId: true,
+      reviewerId: true,
+      reviewers: { select: { userId: true } },
+      assignedTeamId: true,
+      assignees: { select: { userId: true } },
+      assignedTeam: { select: { members: { select: { userId: true } } } },
+      teams: { select: { teamId: true, team: { select: { members: { select: { userId: true } } } } } },
+    },
+    relationLoadStrategy: "join",
+  });
 }
 
 export const taskRepository = {
@@ -313,7 +392,7 @@ export const taskRepository = {
     const [items, total] = await Promise.all([
       prisma.task.findMany({
         where,
-        include: TASK_LIST_INCLUDE,
+        select: TASK_LIST_SELECT,
         orderBy: { [effectiveSortBy]: sortDir ?? "desc" },
         skip: (page - 1) * pageSize,
         take: pageSize,
@@ -329,33 +408,10 @@ export const taskRepository = {
   // product/client, every assignee's user row, and full team rosters just to
   // decide whether the current user is allowed to act on the task.
   async findOwnershipInfo(id: string, includeDeleted = false) {
-    const targetId = await resolveTaskId(id, includeDeleted);
-    if (!targetId) return null;
-
-    return prisma.task.findFirst({
-      where: { id: targetId, ...(includeDeleted ? {} : { deletedAt: null }) },
-      select: {
-        id: true,
-        createdById: true,
-        title: true,
-        description: true,
-        status: true,
-        priority: true,
-        type: true,
-        dueDate: true,
-        dueDateReason: true,
-        changeReason: true,
-        blockedReason: true,
-        assignedToId: true,
-        reviewerId: true,
-        reviewers: { select: { userId: true } },
-        assignedTeamId: true,
-        assignees: { select: { userId: true } },
-        assignedTeam: { select: { members: { select: { userId: true } } } },
-        teams: { select: { teamId: true, team: { select: { members: { select: { userId: true } } } } } },
-      },
-      relationLoadStrategy: "join",
-    });
+    const direct = await findOwnershipInfoById(id.trim(), includeDeleted);
+    if (direct) return direct;
+    const targetId = await resolveTaskIdFallback(id, includeDeleted);
+    return targetId ? findOwnershipInfoById(targetId, includeDeleted) : null;
   },
 
   async findActivityLogs(taskId: string) {
@@ -363,40 +419,37 @@ export const taskRepository = {
       where: { taskId },
       include: { actor: { select: SAFE_USER_SELECT } },
       orderBy: { createdAt: "desc" },
+      take: 500,
     });
   },
 
   async findById(id: string, includeDeleted = false) {
-    // Run task core + comments in parallel. ActivityLogs are intentionally
-    // excluded here - they are served by GET /tasks/[id]/activity and should
-    // be lazy-loaded when the Activity tab is opened, not on every detail open.
-    const targetId = await resolveTaskId(id, includeDeleted);
-    if (!targetId) return null;
-
-    const task = await prisma.task.findFirst({
-      where: { id: targetId, ...(includeDeleted ? {} : { deletedAt: null }) },
-      include: TASK_INCLUDE,
-      relationLoadStrategy: "join",
-    });
-
-    if (!task) return null;
-
-    const [comments, attachments] = await Promise.all([
+    // Try the exact id first; only fall back to ticket-number / suffix lookup
+    // when it misses. ActivityLogs are intentionally excluded here - they are
+    // served by GET /tasks/[id]/activity and lazy-loaded with the Activity tab.
+    // Attachments already come with TASK_INCLUDE.
+    const notDeleted = includeDeleted ? {} : { deletedAt: null };
+    const loadTask = (taskId: string) =>
+      prisma.task.findFirst({
+        where: { id: taskId, ...notDeleted },
+        include: TASK_INCLUDE,
+        relationLoadStrategy: "join",
+      });
+    const loadComments = (taskId: string) =>
       prisma.comment.findMany({
-        where: { taskId: task.id },
+        where: { taskId },
         include: { author: { select: SAFE_USER_SELECT } },
         orderBy: { createdAt: "asc" },
-      }),
-      prisma.attachment.findMany({
-        where: { taskId: task.id },
-      }),
-    ]);
+      });
 
-    return {
-      ...task,
-      comments,
-      attachments,
-    };
+    const directId = id.trim();
+    const [direct, directComments] = await Promise.all([loadTask(directId), loadComments(directId)]);
+    if (direct) return { ...direct, comments: directComments };
+
+    const targetId = await resolveTaskIdFallback(id, includeDeleted);
+    if (!targetId) return null;
+    const [task, comments] = await Promise.all([loadTask(targetId), loadComments(targetId)]);
+    return task ? { ...task, comments } : null;
   },
 
   async create(data: CreateTaskInput & { createdById: string }) {
@@ -426,18 +479,7 @@ export const taskRepository = {
     });
 
     if (tags?.length) {
-      for (const tagName of tags) {
-        const trimmed = tagName.trim();
-        if (!trimmed) continue;
-        const tagRecord = await prisma.taskTag.upsert({
-          where: { name: trimmed },
-          update: {},
-          create: { name: trimmed },
-        });
-        await prisma.taskTagAssignment.create({
-          data: { taskId: task.id, tagId: tagRecord.id },
-        });
-      }
+      await attachTaskTags(prisma, task.id, tags);
       return prisma.task.findUniqueOrThrow({
         where: { id: task.id },
         include: TASK_INCLUDE,
@@ -461,18 +503,7 @@ export const taskRepository = {
         }
         if (tags !== undefined) {
           await tx.taskTagAssignment.deleteMany({ where: { taskId: id } });
-          for (const tagName of tags) {
-            const trimmed = tagName.trim();
-            if (!trimmed) continue;
-            const tagRecord = await tx.taskTag.upsert({
-              where: { name: trimmed },
-              update: {},
-              create: { name: trimmed },
-            });
-            await tx.taskTagAssignment.create({
-              data: { taskId: id, tagId: tagRecord.id },
-            });
-          }
+          await attachTaskTags(tx, id, tags);
         }
         return tx.task.update({ where: { id }, data: rest as never, include: TASK_INCLUDE });
       },

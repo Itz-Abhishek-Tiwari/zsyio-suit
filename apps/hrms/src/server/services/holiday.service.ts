@@ -24,10 +24,22 @@ const COMPANY_HOLIDAYS_RAW = [
 
 const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
+// Years already known to have holidays, so later requests skip the count query.
+const seededYears = new Set<number>();
+
+/** Forget which years were seeded (used by tests, which mock the holiday table per case). */
+export function clearHolidaySeedCache() {
+  seededYears.clear();
+}
+
 export class HolidayService {
   private async ensureHolidaysSeeded(year: number) {
+    if (seededYears.has(year)) return;
     const count = await prisma.companyHoliday.count({ where: { year } });
-    if (count > 0) return;
+    if (count > 0) {
+      seededYears.add(year);
+      return;
+    }
 
     const defaults = COMPANY_HOLIDAYS_RAW.map((h) => {
       const mm = String(h.month + 1).padStart(2, "0");
@@ -50,6 +62,7 @@ export class HolidayService {
         create: d,
       });
     }
+    seededYears.add(year);
   }
 
   async getHolidays(year?: number): Promise<{ holidays: CompanyHoliday[]; upcoming: CompanyHoliday | null }> {

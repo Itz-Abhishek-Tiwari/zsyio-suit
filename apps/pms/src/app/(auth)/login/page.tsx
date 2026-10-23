@@ -3,7 +3,7 @@ import { Users, BarChart3, ShieldCheck, Layers, Lock } from "lucide-react";
 import { auth } from "@zsyio/auth";
 import { redirect } from "next/navigation";
 import Image from "next/image";
-import { LoginPageLayout } from "@zsyio/ui";
+import { LoginPageLayout, safeCallbackPath } from "@zsyio/ui";
 import { getAllowedEmailDomains } from "@zsyio/auth/domain-restriction";
 
 export const metadata = {
@@ -11,7 +11,7 @@ export const metadata = {
   description: "Sign in to access your Zsyio Project Management Workspace.",
 };
 
-export default async function LoginPage() {
+export default async function LoginPage({ searchParams }: { searchParams: Promise<{ callbackUrl?: string | string[] }> }) {
   let session = null;
   try {
     session = await auth();
@@ -19,7 +19,8 @@ export default async function LoginPage() {
     session = null;
   }
   if (session?.user) {
-    redirect("/");
+    const { callbackUrl } = await searchParams;
+    redirect(safeCallbackPath(typeof callbackUrl === "string" ? callbackUrl : undefined));
   }
 
   const allowedDomains = getAllowedEmailDomains();

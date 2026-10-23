@@ -209,11 +209,11 @@ export function SalesLeadTable() {
             ]}
           />
 
-          <Link href="/leads/new">
-            <Button size="sm" className="h-9">
+          <Button asChild size="sm" className="h-9">
+            <Link href="/leads/new">
               + New Lead
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       </div>
 
@@ -242,9 +242,9 @@ export function SalesLeadTable() {
               : "Get started by creating your first sales lead to track opportunities"
           }
           action={
-            <Link href="/leads/new">
-              <Button size="sm">+ Create Sales Lead</Button>
-            </Link>
+            <Button asChild size="sm">
+              <Link href="/leads/new">+ Create Sales Lead</Link>
+            </Button>
           }
         />
       ) : viewMode === "grid" ? (
@@ -337,6 +337,7 @@ export function SalesLeadTable() {
                       size="sm"
                       onClick={() => setDeleteTarget(lead)}
                       className="h-7 w-7 p-0 text-muted-foreground hover:text-destructive"
+                      aria-label="Delete lead"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </Button>
@@ -444,11 +445,11 @@ export function SalesLeadTable() {
                               Convert to Dev
                             </Button>
                           )}
-                          <Link href={`/leads/${lead.id}`}>
-                            <Button variant="ghost" size="sm" className="h-7 px-2 text-xs">
+                          <Button asChild variant="ghost" size="sm" className="h-7 px-2 text-xs">
+                            <Link href={`/leads/${lead.id}`}>
                               View
-                            </Button>
-                          </Link>
+                            </Link>
+                          </Button>
                           <Button
                             variant="ghost"
                             size="sm"

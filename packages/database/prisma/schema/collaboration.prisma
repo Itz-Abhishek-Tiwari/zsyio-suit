@@ -15,6 +15,7 @@ model Comment {
 
   @@index([taskId])
   @@index([parentId])
+  @@index([authorId])
 }
 
 model Attachment {
@@ -44,6 +45,8 @@ model ActivityLog {
 
   // Composite index covers both the WHERE taskId filter and ORDER BY createdAt DESC
   @@index([taskId, createdAt])
+  @@index([actorId])
+  @@index([createdAt])
 }
 
 model DashboardNote {

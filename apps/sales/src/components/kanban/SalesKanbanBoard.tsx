@@ -4,7 +4,7 @@ import { useState, useMemo, useCallback } from "react";
 import { toast } from "sonner";
 import { ConfirmDialog } from "@zsyio/ui";
 import { KanbanBoard, KanbanBoardSkeleton, useKanbanOrder } from "@zsyio/ui";
-import { getErrorMessage } from "@zsyio/ui";
+import { getErrorMessage, LoadErrorState } from "@zsyio/ui";
 import type { SalesLead, SalesStage, PipelineStage } from "@zsyio/types";
 import { SALES_STAGE_LABELS } from "@zsyio/types";
 import {
@@ -30,8 +30,8 @@ export function SalesKanbanBoard({
   const [filters, setFilters] = useState<Record<string, string>>({});
   const [pendingDelete, setPendingDelete] = useState<SalesLead | null>(null);
 
-  const { data: pipelineData, isLoading: pipelineLoading } = useGetDefaultPipelineQuery();
-  const { data: leadsData, isLoading: leadsLoading, refetch } = useGetSalesLeadsQuery({
+  const { data: pipelineData, isLoading: pipelineLoading, isError: pipelineError, refetch: refetchPipeline } = useGetDefaultPipelineQuery();
+  const { data: leadsData, isLoading: leadsLoading, isError: leadsError, refetch } = useGetSalesLeadsQuery({
     pageSize: 200,
     ...filters,
   });
@@ -109,6 +109,21 @@ export function SalesKanbanBoard({
       <div className="flex flex-col gap-4">
         <SalesKanbanFilters filters={filters} onChange={setFilters} onRefresh={refetch} />
         <KanbanBoardSkeleton columnsCount={canonicalStages.length || 5} cardsPerColumn={3} />
+      </div>
+    );
+  }
+
+  if ((pipelineError && !pipelineData) || (leadsError && !leadsData)) {
+    return (
+      <div className="flex flex-col gap-4">
+        <SalesKanbanFilters filters={filters} onChange={setFilters} onRefresh={refetch} />
+        <LoadErrorState
+          title="Couldn't load the pipeline"
+          onRetry={() => {
+            if (pipelineError) refetchPipeline();
+            refetch();
+          }}
+        />
       </div>
     );
   }

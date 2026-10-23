@@ -1,7 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { AuthLoginForm } from "@zsyio/ui";
+import { AuthLoginForm, getAppUrl } from "@zsyio/ui";
 import {
   isEmailDomainAllowed,
   getAllowedDomainsNotice,
@@ -49,7 +49,7 @@ export function LoginForm({ serverAllowedDomains }: LoginFormProps) {
       allowedDomains={allowedDomains}
       submitLabel="Sign in to Recruit"
       loadingLabel="Verifying credentials…"
-      forgotPasswordBase={`${process.env.NEXT_PUBLIC_PMS_URL || "http://localhost:3000"}/forgot-password`}
+      forgotPasswordBase={getAppUrl("pms", "/forgot-password")}
       onSignIn={handleSignIn}
     />
   );

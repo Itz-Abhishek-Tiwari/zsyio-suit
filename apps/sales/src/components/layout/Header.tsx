@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { can, canAccessApp, type Role, type AppId } from "@zsyio/auth/permissions";
 import { cn } from "@/lib/utils";
-import { SuiteHeader, Input, Badge, Modal, DropdownMenuItem, ChangePasswordModal, UserProfileModal } from "@zsyio/ui";
+import { SuiteHeader, Input, Badge, Modal, DropdownMenuItem, ChangePasswordModal, UserProfileModal, getAppUrl } from "@zsyio/ui";
 import {
   Search,
   Kanban,
@@ -124,8 +124,7 @@ export function Header({
             {can(role, "user:manage", permissions) && (
               <DropdownMenuItem
                 onClick={() => {
-                  const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:3003";
-                  window.location.href = `${adminUrl}/users`;
+                  window.location.href = getAppUrl("admin", "/users");
                 }}
                 className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer text-destructive focus:text-destructive"
               >

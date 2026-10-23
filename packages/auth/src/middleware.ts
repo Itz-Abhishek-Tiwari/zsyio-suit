@@ -67,6 +67,10 @@ export function createAuthMiddleware(options: AuthMiddlewareOptions = {}) {
         return NextResponse.redirect(landingUrl);
       }
       const loginUrl = new URL("/login", request.url);
+      // Send the user back to the page they asked for once they have signed in.
+      if (pathname !== "/") {
+        loginUrl.searchParams.set("callbackUrl", `${pathname}${request.nextUrl.search}`);
+      }
       return NextResponse.redirect(loginUrl);
     }
 

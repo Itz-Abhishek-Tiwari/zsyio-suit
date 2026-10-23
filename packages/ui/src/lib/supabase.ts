@@ -1,8 +1,12 @@
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 let supabaseClient: SupabaseClient | null = null;
 
-export function getSupabaseClient(): SupabaseClient | null {
+/**
+ * Returns the shared Supabase client, or null when realtime isn't configured.
+ * The library is imported on demand so it stays out of the app shell bundle.
+ */
+export async function loadSupabaseClient(): Promise<SupabaseClient | null> {
   if (supabaseClient) return supabaseClient;
 
   let url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -25,6 +29,7 @@ export function getSupabaseClient(): SupabaseClient | null {
       return null;
     }
 
+    const { createClient } = await import("@supabase/supabase-js");
     supabaseClient = createClient(url, anonKey, {
       realtime: {
         params: {

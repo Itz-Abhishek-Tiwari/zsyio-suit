@@ -22,6 +22,7 @@ import {
   DropdownMenuSeparator,
 } from "../components/dropdown-menu";
 import { cn } from "../lib/utils";
+import { SUITE_APP_URLS, getAppEntryUrl } from "../lib/app-urls";
 
 export interface AppSuiteItem {
   id: "pms" | "notes" | "hrms" | "admin" | "sales" | "recruit";
@@ -34,10 +35,6 @@ export interface AppSuiteItem {
   defaultUrl: string;
 }
 
-function sanitizeUrl(url: string | undefined, fallback: string): string {
-  if (!url) return fallback;
-  return url.trim().replace(/\/+$/, "");
-}
 
 export const APPS: AppSuiteItem[] = [
   {
@@ -47,10 +44,7 @@ export const APPS: AppSuiteItem[] = [
     icon: BriefcaseBusiness,
     color: "bg-muted text-muted-foreground",
     iconColor: "text-muted-foreground",
-    defaultUrl: sanitizeUrl(
-      process.env.NEXT_PUBLIC_RECRUIT_URL,
-      "http://localhost:3006",
-    ),
+    defaultUrl: SUITE_APP_URLS.recruit,
   },
   {
     id: "pms",
@@ -61,10 +55,7 @@ export const APPS: AppSuiteItem[] = [
       "bg-surface-subtle text-foreground-secondary border-border/80 group-hover:border-primary/30 group-hover:bg-primary/10 group-hover:text-primary transition-colors",
     iconColor:
       "text-foreground-secondary group-hover:text-primary transition-colors",
-    defaultUrl: sanitizeUrl(
-      process.env.NEXT_PUBLIC_PMS_URL,
-      "http://localhost:3000",
-    ),
+    defaultUrl: SUITE_APP_URLS.pms,
   },
   {
     id: "notes",
@@ -75,10 +66,7 @@ export const APPS: AppSuiteItem[] = [
       "bg-surface-subtle text-foreground-secondary border-border/80 group-hover:border-primary/30 group-hover:bg-primary/10 group-hover:text-primary transition-colors",
     iconColor:
       "text-foreground-secondary group-hover:text-primary transition-colors",
-    defaultUrl: sanitizeUrl(
-      process.env.NEXT_PUBLIC_NOTES_URL,
-      "http://localhost:3001",
-    ),
+    defaultUrl: SUITE_APP_URLS.notes,
   },
   {
     id: "hrms",
@@ -89,10 +77,7 @@ export const APPS: AppSuiteItem[] = [
       "bg-surface-subtle text-foreground-secondary border-border/80 group-hover:border-primary/30 group-hover:bg-primary/10 group-hover:text-primary transition-colors",
     iconColor:
       "text-foreground-secondary group-hover:text-primary transition-colors",
-    defaultUrl: sanitizeUrl(
-      process.env.NEXT_PUBLIC_HRMS_URL,
-      "http://localhost:3002",
-    ),
+    defaultUrl: SUITE_APP_URLS.hrms,
   },
   {
     id: "admin",
@@ -103,10 +88,7 @@ export const APPS: AppSuiteItem[] = [
       "bg-surface-subtle text-foreground-secondary border-border/80 group-hover:border-primary/30 group-hover:bg-primary/10 group-hover:text-primary transition-colors",
     iconColor:
       "text-foreground-secondary group-hover:text-primary transition-colors",
-    defaultUrl: sanitizeUrl(
-      process.env.NEXT_PUBLIC_ADMIN_URL,
-      "http://localhost:3003",
-    ),
+    defaultUrl: SUITE_APP_URLS.admin,
   },
   {
     id: "sales",
@@ -117,10 +99,7 @@ export const APPS: AppSuiteItem[] = [
       "bg-surface-subtle text-foreground-secondary border-border/80 group-hover:border-primary/30 group-hover:bg-primary/10 group-hover:text-primary transition-colors",
     iconColor:
       "text-foreground-secondary group-hover:text-primary transition-colors",
-    defaultUrl: sanitizeUrl(
-      process.env.NEXT_PUBLIC_SALES_URL,
-      "http://localhost:3005",
-    ),
+    defaultUrl: SUITE_APP_URLS.sales,
   },
 ];
 
@@ -221,7 +200,7 @@ export function AppSwitcher({ currentApp, allowedApps }: AppSwitcherProps) {
           ) : (
             <DropdownMenuItem key={app.id} asChild className={className}>
               <a
-                href={app.defaultUrl}
+                href={isCurrent ? app.defaultUrl : getAppEntryUrl(app.id)}
                 aria-current={isCurrent ? "page" : undefined}
                 onClick={(event) => {
                   if (isCurrent) event.preventDefault();

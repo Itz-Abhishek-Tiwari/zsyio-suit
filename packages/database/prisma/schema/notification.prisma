@@ -19,6 +19,7 @@ model Notification {
 
   @@index([userId, read, createdAt])
   @@index([userId, createdAt])
+  @@index([actorId])
 }
 
 enum NotificationType {

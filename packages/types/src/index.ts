@@ -477,7 +477,6 @@ export interface NotesTreeResponse {
   starredNotes: NoteItem[];
   sharedWithMeNotes: NoteItem[];
   myRootNotes: NoteItem[];
-  otherRootNotes: NoteItem[];
   searchResults?: {
     notes: NoteItem[];
     folders: FolderItem[];

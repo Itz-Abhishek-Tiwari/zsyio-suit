@@ -22,6 +22,7 @@ import {
   Badge,
   DropdownMenuItem,
   UserProfileModal,
+  getAppUrl,
 } from "@zsyio/ui";
 import { cn } from "@zsyio/ui";
 import { useGetUsersQuery } from "@/store/api/usersApi";
@@ -167,8 +168,7 @@ export function Header({
 
             <DropdownMenuItem
               onClick={() => {
-                const pmsUrl = process.env.NEXT_PUBLIC_PMS_URL || "http://localhost:3000";
-                window.location.href = pmsUrl;
+                window.location.href = getAppUrl("pms");
               }}
               className="rounded-md text-xs gap-2.5 p-2 font-medium cursor-pointer"
             >
